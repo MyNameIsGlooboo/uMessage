@@ -1,7 +1,11 @@
 package com.glooboo.umessage.messaging
 
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ProviderInfo
+import android.database.Cursor
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +32,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.shadows.ShadowLog
 import java.io.File
 
 /**
@@ -243,6 +249,47 @@ class MmsDownloadFailureTest {
     }
 
     @Test
+    fun e25_moreSkippedNoticesThanOneBatch_doNotHideAnOlderLostOne() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        val lost = provider.addNotice(
+            SENDER, transactionId = "T-lost", location = "http://mmsc.example.com/msg/lost",
+            dateSeconds = tenMinutesAgo,
+        )
+        store.notices[lost] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        // Newer than the lost one and more than one batch: each is marked Skipped (no sender, or expired before).
+        repeat(MmsDownloadFailure.BATCH + 5) {
+            val skipped = provider.addNotice(
+                SENDER, transactionId = "T-skip-$it", location = "http://mmsc.example.com/msg/skip-$it",
+                dateSeconds = tenMinutesAgo + 1 + it,
+            )
+            store.marks[skipped] = NoticeMark.Skipped
+        }
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactly(lost)
+        assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
+    fun e25_aStoreThatRefusesTheQuery_isLogged_andTheQueryHasNoLimitInItsSortOrder() {
+        val provider = Robolectric.buildContentProvider(RefusingMmsProvider::class.java)
+            .create(ProviderInfo().apply { authority = "mms" })
+            .get()
+        ShadowLog.reset()
+
+        failure.sweep(context, 1_700_000_000_000L)
+
+        assertThat(provider.orders).isNotEmpty()
+        assertThat(provider.orders.filterNotNull().none { it.contains("LIMIT", ignoreCase = true) }).isTrue()
+        val lines = ShadowLog.getLogsForTag("uMessageReceive").map { it.msg }
+        assertThat(lines).contains("Chatless MMS notices could not be read")
+        assertThat(store.calls).isEmpty()
+    }
+
+    @Test
     fun e9_aNoticeInARealChatWithoutASpamRow_isJudgedAndPutInSpam() {
         store.notices[notice] = NoticeRow(threadId = 101L, sender = SENDER)
         store.threads[SENDER] = 101L
@@ -384,6 +431,29 @@ class MmsDownloadFailureTest {
         reentrant.sweep(context, now)
 
         assertThat(logged).containsExactly("BLOCK")
+    }
+
+    /** A phone's MMS store that refuses every query (as one might refuse a LIMIT in the sort order, E-25). */
+    class RefusingMmsProvider : ContentProvider() {
+        val orders = mutableListOf<String?>()
+
+        override fun onCreate(): Boolean = true
+
+        override fun query(
+            uri: Uri,
+            projection: Array<out String>?,
+            selection: String?,
+            selectionArgs: Array<out String>?,
+            sortOrder: String?,
+        ): Cursor? {
+            orders += sortOrder
+            throw IllegalArgumentException("query refused")
+        }
+
+        override fun getType(uri: Uri): String? = null
+        override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+        override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
+        override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = 0
     }
 
     /** The rule puts the flag back afterwards. */

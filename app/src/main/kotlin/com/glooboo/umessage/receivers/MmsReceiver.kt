@@ -325,7 +325,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /**
      * Provider truth, 6.2: the MMS is in the store, unread, in the chat of its recipients. A group stays there; a
      * one-to-one MMS is judged like an SMS ([IncomingMms.placeDownloaded]). Only an MMS shown in Messages is
-     * announced and forwarded; any error ends in Messages, announced (fail open).
+     * announced and forwarded; any error ends in Messages, announced (fail open), and one judged Spam is not
+     * forwarded even then.
      */
     internal fun placeAndAnnounce(context: Context, mms: Message, address: String) {
         val incoming = (received ?: IncomingMessage(address, mms.body, mms.subscriptionId, isMms = true))
@@ -347,7 +348,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         when (place) {
             is MmsPlace.Messages -> {
                 announce(context, mms, address, place.reason)
-                forward(context, mms, address)
+                // A Spam MMS that failed open to Messages is announced but never forwarded.
+                if (place.forwards) forward(context, mms, address)
             }
             // No notification, no unarchive, no forward; the chat and the lists are updated.
             MmsPlace.QuietGroup, is MmsPlace.Spam -> updateChatOf(context, mms, false)

@@ -119,7 +119,8 @@ class IncomingMmsTest {
     fun e15_aSpamMmsWhoseChatTheListsDoNotShowInSpam_failsTheSafetyCheck_unreadAndAnnounced() {
         store.notListed += THREAD
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         assertThat(store.rowSilent[row]).isFalse()
         assertThat(store.spamEvents).isEqualTo(0)
     }
@@ -218,7 +219,8 @@ class IncomingMmsTest {
     fun aSpamRowThatCannotBeWritten_failsOpenToMessagesUnread() {
         store.failSpamRow = true
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         assertThat(store.rowSilent[row]).isFalse()
     }
 
@@ -226,7 +228,8 @@ class IncomingMmsTest {
     fun aSpamRowThatIsNotThereAfterTheWrite_failsTheSafetyCheckAndIsAnnouncedUnread() {
         store.spamRowVanishes = true
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         // It was marked read and silent, then the safety check (R1) made it unread again.
         assertThat(store.calls).containsExactly(
             "noteSpamArrival", "setSilent(true)", "isListedInSpam", "setSilent(false)",
@@ -315,6 +318,20 @@ class IncomingMmsTest {
         assertThat(store.ruleHits).containsExactly(6L)
         assertThat(store.spamEvents).isEqualTo(1)
         assertThat(store.marks[notice]).isEqualTo(NoticeMark.Counted(thread))
+    }
+
+    @Test
+    fun e26_aNoticeGoneBeforeItsChatIsWritten_isNotCountedMarkedOrRecorded() {
+        // A late result placed (and counted) its MMS and the library deleted the notice while the sweep placed it.
+        store.goneRows += notice
+
+        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 6L)
+
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.spamRows[thread]?.third).isEqualTo(0)
+        assertThat(store.ruleHits).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(store.marks).isEmpty()
     }
 
     @Test

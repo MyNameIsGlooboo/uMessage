@@ -141,11 +141,15 @@ internal class MmsDownloadFailure(
         if (!sweeping.compareAndSet(false, true)) return
         try {
             val store = store(context)
-            val lost = runCatching {
-                context.chatlessNotices(before = now - MIN_AGE_MS, after = now - MAX_AGE_MS, limit = BATCH)
-            }.getOrDefault(emptyList())
+            // E-25: the batch is taken after the filters, so skipped or running notices never hide an older lost one.
+            val lost = runCatching { context.chatlessNotices(before = now - MIN_AGE_MS, after = now - MAX_AGE_MS) }
+                .onFailure { Log.w(TAG, "Chatless MMS notices could not be read", it) }
+                .getOrDefault(emptyList())
+                .asSequence()
                 .filterNot { MmsPushDownload.isStarted(it.location, now) }
                 .filterNot { runCatching { store.markOf(it.uri) == NoticeMark.Skipped }.getOrDefault(false) }
+                .take(BATCH)
+                .toList()
             lost.forEach { notice ->
                 if (MmsDownloadRules.isExpired(notice.expirySeconds, now)) {
                     // Gone at the carrier: not brought up as a new unread row.

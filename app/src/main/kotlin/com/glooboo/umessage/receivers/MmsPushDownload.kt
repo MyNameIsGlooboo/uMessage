@@ -54,7 +54,10 @@ import java.util.concurrent.ConcurrentHashMap
 @Suppress("TooGenericExceptionCaught") // Fail open: on any error the library or "Tap to download" takes over.
 internal class MmsPushDownload(
     private val isDuplicate: (Context, NotificationInd) -> Boolean = { c, i -> isDuplicateNotification(c, i) },
-    private val persist: (Context, NotificationInd, Int) -> Uri? = { c, i, sub -> persistNotification(c, i, sub) },
+    /** Saves the notice; the last argument (E-27): it must keep no chat, a Spam notice that downloads now. */
+    private val persist: (Context, NotificationInd, Int, Boolean) -> Uri? = { c, i, sub, chatless ->
+        persistNotification(c, i, sub, chatless)
+    },
     /** Content location and transaction id of the saved notification-ind row. */
     private val lookup: (Context, Uri) -> Pair<String, String> = { c, uri ->
         PushReceiver.getContentLocation(c, uri) to PushReceiver.getTransactionId(c, uri)
@@ -94,7 +97,7 @@ internal class MmsPushDownload(
     fun handle(context: Context, intent: Intent, spam: SpamNotice? = null): Boolean {
         val indication = readPush(context, intent) ?: return false
         val subscriptionId = intent.receivingSubscriptionId()
-        return when (val saved = save(context, indication, subscriptionId)) {
+        return when (val saved = save(context, indication, subscriptionId, chatless = spam?.downloads == true)) {
             Saved.Duplicate -> true
             Saved.Failed -> false
             is Saved.Row -> {
@@ -106,7 +109,8 @@ internal class MmsPushDownload(
                 }
                 when {
                     kept != null -> revealInSpam(context, saved.uri, kept)
-                    spam?.downloads == false -> download(context, saved.uri, indication, subscriptionId, null)
+                    spam != null && !spam.downloads ->
+                        downloadAllowed(context, saved.uri, indication, subscriptionId, spam)
                     else -> download(context, saved.uri, indication, subscriptionId, spam)
                 }
                 true
@@ -134,6 +138,22 @@ internal class MmsPushDownload(
         Log.i(MmsReceiver.TAG, "Spam MMS notice kept; not downloaded now")
     }
 
+    /**
+     * E-19: a Spam notice kept at save whose sender the history check allows is downloaded as a Messages MMS. Its one
+     * decision-log row is written where the MMS is placed; E-28: when the start fails it is written here (DELIVER),
+     * as the notice then stays in Messages.
+     */
+    private fun downloadAllowed(
+        context: Context,
+        saved: Uri,
+        indication: NotificationInd,
+        subscriptionId: Int,
+        spam: SpamNotice,
+    ) {
+        if (download(context, saved, indication, subscriptionId, null)) return
+        runCatching { log(context, spam.copy(ruleId = null), IncomingMms.DELIVER) }
+    }
+
     private fun readPush(context: Context, intent: Intent): NotificationInd? = try {
         parse(context, intent)
     } catch (t: Throwable) {
@@ -141,33 +161,39 @@ internal class MmsPushDownload(
         null
     }
 
-    private fun save(context: Context, indication: NotificationInd, subscriptionId: Int): Saved = try {
+    private fun save(
+        context: Context,
+        indication: NotificationInd,
+        subscriptionId: Int,
+        chatless: Boolean,
+    ): Saved = try {
         appendTransactionId(indication, subscriptionId)
         if (isDuplicate(context, indication)) {
             Log.i(MmsReceiver.TAG, "MMS push repeated; not downloaded again")
             Saved.Duplicate
         } else {
-            persist(context, indication, subscriptionId)?.let { Saved.Row(it) } ?: Saved.Failed
+            persist(context, indication, subscriptionId, chatless)?.let { Saved.Row(it) } ?: Saved.Failed
         }
     } catch (t: Throwable) {
         Log.w(MmsReceiver.TAG, "MMS push could not be saved; the library handles it", t)
         Saved.Failed
     }
 
+    /** Starts the download of [saved]. False when it could not be started (the user is told, see [onStartFailed]). */
     private fun download(
         context: Context,
         saved: Uri,
         indication: NotificationInd,
         subscriptionId: Int,
         spam: SpamNotice?,
-    ) {
+    ): Boolean {
         val rowId = runCatching { ContentUris.parseId(saved) }.getOrNull()
-        try {
+        return try {
             val (location, transactionId) = lookup(context, saved)
             check(location.isNotEmpty()) { "no content location" }
             if (!firstDownloadOf(location)) {
                 Log.i(MmsReceiver.TAG, "MMS download already started; not started again")
-                return
+                return true
             }
             // The row shows "Downloading", so a tap on "Tap to download" cannot start a second download.
             rowId?.let { tracker.begin(it, System.currentTimeMillis()) }
@@ -178,11 +204,13 @@ internal class MmsPushDownload(
                 rowId?.let(tracker::fail)
                 throw t
             }
+            true
         } catch (t: Throwable) {
             // The notification-ind is saved, so the message shows as "Tap to download" and can be retried there.
             Log.w(MmsReceiver.TAG, "MMS download did not start", t)
             val from = MmsPushGate.cleanAddress(indication.from?.string.orEmpty())
             runCatching { onStartFailed(context, saved, from, spam) }
+            false
         }
     }
 
@@ -294,14 +322,27 @@ internal class MmsPushDownload(
             }
         }
 
-        private fun persistNotification(context: Context, indication: NotificationInd, subscriptionId: Int): Uri? {
+        private fun persistNotification(
+            context: Context,
+            indication: NotificationInd,
+            subscriptionId: Int,
+            chatless: Boolean,
+        ): Uri? {
             val group = runCatching { Transaction.settings?.group }.getOrNull()
                 ?: PreferenceManager.getDefaultSharedPreferences(context).getBoolean(GROUP_MESSAGE_PREF, true)
-            // As in the library, the thread is created here only when the MMS is not going to download by itself.
-            val createThread = !NotificationTransaction.allowAutoDownload(context)
+            val createThread = savesWithChat(chatless) { NotificationTransaction.allowAutoDownload(context) }
             return PduPersister.getPduPersister(context)
                 .persist(indication, Telephony.Mms.Inbox.CONTENT_URI, createThread, group, null, subscriptionId)
         }
+
+        /**
+         * Whether a notice is saved with its sender's chat. As in the library, only when the MMS is not going to
+         * download by itself ([autoDownload] false). E-27: never a [chatless] one (a Spam notice that downloads now):
+         * with automatic download refused (its setting, or mobile data suspended) it would otherwise land in the real
+         * chat, unread, and the sweep could not find it after a lost result.
+         */
+        internal fun savesWithChat(chatless: Boolean, autoDownload: () -> Boolean): Boolean =
+            !chatless && !autoDownload()
 
         /**
          * Asks the system to download the MMS into a cache file (served by mmslib's MmsFileProvider). The result goes

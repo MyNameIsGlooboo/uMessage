@@ -50,6 +50,9 @@ class FakeMmsSpamStore : MmsSpamStore {
     /** The Spam row is written but is not there afterwards (R1's safety check must catch this). */
     var spamRowVanishes = false
 
+    /** E-26: rows that are gone from the store (the library deleted the notice): [setThread] updates nothing. */
+    val goneRows = mutableSetOf<Uri>()
+
     override fun threadOf(address: String): Long {
         calls += "threadOf"
         check(!failThreads) { "store busy" }
@@ -84,6 +87,10 @@ class FakeMmsSpamStore : MmsSpamStore {
 
     /** Recorded as "setSilent(x)" when the chat stays ([threadId] null), else as "setThread(silent=x)". */
     override fun setThread(row: Uri, threadId: Long?, silent: Boolean): Boolean {
+        if (row in goneRows) {
+            calls += "setThread(gone)"
+            return false
+        }
         rowSilent[row] = silent
         if (threadId == null) {
             calls += "setSilent($silent)"

@@ -67,6 +67,18 @@ class MmsArrivalTest {
         override fun log(decision: String, reason: String, ruleId: Long?) = Unit
     }
 
+    /** M-T5: a filter that throws on every call; [blockRule] answers the probe instead when set. */
+    private class BrokenFilter(val history: Boolean = true, val blockRule: FilterDecision? = null) : MmsSenderCheck {
+        override fun probe(): FilterDecision? = blockRule ?: error("filter broken")
+        override fun judge(): Judgement? = error("filter broken")
+        override fun historyChecked(): Boolean = history
+        override fun log(decision: String, reason: String, ruleId: Long?) = Unit
+    }
+
+    private fun handler(check: MmsSenderCheck) = handler().apply {
+        senderCheck = { _: Context, _: IncomingMessage, _: Long -> check }
+    }
+
     private fun handler(
         probe: FilterDecision? = FilterDecision.Allow(DecisionReason.CONTACT),
         judgement: Judgement? = Judgement(SenderVerdict.Messages(DecisionReason.CONTACT)),
@@ -135,6 +147,48 @@ class MmsArrivalTest {
         assertThat(forwarded).hasSize(1)
         assertThat(updated).isEmpty()
         assertThat(judged).isEqualTo(1)
+    }
+
+    @Test
+    fun mT5_aFilterErrorOnAOneToOneMms_endsInMessagesUnread_announcedAndForwarded() {
+        handler(BrokenFilter()).placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(announced).containsExactly(null)
+        assertThat(forwarded).hasSize(1)
+        assertThat(store.rowSilent.values).doesNotContain(true)
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun mT5_aFilterErrorOnAGroupMms_endsInTheGroupInMessages_announcedAndForwarded() {
+        handler(BrokenFilter()).placeAndAnnounce(context, mms(40L, SENDER, OTHER), SENDER)
+
+        assertThat(announced).containsExactly(null)
+        assertThat(forwarded).hasSize(1)
+        assertThat(store.rowSilent).isEmpty()
+    }
+
+    @Test
+    fun mT5_aBlockedSendersMms_isNeverForwarded_alsoWhenTheHistoryCheckFailed() {
+        val blocked = BrokenFilter(history = false, blockRule = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L))
+
+        handler(blocked).placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(announced).isEmpty()
+        assertThat(forwarded).isEmpty()
+        assertThat(store.rowSilent.values).containsExactly(true)
+    }
+
+    @Test
+    fun mT5_aSpamMmsWhoseSpamPlaceFails_isAnnouncedUnreadInMessages_butNeverForwarded() {
+        store.failSpamRow = true
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+
+        handler(judgement = spam).placeAndAnnounce(context, mms(12L, SENDER), SENDER)
+
+        assertThat(announced).containsExactly(null)
+        assertThat(forwarded).isEmpty()
+        assertThat(store.rowSilent.values).containsExactly(false)
     }
 
     @Test

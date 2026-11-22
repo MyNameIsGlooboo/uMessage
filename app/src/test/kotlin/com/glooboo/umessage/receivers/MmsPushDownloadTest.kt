@@ -69,7 +69,7 @@ class MmsPushDownloadTest {
         },
     ) = MmsPushDownload(
         isDuplicate = { _, _ -> duplicate },
-        persist = { _, _, sub -> persisted++; persist(sub) },
+        persist = { _, _, sub, _ -> persisted++; persist(sub) },
         lookup = { _, _ -> location to "T-1" },
         start = { _, loc, _, uri, sub -> started++; start(loc, uri, sub) },
         onStartFailed = { _, _, from, _ -> startFailures++; failedFor = from },

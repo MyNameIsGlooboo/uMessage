@@ -52,6 +52,9 @@ class MmsSpamPushTest {
 
     /** Saved notice rows: uri -> (content location, transaction id). */
     private val saved = linkedMapOf<Uri, Pair<String, String>>()
+
+    /** E-27: whether each saved notice row was asked to keep no chat. */
+    private val savedChatless = linkedMapOf<Uri, Boolean>()
     private val startedLocations = mutableListOf<String>()
     private var startFailedWith: SpamNotice? = null
     private var startFailures = 0
@@ -81,8 +84,9 @@ class MmsSpamPushTest {
     /** A push download on stubs that behave like the provider: a repeat is found by transaction id or location. */
     private fun download() = MmsPushDownload(
         isDuplicate = { _, ind -> saved.values.any { it.second == String(ind.transactionId) } },
-        persist = { _, ind: NotificationInd, _ ->
+        persist = { _, ind: NotificationInd, _, chatless ->
             Uri.parse("content://mms/inbox/${saved.size + 40}").also {
+                savedChatless[it] = chatless
                 saved[it] = String(ind.contentLocation) to String(ind.transactionId)
             }
         },
@@ -165,6 +169,46 @@ class MmsSpamPushTest {
         assertThat(store.spamEvents).isEqualTo(0)
         // Its row is written when the downloaded MMS is placed.
         assertThat(logged).isEmpty()
+    }
+
+    @Test
+    fun e28_aNoticeTheHistoryCheckAllowsWhoseStartFails_logsOneDeliverRow() {
+        recheck = { null }
+        startFails = true
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/allowed-fail", size = TWO_MIB)))
+
+        // Told as a plain failed start in Messages; no Spam row, and its one decision-log row says where it went.
+        assertThat(startFailures).isEqualTo(1)
+        assertThat(startFailedWith).isNull()
+        assertThat(store.spamRows).isEmpty()
+        assertThat(logged).containsExactly("DELIVER")
+    }
+
+    @Test
+    fun e27_aSpamNoticeThatDownloads_isSavedWithoutAChat() {
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/no-chat")))
+
+        assertThat(startedLocations).hasSize(1)
+        assertThat(savedChatless.values).containsExactly(true)
+    }
+
+    @Test
+    fun e27_aNoticeKeptAtSave_andAMessagesNotice_areSavedAsTheLibraryWould() {
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/kept", size = TWO_MIB)))
+        SpamTestWiring.installFilter { FilterDecision.Allow(DecisionReason.CONTACT) }
+        receiver().process(app, push(notice(SENDER, "T-2", "http://mmsc.example.com/msg/messages")))
+
+        assertThat(savedChatless.values).containsExactly(false, false)
+    }
+
+    @Test
+    fun e27_aChatlessNotice_neverGetsTheSendersChat_evenWhenTheLibraryRefusesAutomaticDownload() {
+        assertThat(MmsPushDownload.savesWithChat(chatless = true) { false }).isFalse()
+        assertThat(MmsPushDownload.savesWithChat(chatless = true) { true }).isFalse()
+        // As in the library otherwise: the chat is made only when the MMS does not download by itself.
+        assertThat(MmsPushDownload.savesWithChat(chatless = false) { false }).isTrue()
+        assertThat(MmsPushDownload.savesWithChat(chatless = false) { true }).isFalse()
     }
 
     @Test
@@ -274,7 +318,7 @@ class MmsSpamPushTest {
     fun aSpamNoticeThatCannotBeSaved_isLeftToTheLibrary() {
         val failing = MmsPushDownload(
             isDuplicate = { _, _ -> false },
-            persist = { _, _, _ -> null },
+            persist = { _, _, _, _ -> null },
             incoming = { IncomingMms(store) },
         )
         val spam = SpamNotice(SENDER, SpamCause.UNKNOWN, downloads = false)
@@ -288,7 +332,7 @@ class MmsSpamPushTest {
     fun mP5_withTheRealStoreQuery_aSecondDifferentNoticeIsKept_andARepeatIsNot() {
         val provider = FakeMmsProvider.install()
         val download = MmsPushDownload(
-            persist = { _, ind: NotificationInd, _ ->
+            persist = { _, ind: NotificationInd, _, _ ->
                 val location = String(ind.contentLocation)
                 provider.addNotice(SENDER, transactionId = String(ind.transactionId), location = location)
                     .also { saved[it] = String(ind.contentLocation) to String(ind.transactionId) }

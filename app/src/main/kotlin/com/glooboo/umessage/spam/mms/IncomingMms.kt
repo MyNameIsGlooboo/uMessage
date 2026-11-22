@@ -25,8 +25,12 @@ data class SpamNotice(
 
 /** Where a downloaded MMS ends up under provider truth ([IncomingMms.placeDownloaded]). */
 sealed interface MmsPlace {
-    /** Messages, unread and announced as today; [reason] picks the notification mode (null: a plain notification). */
-    data class Messages(val reason: DecisionReason?) : MmsPlace
+    /**
+     * Messages, unread and announced as today; [reason] picks the notification mode (null: a plain notification).
+     * [forwards] false (M-T5): the MMS was judged Spam and only ended here because its Spam place failed (fail open),
+     * so it is never forwarded, as a text judged Spam is not.
+     */
+    data class Messages(val reason: DecisionReason?, val forwards: Boolean = true) : MmsPlace
 
     /** R4: a group MMS from a blocked member stays in the group in Messages, unread, but without a notification. */
     data object QuietGroup : MmsPlace
@@ -140,7 +144,8 @@ class IncomingMms(
      * history check, see [noticeCause]): the sender's chat is in Spam, so its Spam row is written first and the notice
      * counts as the message, once: unread raise, the rule [ruleId]'s hit, the Spam event, and an explicit mark (E-22).
      * It is then read and seen; if that row cannot be written or is not there afterwards (R1), the notice shows unread
-     * (E-3). The chat is cached and the lists are told (E-6). True when it is shown in Spam.
+     * (E-3). The chat is cached and the lists are told (E-6). True when it is shown in Spam. A notice row that is gone
+     * by the time its chat is written (E-26) is not counted, marked or recorded.
      *
      * A Spam notice that downloads now is not revealed: it keeps mmslib's dummy thread (no early Spam row, the MMS may
      * be a group one) until the MMS is placed, the download fails, or the sweep finds it.
@@ -152,8 +157,11 @@ class IncomingMms(
             store.noteSpamArrival(threadId, sender, cause, now(), raise = true)
             store.isSpamThreadOf(threadId, sender)
         }.getOrDefault(false)
-        store.setThread(row, threadId, silent = inSpam)
-        if (inSpam) {
+        val written = store.setThread(row, threadId, silent = inSpam)
+        if (inSpam && !written) {
+            // E-26: the notice is gone (a late result placed its MMS meanwhile, which counts it): take the raise back.
+            runCatching { store.lowerSpamUnread(threadId) }
+        } else if (inSpam) {
             runCatching { store.markNotice(row, NoticeMark.Counted(threadId)) }
             recordHits(ruleId, MmsPlace.Spam(SpamCause.UNKNOWN))
         }
@@ -249,7 +257,7 @@ class IncomingMms(
         val listed = silent && runCatching { store.isListedInSpam(threadId) }.getOrDefault(false)
         if (SpamSafetyCheck.mustAnnounce(storedSilently = silent, threadInSpam = listed) || !silent) {
             runCatching { store.setThread(row, null, silent = false) }
-            return MmsPlace.Messages(null)
+            return MmsPlace.Messages(null, forwards = false)
         }
         return MmsPlace.Spam(cause)
     }

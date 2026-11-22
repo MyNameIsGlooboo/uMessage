@@ -86,9 +86,10 @@ internal data class ChatlessNotice(
 
 /**
  * The notices saved between [after] and [before] (ms) that have no chat (mmslib's dummy thread, 0 or none), newest
- * first, at most [limit]. Read off the main thread.
+ * first. E-25: no LIMIT in the sort order (a provider may refuse it); the time window bounds the rows and the caller
+ * takes its batch after its own filters. Read off the main thread.
  */
-internal fun Context.chatlessNotices(before: Long, after: Long, limit: Int): List<ChatlessNotice> {
+internal fun Context.chatlessNotices(before: Long, after: Long): List<ChatlessNotice> {
     val found = ArrayList<ChatlessNotice>()
     val selection = "${Mms.MESSAGE_TYPE} = ? AND (${Mms.THREAD_ID} IS NULL OR ${Mms.THREAD_ID} <= 0 OR " +
         "${Mms.THREAD_ID} = ?) AND ${Mms.DATE} < ? AND ${Mms.DATE} >= ?"
@@ -97,7 +98,7 @@ internal fun Context.chatlessNotices(before: Long, after: Long, limit: Int): Lis
         (before / MILLIS_PER_SECOND).toString(), (after / MILLIS_PER_SECOND).toString(),
     )
     val projection = arrayOf(Mms._ID, Mms.CONTENT_LOCATION, Mms.SUBSCRIPTION_ID, Mms.EXPIRY)
-    val order = "${Mms.DATE} DESC LIMIT $limit"
+    val order = "${Mms.DATE} DESC"
     contentResolver.query(Mms.CONTENT_URI, projection, selection, args, order)?.use { cursor ->
         while (cursor.moveToNext()) {
             val uri = Mms.Inbox.CONTENT_URI.buildUpon().appendPath(cursor.getLong(0).toString()).build()

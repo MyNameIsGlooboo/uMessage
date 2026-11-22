@@ -51,18 +51,24 @@ class MmsDownloadQueriesTest {
     }
 
     @Test
-    fun e20_chatlessNotices_areTheOnesWithoutAChatInTheTimeWindow_newestFirst_atMostTheLimit() {
+    fun e20_chatlessNotices_areTheOnesWithoutAChatInTheTimeWindow_newestFirst() {
         val old = mms.addNotice("+15550001234", transactionId = "T-1", dateSeconds = SINCE)
         val newer = mms.addNotice("+15550001234", transactionId = "T-2", dateSeconds = SINCE + 10)
         mms.addNotice("+15550001234", threadId = 7L, transactionId = "T-3", dateSeconds = SINCE)
         mms.addNotice("+15550001234", transactionId = "T-4", dateSeconds = SINCE + 1_000)
         mms.addNotice("+15550001234", transactionId = "T-5", dateSeconds = SINCE - 1_000)
 
-        val found = context.chatlessNotices(before = (SINCE + 500) * 1000, after = (SINCE - 500) * 1000, limit = 5)
+        val found = context.chatlessNotices(before = (SINCE + 500) * 1000, after = (SINCE - 500) * 1000)
         assertThat(found.map { it.uri }).containsExactly(newer, old).inOrder()
+    }
 
-        val one = context.chatlessNotices(before = (SINCE + 500) * 1000, after = (SINCE - 500) * 1000, limit = 1)
-        assertThat(one.map { it.uri }).containsExactly(newer)
+    @Test
+    fun e25_chatlessNotices_areAllReturned_theBatchIsTheSweepsJob() {
+        repeat(25) { mms.addNotice("+15550001234", transactionId = "T-$it", dateSeconds = SINCE + it) }
+
+        val found = context.chatlessNotices(before = (SINCE + 500) * 1000, after = (SINCE - 500) * 1000)
+
+        assertThat(found).hasSize(25)
     }
 
     private companion object {
