@@ -74,6 +74,26 @@ class SpamEngineJudgeTest {
         assertNotNull(SpamEngine.judge(app, code))
     }
 
+    /** J3-1: a judgement (with its fact written) without any decision-log row; the default still writes one. */
+    @Test fun withoutTheLog_itJudgesAndWritesTheFact_butNoRow() {
+        UMessage.log(app).clear()
+
+        assertNotNull(SpamEngine.judge(app, code, "MMS_CONTENT", writeLog = false))
+        assertEquals(0, UMessage.log(app).entries().size)
+        assertEquals(1, db.spamDao().getMembers().size)
+
+        assertNotNull(SpamEngine.judge(app, code, "MMS_CONTENT"))
+        assertEquals(1, UMessage.log(app).entries().size)
+    }
+
+    @Test fun withoutTheLog_aFailedRulesReadWritesNoErrorRow() {
+        UMessage.log(app).clear()
+        failFromRead = 1
+
+        assertNull(SpamEngine.judge(app, code, writeLog = false))
+        assertEquals(0, UMessage.log(app).entries().size)
+    }
+
     @Test fun aFailedRulesReadGivesNoJudgement() {
         failFromRead = 1
         assertNull(SpamEngine.judge(app, code))

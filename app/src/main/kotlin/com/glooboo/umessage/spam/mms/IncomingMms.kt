@@ -25,8 +25,12 @@ data class SpamNotice(
 
 /** Where a downloaded MMS ends up under provider truth ([IncomingMms.placeDownloaded]). */
 sealed interface MmsPlace {
-    /** Messages, unread and announced as today; [reason] picks the notification mode (null: a plain notification). */
-    data class Messages(val reason: DecisionReason?) : MmsPlace
+    /**
+     * Messages, unread and announced as today; [reason] picks the notification mode (null: a plain notification).
+     * [forwards] false (M-T5): the MMS was judged Spam and only ended here because its Spam place failed (fail open),
+     * so it is never forwarded, as a text judged Spam is not.
+     */
+    data class Messages(val reason: DecisionReason?, val forwards: Boolean = true) : MmsPlace
 
     /** R4: a group MMS from a blocked member stays in the group in Messages, unread, but without a notification. */
     data object QuietGroup : MmsPlace
@@ -34,6 +38,12 @@ sealed interface MmsPlace {
     /** Spam: read and silent in the store, no notification, no unarchive, no forward. */
     data class Spam(val cause: SpamCause) : MmsPlace
 }
+
+/**
+ * E-19, J3-4: a notice's place after the sender's history check: [cause] set, its chat is in Spam; null, Messages.
+ * [reason] is the decision-log reason a notice in Messages is delivered with (the fresh probe's, or a failed check).
+ */
+data class NoticeVerdict(val cause: SpamCause?, val reason: String)
 
 /** A notice row (notification-ind) of the phone's store: its chat (see [IncomingMms.hasChat]), sender and read mark. */
 data class NoticeRow(val threadId: Long, val sender: String, val read: Boolean = false)
@@ -45,6 +55,9 @@ sealed interface NoticeMark {
 
     /** The notice cannot be placed (no sender, or expired): the sweep leaves it alone. */
     data object Skipped : NoticeMark
+
+    /** The sweep tried to place the notice [times] times and failed with an error; it is Skipped after a few. */
+    data class Failed(val times: Int) : NoticeMark
 }
 
 /**
@@ -110,6 +123,9 @@ interface MmsSenderCheck {
     /** The text checks with facts first and the verdict (one-to-one); writes its own decision-log row. */
     fun judge(): Judgement?
 
+    /** J3-1: [judge] without its decision-log row, for an MMS whose row was written already. */
+    fun judgeQuietly(): Judgement? = judge()
+
     /** R2: the sender's history was checked on the spot; false when that failed. */
     fun historyChecked(): Boolean
 
@@ -140,25 +156,44 @@ class IncomingMms(
      * history check, see [noticeCause]): the sender's chat is in Spam, so its Spam row is written first and the notice
      * counts as the message, once: unread raise, the rule [ruleId]'s hit, the Spam event, and an explicit mark (E-22).
      * It is then read and seen; if that row cannot be written or is not there afterwards (R1), the notice shows unread
-     * (E-3). The chat is cached and the lists are told (E-6). True when it is shown in Spam.
+     * (E-3). The chat is cached and the lists are told (E-6). True when it is shown in Spam, false in Messages.
+     *
+     * Null when the notice row is gone by the time its chat is written (E-26, J3-2: a late result placed its MMS
+     * meanwhile, which counts and logs it): it is not counted, marked or recorded, the raise is taken back, and a chat
+     * this left empty loses the app's rows. The caller writes no decision-log row for it.
      *
      * A Spam notice that downloads now is not revealed: it keeps mmslib's dummy thread (no early Spam row, the MMS may
      * be a group one) until the MMS is placed, the download fails, or the sweep finds it.
      */
-    fun revealNotice(row: Uri, sender: String, cause: SpamCause?, ruleId: Long? = null): Boolean {
+    fun revealNotice(row: Uri, sender: String, cause: SpamCause?, ruleId: Long? = null): Boolean? {
         if (sender.isBlank()) return false
         val threadId = store.threadOf(sender)
         val inSpam = cause != null && runCatching {
             store.noteSpamArrival(threadId, sender, cause, now(), raise = true)
             store.isSpamThreadOf(threadId, sender)
         }.getOrDefault(false)
-        store.setThread(row, threadId, silent = inSpam)
+        // A failed write takes the raise back too before the caller fails open (Messages, unread).
+        val written = runCatching { store.setThread(row, threadId, silent = inSpam) }
+            .onFailure { if (inSpam) runCatching { store.lowerSpamUnread(threadId) } }
+            .getOrThrow()
+        if (!written) {
+            if (inSpam) runCatching { store.lowerSpamUnread(threadId) }
+            forgetIfEmpty(threadId)
+            return null
+        }
         if (inSpam) {
             runCatching { store.markNotice(row, NoticeMark.Counted(threadId)) }
             recordHits(ruleId, MmsPlace.Spam(SpamCause.UNKNOWN))
         }
         runCatching { store.showChat(threadId) }
         return inSpam
+    }
+
+    /** J3-2: the app's own rows of [threadId] go when the store has no message and the app no scheduled one in it. */
+    private fun forgetIfEmpty(threadId: Long) {
+        runCatching {
+            if (store.hasMessages(threadId) == false && !store.hasScheduled(threadId)) store.forgetEmptyChat(threadId)
+        }
     }
 
     /**
@@ -249,7 +284,7 @@ class IncomingMms(
         val listed = silent && runCatching { store.isListedInSpam(threadId) }.getOrDefault(false)
         if (SpamSafetyCheck.mustAnnounce(storedSilently = silent, threadInSpam = listed) || !silent) {
             runCatching { store.setThread(row, null, silent = false) }
-            return MmsPlace.Messages(null)
+            return MmsPlace.Messages(null, forwards = false)
         }
         return MmsPlace.Spam(cause)
     }
@@ -277,11 +312,18 @@ class IncomingMms(
          * [history] checks it now (R2). Passed: [probe] answers again (the check may have allowed the sender).
          * Failed: only a block rule holds (history never allows a blocked sender, as E-11); anything else is Messages.
          */
-        fun noticeCause(cause: SpamCause?, history: () -> Boolean, probe: () -> FilterDecision?): SpamCause? {
-            if (cause == null) return null
-            if (!runCatching(history).getOrDefault(false)) return cause.takeIf { it == SpamCause.BLOCKED }
-            if (cause == SpamCause.BLOCKED) return cause
-            return (runCatching(probe).getOrNull() as? FilterDecision.Block)?.let(::causeOf)
+        fun noticeCause(cause: SpamCause?, history: () -> Boolean, probe: () -> FilterDecision?): SpamCause? =
+            cause?.let { noticeVerdict(it, history, probe).cause }
+
+        /** [noticeCause] with the reason (J3-4): why a notice left without a cause is delivered. */
+        fun noticeVerdict(cause: SpamCause, history: () -> Boolean, probe: () -> FilterDecision?): NoticeVerdict {
+            if (!runCatching(history).getOrDefault(false)) {
+                return NoticeVerdict(cause.takeIf { it == SpamCause.BLOCKED }, HISTORY_FAILED)
+            }
+            if (cause == SpamCause.BLOCKED) return NoticeVerdict(cause, DecisionReason.BLOCK_RULE.name)
+            val decision = runCatching(probe).getOrNull()
+            val again = (decision as? FilterDecision.Block)?.let(::causeOf)
+            return NoticeVerdict(again, decision?.reason?.name ?: FILTER_FAILED)
         }
 
         /** The cause behind a Block of the push gate or the filter: a rule (the user's or a word's), else unknown. */

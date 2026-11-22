@@ -1,7 +1,11 @@
 package com.glooboo.umessage.messaging
 
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ProviderInfo
+import android.database.Cursor
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +32,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
+import org.robolectric.shadows.ShadowLog
 import java.io.File
 
 /**
@@ -53,9 +59,16 @@ class MmsDownloadFailureTest {
     private val logged = mutableListOf<String>()
     private var historyChecked = true
 
+    /** The filter throws (the store and the rest still work), so a sweep's try fails. */
+    private var probeFails = false
+
     private val failure = MmsDownloadFailure(
         store = { store },
-        probe = { _, message -> probed += message; decision },
+        probe = { _, message ->
+            probed += message
+            check(!probeFails) { "filter broken" }
+            decision
+        },
         notify = { notifications++ },
         toast = { toasts++ },
         finishLibraryDownload = { finished += it },
@@ -243,6 +256,193 @@ class MmsDownloadFailureTest {
     }
 
     @Test
+    fun e25_moreSkippedNoticesThanOneBatch_doNotHideAnOlderLostOne() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        val lost = provider.addNotice(
+            SENDER, transactionId = "T-lost", location = "http://mmsc.example.com/msg/lost",
+            dateSeconds = tenMinutesAgo,
+        )
+        store.notices[lost] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        // Newer than the lost one and more than one batch: each is marked Skipped (no sender, or expired before).
+        repeat(MmsDownloadFailure.BATCH + 5) {
+            val skipped = provider.addNotice(
+                SENDER, transactionId = "T-skip-$it", location = "http://mmsc.example.com/msg/skip-$it",
+                dateSeconds = tenMinutesAgo + 1 + it,
+            )
+            store.marks[skipped] = NoticeMark.Skipped
+        }
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactly(lost)
+        assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
+    fun j3_3_aSweepPlacesAtMostOneBatch_newestFirst_andTheNextSweepTheRest() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        // Oldest first: lost[0] is the oldest, the last one the newest.
+        val lost = (0 until MmsDownloadFailure.BATCH + 5).map {
+            provider.addNotice(
+                SENDER, transactionId = "T-lost-$it", location = "http://mmsc.example.com/msg/lost-$it",
+                dateSeconds = tenMinutesAgo - 100 + it,
+            ).also { uri -> store.notices[uri] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+        }
+
+        failure.sweep(context, now)
+
+        val newest = lost.takeLast(MmsDownloadFailure.BATCH)
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(newest)
+        // The real store now has them in their chat, so the next sweep no longer sees them.
+        val inAChat = ContentValues().apply { put("thread_id", 5L) }
+        newest.forEach { context.contentResolver.update(it, inAChat, null, null) }
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(lost)
+        assertThat(logged).hasSize(lost.size)
+    }
+
+    @Test
+    fun j3_2_aNoticeGoneWhileTheSweepPlacesIt_getsNoLogRowAndPostsNothing() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val gone = provider.addNotice(SENDER, transactionId = "T-gone", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[gone] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.goneRows += gone
+
+        failure.sweep(context, now)
+
+        assertThat(logged).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun r2_1_aNoticeWhosePlacingKeepsFailing_endsVisibleInItsSendersChat_unreadWithAnErrorRow() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val failing = provider.addNotice(SENDER, transactionId = "T-fail", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[failing] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        probeFails = true
+
+        repeat(MmsDownloadFailure.MAX_TRIES - 1) { failure.sweep(context, now) }
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(MmsDownloadFailure.MAX_TRIES - 1))
+        assertThat(store.rowThread).isEmpty()
+
+        failure.sweep(context, now)
+
+        // Fail open: in the sender's chat, unread and not silent, the lists told, one ERROR row; no Spam count.
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.rowThread[failing]).isEqualTo(thread)
+        assertThat(store.rowSilent[failing]).isFalse()
+        assertThat(store.shown).contains(thread)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(logged).containsExactly("ERROR")
+        assertThat(store.marks[failing]).isNull()
+    }
+
+    @Test
+    fun r2_1_aNoticeThatCannotEvenFailOpen_isNeverGivenUp_andIsTriedAgain() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val failing = provider.addNotice(SENDER, transactionId = "T-fail", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[failing] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.failThreads = true
+
+        repeat(MmsDownloadFailure.MAX_TRIES + 2) { failure.sweep(context, now) }
+
+        assertThat(store.marks[failing]).isEqualTo(NoticeMark.Failed(MmsDownloadFailure.MAX_TRIES + 2))
+        assertThat(logged).isEmpty()
+
+        // Once the store works again, the next sweep places it.
+        store.failThreads = false
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactly(failing)
+    }
+
+    @Test
+    fun r2_1_noticesThatFailedBefore_goAfterTheUntriedOnes_inABatch() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val tenMinutesAgo = (now - 10 * 60 * 1000L) / 1000
+        val untried = (0 until MmsDownloadFailure.BATCH).map {
+            provider.addNotice(SENDER, transactionId = "T-new-$it", dateSeconds = tenMinutesAgo - 100 + it)
+                .also { uri -> store.notices[uri] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER) }
+        }
+        // The newest of all, but it failed before.
+        val failedBefore = provider.addNotice(SENDER, transactionId = "T-failed", dateSeconds = tenMinutesAgo)
+        store.notices[failedBefore] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.marks[failedBefore] = NoticeMark.Failed(1)
+
+        failure.sweep(context, now)
+
+        assertThat(store.rowThread.keys).containsExactlyElementsIn(untried)
+    }
+
+    @Test
+    fun r2_3_aFailedResultWhoseNoticeGoesWhileItIsPlaced_postsNothingAndLogsNothing() {
+        store.goneRows += notice
+
+        failure.handle(context, result())
+
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+        assertThat(logged).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+    }
+
+    @Test
+    fun r2_3_aGoneNoticeOfAMessagesSender_postsNothingEither() {
+        decision = FilterDecision.Allow(DecisionReason.CONTACT)
+        store.goneRows += notice
+
+        failure.handle(context, result())
+
+        assertThat(toasts).isEqualTo(0)
+        assertThat(notifications).isEqualTo(0)
+    }
+
+    @Test
+    fun j3_aNoticeThatFailedOnce_isPlacedOnTheNextTry_andCountedOnce() {
+        val provider = FakeMmsProvider.install()
+        val now = 1_700_000_000_000L
+        val again = provider.addNotice(SENDER, transactionId = "T-again", dateSeconds = (now - 10 * 60 * 1000L) / 1000)
+        store.notices[again] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
+        store.marks[again] = NoticeMark.Failed(1)
+
+        failure.sweep(context, now)
+
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.marks[again]).isEqualTo(NoticeMark.Counted(thread))
+        assertThat(store.spamRows[thread]?.third).isEqualTo(1)
+        assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
+    fun e25_aStoreThatRefusesTheQuery_isLogged_andTheQueryHasNoLimitInItsSortOrder() {
+        val provider = Robolectric.buildContentProvider(RefusingMmsProvider::class.java)
+            .create(ProviderInfo().apply { authority = "mms" })
+            .get()
+        ShadowLog.reset()
+
+        failure.sweep(context, 1_700_000_000_000L)
+
+        assertThat(provider.orders).isNotEmpty()
+        assertThat(provider.orders.filterNotNull().none { it.contains("LIMIT", ignoreCase = true) }).isTrue()
+        val lines = ShadowLog.getLogsForTag("uMessageReceive").map { it.msg }
+        assertThat(lines).contains("Chatless MMS notices could not be read")
+        assertThat(store.calls).isEmpty()
+    }
+
+    @Test
     fun e9_aNoticeInARealChatWithoutASpamRow_isJudgedAndPutInSpam() {
         store.notices[notice] = NoticeRow(threadId = 101L, sender = SENDER)
         store.threads[SENDER] = 101L
@@ -384,6 +584,29 @@ class MmsDownloadFailureTest {
         reentrant.sweep(context, now)
 
         assertThat(logged).containsExactly("BLOCK")
+    }
+
+    /** A phone's MMS store that refuses every query (as one might refuse a LIMIT in the sort order, E-25). */
+    class RefusingMmsProvider : ContentProvider() {
+        val orders = mutableListOf<String?>()
+
+        override fun onCreate(): Boolean = true
+
+        override fun query(
+            uri: Uri,
+            projection: Array<out String>?,
+            selection: String?,
+            selectionArgs: Array<out String>?,
+            sortOrder: String?,
+        ): Cursor? {
+            orders += sortOrder
+            throw IllegalArgumentException("query refused")
+        }
+
+        override fun getType(uri: Uri): String? = null
+        override fun insert(uri: Uri, values: ContentValues?): Uri? = null
+        override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
+        override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = 0
     }
 
     /** The rule puts the flag back afterwards. */

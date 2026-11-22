@@ -112,8 +112,15 @@ object SpamEngine {
      * The caller stores the text where [Judgement.verdict] says. Null when the filter itself failed (the caller then
      * delivers, fail open). A fact that could not be written gives [Judgement.failOpen] and an error line in the log.
      * Only for real deliveries: the test sheet and the MMS push gate use [evaluate], which writes nothing.
+     * [writeLog] false (J3-1): the same judgement and facts, without any decision-log row, for an MMS whose one row
+     * was written already.
      */
-    fun judge(context: Context, message: IncomingMessage, source: String? = null): Judgement? {
+    fun judge(
+        context: Context,
+        message: IncomingMessage,
+        source: String? = null,
+        writeLog: Boolean = true,
+    ): Judgement? {
         val where = source ?: if (message.isMms) "MMS" else "SMS"
         val judgement = try {
             val app = context.applicationContext
@@ -121,19 +128,21 @@ object SpamEngine {
             val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return null
             filter.senderJudge.judge(message) { address, fact -> repo.writeSenderFact(address, fact) }
         } catch (t: Throwable) {
-            record(context, message, "ERROR", t.javaClass.simpleName, where)
+            if (writeLog) record(context, message, "ERROR", t.javaClass.simpleName, where)
             return null
         }
-        if (judgement.failOpen) record(context, message, "ERROR", "FACT_WRITE_FAILED", where)
-        val decision = judgement.decision()
-        val ruleId = when (decision) {
-            is FilterDecision.Block -> decision.ruleId
-            is FilterDecision.Allow -> decision.ruleId
+        if (writeLog) {
+            if (judgement.failOpen) record(context, message, "ERROR", "FACT_WRITE_FAILED", where)
+            val decision = judgement.decision()
+            val ruleId = when (decision) {
+                is FilterDecision.Block -> decision.ruleId
+                is FilterDecision.Allow -> decision.ruleId
+            }
+            record(
+                context, message, if (decision is FilterDecision.Block) "BLOCK" else "ALLOW", decision.reason.name,
+                where, ruleId, ruleId?.let { ruleLabelOf(context, it) }.orEmpty(),
+            )
         }
-        record(
-            context, message, if (decision is FilterDecision.Block) "BLOCK" else "ALLOW", decision.reason.name, where,
-            ruleId, ruleId?.let { ruleLabelOf(context, it) }.orEmpty(),
-        )
         return judgement
     }
 

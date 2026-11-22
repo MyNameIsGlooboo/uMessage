@@ -21,6 +21,7 @@ import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.SpamNotice
 import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.mms.NoticeRow
+import com.glooboo.umessage.spam.mms.NoticeVerdict
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
@@ -52,10 +53,16 @@ class MmsSpamPushTest {
 
     /** Saved notice rows: uri -> (content location, transaction id). */
     private val saved = linkedMapOf<Uri, Pair<String, String>>()
+
+    /** E-27: whether each saved notice row was asked to keep no chat. */
+    private val savedChatless = linkedMapOf<Uri, Boolean>()
     private val startedLocations = mutableListOf<String>()
     private var startFailedWith: SpamNotice? = null
     private var startFailures = 0
     private val logged = mutableListOf<String>()
+
+    /** The notice of each decision-log row in [logged] (its reason and rule). */
+    private val loggedNotices = mutableListOf<SpamNotice>()
     private var startFails = false
 
     @Before
@@ -76,13 +83,14 @@ class MmsSpamPushTest {
     }
 
     /** The cause after the history check (E-19); the sender's own cause unless a test says otherwise. */
-    private var recheck: (SpamNotice) -> SpamCause? = { it.cause }
+    private var recheck: (SpamNotice) -> NoticeVerdict = { NoticeVerdict(it.cause, it.reason) }
 
     /** A push download on stubs that behave like the provider: a repeat is found by transaction id or location. */
     private fun download() = MmsPushDownload(
         isDuplicate = { _, ind -> saved.values.any { it.second == String(ind.transactionId) } },
-        persist = { _, ind: NotificationInd, _ ->
+        persist = { _, ind: NotificationInd, _, chatless ->
             Uri.parse("content://mms/inbox/${saved.size + 40}").also {
+                savedChatless[it] = chatless
                 saved[it] = String(ind.contentLocation) to String(ind.transactionId)
             }
         },
@@ -94,7 +102,7 @@ class MmsSpamPushTest {
         onStartFailed = { _, _, _, spam -> startFailures++; startFailedWith = spam },
         tracker = MmsDownloadTracker(),
         incoming = { IncomingMms(store) },
-        log = { _, _, decision -> logged += decision },
+        log = { _, spam, decision -> logged += decision; loggedNotices += spam },
         recheck = { _, spam -> recheck(spam) },
     )
 
@@ -156,7 +164,7 @@ class MmsSpamPushTest {
 
     @Test
     fun e19_aNoticeKeptAtSaveWhoseSenderTheHistoryCheckAllows_isDownloadedAsAMessagesMms() {
-        recheck = { null }
+        recheck = { NoticeVerdict(null, "KNOWN_CONVERSATION") }
 
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/history", size = TWO_MIB)))
 
@@ -165,6 +173,74 @@ class MmsSpamPushTest {
         assertThat(store.spamEvents).isEqualTo(0)
         // Its row is written when the downloaded MMS is placed.
         assertThat(logged).isEmpty()
+    }
+
+    @Test
+    fun e28_aNoticeTheHistoryCheckAllowsWhoseStartFails_logsOneDeliverRow() {
+        // A word rule's block at the push: its rule must not stay on a delivered row.
+        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER, 9L) }
+        recheck = { NoticeVerdict(null, "KNOWN_CONVERSATION") }
+        startFails = true
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/allowed-fail", size = TWO_MIB)))
+
+        // Told as a plain failed start in Messages; no Spam row, and its one decision-log row says where it went.
+        assertThat(startFailures).isEqualTo(1)
+        assertThat(startFailedWith).isNull()
+        assertThat(store.spamRows).isEmpty()
+        assertThat(logged).containsExactly("DELIVER")
+        // J3-4: with the reason it was let in, not the push's block reason, and no rule.
+        assertThat(loggedNotices.single().reason).isEqualTo("KNOWN_CONVERSATION")
+        assertThat(loggedNotices.single().ruleId).isNull()
+    }
+
+    @Test
+    fun j3_4_aNoticeLetInBecauseTheHistoryCheckFailed_logsThatReason() {
+        recheck = { NoticeVerdict(null, "HISTORY_CHECK_FAILED") }
+        startFails = true
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/check-failed", size = TWO_MIB)))
+
+        assertThat(logged).containsExactly("DELIVER")
+        assertThat(loggedNotices.single().reason).isEqualTo("HISTORY_CHECK_FAILED")
+    }
+
+    @Test
+    fun j3_2_aNoticeKeptAtSaveThatIsGoneMeanwhile_logsNothingAndPostsNothing() {
+        // The first saved row of these stubs.
+        store.goneRows += Uri.parse("content://mms/inbox/40")
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/gone", size = TWO_MIB)))
+
+        assertThat(logged).isEmpty()
+        assertThat(startFailures).isEqualTo(0)
+        assertThat(store.spamEvents).isEqualTo(0)
+    }
+
+    @Test
+    fun e27_aSpamNoticeThatDownloads_isSavedWithoutAChat() {
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/no-chat")))
+
+        assertThat(startedLocations).hasSize(1)
+        assertThat(savedChatless.values).containsExactly(true)
+    }
+
+    @Test
+    fun e27_aNoticeKeptAtSave_andAMessagesNotice_areSavedAsTheLibraryWould() {
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/kept", size = TWO_MIB)))
+        SpamTestWiring.installFilter { FilterDecision.Allow(DecisionReason.CONTACT) }
+        receiver().process(app, push(notice(SENDER, "T-2", "http://mmsc.example.com/msg/messages")))
+
+        assertThat(savedChatless.values).containsExactly(false, false)
+    }
+
+    @Test
+    fun e27_aChatlessNotice_neverGetsTheSendersChat_evenWhenTheLibraryRefusesAutomaticDownload() {
+        assertThat(MmsPushDownload.savesWithChat(chatless = true) { false }).isFalse()
+        assertThat(MmsPushDownload.savesWithChat(chatless = true) { true }).isFalse()
+        // As in the library otherwise: the chat is made only when the MMS does not download by itself.
+        assertThat(MmsPushDownload.savesWithChat(chatless = false) { false }).isTrue()
+        assertThat(MmsPushDownload.savesWithChat(chatless = false) { true }).isFalse()
     }
 
     @Test
@@ -189,13 +265,28 @@ class MmsSpamPushTest {
     }
 
     @Test
-    fun aNoticeKeptAtSaveThatEndsInMessages_logsDeliver() {
+    fun aNoticeKeptAtSaveThatFailsOpenToMessages_logsErrorWithoutARule() {
+        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.BLOCK_RULE, 4L) }
         store.failSpamRow = true
 
         receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/deliver", size = TWO_MIB)))
 
-        assertThat(logged).containsExactly("DELIVER")
+        // As placeUnchecked: a notice judged Spam that ends in Messages is an ERROR row, and it names no rule.
+        assertThat(logged).containsExactly("ERROR")
+        assertThat(loggedNotices.single().ruleId).isNull()
         assertThat(store.rowSilent[saved.keys.single()]).isFalse()
+    }
+
+    @Test
+    fun j3_aNoticeKeptAtSaveWhoseFallbackFindsItGone_logsNothingAndPostsNothing() {
+        // The first write throws; the fallback finds the notice gone (its MMS was placed by its result).
+        store.failNextSetThreads = 1
+        store.goneRows += Uri.parse("content://mms/inbox/40")
+
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/fallback", size = TWO_MIB)))
+
+        assertThat(logged).isEmpty()
+        assertThat(startFailures).isEqualTo(0)
     }
 
     @Test
@@ -206,7 +297,7 @@ class MmsSpamPushTest {
 
         assertThat(startFailures).isEqualTo(1)
         assertThat(startFailedWith).isNull()
-        assertThat(logged).containsExactly("DELIVER")
+        assertThat(logged).containsExactly("ERROR")
     }
 
     @Test
@@ -274,7 +365,7 @@ class MmsSpamPushTest {
     fun aSpamNoticeThatCannotBeSaved_isLeftToTheLibrary() {
         val failing = MmsPushDownload(
             isDuplicate = { _, _ -> false },
-            persist = { _, _, _ -> null },
+            persist = { _, _, _, _ -> null },
             incoming = { IncomingMms(store) },
         )
         val spam = SpamNotice(SENDER, SpamCause.UNKNOWN, downloads = false)
@@ -288,7 +379,7 @@ class MmsSpamPushTest {
     fun mP5_withTheRealStoreQuery_aSecondDifferentNoticeIsKept_andARepeatIsNot() {
         val provider = FakeMmsProvider.install()
         val download = MmsPushDownload(
-            persist = { _, ind: NotificationInd, _ ->
+            persist = { _, ind: NotificationInd, _, _ ->
                 val location = String(ind.contentLocation)
                 provider.addNotice(SENDER, transactionId = String(ind.transactionId), location = location)
                     .also { saved[it] = String(ind.contentLocation) to String(ind.transactionId) }
@@ -297,7 +388,7 @@ class MmsSpamPushTest {
             start = { _, location, _, _, _ -> startedLocations += location },
             tracker = MmsDownloadTracker(),
             incoming = { IncomingMms(store) },
-            recheck = { _, spam -> spam.cause },
+            recheck = { _, spam -> NoticeVerdict(spam.cause, spam.reason) },
         )
         val receiver = MmsPushReceiver().apply {
             pushDownload = download
@@ -317,11 +408,17 @@ class MmsSpamPushTest {
 
     private var posted = 0
     private val savedNotice = Uri.parse("content://mms/inbox/42")
-    private val spamNotice = SpamNotice(SENDER, SpamCause.BLOCKED, downloads = true, ruleId = 4L)
+    private val spamNotice =
+        SpamNotice(SENDER, SpamCause.BLOCKED, downloads = true, ruleId = 4L, reason = "BLOCK_RULE")
+
+    /** J3-5: the decision-log rows of a failed start (decision, notice). */
+    private val startLogged = mutableListOf<Pair<String, SpamNotice>>()
 
     private fun reportStartFailed(spam: SpamNotice? = spamNotice, cause: SpamCause? = spam?.cause) =
         MmsPushDownload.reportStartFailed(
-            app, savedNotice, SENDER, spam, store = { store }, notify = { posted++ }, recheck = { cause },
+            app, savedNotice, SENDER, spam, store = { store }, notify = { posted++ },
+            recheck = { NoticeVerdict(cause, "KNOWN_CONVERSATION") },
+            log = { notice, decision -> startLogged += decision to notice },
         )
 
     @Test
@@ -335,6 +432,8 @@ class MmsSpamPushTest {
         assertThat(posted).isEqualTo(0)
         assertThat(store.spamRows[9L]?.third).isEqualTo(1)
         assertThat(store.rowThread).isEmpty()
+        // Counted before, so its row was written then.
+        assertThat(startLogged).isEmpty()
     }
 
     @Test
@@ -363,6 +462,10 @@ class MmsSpamPushTest {
         assertThat(posted).isEqualTo(1)
         assertThat(store.rowSilent[savedNotice]).isFalse()
         assertThat(store.spamRows).isEmpty()
+        val (decision, notice) = startLogged.single()
+        assertThat(decision).isEqualTo("DELIVER")
+        assertThat(notice.reason).isEqualTo("KNOWN_CONVERSATION")
+        assertThat(notice.ruleId).isNull()
     }
 
     @Test
@@ -376,6 +479,10 @@ class MmsSpamPushTest {
         assertThat(store.rowThread[savedNotice]).isEqualTo(thread)
         assertThat(store.rowSilent[savedNotice]).isTrue()
         assertThat(store.spamRows[thread]?.second).isEqualTo(SpamCause.BLOCKED)
+        // J3-5: its one decision-log row, with its rule.
+        val (decision, notice) = startLogged.single()
+        assertThat(decision).isEqualTo("BLOCK")
+        assertThat(notice.ruleId).isEqualTo(4L)
     }
 
     @Test
@@ -389,6 +496,10 @@ class MmsSpamPushTest {
         assertThat(posted).isEqualTo(1)
         assertThat(store.rowThread[savedNotice]).isEqualTo(store.threads.getValue(SENDER))
         assertThat(store.rowSilent[savedNotice]).isFalse()
+        // Judged Spam but failed open to Messages: ERROR, without the rule (as placeUnchecked).
+        val (decision, notice) = startLogged.single()
+        assertThat(decision).isEqualTo("ERROR")
+        assertThat(notice.ruleId).isNull()
     }
 
     @Test
@@ -398,6 +509,20 @@ class MmsSpamPushTest {
         reportStartFailed()
 
         assertThat(posted).isEqualTo(1)
+        assertThat(startLogged.map { it.first }).containsExactly("ERROR")
+        assertThat(startLogged.single().second.ruleId).isNull()
+    }
+
+    @Test
+    fun j3_2_aFailedStartOfANoticeThatIsGone_postsNothingAndLogsNothing() {
+        store.notices[savedNotice] = NoticeRow(threadId = FakeMmsSpamStore.NO_CHAT, sender = SENDER)
+        store.goneRows += savedNotice
+
+        reportStartFailed()
+
+        assertThat(posted).isEqualTo(0)
+        assertThat(startLogged).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
     }
 
     @Test
@@ -406,6 +531,8 @@ class MmsSpamPushTest {
 
         assertThat(posted).isEqualTo(1)
         assertThat(store.calls).isEmpty()
+        // A Messages notice gets its row where its MMS is placed.
+        assertThat(startLogged).isEmpty()
     }
 
     private fun assertThatItIsAReadRowInTheSpamChat(cause: SpamCause) {

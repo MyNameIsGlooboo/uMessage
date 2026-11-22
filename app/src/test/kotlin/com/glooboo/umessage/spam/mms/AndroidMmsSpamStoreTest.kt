@@ -125,6 +125,16 @@ class AndroidMmsSpamStoreTest {
     }
 
     @Test
+    fun j3_aFailedSweepMark_keepsItsCount() {
+        val notice = mms.addNotice(SENDER)
+
+        store.markNotice(notice, NoticeMark.Failed(2))
+        assertThat(store.markOf(notice)).isEqualTo(NoticeMark.Failed(2))
+        store.markNotice(notice, NoticeMark.Counted(12L))
+        assertThat(store.markOf(notice)).isEqualTo(NoticeMark.Counted(12L))
+    }
+
+    @Test
     fun e23_isListedInSpam_followsTheListsRule() = offMain {
         context.conversationsDB.insertOrUpdate(chat(40L, SENDER))
         context.conversationsDB.insertOrUpdate(chat(41L, SENDER, group = true))

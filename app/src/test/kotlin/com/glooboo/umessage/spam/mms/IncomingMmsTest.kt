@@ -119,7 +119,8 @@ class IncomingMmsTest {
     fun e15_aSpamMmsWhoseChatTheListsDoNotShowInSpam_failsTheSafetyCheck_unreadAndAnnounced() {
         store.notListed += THREAD
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         assertThat(store.rowSilent[row]).isFalse()
         assertThat(store.spamEvents).isEqualTo(0)
     }
@@ -218,7 +219,8 @@ class IncomingMmsTest {
     fun aSpamRowThatCannotBeWritten_failsOpenToMessagesUnread() {
         store.failSpamRow = true
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         assertThat(store.rowSilent[row]).isFalse()
     }
 
@@ -226,7 +228,8 @@ class IncomingMmsTest {
     fun aSpamRowThatIsNotThereAfterTheWrite_failsTheSafetyCheckAndIsAnnouncedUnread() {
         store.spamRowVanishes = true
 
-        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Messages(null))
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN))))
+            .isEqualTo(MmsPlace.Messages(null, forwards = false))
         // It was marked read and silent, then the safety check (R1) made it unread again.
         assertThat(store.calls).containsExactly(
             "noteSpamArrival", "setSilent(true)", "isListedInSpam", "setSilent(false)",
@@ -315,6 +318,70 @@ class IncomingMmsTest {
         assertThat(store.ruleHits).containsExactly(6L)
         assertThat(store.spamEvents).isEqualTo(1)
         assertThat(store.marks[notice]).isEqualTo(NoticeMark.Counted(thread))
+    }
+
+    @Test
+    fun e26_aNoticeGoneBeforeItsChatIsWritten_isNotCountedMarkedOrRecorded_andItsEmptyChatGoes() {
+        // A late result placed (and counted) its MMS and the library deleted the notice while the sweep placed it.
+        store.goneRows += notice
+
+        val result = mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 6L)
+
+        // J3-2: "gone", so the caller writes no decision-log row; the Spam row this call made goes with the empty chat.
+        assertThat(result).isNull()
+        val thread = store.threads.getValue(SENDER)
+        assertThat(store.forgotten).containsExactly(thread)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.ruleHits).isEmpty()
+        assertThat(store.spamEvents).isEqualTo(0)
+        assertThat(store.marks).isEmpty()
+        assertThat(store.shown).isEmpty()
+    }
+
+    @Test
+    fun j3_2_aGoneNoticeInAChatWithMessages_keepsTheChat_andTakesItsRaiseBack() {
+        store.threads[SENDER] = THREAD
+        store.threadsWithMessages += THREAD
+        store.spamRows[THREAD] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        store.goneRows += notice
+
+        assertThat(mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN)).isNull()
+
+        assertThat(store.forgotten).isEmpty()
+        assertThat(store.spamRows[THREAD]?.third).isEqualTo(1)
+    }
+
+    @Test
+    fun j3_aWriteThatThrows_takesTheRaiseBack_andTheCallerFailsOpen() {
+        store.threads[SENDER] = THREAD
+        store.spamRows[THREAD] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        store.failSetThread = true
+
+        val thrown = runCatching { mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN) }
+
+        assertThat(thrown.isFailure).isTrue()
+        assertThat(store.spamRows[THREAD]?.third).isEqualTo(1)
+        assertThat(store.marks).isEmpty()
+    }
+
+    @Test
+    fun j3_4_theNoticeVerdict_saysWhyANoticeIsDelivered() {
+        val allowed = FilterDecision.Allow(DecisionReason.KNOWN_CONVERSATION)
+        val blocked = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
+
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { allowed })
+            .isEqualTo(NoticeVerdict(null, "KNOWN_CONVERSATION"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { false }) { blocked })
+            .isEqualTo(NoticeVerdict(null, "HISTORY_CHECK_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { null })
+            .isEqualTo(NoticeVerdict(null, "FILTER_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }) { blocked }.cause)
+            .isEqualTo(SpamCause.UNKNOWN)
+        // R2-4: a block rule holds either way, with the reason of the way it held.
+        assertThat(IncomingMms.noticeVerdict(SpamCause.BLOCKED, { false }) { allowed })
+            .isEqualTo(NoticeVerdict(SpamCause.BLOCKED, "HISTORY_CHECK_FAILED"))
+        assertThat(IncomingMms.noticeVerdict(SpamCause.BLOCKED, { true }) { allowed })
+            .isEqualTo(NoticeVerdict(SpamCause.BLOCKED, "BLOCK_RULE"))
     }
 
     @Test

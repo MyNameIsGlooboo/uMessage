@@ -229,6 +229,9 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /** Provider truth (E-8, E-22): the Spam chat the notice was counted in (its explicit mark), or null. */
     @Volatile private var noticeCountedIn: Long? = null
 
+    /** J3-1: the notice was not counted when first read (no mark, or a failed try), so a later mark is new. */
+    @Volatile private var noticeUnmarked = false
+
     override fun isAddressBlocked(context: Context, address: String?): Boolean {
         worker.mark()
         pendingAddress.set(address.orEmpty().substringBefore("/TYPE="))
@@ -238,9 +241,10 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
                 runCatching { AndroidMmsSpamStore(context).noticeOf(uri) }.getOrNull()
             }
             noticeThread = notice?.threadId?.takeIf(IncomingMms::hasChat)
-            noticeCountedIn = noticeUri?.let { uri ->
-                runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
-            }?.takeIf { it == noticeThread }
+            val mark = noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markOf(uri) } }
+            noticeUnmarked = mark != null && mark.isSuccess &&
+                mark.getOrNull().let { it == null || it is NoticeMark.Failed }
+            noticeCountedIn = (mark?.getOrNull() as? NoticeMark.Counted)?.threadId?.takeIf { it == noticeThread }
         }
         return false
     }
@@ -325,7 +329,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     /**
      * Provider truth, 6.2: the MMS is in the store, unread, in the chat of its recipients. A group stays there; a
      * one-to-one MMS is judged like an SMS ([IncomingMms.placeDownloaded]). Only an MMS shown in Messages is
-     * announced and forwarded; any error ends in Messages, announced (fail open).
+     * announced and forwarded; any error ends in Messages, announced (fail open), and one judged Spam is not
+     * forwarded even then.
      */
     internal fun placeAndAnnounce(context: Context, mms: Message, address: String) {
         val incoming = (received ?: IncomingMessage(address, mms.body, mms.subscriptionId, isMms = true))
@@ -333,12 +338,25 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         val sender = incoming.address.ifBlank { address }
         val message = incoming.copy(address = sender)
         val placer = incomingMms(context)
+        // J3-1: the sweep may have placed and counted the notice while the library stored the MMS (after
+        // isAddressBlocked read no mark): read the mark again, so the MMS is not counted a second time, and the chat
+        // it was counted in is the notice's chat (lowered or forgotten when the MMS lands elsewhere).
+        var sweepLogged = false
+        if (noticeUnmarked && noticeCountedIn == null) {
+            noticeUri?.let { countedChatOf(context, it) }?.let { thread ->
+                noticeCountedIn = thread
+                noticeThread = noticeThread ?: thread
+                sweepLogged = true
+            }
+        }
+        // The sweep wrote this message's decision-log row when it placed the notice: the placement writes none.
+        val check = senderCheck(context, message, mms.threadId).let { if (sweepLogged) Unlogged(it) else it }
         val place = placer.placeDownloaded(
             row = ContentUris.withAppendedId(Telephony.Mms.CONTENT_URI, mms.id),
             threadId = mms.threadId,
             sender = sender,
             recipients = recipientsOf(mms),
-            check = senderCheck(context, message, mms.threadId),
+            check = check,
             noticeCounted = noticeCountedIn == mms.threadId,
         )
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
@@ -347,7 +365,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         when (place) {
             is MmsPlace.Messages -> {
                 announce(context, mms, address, place.reason)
-                forward(context, mms, address)
+                // A Spam MMS that failed open to Messages is announced but never forwarded.
+                if (place.forwards) forward(context, mms, address)
             }
             // No notification, no unarchive, no forward; the chat and the lists are updated.
             MmsPlace.QuietGroup, is MmsPlace.Spam -> updateChatOf(context, mms, false)
@@ -464,6 +483,17 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     }
 }
 
+/** J3-1: the sender checks of an MMS whose notice the sweep placed and logged: no second decision-log row. */
+private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
+    override fun judge(): Judgement? = check.judgeQuietly()
+
+    override fun log(decision: String, reason: String, ruleId: Long?) = Unit
+}
+
+/** J3-1: the Spam chat the notice [uri] was counted in (its explicit mark), or null. */
+private fun countedChatOf(context: Context, uri: Uri): Long? =
+    runCatching { AndroidMmsSpamStore(context).markOf(uri) as? NoticeMark.Counted }.getOrNull()?.threadId
+
 /**
  * E-15: the recipients of [mms]'s chat as the lists count them (is_group_conversation: more than one, the user's own
  * number too); null when one could not be read (E-10).
@@ -486,6 +516,9 @@ internal class AppSenderCheck(
     override fun probe(): FilterDecision? = MmsDecisions.probe(context, message.copy(body = ""))
 
     override fun judge(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT")
+
+    /** J3-1: as [judge] (facts first), without the decision-log row. */
+    override fun judgeQuietly(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT", writeLog = false)
 
     override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
 
