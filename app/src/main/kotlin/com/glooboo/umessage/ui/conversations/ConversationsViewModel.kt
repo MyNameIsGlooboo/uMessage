@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,7 +35,9 @@ import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.helpers.ConversationListSync
+import com.glooboo.umessage.helpers.ListTiming
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import java.util.Collections
@@ -75,6 +78,15 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     @Volatile
     private var noteThreads: Set<Long> = emptySet()
+
+    /** J2: watches the drafts table ([watchDrafts]); declared before init, which starts it. */
+    private var draftsJob: Job? = null
+
+    /** True while [watchDrafts] hears every change of the drafts table; then a resume does not read them again. */
+    @Volatile
+    private var draftsWatched = false
+
+    private var firstRowsLogged = false
     private val blockedSeenAt = MutableStateFlow(0L)
     private var archiveAvailable = true
     private var hasData = false
@@ -125,16 +137,25 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     Status(newBlockedCount, archiveAvailable, hasData, importing, confirmDeleteIds.size),
                 )
                 _state.value = withContext(Dispatchers.Default) { build(snapshot) }
+                logFirstRows()
             }
         }
         observeBlockedCount()
         observeNoteThreads()
         refreshSims()
-        refreshDrafts()
+        watchDrafts()
     }
 
     private fun requestRebuild() {
         rebuild.trySend(Unit)
+    }
+
+    /** J2: one timing line when the list first has rows to draw (counts and milliseconds only). */
+    private fun logFirstRows() {
+        val rows = _state.value.rows.size
+        if (firstRowsLogged || rows == 0) return
+        firstRowsLogged = true
+        ListTiming.line(app) { "first rows ready: $rows rows, process up ${ListTiming.sinceProcessStart()} ms" }
     }
 
     /** The Blocked tab is on screen: everything blocked so far has been seen, so its badge clears. */
@@ -180,9 +201,13 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    /** Stops watching the notes table: when the model is cleared, and in tests before they close the database. */
+    /**
+     * Stops watching the notes and drafts tables: when the model is cleared, and in tests before they close the
+     * database.
+     */
     internal fun stopObservingNotes() {
         notesJob?.cancel()
+        draftsJob?.cancel()
     }
 
     // ---- Inputs from the host --------------------------------------------------------------------------
@@ -196,20 +221,46 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         hasData = true
         importing = cached && firstRun && conversations.isEmpty()
         archiveAvailable = app.config.isArchiveAvailable
-        refreshSims()
+        refreshThreadSims()
         requestRebuild()
         _published.value++
         spamMoves.refreshCount(blockedSeenAt.value)
     }
 
-    /** Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. */
+    /**
+     * Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. J2: the drafts
+     * only when they are not watched ([watchDrafts]).
+     */
     fun refresh() {
-        refreshDrafts()
+        if (!draftsWatched) refreshDrafts()
         refreshSims()
         requestRebuild()
     }
 
-    /** Reloads drafts; called on resume because the thread screen edits them. */
+    /**
+     * J2: the drafts are read once, then again only when the drafts table changed (the chat screen saves them), not on
+     * every resume. When the watch fails, each resume reads them as before.
+     */
+    private fun watchDrafts() {
+        draftsJob = viewModelScope.launch {
+            try {
+                val tracker = withContext(Dispatchers.IO) { MessagesDatabase.getInstance(app).invalidationTracker }
+                tracker.createFlow(DRAFTS_TABLE)
+                    .flowOn(Dispatchers.IO)
+                    .collect {
+                        draftsWatched = true
+                        refreshDrafts()
+                    }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                draftsWatched = false
+                refreshDrafts()
+            }
+        }
+    }
+
+    /** Reloads drafts; on a change of the drafts table, or on resume when they are not watched. */
     fun refreshDrafts() {
         viewModelScope.launch {
             val fresh = withContext(Dispatchers.IO) {
@@ -226,11 +277,22 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     @Volatile private var threadSims: Map<Long, Int> = emptyMap()
 
     /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
-    private fun refreshSims() {
+    private fun refreshSims() = loadSims(reloadSims = true)
+
+    /**
+     * J2: after a publish only the thread SIMs, and only with two SIMs. The SIM list is kept from the last start or
+     * resume, and deleted chats leave the kept map then too (that reads every saved row).
+     */
+    private fun refreshThreadSims() {
+        if (sims.size >= 2) loadSims(reloadSims = false)
+    }
+
+    private fun loadSims(reloadSims: Boolean) {
+        val known = sims
         viewModelScope.launch {
             val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
-                val loaded = runCatching { SimDirectory.load(app) }.getOrDefault(emptyList())
-                val live = runCatching { liveChatIds(app) }.getOrNull()
+                val loaded = if (reloadSims) runCatching { SimDirectory.load(app) }.getOrDefault(emptyList()) else known
+                val live: () -> Set<Long>? = { if (reloadSims) runCatching { liveChatIds(app) }.getOrNull() else null }
                 loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
             }
             if (freshSims != sims || freshThreadSims != threadSims) {
@@ -264,15 +326,24 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         refreshEvents.register()
     }
 
-    /** A refresh event: one chat when [threadId] is given, else every thread. */
+    /**
+     * A refresh event: one chat when [threadId] is given (never a full pass), else every thread. J2: while the list is
+     * away ([syncLeft]) a full pass waits until it is shown again, and many become one.
+     */
     fun syncChanged(threadId: Long?) = if (threadId != null) sync.requestThread(threadId) else sync.requestFull()
 
     /** The screen came back: chats with newer saved messages move up. */
     fun syncResumed() {
-        sync.requestBump()
-        // The chat marked itself read while this list was away; its rows may have been published before that.
-        sync.requestRepublish()
+        // The chat marked itself read while this list was away; its rows may have been published before that. J2: they
+        // show first, and a full pass asked for while the list was away runs after them.
+        sync.requestReturn()
     }
+
+    /** J2: the first resume of a screen (a new one, or one recreated while the list was away). */
+    fun syncShown() = sync.requestShown()
+
+    /** J2: the list went out of sight (another screen or app in front, not a rotation). */
+    fun syncLeft() = sync.requestAway()
 
     // ---- Selection -------------------------------------------------------------------------------------
 
@@ -856,6 +927,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private companion object {
         const val MAX_BADGE = 99
         const val MINUTE_MS = 60_000L
+
+        /** The Room table of [com.glooboo.umessage.models.Draft]. */
+        const val DRAFTS_TABLE = "drafts"
 
         /** A code chip is shown for this long after the message arrived (ten minutes). */
         const val OTP_CHIP_MS = 10 * 60 * 1000L

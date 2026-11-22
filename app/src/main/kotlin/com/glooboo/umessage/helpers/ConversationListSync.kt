@@ -1,9 +1,13 @@
 package com.glooboo.umessage.helpers
 
 import android.content.Context
+import android.os.Process
+import android.os.SystemClock
 import android.provider.Telephony.Threads
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
+import com.glooboo.umessage.BuildConfig
 import com.glooboo.umessage.backup.PendingArchive
 import com.glooboo.umessage.backup.PendingRecycled
 import com.glooboo.umessage.extensions.clearExpiredScheduledMessages
@@ -31,6 +35,10 @@ import java.util.concurrent.Executor
  * MC-02: a change to one chat ([requestThread]) updates that chat only. The receivers have usually stored the new row
  * already, so this is a read of the saved list; the phone's store is read for that one thread only when the row is
  * missing. Only [requestFull] reads every thread.
+ *
+ * J2 (list speed): in each job the steps that read the saved rows only (cached list, single chats, bump, republish)
+ * run before the full pass. While a job runs, a republish or a single chat is also shown at once from a second
+ * thread, and every publish reads the rows inside one lock, so the MC-03 order still holds.
  */
 class ConversationListSync(
     private val context: Context,
@@ -48,6 +56,13 @@ class ConversationListSync(
         MessageCacheImport.importIfNeeded(context, it)
     },
 ) {
+    /**
+     * J2: where the saved rows are shown while a job holds [executor] (a full pass can take seconds). Not a constructor
+     * parameter: callers pass [importMessages] as a trailing lambda. Tests swap it for one they can wait for.
+     */
+    @VisibleForTesting
+    internal var quickExecutor: Executor = Executor { Thread(it, "conversation-list-quick").start() }
+
     private val lock = Any()
     private var running = false
     private var started = false
@@ -56,6 +71,21 @@ class ConversationListSync(
     private var bumpPending = false
     private var republishPending = false
     private val threadsPending = LinkedHashSet<Long>()
+
+    /** J2: the list is out of sight; full passes asked for meanwhile wait for [requestReturn] and become one. */
+    private var away = false
+    private var fullHeld = false
+    private var quickPending = false
+
+    /** J2: every publish reads the saved rows inside this lock, so a list is never handed on after a newer one. */
+    private val publishLock = Any()
+
+    @Volatile
+    private var publishCount = 0
+
+    /** J2: when the list was opened or came back, for the timing lines ([ListTiming]). */
+    @Volatile
+    private var markAt = SystemClock.uptimeMillis()
 
     /** Threads refreshed before the full pass; a bit more than a screenful. */
     private val firstPassSize = 50
@@ -71,18 +101,28 @@ class ConversationListSync(
             cachedPending = true
             fullPending = true
         }
+        markAt = SystemClock.uptimeMillis()
+        ListTiming.line(context) { "start; process up ${ListTiming.sinceProcessStart()} ms" }
         schedule()
     }
 
-    /** Something may have changed anywhere: deleted chats, settings, a restore. Reads every thread. */
+    /**
+     * Something may have changed anywhere: deleted chats, settings, a restore. Reads every thread; while the list is
+     * away (J2), once when it is shown again.
+     */
     fun requestFull() {
-        synchronized(lock) { fullPending = true }
-        schedule()
+        val held = synchronized(lock) {
+            if (away) fullHeld = true else fullPending = true
+            away
+        }
+        ListTiming.line(context) { "full pass asked; held=$held" }
+        if (!held) schedule()
     }
 
-    /** One chat changed (a message arrived, was sent or was read). */
+    /** One chat changed (a message arrived, was sent or was read). Never a full pass. */
     fun requestThread(threadId: Long) {
         synchronized(lock) { threadsPending += threadId }
+        publishQuickIfBusy()
         schedule()
     }
 
@@ -95,7 +135,43 @@ class ConversationListSync(
     /** The screen came back from another one (the chat): show the saved rows as they are now, read flags included. */
     fun requestRepublish() {
         synchronized(lock) { republishPending = true }
+        publishQuickIfBusy()
         schedule()
+    }
+
+    /** J2: the list went out of sight (another screen or app is in front). */
+    fun requestAway() {
+        synchronized(lock) { away = true }
+    }
+
+    /**
+     * J2: the screen came back from another one or from another app. In one job: the saved rows as they are now
+     * ([requestRepublish]), the bump ([requestBump]) and last a full pass held while the list was away.
+     */
+    fun requestReturn() {
+        markAt = SystemClock.uptimeMillis()
+        val held = synchronized(lock) {
+            republishPending = true
+            bumpPending = true
+            releaseHeld()
+        }
+        ListTiming.line(context) { "return; held full pass=$held" }
+        publishQuickIfBusy()
+        schedule()
+    }
+
+    /** J2: a new screen shows the list (a rotation while it was away); a full pass held meanwhile runs now. */
+    fun requestShown() {
+        if (synchronized(lock) { releaseHeld() }) schedule()
+    }
+
+    /** Under [lock]: the list is in sight; true when a held full pass is now pending. */
+    private fun releaseHeld(): Boolean {
+        away = false
+        val held = fullHeld
+        if (held) fullPending = true
+        fullHeld = false
+        return held
     }
 
     private fun schedule() {
@@ -111,6 +187,25 @@ class ConversationListSync(
         }
     }
 
+    /**
+     * J2: while a job runs, the saved rows are shown at once from [quickExecutor] instead of after it. Reads the saved
+     * rows only and writes nothing, so it cannot undo what the job writes; [publishLock] keeps the order.
+     */
+    private fun publishQuickIfBusy() {
+        synchronized(lock) {
+            if (!running || quickPending) return
+            quickPending = true
+        }
+        try {
+            quickExecutor.execute {
+                synchronized(lock) { quickPending = false }
+                step { publishSaved("quick") }
+            }
+        } catch (e: Exception) {
+            synchronized(lock) { quickPending = false }
+        }
+    }
+
     /** PF-B7: whatever ends [drain] early (an Error), the next request must still be able to start a job. */
     private fun drainOrRelease() {
         var finished = false
@@ -122,41 +217,55 @@ class ConversationListSync(
         }
     }
 
+    private class Round(
+        val cached: Boolean,
+        val full: Boolean,
+        val bump: Boolean,
+        val republish: Boolean,
+        val threads: List<Long>,
+    )
+
     private fun drain() {
         while (true) {
-            val cached: Boolean
-            val full: Boolean
-            val bump: Boolean
-            val republish: Boolean
-            val threads: List<Long>
-            synchronized(lock) {
-                if (nothingPending()) {
-                    running = false
-                    return
-                }
-                cached = cachedPending
-                full = fullPending
-                bump = bumpPending
-                republish = republishPending
-                threads = threadsPending.toList()
-                cachedPending = false
-                fullPending = false
-                bumpPending = false
-                republishPending = false
-                threadsPending.clear()
-            }
-            step { if (cached) showCached() }
-            step {
-                if (full) {
-                    fullPass()
-                } else if (threads.isNotEmpty()) {
-                    threads.forEach(::refreshThread)
-                    publishSaved()
-                }
-            }
-            step { if (bump) bump() }
-            step { if (republish) publishSaved() }
+            runRound(takeRound() ?: return)
         }
+    }
+
+    /** Takes everything asked for so far as one job; null (and the sync is free again) when nothing is. */
+    private fun takeRound(): Round? {
+        synchronized(lock) {
+            if (nothingPending()) {
+                running = false
+                return null
+            }
+            val round = Round(cachedPending, fullPending, bumpPending, republishPending, threadsPending.toList())
+            cachedPending = false
+            fullPending = false
+            bumpPending = false
+            republishPending = false
+            threadsPending.clear()
+            return round
+        }
+    }
+
+    /**
+     * J2: the cheap steps first, all from the saved rows, so the list shows at once; the full read of the phone's store
+     * comes last. With a full pass in the same round, a chat without a saved row is left to it (no store read twice).
+     */
+    private fun runRound(round: Round) {
+        val before = publishCount
+        var shown: List<Conversation>? = null
+        if (round.cached) step { shown = showCached() }
+        step {
+            if (round.threads.isNotEmpty()) {
+                round.threads.forEach { refreshThread(it, readStore = !round.full) }
+                publishSaved("thread")
+            }
+        }
+        step { if (round.bump) bump() }
+        step { if (round.republish && publishCount == before) publishSaved("republish") }
+        step { shown?.let(::clearExpiredScheduled) }
+        step { if (round.full) timedFullPass() }
     }
 
     private fun nothingPending() =
@@ -183,18 +292,50 @@ class ConversationListSync(
         return ArrayList(if (ProviderTruthFlag.enabled) db.getMessagesList() else db.getNonArchived())
     }
 
-    private fun publishSaved() = publish(saved(), false)
-
-    private fun showCached() {
-        val conversations = runCatching { saved() }.getOrDefault(ArrayList())
-        publish(conversations, true)
-        conversations.forEach { runCatching { context.clearExpiredScheduledMessages(it.threadId) } }
+    private fun publishSaved(kind: String = "saved", cached: Boolean = false) {
+        publishRows(kind, cached) { saved() }
     }
 
-    /** The one row of [threadId]: from the saved list when a receiver stored it, else from the phone's store. */
-    private fun refreshThread(threadId: Long) {
+    /** Reads and hands on one list inside [publishLock]; [kind] only names the step in the timing line. */
+    private inline fun publishRows(kind: String, cached: Boolean, read: () -> ArrayList<Conversation>) =
+        synchronized(publishLock) {
+            val rows = read()
+            publish(rows, cached)
+            publishCount++
+            ListTiming.line(context) { "publish $kind: ${rows.size} rows, ${SystemClock.uptimeMillis() - markAt} ms" }
+            rows
+        }
+
+    /** The saved rows at once; the scheduled clean-up runs later in the round ([clearExpiredScheduled]). */
+    private fun showCached(): List<Conversation> = publishRows("cached", cached = true) {
+        runCatching { saved() }.getOrDefault(ArrayList())
+    }
+
+    /**
+     * J2: what [clearExpiredScheduledMessages] did for every chat of [conversations], with one read of the scheduled
+     * messages instead of one per chat. Only a chat with scheduled messages, or a placeholder chat, has anything to do.
+     */
+    private fun clearExpiredScheduled(conversations: List<Conversation>) {
+        val byThread = runCatching { context.messagesDB.getAllScheduledMessages() }.getOrNull()
+            ?.groupBy { it.threadId } ?: return
+        conversations.filter { it.isScheduled || it.threadId in byThread }.forEach {
+            runCatching { context.clearExpiredScheduledMessages(it.threadId, byThread[it.threadId].orEmpty()) }
+        }
+    }
+
+    private fun timedFullPass() {
+        val startedAt = SystemClock.uptimeMillis()
+        fullPass()
+        ListTiming.line(context) { "full pass took ${SystemClock.uptimeMillis() - startedAt} ms" }
+    }
+
+    /**
+     * The one row of [threadId]: from the saved list when a receiver stored it, else from the phone's store. Without
+     * [readStore] a missing row is left to the full pass that follows.
+     */
+    private fun refreshThread(threadId: Long, readStore: Boolean = true) {
         val db = context.conversationsDB
-        if (db.getConversationWithThreadId(threadId) != null) return
+        if (db.getConversationWithThreadId(threadId) != null || !readStore) return
         val fresh = context.getConversations(threadId = threadId).firstOrNull() ?: return
         val temporary = db.getAllRows().firstOrNull { it.isScheduled && it.phoneNumber == fresh.phoneNumber }
         if (temporary != null) {
@@ -234,7 +375,7 @@ class ConversationListSync(
         }
         if (changed.isNotEmpty()) {
             changed.forEach { writeIfStillSaved(it, cachedById[it.threadId]) }
-            publish(saved(), true)
+            publishSaved("newest", cached = true)
         }
         // The rows just written are cached now: they are neither new below (checked and sorted twice) nor changed.
         val cachedConversations = ArrayList(if (changed.isEmpty()) cachedBefore else db.getAllRows())
@@ -243,7 +384,7 @@ class ConversationListSync(
         // cached list. Keep the cache as it is and try again on the next refresh.
         val conversations = context.getConversationsOrNull(privateContacts = privateContacts, lookups = lookups)
         if (conversations == null) {
-            publishSaved()
+            publishSaved("unread store")
             return
         }
         val freshById = conversations.associateBy { it.threadId }
@@ -294,7 +435,7 @@ class ConversationListSync(
         // Messages a restore put back in the recycle bin once their cached copies exist (see PendingRecycled).
         runCatching { PendingRecycled(context).applyTo(context.messagesDB) }
 
-        publishSaved()
+        publishSaved("full")
 
         // DL-10 / MC-16: every message of every thread goes into the cache search reads, resuming where an earlier
         // start stopped. Does nothing once complete or while a run is still going.
@@ -385,7 +526,7 @@ class ConversationListSync(
             db.updateDateAndSnippet(newer.threadId, newer.date, snippet)
             changed = true
         }
-        if (changed) publishSaved()
+        if (changed) publishSaved("bump")
     }
 
     private companion object {
@@ -394,4 +535,26 @@ class ConversationListSync(
         /** B2-1: fewer vanished chats than this in one pass are always trusted (a few chats deleted elsewhere). */
         const val MASS_VANISH_MIN = 20
     }
+}
+
+/**
+ * J2: content-free timing lines under [TAG], so the list can be measured on the emulator
+ * (`adb logcat -s uMessageList`). Debug and daily builds only (their package ends in ".debug"), never a Play build;
+ * [Log.w] because daily builds strip the lower levels. Step names, counts and milliseconds only: never a message
+ * text, a name or a number.
+ */
+internal object ListTiming {
+    const val TAG = "uMessageList"
+    private const val DEBUG_SUFFIX = ".debug"
+
+    @Volatile
+    private var enabled: Boolean? = null
+
+    fun line(context: Context, text: () -> String) {
+        val on = enabled ?: (BuildConfig.DEBUG || context.packageName.endsWith(DEBUG_SUFFIX)).also { enabled = it }
+        if (on) runCatching { Log.w(TAG, text()) }
+    }
+
+    /** Milliseconds since this process started: the cold-start clock. */
+    fun sinceProcessStart(): Long = SystemClock.uptimeMillis() - Process.getStartUptimeMillis()
 }

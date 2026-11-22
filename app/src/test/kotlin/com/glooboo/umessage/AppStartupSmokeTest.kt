@@ -133,6 +133,16 @@ class AppStartupSmokeTest {
         assertThat(ChatMoveCounting.counter).isInstanceOf(SortDryRun::class.java)
     }
 
+    /** E-26: the app-start MMS sweep asks the filter only after old blocked words and the old switch were moved. */
+    @Test
+    fun theMmsSweepRunsAfterTheBlockingMigration() {
+        val names = app.startupSteps(startedAt = 0L).map { it.first }
+
+        assertThat(names).containsNoDuplicates()
+        assertThat(names.indexOf(App.MMS_SWEEP)).isGreaterThan(names.indexOf(App.BLOCKING_MIGRATION))
+        assertThat(names.indexOf(App.BLOCKING_MIGRATION)).isAtLeast(0)
+    }
+
     @Test
     fun startingTwiceInARow_isHarmless() {
         startUp()

@@ -66,6 +66,29 @@ class ThreadSimCacheTest {
         assertThat(restarted[5L]).isEqualTo(2)
     }
 
+    /** J2: the saved chats are read for pruning only with two SIMs; a phone with one SIM never reads them. */
+    @Test
+    fun theLiveChatsAreReadOnlyWithTwoSims() {
+        var liveReads = 0
+        val live = {
+            liveReads++
+            (1L..2000L).toSet() - 4L
+        }
+        val cache = ThreadSimCache(file)
+
+        assertThat(cache.load(context, simCount = 1, liveThreads = live)).isEmpty()
+        assertThat(liveReads).isEqualTo(0)
+
+        assertThat(cache.load(context, simCount = 2, liveThreads = live)).containsKey(4L)
+        assertThat(liveReads).isEqualTo(1)
+
+        // Chat 4 was deleted meanwhile: the next read drops its kept entry.
+        val sims = cache.load(context, simCount = 2, liveThreads = live)
+        assertThat(liveReads).isEqualTo(2)
+        assertThat(sims).doesNotContainKey(4L)
+        assertThat(sims).hasSize(1999)
+    }
+
     @Test
     fun aDamagedFileMeansOneFullRead() {
         file.writeText("not a date\n1 x\n")

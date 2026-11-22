@@ -97,6 +97,17 @@ class MainActivityHostTest {
         assertThat(refreshSubscribed()).isFalse()
     }
 
+    /** J2: the list starts once the SMS permissions are there; an open contacts dialog does not hold it back. */
+    @Test
+    fun `the list starts while the contacts and notification dialogs are still unanswered`() {
+        shadowOf(app).denyPermissions(Manifest.permission.READ_CONTACTS, Manifest.permission.POST_NOTIFICATIONS)
+
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+
+        // Before J2 the list started only in the answer of the contacts dialog, which Robolectric never gives.
+        assertThat(refreshSubscribed()).isTrue()
+    }
+
     @Test
     fun `a new icon colour updates the New conversation shortcut once`() {
         app.config.lastHandledShortcutColor = 1
