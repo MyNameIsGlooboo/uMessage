@@ -65,6 +65,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
+import java.util.Collections
 import java.util.Locale
 
 /**
@@ -89,6 +90,10 @@ abstract class ProviderTruthSmsFixture {
     protected lateinit var db: SpamDatabase
     protected lateinit var repo: DefaultSpamRepository
     protected val now = System.currentTimeMillis()
+    private val realUncachedLane = UncachedChats.lane
+
+    /** R3-1: the threads whose chat the app asked to cache, recorded instead of read on a background thread. */
+    protected val askedToCache: MutableList<Long> = Collections.synchronizedList(mutableListOf())
 
     /** The SMS provider and the thread lookup, in memory; [afterInsert] runs right after each SMS insert. */
     class SpamStore : ContentProvider() {
@@ -205,6 +210,7 @@ abstract class ProviderTruthSmsFixture {
     @Before
     fun setUp() {
         resetSpamEngine()
+        UncachedChats.lane = { _, threadId -> askedToCache += threadId }
         store = Robolectric.buildContentProvider(SpamStore::class.java)
             .create(ProviderInfo().apply { authority = "sms;mms-sms" })
             .get()
@@ -243,6 +249,7 @@ abstract class ProviderTruthSmsFixture {
     @After
     fun tearDown() {
         joinAppBackgroundThreads()
+        UncachedChats.lane = realUncachedLane
         ArrivalFacts.checkSender = realCheckSender
         ArrivalFacts.wroteTo = realWroteTo
         firstRun(FirstRunState())

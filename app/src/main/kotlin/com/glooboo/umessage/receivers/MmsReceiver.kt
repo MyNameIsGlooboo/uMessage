@@ -14,11 +14,9 @@ import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
-import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.getLatestMMS
 import com.glooboo.umessage.extensions.getNameFromAddress
-import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.isImageMimeType
 import com.glooboo.umessage.extensions.isVideoMimeType
 import com.glooboo.umessage.extensions.shouldUnarchive
@@ -54,6 +52,7 @@ import com.glooboo.umessage.spam.mms.MmsSenderCheck
 import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.data.SpamSettingsStore
+import com.glooboo.umessage.spam.data.UncachedChats
 import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -349,16 +348,17 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
                 sweepLogged = true
             }
         }
-        // The sweep wrote this message's decision-log row when it placed the notice: the placement writes none.
-        val check = senderCheck(context, message, mms.threadId).let { if (sweepLogged) Unlogged(it) else it }
+        // The sweep wrote this message's decision-log row when it placed the notice: the placement's rows are held.
+        val unlogged = if (sweepLogged) Unlogged(senderCheck(context, message, mms.threadId)) else null
         val place = placer.placeDownloaded(
             row = ContentUris.withAppendedId(Telephony.Mms.CONTENT_URI, mms.id),
             threadId = mms.threadId,
             sender = sender,
             recipients = recipientsOf(mms),
-            check = check,
+            check = unlogged ?: senderCheck(context, message, mms.threadId),
             noticeCounted = noticeCountedIn == mms.threadId,
         )
+        unlogged?.flushUnless(sweepRowHolds(place, noticeCountedIn, mms.threadId))
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
         // The notice is gone (the library deleted it once the MMS was stored): its mark is not needed any more.
         noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markNotice(uri, null) } }
@@ -466,9 +466,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     /** The cached chat of [mms] and the open screens; [unarchive]: as the setting says (not for a silent MMS). */
     private fun updateChat(context: Context, mms: Message, unarchive: Boolean) {
-        runCatching {
-            context.getConversations(mms.threadId).firstOrNull()?.let { context.insertOrUpdateConversation(it) }
-        }
+        // R3-1: as for a text, a chat that could not be cached is cached again at once.
+        UncachedChats.cacheOrRequest(context, mms.threadId)
         runCatching {
             if (unarchive && context.shouldUnarchive()) {
                 context.updateConversationArchivedStatus(mms.threadId, false)
@@ -483,12 +482,52 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     }
 }
 
-/** J3-1: the sender checks of an MMS whose notice the sweep placed and logged: no second decision-log row. */
+/**
+ * J3-1: the sender checks of an MMS whose notice the sweep placed, counted and logged. R3-2: its decision-log rows are
+ * held, not dropped: [flushUnless] writes them (the MMS ended elsewhere than the sweep's row says); else they go.
+ */
 private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
-    override fun judge(): Judgement? = check.judgeQuietly()
+    private val held = mutableListOf<Triple<String, String, Long?>>()
 
-    override fun log(decision: String, reason: String, ruleId: Long?) = Unit
+    /** As [MmsSenderCheck.judge] (facts first); the rows it would write are held. */
+    override fun judge(): Judgement? = check.judgeQuietly().also { hold(it) }
+
+    override fun log(decision: String, reason: String, ruleId: Long?) {
+        held += Triple(decision, reason, ruleId)
+    }
+
+    /** Writes the held rows, in order, once, unless [sweepRowHolds] (they are dropped then). */
+    fun flushUnless(sweepRowHolds: Boolean) {
+        if (sweepRowHolds) return
+        held.forEach { (decision, reason, ruleId) -> runCatching { check.log(decision, reason, ruleId) } }
+        held.clear()
+    }
+
+    /** The rows [SpamEngine.judge] writes for [judgement]: a failed judge, a failed fact write, the verdict. */
+    private fun hold(judgement: Judgement?) {
+        if (judgement == null) {
+            held += Triple(IncomingMms.ERROR, FILTER_FAILED, null)
+            return
+        }
+        if (judgement.failOpen) held += Triple(IncomingMms.ERROR, "FACT_WRITE_FAILED", null)
+        when (val decision = judgement.decision()) {
+            is FilterDecision.Block -> held += Triple(IncomingMms.BLOCK, decision.reason.name, decision.ruleId)
+            is FilterDecision.Allow -> held += Triple(ALLOW, decision.reason.name, decision.ruleId)
+        }
+    }
+
+    private companion object {
+        const val ALLOW = "ALLOW"
+        const val FILTER_FAILED = "FILTER_FAILED"
+    }
 }
+
+/**
+ * R3-2: the sweep's BLOCK row stands for the MMS only when it ended ([place]) in Spam in the chat the notice was
+ * counted in ([countedIn]); anywhere else (a group, Messages, a failed check) the placement's own rows are written.
+ */
+private fun sweepRowHolds(place: MmsPlace, countedIn: Long?, threadId: Long): Boolean =
+    place is MmsPlace.Spam && countedIn == threadId
 
 /** J3-1: the Spam chat the notice [uri] was counted in (its explicit mark), or null. */
 private fun countedChatOf(context: Context, uri: Uri): Long? =
