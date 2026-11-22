@@ -26,6 +26,29 @@ class TextNormalizerTest {
         assertEquals("abc", TextNormalizer.fold("a\u200Db\uFEFFc\u2060"))
     }
 
+    /** R2-10: the detector's fold reads every space separator as a plain space; [TextNormalizer.fold] keeps them. */
+    @Test fun spaceSeparatorsBecomePlainSpacesForMatchingOnly() {
+        val spaced = "a\u00A0b\u202Fc\u2007d\u3000e\u2009f"
+        assertEquals("a b c d e f", TextNormalizer.foldForMatching(spaced))
+        assertEquals("کد تایید", TextNormalizer.foldForMatching("كد\u00A0تایید"))
+        assertEquals("tab\tand\nline", TextNormalizer.foldForMatching("tab\tand\nline"))
+        assertEquals(spaced, TextNormalizer.fold(spaced))
+        assertTrue(TextNormalizer.containsFolded("Free\u00A0gift inside", "free gift"))
+    }
+
+    /**
+     * SQLite's parser overflows on a deeper REPLACE chain (J7 broke every folded search that way): the fold table and
+     * the SQL built from it stay this size. Grow them only with a check on a real SQLite.
+     */
+    @Test fun sqlFoldChainKeepsItsLength() {
+        assertEquals(31, TextNormalizer.REPLACEMENTS.size)
+        assertEquals(29, TextNormalizer.REMOVED.size)
+        val sql = TextNormalizer.sqlFoldedLike("messages", "rowid", "body")
+        assertEquals(60, Regex("REPLACE\\(").findAll(sql).count())
+        assertEquals(9, Regex("FROM \\(").findAll(sql).count())
+        assertTrue(TextNormalizer.REPLACEMENTS.keys.none { Character.isSpaceChar(it) || it.isWhitespace() })
+    }
+
     @Test fun plainTextIsUnchanged() {
         val text = "Hello, world 42"
         assertTrue(text === TextNormalizer.fold(text))

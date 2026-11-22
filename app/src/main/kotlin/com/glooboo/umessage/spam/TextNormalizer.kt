@@ -12,6 +12,9 @@ package com.glooboo.umessage.spam
  * - zero-width characters (ZWNJ, ZWJ, ZWSP, word joiner, BOM, soft hyphen), the kashida (ـ) and Arabic
  *   diacritics (harakat, superscript alef) are dropped.
  *
+ * [foldForMatching] is [fold] with every space separator read as a plain space, for the code detector and keyword
+ * rules only (R2-10).
+ *
  * It keeps every other character, so a folded text is never longer than the input. Case is left as it is: matching
  * ignores case for every script (Kotlin `ignoreCase`, regex `UNICODE_CASE`), and [lower] is there for callers that
  * need a lower-case key.
@@ -73,6 +76,15 @@ object TextNormalizer {
         return out.toString()
     }
 
+    /**
+     * R2-10: [fold], then every other space separator read as a plain space, and next-line and the line and
+     * paragraph separators (U+0085, U+2028, U+2029) read as a line break (J7-4). Android's ICU reads them as "\s" and
+     * desktop Java does not; this makes both read the same. For the code detector and keyword rules only: search,
+     * notes, the saved `body_folded` and the SQL fold of [sqlFoldedLike] stay on [fold], whose table must not grow
+     * (SQLite's parser overflows on a deeper REPLACE chain).
+     */
+    fun foldForMatching(text: String): String = foldSpaces(fold(text))
+
     /** [fold], then lower case for every script (Locale-independent, so a Turkish phone still gets "i"). */
     fun lower(text: String): String = fold(text).lowercase(java.util.Locale.ROOT)
 
@@ -118,29 +130,10 @@ object TextNormalizer {
         }
     }
 
-    /**
-     * Combining and invisible marks that spam puts between letters (kept out of [fold], which search turns into
-     * SQL): diacritics, strike-through and underline overlays.
-     */
-    private val COMBINING_MARKS = Regex(
-        "[\\u0300-\\u036F\\u20D0-\\u20FF\\u200E\\u200F\\u202A-\\u202E\\u2061-\\u2064" +
-            "\\u2066-\\u2069\\uFE00-\\uFE0F]"
-    )
-
-    /**
-     * "Fancy text" read as plain text, for [deobfuscate] only: compatibility normalization (fullwidth letters,
-     * mathematical bold or script letters and digits become ASCII), then the combining marks above are dropped.
-     */
-    private fun unfancy(text: String): String {
-        if (text.all { it.code < 0x80 }) return text
-        val normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC)
-        return COMBINING_MARKS.replace(normalized, "")
-    }
-
     /** Whether [text] contains [keyword] once both are folded, ignoring case in every script. */
     fun containsFolded(text: String, keyword: String): Boolean {
-        val wanted = fold(keyword)
-        return wanted.isNotEmpty() && fold(text).contains(wanted, ignoreCase = true)
+        val wanted = foldForMatching(keyword)
+        return wanted.isNotEmpty() && foldForMatching(text).contains(wanted, ignoreCase = true)
     }
 
     /**
@@ -195,4 +188,46 @@ object TextNormalizer {
 
     /** Whether a search for [query] needs [sqlFold]: plain ASCII words without digits match the same either way. */
     fun needsFold(query: String): Boolean = query.any { it.code > 0x7F || it.isDigit() }
+}
+
+/** The Unicode space separators (category Zs) other than the plain space: no-break, narrow, figure, ideographic. */
+private val SPACES: Set<Char> = ("\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A" +
+    "\u202F\u205F\u3000").toSet()
+
+/** The line separators that ICU's "\s" reads and the JVM's does not: next line, line and paragraph separator. */
+private val LINE_BREAKS: Set<Char> = setOf('\u0085', '\u2028', '\u2029')
+
+/** [text] with every other space separator read as a plain space and [LINE_BREAKS] as a line break; same length. */
+private fun foldSpaces(text: String): String {
+    if (text.none { it in SPACES || it in LINE_BREAKS }) return text
+    return buildString(text.length) {
+        for (c in text) {
+            append(
+                when (c) {
+                    in SPACES -> ' '
+                    in LINE_BREAKS -> '\n'
+                    else -> c
+                },
+            )
+        }
+    }
+}
+
+/**
+ * Combining and invisible marks that spam puts between letters (kept out of [fold], which search turns into
+ * SQL): diacritics, strike-through and underline overlays.
+ */
+private val COMBINING_MARKS = Regex(
+    "[\\u0300-\\u036F\\u20D0-\\u20FF\\u200E\\u200F\\u202A-\\u202E\\u2061-\\u2064" +
+        "\\u2066-\\u2069\\uFE00-\\uFE0F]"
+)
+
+/**
+ * "Fancy text" read as plain text, for [deobfuscate] only: compatibility normalization (fullwidth letters,
+ * mathematical bold or script letters and digits become ASCII), then the combining marks above are dropped.
+ */
+private fun unfancy(text: String): String {
+    if (text.all { it.code < 0x80 }) return text
+    val normalized = java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKC)
+    return COMBINING_MARKS.replace(normalized, "")
 }

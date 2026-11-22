@@ -46,7 +46,7 @@ object KeywordMatch {
         }
         val word = bare(pattern)
         if (word.isEmpty()) return false
-        if (hasWord(TextNormalizer.fold(text), TextNormalizer.fold(word))) return true
+        if (hasWord(TextNormalizer.foldForMatching(text), TextNormalizer.foldForMatching(word))) return true
         if (!obfuscated) return false
         val wanted = TextNormalizer.deobfuscate(word).trim()
         return wanted.isNotEmpty() && hasWord(TextNormalizer.deobfuscate(text), wanted)

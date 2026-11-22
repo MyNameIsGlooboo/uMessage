@@ -7,9 +7,9 @@ import com.glooboo.umessage.spam.TextNormalizer
  * every other character as it was written: Persian digits, invisible marks and line breaks of the rest of the text
  * stay. Used for the lock-screen version of a notification and for forwards that carry a code.
  *
- * The code is found in the folded text ([TextNormalizer.fold]) and each match is mapped back to its place in the
- * original, so the replaced part is exactly the code as the sender wrote it. Every other occurrence of the same code
- * in the message is hidden too. A message without a recognised code comes back unchanged.
+ * The code is found in the folded text ([TextNormalizer.foldForMatching]) and each match is mapped back to its place
+ * in the original, so the replaced part is exactly the code as the sender wrote it. Every other occurrence of the
+ * same code in the message is hidden too. A message without a recognised code comes back unchanged.
  */
 object CodeMasker {
     /** For notifications, which show any Unicode. */
@@ -23,7 +23,7 @@ object CodeMasker {
      * ("Code: ****82"). A code of four digits keeps its last two as well, so use that setting with care.
      */
     fun mask(body: String, keepLastTwo: Boolean = false, mark: String = BULLETS): String {
-        val folded = TextNormalizer.fold(body)
+        val folded = TextNormalizer.foldForMatching(body)
         val best = OtpCodes.primary(body) ?: return body
         // Where each folded character stands in the original (the fold only drops characters, never adds any).
         val origin = IntArray(folded.length)

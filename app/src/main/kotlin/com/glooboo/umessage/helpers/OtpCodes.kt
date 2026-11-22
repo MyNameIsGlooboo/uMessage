@@ -22,8 +22,8 @@ data class CodeToken(val kind: CodeKind, val value: String)
  *   ([OtpDetector.alphanumericCodes], "Your code is ab12cd"), or
  * - a labelled value says what it is ("password: x7Kq2", "code: 482913"). A user name is a value to copy, but no code.
  *
- * Everything is read through [TextNormalizer.fold], so every value comes back with Latin digits (Persian "۴۸۲۹۱۳"
- * is copied and masked as "482913", never as the Persian digits), also in a chat chip.
+ * Everything is read through [TextNormalizer.foldForMatching], so every value comes back with Latin digits (Persian
+ * "۴۸۲۹۱۳" is copied and masked as "482913", never as the Persian digits), also in a chat chip.
  */
 object OtpCodes {
     private const val LABELS = "code|otp|passcode|pin|password|passwd|pass|username|user name|user|login|" +
@@ -49,7 +49,7 @@ object OtpCodes {
      * the whole folded text.
      */
     fun looksLikeCode(body: String): Boolean {
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         val text = OtpDetector.scanned(full)
         return OtpDetector.nearKeyword(text, full) ||
             labelledValues(text, full).any { it.second.kind != CodeKind.Username }
@@ -61,7 +61,7 @@ object OtpCodes {
      */
     fun tokens(body: String): List<CodeToken> {
         if (body.length < MIN_BODY_LENGTH) return emptyList()
-        val full = TextNormalizer.fold(body)
+        val full = TextNormalizer.foldForMatching(body)
         val text = OtpDetector.scanned(full)
         val found = LinkedHashMap<String, Pair<Int, CodeToken>>()
         for ((position, token) in labelledValues(text, full)) found.putIfAbsent(token.value, position to token)
