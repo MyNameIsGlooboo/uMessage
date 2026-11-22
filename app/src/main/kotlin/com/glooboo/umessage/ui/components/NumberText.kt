@@ -1,5 +1,7 @@
 package com.glooboo.umessage.ui.components
 
+import com.glooboo.umessage.spam.RuleType
+
 /** Left-to-right isolate: the run inside keeps its own order whatever the paragraph direction is. */
 private const val LRI = '⁦'
 
@@ -37,3 +39,14 @@ fun isolateNumbers(text: String): String {
  * as is.
  */
 fun isolateLtr(text: String): String = if (text.isEmpty() || LRI in text) text else "$LRI$text$PDI"
+
+/**
+ * P-1 to P-5: a rule's value as a screen shows it, so each screen does not choose by itself. A number rule shows
+ * [number] (the value grouped, from `displayNumber`) with its digits isolated, a prefix is isolated whole whatever its
+ * length ("+1" keeps its + in front in a right-to-left line), and the other types are shown as they are.
+ */
+fun ruleValueText(type: RuleType, value: String, number: String = value): String = when (type) {
+    RuleType.NUMBER -> isolateNumbers(number)
+    RuleType.PREFIX -> isolateLtr(value)
+    else -> value
+}

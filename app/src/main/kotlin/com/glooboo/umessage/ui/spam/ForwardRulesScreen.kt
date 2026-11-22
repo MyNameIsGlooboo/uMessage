@@ -102,6 +102,7 @@ import com.glooboo.umessage.ui.components.InfoIconButton
 import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.formatClockTime
 import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.ruleValueText
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
 import com.glooboo.umessage.ui.components.uiLocale
@@ -224,11 +225,7 @@ private fun groupShapeOf(index: Int, size: Int): RoundedCornerShape {
 @Composable
 private fun conditionLines(rule: ForwardRule): List<String> = buildList {
     if (rule.senderType != null) {
-        val sender = if (rule.senderType == RuleType.NUMBER) {
-            isolateNumbers(displayNumber(rule.senderPattern))
-        } else {
-            rule.senderPattern
-        }
+        val sender = ruleValueText(rule.senderType, rule.senderPattern, displayNumber(rule.senderPattern))
         add(stringResource(R.string.forward_row_from, "${ruleTypeLabel(rule.senderType)} $sender"))
     } else {
         add(stringResource(R.string.forward_row_any_sender))

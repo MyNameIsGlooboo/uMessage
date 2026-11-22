@@ -3,7 +3,9 @@ package com.glooboo.umessage.ui.spam
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.spam.BlockReceipt
@@ -402,6 +404,23 @@ class SpamChatsViewModelTest {
         bar.performAction()
         awaitUntil { job.isCompleted }
         assertThat(opened).isEqualTo(1)
+    }
+
+    @Test
+    fun viewRuleClosesAnUndoSnackbarThatIsStillOpen() {
+        // L-7: the refused unblock's reason shows at once, not after the open Undo window runs out.
+        val snackbar = SnackbarHostState()
+        var undo: SnackbarResult? = null
+        val open = scope.launch {
+            undo = snackbar.showSnackbar("Undo window", actionLabel = "Undo", duration = SnackbarDuration.Indefinite)
+        }
+        awaitUntil { snackbar.currentSnackbarData != null }
+        val event = SpamChatsEvent.Message(R.string.pt_unblock_refused_prefix, "+1555", viewRule = true)
+        val job = scope.launch { showSpamEvent(event, snackbar, vm, app.resources, onViewRule = {}) }
+        awaitUntil { open.isCompleted }
+        assertThat(undo).isEqualTo(SnackbarResult.Dismissed)
+        awaitUntil { snackbar.currentSnackbarData?.visuals?.actionLabel == app.getString(R.string.e_view_rule) }
+        job.cancel()
     }
 
     @Test

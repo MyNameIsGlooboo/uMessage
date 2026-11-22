@@ -152,6 +152,8 @@ internal class ThreadSpamMoves(
             snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed), duration = SnackbarDuration.Long)
             return
         }
+        // L-7: the reason shows at once, not after an Undo window that is still open.
+        snackbar.currentSnackbarData?.dismiss()
         val view = snackbar.showSnackbar(
             message = activity.getString(R.string.pt_unblock_refused_prefix, isolateLtr(rule.pattern)),
             actionLabel = activity.getString(R.string.e_view_rule),

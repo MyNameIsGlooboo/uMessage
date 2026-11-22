@@ -119,7 +119,7 @@ import com.glooboo.umessage.ui.components.SelectionTopBar
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.GroupShape
 import com.glooboo.umessage.ui.components.displayNumber
-import com.glooboo.umessage.ui.components.isolateNumbers
+import com.glooboo.umessage.ui.components.ruleValueText
 
 @Immutable
 class RulesActions(
@@ -742,7 +742,7 @@ private fun RuleRowText(rule: SpamRule, overridden: Boolean, modifier: Modifier 
     val colors = MaterialTheme.colorScheme
     Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            if (rule.type == RuleType.NUMBER) isolateNumbers(displayNumber(rule.pattern)) else rule.pattern,
+            ruleValueText(rule.type, rule.pattern, displayNumber(rule.pattern)),
             style = MaterialTheme.typography.titleMedium,
             fontFamily = if (rule.type == RuleType.REGEX) FontFamily.Monospace else null,
             maxLines = 2,

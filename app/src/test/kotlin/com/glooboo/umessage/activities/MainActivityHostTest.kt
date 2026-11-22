@@ -26,9 +26,11 @@ import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_TITLE
 import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.SearchResult
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.onboarding.OnboardingActivity
 import com.glooboo.umessage.ui.onboarding.OnboardingState
+import com.glooboo.umessage.ui.spam.RulesActivity
 import com.google.common.truth.Truth.assertThat
 import org.greenrobot.eventbus.EventBus
 import org.junit.After
@@ -142,6 +144,22 @@ class MainActivityHostTest {
         assertThat(compose.onAllNodesWithContentDescription(app.getString(R.string.main_search_back)).fetchSemanticsNodes())
             .isEmpty()
         compose.onNodeWithContentDescription(app.getString(R.string.main_search_hint)).assertExists()
+    }
+
+    @Test
+    fun `View rule on the Spam tab opens the rules screen on the block list`() {
+        // M-1, N-4: the route passes the block-list link itself, so the Spam tab's "View rule" lands on the block tab.
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+        generateSequence { shadowOf(app).nextStartedActivity }.count()
+        scenario!!.onActivity { MainRoutes(it).navigation().onSpamBlockRules() }
+        val block = shadowOf(app).nextStartedActivity
+        assertThat(block.component?.className).isEqualTo(RulesActivity::class.java.name)
+        assertThat(block.getStringExtra(RulesActivity.EXTRA_TAB)).isEqualTo(ListKind.BLOCK.name)
+
+        scenario!!.onActivity { MainRoutes(it).navigation().onSpamRules() }
+        val plain = shadowOf(app).nextStartedActivity
+        assertThat(plain.component?.className).isEqualTo(RulesActivity::class.java.name)
+        assertThat(plain.hasExtra(RulesActivity.EXTRA_TAB)).isFalse()
     }
 
     @Test

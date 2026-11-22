@@ -89,9 +89,19 @@ class PersianTranslationTest {
             if (wanted !in persian) "$key: no Persian translation" else null
         }
 
+    /**
+     * N-3: only the commons English strings the app really overrides in values-fa, so a stale Persian key that
+     * happens to share a commons name is still reported as "not in English".
+     */
+    private fun commonsOverrides(): Map<String, String> {
+        val keys = load(File(appRes, "values-fa/strings_commons_overrides.xml")).keys
+        assertTrue("no overridden commons strings", keys.isNotEmpty())
+        return strings(File(commonsRes, "values")).filterKeys { it in keys }
+    }
+
     @Test
     fun `app Persian strings match English and are complete`() {
-        val problems = problems(appRes, requireComplete = true, overridden = strings(File(commonsRes, "values")))
+        val problems = problems(appRes, requireComplete = true, overridden = commonsOverrides())
         assertTrue(problems.joinToString("\n"), problems.isEmpty())
     }
 
