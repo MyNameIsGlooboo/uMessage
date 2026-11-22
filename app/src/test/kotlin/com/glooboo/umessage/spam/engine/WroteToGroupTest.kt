@@ -23,7 +23,6 @@ import com.glooboo.umessage.spam.SortResult
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.data.RemovedMembers
 import com.glooboo.umessage.extensions.messagingUtils
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.OwnSentRows
 import com.glooboo.umessage.messaging.LongTextMms
 import com.glooboo.umessage.messaging.sendMessageDetailed
@@ -43,7 +42,6 @@ import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.data.SpamPlatform
 import com.glooboo.umessage.spam.data.SpamSettingsStore
 import com.glooboo.umessage.testing.FakeMessageStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.ShadowRecordingSmsManager
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
@@ -54,7 +52,6 @@ import com.klinker.android.send_message.Settings
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -68,9 +65,6 @@ import org.robolectric.shadows.ShadowLooper
  */
 @RunWith(AndroidJUnit4::class)
 class WroteToGroupTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val now = System.currentTimeMillis()
@@ -261,15 +255,6 @@ class WroteToGroupTest {
     }
 
     @Test
-    fun aSendWithTheFlagOffMakesNoMember() {
-        flagOff()
-
-        send("See you", STRANGER)
-
-        assertThat(members()).isEmpty()
-    }
-
-    @Test
     fun aForwardOrCarrierReportSentPastTheHookMakesNoMember() {
         // R10: forwards and carrier reports call sendSmsMessage directly, and the observer skips their own rows.
         offMainThread {
@@ -324,16 +309,6 @@ class WroteToGroupTest {
         SentRowWatch.handle(app, mmsUri(group), now)
 
         assertThat(wroteTo()).containsExactly(STRANGER)
-    }
-
-    @Test
-    fun theObserverDoesNothingWithTheFlagOff() {
-        flagOff()
-        val id = store.addSms(STRANGER, "On my way", now, type = Telephony.Sms.MESSAGE_TYPE_SENT)
-
-        SentRowWatch.handle(app, smsUri(id), now)
-
-        assertThat(members()).isEmpty()
     }
 
     @Test
@@ -458,10 +433,6 @@ class WroteToGroupTest {
 
         assertThat(sorted).isInstanceOf(SortResult.Applied::class.java)
         assertThat(offMainThread { app.conversationsDB.getSpamThread(thread) }).isNull()
-    }
-
-    private fun flagOff() {
-        ProviderTruthFlag.enabled = false
     }
 
     private fun smsIds(): List<Long> =

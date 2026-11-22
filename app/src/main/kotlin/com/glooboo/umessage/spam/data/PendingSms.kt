@@ -12,7 +12,6 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.OtpCodeExtractor
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.spam.AllowGroup
@@ -91,21 +90,7 @@ object IncomingSmsProcessor {
      * row (it is then replayed later). A filter failure never throws: the message is delivered instead.
      */
     fun process(context: Context, message: PendingSmsEntity) {
-        if (ProviderTruthFlag.enabled) return ProviderTruthSms.process(context, message)
-        val incoming = IncomingMessage(
-            address = message.address,
-            body = message.body,
-            subscriptionId = message.subscriptionId,
-            isMms = false,
-            receivedAt = message.date,
-        )
-        val decision = SpamEngine.evaluate(context, incoming)
-        val block = decision as? FilterDecision.Block
-        if (block != null && SpamEngine.storeBlocked(context, incoming, block)) return
-        deliver(context, message, notifyContextFor(context, message, decision))
-        SpamEngine.allowSenderOfKeyword(context, incoming, decision)
-        // Only now, with the SMS safely in the inbox: blocked spam never reaches this line.
-        forward(context, message)
+        ProviderTruthSms.process(context, message)
     }
 
     /**
@@ -134,13 +119,8 @@ object IncomingSmsProcessor {
         message: PendingSmsEntity,
         decision: FilterDecision?,
     ): NotifyContext {
-        var reason = (decision as? FilterDecision.Allow)?.reason
         // Provider truth: the hidden "wrote to" check is gone; such a sender is a member of "People you wrote to".
-        if (!ProviderTruthFlag.enabled && reason == DecisionReason.MODE_OFF &&
-            SpamEngine.hasWrittenTo(context, message.address)
-        ) {
-            reason = DecisionReason.KNOWN_CONVERSATION
-        }
+        val reason = (decision as? FilterDecision.Allow)?.reason
         val setting = runCatching { SpamEngine.repository(context).currentSettings().unknownInboxNotify }
             .getOrDefault(SpamSettings().unknownInboxNotify)
         val hasCode = OtpCodeExtractor.extract(message.body) != null
@@ -209,7 +189,7 @@ object IncomingSmsProcessor {
 }
 
 /**
- * Provider truth (6.1): the incoming SMS path behind [ProviderTruthFlag]. The sender's history is known first (R2,
+ * Provider truth (6.1): the incoming SMS path. The sender's history is known first (R2,
  * B2-14), then the text's fact is written (R1, [SpamEngine.judge]), then the one verdict of the sender says where the
  * text goes:
  *
@@ -713,18 +693,13 @@ object PendingSmsQueue {
         val result = runCatching {
             when {
                 // Provider truth (R1): the facts again and the safety check on the row that is already stored.
-                alreadyInInbox(context, row) ->
-                    if (ProviderTruthFlag.enabled) ProviderTruthSms.recheckStored(context, row)
+                alreadyInInbox(context, row) -> ProviderTruthSms.recheckStored(context, row)
                 // A restored message is the user's decision: no second filter pass, and no "already blocked" test
                 // (an identical spam text blocked meanwhile must not stop it from reaching the inbox).
                 row.approved -> IncomingSmsProcessor.deliver(context, row, NotifyContext.NONE)
                 expired -> if (!alreadyBlocked(dao, row)) {
                     // Reviewer: under provider truth the sender's place still holds (a blocked sender stays silent).
-                    if (ProviderTruthFlag.enabled) {
-                        ProviderTruthSms.deliverExpired(context, row)
-                    } else {
-                        IncomingSmsProcessor.deliver(context, row)
-                    }
+                    ProviderTruthSms.deliverExpired(context, row)
                 }
                 else -> IncomingSmsProcessor.process(context, row)
             }

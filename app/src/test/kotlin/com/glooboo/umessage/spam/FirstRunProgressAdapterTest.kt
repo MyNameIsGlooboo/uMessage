@@ -3,8 +3,6 @@ package com.glooboo.umessage.spam
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.main.FirstRunPage
 import com.glooboo.umessage.ui.main.FirstRunPagePolicy
 import com.glooboo.umessage.ui.main.FirstRunPassKind
@@ -20,7 +18,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.coroutines.CoroutineContext
@@ -33,9 +30,6 @@ import com.glooboo.umessage.ui.main.FirstRunPhase as PagePhase
  */
 @RunWith(AndroidJUnit4::class)
 class FirstRunProgressAdapterTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val state = MutableStateFlow(FirstRunState())
@@ -239,16 +233,6 @@ class FirstRunProgressAdapterTest {
 
         assertThat(adapter.progress.value.passKind).isEqualTo(FirstRunPassKind.FRESH_INSTALL)
         assertThat(page()).isEqualTo(FirstRunPage.PROGRESS)
-    }
-
-    @Test
-    fun withTheFlagOffThereIsNoPage() {
-        ProviderTruthFlag.enabled = false
-
-        assertThat(adapter.progress.value.running).isFalse()
-        assertThat(page()).isEqualTo(FirstRunPage.NONE)
-        state.value = pass(FirstRunTrigger.UPDATE)
-        assertThat(page()).isEqualTo(FirstRunPage.NONE)
     }
 
     @Test

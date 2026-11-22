@@ -17,7 +17,6 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.models.Conversation
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
@@ -46,7 +45,6 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.receivers.SmsReceiver
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.lock.LockScope
 import org.fossify.commons.extensions.baseConfig
 import com.glooboo.umessage.testing.ShadowRecordingSmsManager
@@ -60,7 +58,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -326,16 +323,5 @@ class ProviderTruthSmsTest : ProviderTruthSmsFixture() {
         offMainThread { PendingSmsQueue.replay(app) }
         assertThat(posted).hasSize(1)
         assertThat(NotifyDue.pendingIds(app)).isEmpty()
-    }
-
-    @Test
-    fun withTheFlagOffTheOldPathHoldsTheText() {
-        ProviderTruthFlag.enabled = false
-        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) }
-
-        receive("Big sale today only")
-
-        assertThat(store.rows()).isEmpty()
-        assertThat(db.spamDao().getAllBlocked()).hasSize(1)
     }
 }

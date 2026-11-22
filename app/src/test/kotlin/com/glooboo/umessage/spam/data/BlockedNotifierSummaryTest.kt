@@ -9,12 +9,9 @@ import androidx.core.app.NotificationCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -27,9 +24,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class BlockedNotifierSummaryTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = false)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val manager get() = app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -74,7 +68,6 @@ class BlockedNotifierSummaryTest {
 
     @Test
     fun aNewSpamChatPostsOnlyItsOwnNotice() {
-        ProviderTruthFlag.enabled = true
         for (chat in 1L..3L) BlockedNotifier.show(app, message(chat), chatId = chat)
         val before = shown()
 
@@ -87,7 +80,6 @@ class BlockedNotifierSummaryTest {
 
     @Test
     fun aSecondTextOfTheSameSpamChatReplacesOnlyItsOwnNotice() {
-        ProviderTruthFlag.enabled = true
         for (chat in 1L..3L) BlockedNotifier.show(app, message(chat), chatId = chat)
         val before = byKey()
 
@@ -131,7 +123,6 @@ class BlockedNotifierSummaryTest {
 
     @Test
     fun theSummaryGoesWithTheLastChatNoticeTheAppCancels() {
-        ProviderTruthFlag.enabled = true
         for (chat in 1L..2L) BlockedNotifier.show(app, message(chat), chatId = chat)
 
         BlockedNotifier.cancelChat(app, 1L)

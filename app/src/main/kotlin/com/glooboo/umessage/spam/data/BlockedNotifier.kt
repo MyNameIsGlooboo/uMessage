@@ -13,11 +13,9 @@ import com.glooboo.umessage.activities.CopyCodeActivity
 import com.glooboo.umessage.helpers.CodeMasker
 import com.glooboo.umessage.helpers.MainTabLinks
 import com.glooboo.umessage.helpers.OtpCodes
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.ui.lock.LockScope
-import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
 
 object BlockedNotifier {
     private const val CHANNEL_ID = "spamless_blocked"
@@ -205,12 +203,7 @@ object BlockedNotifier {
 
     private fun openBlocked(context: Context): PendingIntent {
         // Provider truth: the main screen's Spam tab (behind the app lock when that covers Spam), not the old list.
-        val open = if (ProviderTruthFlag.enabled) {
-            MainTabLinks.intent(context, MainTabLinks.TAB_BLOCKED).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        } else {
-            Intent(context, BlockedMessagesActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        }
+        val open = MainTabLinks.intent(context, MainTabLinks.TAB_BLOCKED).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         return PendingIntent.getActivity(
             context, REQUEST_OPEN_BLOCKED, open, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )

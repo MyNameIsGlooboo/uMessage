@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.telephony.SubscriptionManager
 import kotlinx.coroutines.runBlocking
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.spam.ForwardRepository
 import com.glooboo.umessage.spam.data.DefaultForwardRepository
 import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.DecisionRuleText
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -108,10 +106,10 @@ object SpamEngine {
 
     /**
      * Provider truth (R1, facts first): judges [message] with [SenderJudge.judge], writing the fact its text makes
-     * (an automatic rule or a group membership) before the caller stores it, and logs the decision like [evaluate].
+     * (an automatic rule or a group membership) before the caller stores it, and logs the decision.
      * The caller stores the text where [Judgement.verdict] says. Null when the filter itself failed (the caller then
      * delivers, fail open). A fact that could not be written gives [Judgement.failOpen] and an error line in the log.
-     * Only for real deliveries: the test sheet and the MMS push gate use [evaluate], which writes nothing.
+     * Only for real deliveries: the test sheet and the MMS push gate ask the filter, which writes nothing.
      * [writeLog] false (J3-1): the same judgement and facts, without any decision-log row, for an MMS whose one row
      * was written already.
      */
@@ -208,34 +206,6 @@ object SpamEngine {
         contactChecker(context).sentTo(address) == ContactLookup.FOUND
     }.getOrDefault(false)
 
-    /** Returns the Block decision, or null when allowed or when the filter itself fails (never drop on error). */
-    fun block(context: Context, message: IncomingMessage, source: String? = null): FilterDecision.Block? =
-        evaluate(context, message, source) as? FilterDecision.Block
-
-    /**
-     * Full decision, logged to [SpamLog]. Null when the filter itself failed, including with an Error such as
-     * ExceptionInInitializerError or OutOfMemoryError (callers must then deliver).
-     */
-    fun evaluate(context: Context, message: IncomingMessage, source: String? = null): FilterDecision? {
-        val where = source ?: if (message.isMms) "MMS" else "SMS"
-        val decision = try {
-            UMessage.filter(context).evaluate(message)
-        } catch (t: Throwable) {
-            record(context, message, "ERROR", t.javaClass.simpleName, where)
-            return null
-        }
-        // DecisionReason.CONTACTS_UNAVAILABLE lands here too, so a missing contacts permission is visible in the log.
-        val ruleId = when (decision) {
-            is FilterDecision.Block -> decision.ruleId
-            is FilterDecision.Allow -> decision.ruleId
-        }
-        record(
-            context, message, if (decision is FilterDecision.Block) "BLOCK" else "ALLOW", decision.reason.name, where,
-            ruleId, ruleId?.let { ruleLabelOf(context, it) }.orEmpty(),
-        )
-        return decision
-    }
-
     /** The short label (the value) of rule [id] for the decision log; empty when the rule can't be read. */
     private fun ruleLabelOf(context: Context, id: Long): String = try {
         repository(context).currentRules().firstOrNull { it.id == id }?.let { DecisionRuleText.label(it) }.orEmpty()
@@ -300,60 +270,11 @@ object SpamEngine {
                 )
             }
             if (duplicate) onDuplicate?.invoke()
-            blockSenderOfKeyword(context, id, decision)
             purgeExpired(context)
             id
         } catch (t: Throwable) {
             record(context, message, "ERROR", "STORE_FAILED_" + t.javaClass.simpleName, "STORE")
             null
-        }
-    }
-
-    /**
-     * A keyword or regex block rule blocks the sender too, once the message is really stored (so probes that only
-     * evaluate never add rules). A contact, a number the user wrote to, or a failed lookup keeps the sender unblocked.
-     * Never throws.
-     */
-    private fun blockSenderOfKeyword(context: Context, blockedId: Long, decision: FilterDecision.Block) {
-        // Provider truth: [judge] wrote the block rule before the text was stored (facts first, R1).
-        if (ProviderTruthFlag.enabled) return
-        if (decision.reason != DecisionReason.BLOCK_RULE || decision.ruleId == null) return
-        runCatching {
-            val app = context.applicationContext
-            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return
-            val contacts = contactChecker(app)
-            runBlocking {
-                repo.blockSenderOfKeywordMatch(blockedId, decision.ruleId) { address ->
-                    contacts.canReadContacts() &&
-                        contacts.lookup(address) == ContactLookup.NOT_FOUND &&
-                        contacts.sentTo(address) == ContactLookup.NOT_FOUND
-                }
-            }
-        }
-    }
-
-    /**
-     * A keyword or regex allow rule allows the sender too, once the message is really delivered (so probes that only
-     * evaluate never add rules). Does nothing for any other decision, including an allow by a sender rule or a
-     * contact. A contact, a number the user wrote to, a sender that already has a rule, or a failed lookup leaves the
-     * rules alone. Never throws.
-     */
-    fun allowSenderOfKeyword(context: Context, message: IncomingMessage, decision: FilterDecision?) {
-        // Provider truth: [judge] wrote the automatic allow rule before the text was stored (facts first, R1).
-        if (ProviderTruthFlag.enabled) return
-        val allow = decision as? FilterDecision.Allow ?: return
-        if (allow.reason != DecisionReason.ALLOW_RULE || allow.ruleId == null) return
-        runCatching {
-            val app = context.applicationContext
-            val repo = UMessage.repository(app) as? DefaultSpamRepository ?: return
-            val contacts = contactChecker(app)
-            runBlocking {
-                repo.allowSenderOfKeywordMatch(message.address, allow.ruleId) { address ->
-                    contacts.canReadContacts() &&
-                        contacts.lookup(address) == ContactLookup.NOT_FOUND &&
-                        contacts.sentTo(address) == ContactLookup.NOT_FOUND
-                }
-            }
         }
     }
 
@@ -380,11 +301,9 @@ object SpamEngine {
             // can't keep old sender numbers around.
             runCatching { UMessage.log(app).purgeExpired() }
             // Provider truth (step F): held messages that wait are moved first, then auto-delete acts on the phone's
-            // store. The repository purge below deletes no held row with the flag on (only the file sweep runs).
-            if (ProviderTruthFlag.enabled) {
-                SpamProviderMigration.runPending(app, limit = SpamProviderMigration.RECEIVER_BATCH)
-                SpamAutoDelete.run(app)
-            }
+            // store. The repository purge below deletes no held row (only the file sweep runs).
+            SpamProviderMigration.runPending(app, limit = SpamProviderMigration.RECEIVER_BATCH)
+            SpamAutoDelete.run(app)
             // spam-14: a purge that failed gives the claim back, so the next message retries it, not 6 hours later.
             try {
                 runBlocking { repository(app).purgeExpired() }

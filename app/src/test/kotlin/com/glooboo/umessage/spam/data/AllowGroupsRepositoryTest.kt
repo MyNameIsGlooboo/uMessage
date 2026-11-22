@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.BlockedMessage
@@ -215,24 +214,13 @@ class AllowGroupsRepositoryTest {
         assertNull(repo.blockAddress(OTHER_SHORT, RuleNotes.BLOCKED_BY_YOU)!!.stillAllowedBy)
     }
 
-    /** Spec 2.2: a block rule from the rules screen takes the sender out of the groups and (flag on) its auto allow. */
+    /** Spec 2.2: a block rule from the rules screen takes the sender out of the groups and its auto allow. */
     @Test fun aBlockRuleFromTheRulesScreenRemovesMembershipsAndAutomaticAllows() = runTest {
-        ProviderTruthFlag.enabled = true
-        try {
-            repo.writeSenderFact(SENDER, SenderFact.AutoAllow(7))
-            repo.joinGroup(AllowGroup.CODE, SENDER)
-            repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
-            assertEquals(listOf(ListKind.BLOCK), rulesFor(SENDER).map { it.kind })
-            assertTrue(groupsOf(SENDER).isEmpty())
-        } finally {
-            ProviderTruthFlag.enabled = ProviderTruthFlag.SHIPPED_DEFAULT
-        }
-    }
-
-    @Test fun withTheFlagOffABlockRuleLeavesAnAutomaticAllowAsIn0414() = runTest {
         repo.writeSenderFact(SENDER, SenderFact.AutoAllow(7))
+        repo.joinGroup(AllowGroup.CODE, SENDER)
         repo.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
-        assertEquals(setOf(ListKind.ALLOW, ListKind.BLOCK), rulesFor(SENDER).map { it.kind }.toSet())
+        assertEquals(listOf(ListKind.BLOCK), rulesFor(SENDER).map { it.kind })
+        assertTrue(groupsOf(SENDER).isEmpty())
     }
 
     /** A-9: restored members keep the file's join time, source and Keep state, once, never for a blocked sender. */

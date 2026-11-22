@@ -61,28 +61,8 @@ class DefaultSpamFilterFailSafeTest {
         assertEquals(FilterDecision.Allow(DecisionReason.CONTACTS_UNAVAILABLE), decision)
     }
 
-    @Test fun contactLookupFailureStillAppliesBlockRules() {
-        val f = filter(
-            rules = listOf(rule(ListKind.BLOCK, RuleType.KEYWORD, "dinner", id = 9)),
-            contacts = LookupContacts { ContactLookup.UNKNOWN },
-        )
-        assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, 9), f.evaluate(msg()))
-    }
-
     @Test fun confirmedStrangerIsStillBlockedInStrictMode() {
         assertEquals(FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), filter().evaluate(msg()))
-    }
-
-    // SE-31: an MMS whose sender could not be read arrives with a blank address.
-
-    @Test fun blankSenderIsNotBlockedAsUnknown() {
-        val decision = filter().evaluate(msg(address = ""))
-        assertEquals(FilterDecision.Allow(DecisionReason.CONTACTS_UNAVAILABLE), decision)
-    }
-
-    @Test fun blankSenderStillMatchesBodyRules() {
-        val f = filter(rules = listOf(rule(ListKind.BLOCK, RuleType.KEYWORD, "dinner", id = 3)))
-        assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, 3), f.evaluate(msg(address = "  ")))
     }
 
     // SE-17: a broken old Fossify block list skips only itself.
@@ -106,7 +86,7 @@ class DefaultSpamFilterFailSafeTest {
     @Test fun slowRegexRuleIsTurnedOffAndMessageDelivered() {
         val f = filter(
             rules = listOf(rule(ListKind.BLOCK, RuleType.REGEX, "(a+)+x", id = 5)),
-            settings = SpamSettings(mode = UnknownSenderMode.OFF),
+            settings = SpamSettings(filterOn = false),
         )
         // Nested quantifiers are exponential on this text; the JVM does not shortcut ".*.*.*.*x" any more.
         val body = "a".repeat(40) + "!"

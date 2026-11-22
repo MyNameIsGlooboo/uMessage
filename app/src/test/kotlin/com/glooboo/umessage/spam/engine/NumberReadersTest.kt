@@ -1,17 +1,14 @@
 package com.glooboo.umessage.spam.engine
 
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
-import org.junit.Rule
 import org.junit.Test
 
 /**
@@ -20,8 +17,6 @@ import org.junit.Test
  * with +98 and with 0098, and a service line. Every number is made up.
  */
 class NumberReadersTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = false)
 
     private fun readers(default: String, vararg sims: String) =
         NumberReaders(NumberNormalizer { default }) { sims.toList() }
@@ -77,8 +72,8 @@ class NumberReadersTest {
         assertEquals("MYBANK", r.rulePattern("MyBank"))
     }
 
-    /** With the flag on, RuleMatcher reads numbers with the one list, so a rule matches on both SIMs alike. */
-    @Test fun ruleMatcherUsesTheOneListOnlyWithTheFlagOn() {
+    /** RuleMatcher reads numbers with the one list, so a rule matches on both SIMs alike. */
+    @Test fun ruleMatcherUsesTheOneList() {
         val matcher = RuleMatcher(
             NumberNormalizer { "US" },
             regionForSubscription = { sub -> if (sub == 2) "IR" else null },
@@ -88,11 +83,6 @@ class NumberReadersTest {
         val onSim1 = IncomingMessage(IR_NATIONAL, "hi", 1)
         val onSim2 = IncomingMessage(IR_NATIONAL, "hi", 2)
 
-        ProviderTruthFlag.enabled = false
-        assertFalse("0.4.14: SIM 1 reads 0906… in the default region", matcher.matches(rule, onSim1))
-        assertTrue(matcher.matches(rule, onSim2))
-
-        ProviderTruthFlag.enabled = true
         assertTrue(matcher.matches(rule, onSim1))
         assertTrue(matcher.matches(rule, onSim2))
     }

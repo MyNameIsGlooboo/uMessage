@@ -7,7 +7,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownInboxNotify
 import com.glooboo.umessage.spam.UnknownSenderMode
@@ -109,11 +108,11 @@ class SpamSettingsStore(
     private fun legacySwitchOn(): Boolean = runCatching { legacyBlockUnknown() }.getOrDefault(false)
 
     /**
-     * S5: with [ProviderTruthFlag] on, auto-delete reads "keep forever" until the one-time step has run, so nothing
-     * the old 30 days would delete goes before the messages are moved to the phone's store. Off: the stored value.
+     * S5: auto-delete reads "keep forever" until the one-time step has run, so nothing the old 30 days would delete
+     * goes before the messages are moved to the phone's store.
      */
     private fun mappedPurgeDays(stored: Int): Int =
-        if (ProviderTruthFlag.enabled && !prefs.getBoolean(KEY_MAPPED, false)) 0 else stored
+        if (!prefs.getBoolean(KEY_MAPPED, false)) 0 else stored
 
     companion object {
         private const val PREFS_NAME = "spamless_spam_settings"

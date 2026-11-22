@@ -15,7 +15,6 @@ import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.markThreadMessagesRead
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
@@ -71,8 +70,7 @@ class BlockSenderReceiver : BroadcastReceiver() {
         when (intent.action) {
             ACTION_BLOCK -> when {
                 address.isBlank() -> Unit
-                ProviderTruthFlag.enabled -> moveToSpam(context, repository, address, threadId)
-                else -> block(context, repository, address, threadId)
+                else -> moveToSpam(context, repository, address, threadId)
             }
 
             ACTION_UNDO -> {
@@ -84,13 +82,6 @@ class BlockSenderReceiver : BroadcastReceiver() {
                 }
             }
         }
-    }
-
-    /** 0.4.14: a block rule only. */
-    private suspend fun block(context: Context, repository: SpamRepository, address: String, threadId: Long) {
-        val change = runCatching { SenderBlocking.block(repository, listOf(address)) }.getOrNull() ?: return
-        context.notificationManager.cancel(threadId.hashCode())
-        showBlocked(context, address, threadId, change.addedRuleIds)
     }
 
     /** 0.4.14: the Undo removes the rule ids it carries. */

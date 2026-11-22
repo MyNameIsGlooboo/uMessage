@@ -28,7 +28,6 @@ import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.notifyFault
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
@@ -147,7 +146,7 @@ fun Context.deliverIncomingSms(
         }.getOrDefault(false)
         // R3-1: the lists show cached chats only, so a text stored read for Spam would be in neither list until the
         // next full pass. The chat is cached again at once, also when no list is open.
-        if (!cached && ProviderTruthFlag.enabled) UncachedChats.request(context, threadId)
+        if (!cached) UncachedChats.request(context, threadId)
 
         val senderName = context.senderNameFor(address)
 
@@ -235,7 +234,7 @@ internal object UncachedChats {
     ) {
         val cached = runCatching { read(threadId)?.let { context.insertOrUpdateConversation(it) } != null }
             .getOrDefault(false)
-        if (!cached && ProviderTruthFlag.enabled) request(context, threadId)
+        if (!cached) request(context, threadId)
     }
 
     /** The chat [threadId] from the store ([read]), as the list sync reads a missing one; then the lists are told. */

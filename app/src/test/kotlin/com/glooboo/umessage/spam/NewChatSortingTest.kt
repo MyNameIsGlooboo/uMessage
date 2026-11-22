@@ -8,7 +8,6 @@ import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SortingWorld.Companion.SENDER
 import com.glooboo.umessage.spam.SortingWorld.Companion.chat
@@ -18,14 +17,12 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.SystemContactCheckerTest.FakeContactsProvider
 import com.glooboo.umessage.testing.FakeMessageStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -43,9 +40,6 @@ import java.util.concurrent.TimeUnit
  */
 @RunWith(AndroidJUnit4::class)
 class NewChatSortingTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -188,17 +182,6 @@ class NewChatSortingTest {
         idleSorter()
 
         assertThat(spamIds()).containsExactly(1L)
-    }
-
-    @Test
-    fun withTheFlagOffTheRowIsOnlyCachedAsIn0414() {
-        ProviderTruthFlag.enabled = false
-
-        sort(chat(1, SENDER))
-        idleSorter()
-
-        assertThat(cachedIds()).containsExactly(1L)
-        assertThat(spamIds()).isEmpty()
     }
 
     @Test
