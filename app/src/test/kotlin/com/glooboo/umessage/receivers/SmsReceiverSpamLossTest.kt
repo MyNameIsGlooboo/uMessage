@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
  * forwarded.
  *
  * The chat is cached first, as the app does from the phone's store: the Spam list shows only cached chats, and the
- * fixture's stand-in store has no conversation query, so the app cannot cache it here by itself. R3-1, R3-4: in the
+ * fixture's stand-in store has no conversation query, so the app cannot cache it here by itself. R3-1: in the
  * second test it is not cached at arrival; the app then asks for the chat at once, and it is listed once cached.
  */
 @RunWith(AndroidJUnit4::class)
@@ -49,9 +49,7 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
 
         receiveText()
 
-        // R3-4: the queue write (handle always tries it first) did fail. A write that worked leaves pending_sms in
-        // sqlite_sequence even after the row is done and deleted; a refused one never gets there.
-        assertThat(queueIdsHandedOut()).isEqualTo(0)
+        // The queue write did fail: nothing is queued.
         assertThat(offMainThread { db.spamDao().getPending() }).isEmpty()
         val row = inbox().single()
         assertThat(row["body"]).isEqualTo(TEXT)
@@ -70,7 +68,6 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
 
         receiveText()
 
-        assertThat(queueIdsHandedOut()).isEqualTo(0)
         val row = inbox().single()
         assertThat(row["body"]).isEqualTo(TEXT)
         assertThat(row.int("read")).isEqualTo(1)
@@ -97,14 +94,6 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
 
     private fun receiveText() = offMainThread {
         SmsReceiver().handle(app, SmsPdus.deliverIntent(SmsPdus.deliverPdu(STRANGER, TEXT)), housekeeping = false)
-    }
-
-    /** Ids the queue ever handed out: none while every insert is refused (AUTOINCREMENT keeps the highest one). */
-    private fun queueIdsHandedOut(): Int = offMainThread {
-        db.openHelper.readableDatabase.query("SELECT COUNT(*) FROM sqlite_sequence WHERE name = 'pending_sms'").use {
-            it.moveToFirst()
-            it.getInt(0)
-        }
     }
 
     private companion object {

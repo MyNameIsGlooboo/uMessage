@@ -211,15 +211,8 @@ internal class MmsDownloadFailure(
     }
 
     /**
-     * R2-1, R3-3: the notice in its sender's chat, unread and not silent, without the filter, with an ERROR row. False
-     * when it could not be shown. A net for a store that recovers: placing a notice throws only from the store (the
-     * probe and the history check do not throw), and this makes the same store calls, so it shows the notice only
-     * when the store works again between the failed try and this one. The part of R2-1 that matters (never Skipped,
-     * failed notices last) does not depend on it.
-     *
-     * Accepted (J3b): the mark is cleared here, so a later download or failed download of this notice writes its own
-     * decision-log row, a second one after this ERROR row. That row says where the MMS really went, which this one
-     * does not, as R3-2 writes a second row whenever the place differs from the logged one.
+     * R2-1: the notice in its sender's chat, unread and not silent, without the filter (which kept failing), with an
+     * ERROR row. False when it could not be shown.
      */
     private fun failOpen(context: Context, store: MmsSpamStore, notice: ChatlessNotice): Boolean {
         val sender = store.noticeOf(notice.uri)?.sender?.takeIf { it.isNotBlank() } ?: return false
