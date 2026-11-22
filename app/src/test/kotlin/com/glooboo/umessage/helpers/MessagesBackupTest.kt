@@ -517,13 +517,40 @@ class MessagesBackupTest {
             </smses>
         """.trimIndent()
         val summary = importer().import(xml.byteInputStream(), all)
-        assertThat(summary.added).isEqualTo(2)
-        assertThat(summary.damaged).isEqualTo(2)
+        // The text without a sender is kept in the "Unknown" chat; only the bad date is damaged.
+        assertThat(summary.added).isEqualTo(3)
+        assertThat(summary.damaged).isEqualTo(1)
         assertThat(summary.failed).isEqualTo(1)
-        assertThat(store.rows("sms").map { it["body"] }).containsExactly("one", "سلام 👋").inOrder()
+        assertThat(store.rows("sms").map { it["body"] }).containsExactly("one", "no address", "سلام 👋").inOrder()
         val text = BackupSummaryText.import(context, summary)
-        assertThat(text).contains("Added: 2")
+        assertThat(text).contains("Added: 3")
         assertThat(text).contains("Could not be restored: 1")
+    }
+
+    @Test
+    fun xmlBackup_anSmsWithoutASender_goesToTheUnknownChatOnce() {
+        val store = FakeMessageStore.install()
+        val xml = """
+            <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+            <smses count="4">
+              <sms address="" date="3000" type="1" body="no sender" />
+              <sms address=" " date="3000" type="1" body="no sender" />
+              <sms address="null" date="3000" type="1" body="no sender" />
+              <sms date="3000" type="1" body="no sender" />
+            </smses>
+        """.trimIndent()
+
+        val first = importer().import(xml.byteInputStream(), all)
+        val again = importer().import(xml.byteInputStream(), all)
+
+        assertThat(first.added).isEqualTo(1)
+        assertThat(first.duplicates).isEqualTo(3)
+        assertThat(first.damaged).isEqualTo(0)
+        assertThat(again.added).isEqualTo(0)
+        assertThat(again.duplicates).isEqualTo(4)
+        val row = store.rows("sms").single()
+        assertThat(row["address"]).isEqualTo("Unknown")
+        assertThat(store.threadRecipients(row["thread_id"] as Long)).containsExactly("Unknown")
     }
 
     private val xmlPhoto = Base64.getEncoder().encodeToString(photo)
