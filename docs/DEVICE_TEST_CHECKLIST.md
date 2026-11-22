@@ -82,7 +82,7 @@ The model: the phone's own message store holds every message, spam included. uMe
 - [ ] "Not spam" on U: the whole chat moves to Messages, the sender gets an allow rule, Undo works. On a sender name (A) it asks once first.
 - [ ] "Unblock" on a blocked contact: the chat goes back to Messages. On a blocked unknown number: it stays in Spam and the snackbar offers "Not spam".
 - [ ] A mixed selection (blocked and unknown) offers only Delete and Mark as read.
-- [ ] "Mark all as read" in the menu clears every unread count.
+- [ ] "Mark all read" in the menu clears every unread count.
 - [ ] Delete: the confirm says it deletes from the phone for every app; Undo works right after; there is no "Delete all". With another app as default SMS app, Delete is off and says why.
 - [ ] Reply from a Spam chat: the sender joins "People you wrote to" and the chat moves to Messages. A suggested reply asks "This allows the sender. Send?".
 - [ ] Auto-delete is "Keep forever" by default. Set a number of days: a warning says texts are deleted from the phone itself. Sent, starred and noted texts stay.
@@ -122,7 +122,7 @@ The model: the phone's own message store holds every message, spam included. uMe
 
 - [ ] Turn on App lock with a PIN. Leave the app and come back after the lock time: it asks for the PIN.
 - [ ] Wrong PIN several times: a wait is shown.
-- [ ] "Forgot your PIN?" accepts the phone's screen lock, opens the app and skips the wait.
+- [ ] "Forgot it?" (use your phone's screen lock) accepts the phone's screen lock, opens the app and skips the wait.
 - [ ] "Only chosen parts" with Spam locked: the Spam tab asks; a Spam chat opened from a launcher shortcut, recent apps or another app also asks.
 - [ ] Hidden chat: gone from the list, search and shortcuts; its notification says only "New message".
 

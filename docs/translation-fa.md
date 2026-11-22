@@ -21,7 +21,8 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 | Rule / Rules | قانون / قانون‌ها | Kept. |
 | Unknown sender | فرستنده ناشناس | Kept. |
 | Verification code / one-time code | کد تأیید / کد یک‌بارمصرف | "Copy code" = کپی کد. |
-| Filter mode Strict / Smart / Off | سخت‌گیرانه / هوشمند / خاموش | |
+| Spam filter (one switch, on / off) | فیلتر اسپم (روشن / خاموش) | The old modes Strict / Smart / Off are gone; do not use سخت‌گیرانه or هوشمند for the filter. |
+| Senders of a verification code / People you wrote to | فرستنده‌های کد تأیید / کسانی که به آن‌ها پیام داده‌اید | The two automatic allow lists. |
 | Archive / Archived | آرشیو کردن / آرشیوشده | Formerly بایگانی. The tab and screen title are the noun «آرشیو». |
 | Unarchive | خارج کردن از آرشیو | |
 | Message / Messages | پیام / پیام‌ها | SMS = پیام (پیامک only inside the quoted Android setting «برنامهٔ پیامک»), MMS = پیام چندرسانه‌ای (MMS). |

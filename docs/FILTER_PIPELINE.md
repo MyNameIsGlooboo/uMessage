@@ -58,7 +58,7 @@ There is one verdict, for the sender. Facts come first:
   must have its chat in `spam_threads`. If not, the row is marked unread and announced.
 - A probe (the rule test sheet, the MMS push gate) never writes facts.
 - A blocked word can block anyone who is not a contact and has no allow rule made by the user. That includes group
-  members; the block rule it writes then wins. With contacts unreadable it blocks nobody (check 5).
+  members; the block rule it writes then wins. With contacts unreadable it blocks no phone number (check 5); sender names are still blocked.
 
 ## Incoming SMS
 

@@ -85,7 +85,7 @@ For a chat in Spam you can:
 - **Block** (unknown sender): adds a block rule, so the chat stays in Spam for good.
 - **Delete**: asks first, then deletes the chat from the phone itself, for every app. You can undo right after; later you cannot. Delete works only while uMessage is your default SMS app. There is no "Delete all".
 
-A swipe on a row does **Not spam** or **Unblock**, with Undo. The menu has **Mark all as read**. When the newest text in a Spam chat holds a verification code, the row shows **Copy code** for ten minutes. This is how you reach a code from a blocked sender: a blocked sender never gets a notification, not even for a code.
+A swipe on a row does **Not spam** or **Unblock**, with Undo. When an unblocked sender is still unknown, the snackbar offers **Not spam** instead of Undo. The menu has **Mark all read**. When the newest text in a Spam chat holds a verification code, the row shows **Copy code** for ten minutes. This is how you reach a code from a blocked sender: uMessage never shows a notification for texts from a blocked sender, not even for a code.
 
 ### Blocking a chat
 
@@ -136,7 +136,7 @@ You can export your rules to a file and import them on another phone. Import sho
 
 ## App lock
 
-Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN, tap **Forgot your PIN?**: it accepts your phone's own screen lock instead, opens the app and your hidden chats, and skips the wait. So anyone who knows your phone's screen lock can open uMessage too.
+Settings > **App lock** asks for a PIN, a pattern or your fingerprint/face before uMessage opens. After too many wrong tries you have to wait before trying again. If you forget the PIN, tap **Forgot it? Use your phone's screen lock**: it accepts your phone's own screen lock instead, opens the app and your hidden chats, and skips the wait. So anyone who knows your phone's screen lock can open uMessage too.
 
 **What to lock** (on the same page) is Whole app, or Only chosen parts: uMessage then opens without the PIN, and only the Spam tab and your hidden chats ask for it. A chat that is in Spam then also asks for the lock when it is opened from a shortcut, a notification or recent apps.
 
