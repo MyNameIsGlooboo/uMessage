@@ -1,10 +1,12 @@
 package com.glooboo.umessage.spam.data
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.CopyCodeActivity
@@ -125,8 +127,10 @@ object BlockedNotifier {
      * summary says nothing about the senders or the texts. The system removes it when its last notification goes.
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
-        val count = manager.activeNotifications.count { (it.tag == TAG && it.id != SUMMARY_ID) || it.tag == CHAT_TAG }
-        if (count < SUMMARY_FROM) return
+        val active = manager.activeNotifications
+        val count = active.count { (it.tag == TAG && it.id != SUMMARY_ID) || it.tag == CHAT_TAG }
+        // J1: posted once. Posting it again for a new count lifts the whole bundle, every older notice with it.
+        if (count < SUMMARY_FROM || active.any { isSummary(it) }) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(context.getString(R.string.spam_engine_blocked_channel))
@@ -140,6 +144,9 @@ object BlockedNotifier {
             .build()
         manager.notify(TAG, SUMMARY_ID, summary)
     }
+
+    private fun isSummary(n: StatusBarNotification): Boolean =
+        n.tag == TAG && n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
 
     /** I5: removes the notifications of blocked messages that were restored, deleted, or opened in their thread. */
     fun cancel(context: Context, blockedIds: Collection<Long>) {

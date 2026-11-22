@@ -10,6 +10,7 @@ import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -199,6 +200,7 @@ private object DueReplay {
             row.read != 0 -> NotifyResult.SKIPPED_READ
             alreadyShown(context, row.threadId, marker.createdAt) -> NotifyResult.SKIPPED_ACTIVE
             blockedNow(context, row) -> NotifyResult.SKIPPED_BLOCKED
+            inSpamNow(context, row) -> NotifyResult.SKIPPED_SPAM
             else -> null
         }
         if (skip != null) return NotifyLog.record(null, row.threadId, skip)
@@ -232,4 +234,11 @@ private object DueReplay {
         val decision = runCatching { UMessage.filter(context).evaluate(incoming) }.getOrNull()
         return (decision as? FilterDecision.Block)?.reason == DecisionReason.BLOCK_RULE
     }
+
+    /**
+     * J1, provider truth: the chat is in Spam now (a group turned off, or the user moved it), so the text is no longer
+     * owed a loud notification. The rule the lists use. An error posts (fail open).
+     */
+    private fun inSpamNow(context: Context, row: DueRow): Boolean = ProviderTruthFlag.enabled &&
+        runCatching { SpamPlacement.inSpamNow(context, row.threadId, row.address) }.getOrDefault(false)
 }

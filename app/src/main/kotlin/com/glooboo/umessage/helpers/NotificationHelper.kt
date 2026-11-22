@@ -515,8 +515,9 @@ class NotificationHelper(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // J1: untagged only; tagged notices (BlockedNotifier and others) have their own id space.
         val alreadyShowing = runCatching {
-            notificationManager.activeNotifications.any { it.id == notificationId }
+            notificationManager.activeNotifications.any { it.tag == null && it.id == notificationId }
         }.getOrDefault(false)
         val alert = FailedSendAlert.shouldAlert(automatic, alreadyShowing)
         val summaryText = reason ?: String.format(context.getString(R.string.message_sending_error), recipient)
@@ -728,8 +729,9 @@ class NotificationHelper(private val context: Context) {
     }
 
     private fun getOldMessages(notificationId: Int): List<NotificationCompat.MessagingStyle.Message> {
+        // J1: the chat's own notification only. A Spam notice of the same chat has the same id under its own tag.
         val currentNotification =
-            notificationManager.activeNotifications.find { it.id == notificationId }
+            notificationManager.activeNotifications.find { it.tag == null && it.id == notificationId }
         return if (currentNotification != null) {
             val activeStyle =
                 NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(

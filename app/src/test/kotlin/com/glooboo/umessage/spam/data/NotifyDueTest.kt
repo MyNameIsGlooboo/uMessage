@@ -17,21 +17,27 @@ import androidx.core.app.NotificationCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.notifyFault
 import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.receivers.PendingSmsRetryReceiver
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
+import com.glooboo.umessage.spam.SpamThread
+import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -41,6 +47,9 @@ import org.robolectric.shadows.ShadowAlarmManager
 /** N6: a stored message whose notification was never posted is notified once by the replay, and only then. */
 @RunWith(AndroidJUnit4::class)
 class NotifyDueTest {
+
+    @get:Rule
+    val flag = ProviderTruthFlagRule(enabled = false)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val manager get() = app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -163,6 +172,11 @@ class NotifyDueTest {
     private fun replay(at: Long = now + 1_000L) = offMainThread { NotifyDue.replay(app, at) }
 
     private fun pending() = NotifyDue.pendingIds(app)
+
+    /** The chat [THREAD] is in Spam for [sender] (not cached yet, so its row names the sender). */
+    private fun spamRow(sender: String = ADDRESS) = offMainThread {
+        app.conversationsDB.insertSpamThread(SpamThread(THREAD, sender, SpamCause.UNKNOWN, spamSince = 1L))
+    }
 
     @Test
     fun deliveryMarksThenClearsTheMarker() {
@@ -359,6 +373,70 @@ class NotifyDueTest {
     }
 
     @Test
+    fun aSwipedNotificationDoesNotComeBackOnTheNextSms() {
+        // J1: the user swipes the notification away and leaves the text unread; the next SMS runs the replay.
+        deliver(NotifyContext())
+        assertThat(posted).hasSize(1)
+        manager.cancelAll()
+
+        offMainThread { PendingSmsQueue.replay(app, now + 1_000L) }
+
+        assertThat(posted).isEmpty()
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aReplayedNotificationThatWasSwipedDoesNotComeBack() {
+        // J1: a failed post is still replayed once (the hotfix), and only once.
+        notifyFault = { if (it == NotifyStage.BUILD || it == NotifyStage.PLAIN) error("test fault") }
+        deliver(NotifyContext())
+        notifyFault = null
+        replay()
+        assertThat(posted).hasSize(1)
+        manager.cancelAll()
+
+        replay(at = now + 2_000L)
+
+        assertThat(posted).isEmpty()
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun replaySkipsAChatThatIsInSpamNow() {
+        // J1, provider truth: the chat moved to Spam after the text came; a loud notification is not owed any more.
+        ProviderTruthFlag.enabled = true
+        spamRow()
+        markDead(provider.addSms(now))
+
+        replay()
+
+        assertThat(posted).isEmpty()
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun withTheFlagOffASpamRowDoesNotStopTheReplay() {
+        spamRow()
+        markDead(provider.addSms(now))
+
+        replay()
+
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aSpamRowOfAnotherSenderDoesNotStopTheReplay() {
+        ProviderTruthFlag.enabled = true
+        spamRow(sender = OTHER_ADDRESS)
+        markDead(provider.addSms(now))
+
+        replay()
+
+        assertThat(posted).hasSize(1)
+    }
+
+    @Test
     fun anUnreadableProviderKeepsTheMarkerWaiting() {
         val id = provider.addSms(now)
         markDead(id)
@@ -505,6 +583,7 @@ class NotifyDueTest {
     private companion object {
         const val THREAD = 12L
         const val ADDRESS = "+15550001234"
+        const val OTHER_ADDRESS = "PROMO"
         const val BODY = "See you at noon"
         const val EARLIER = "Earlier post"
         const val MISSING_ID = 999L
