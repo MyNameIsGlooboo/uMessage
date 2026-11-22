@@ -1,10 +1,12 @@
 package com.glooboo.umessage.spam.data
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.CopyCodeActivity
@@ -26,6 +28,9 @@ object BlockedNotifier {
     /** Provider truth (4.6): the notices keyed by chat, one per Spam chat; own tag, as thread ids repeat held ids. */
     private const val CHAT_TAG = "spamless_blocked_chat"
     private const val GROUP = "spamless_blocked_group"
+
+    /** J1: own tag for the summary, so no held message (keyed by its id under [TAG]) can replace it. */
+    private const val SUMMARY_TAG = "spamless_blocked_summary"
     private const val REQUEST_OPEN_BLOCKED = 0x5B10
     private const val SUMMARY_ID = 0x5B11
     private const val COPY_CODE_SALT = 0x5B12
@@ -117,20 +122,30 @@ object BlockedNotifier {
 
     /** Removes the notice of Spam chat [threadId] (it was opened, blocked, moved to Messages or deleted). */
     fun cancelChat(context: Context, threadId: Long) {
-        runCatching { context.getSystemService(NotificationManager::class.java)?.cancel(CHAT_TAG, threadId.hashCode()) }
+        runCatching {
+            val manager = context.getSystemService(NotificationManager::class.java) ?: return
+            // J1-10: a failed read of the shade must never stop the cancel itself.
+            val active = runCatching { manager.activeNotifications }.getOrDefault(emptyArray())
+            manager.cancel(CHAT_TAG, threadId.hashCode())
+            dropLoneSummary(manager, active, setOf(CHAT_TAG to threadId.hashCode()))
+        }
     }
 
     /**
      * I5: one summary for a burst of blocked messages, so 15 spam texts are one stack in the shade, not 15 rows. The
-     * summary says nothing about the senders or the texts. The system removes it when its last notification goes.
+     * summary says nothing about the senders or the texts. It goes with its last notice: the user's swipe takes it
+     * along, and [dropLoneSummary] removes it after the app's own cancels.
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
-        val count = manager.activeNotifications.count { (it.tag == TAG && it.id != SUMMARY_ID) || it.tag == CHAT_TAG }
-        if (count < SUMMARY_FROM) return
+        val active = manager.activeNotifications
+        val count = active.count { Kind.isNotice(it) }
+        // J1: posted once. Posting it again for a new count lifts the whole bundle, every older notice with it.
+        if (count < SUMMARY_FROM || active.any { Kind.isSummary(it) }) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(context.getString(R.string.spam_engine_blocked_channel))
-            .setNumber(count)
+            // J1: posted once, so a count or a time on it would only go stale; the shade counts the notices itself.
+            .setShowWhen(false)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .setContentIntent(contentIntent)
             .setGroup(GROUP)
@@ -138,7 +153,31 @@ object BlockedNotifier {
             .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
             .setAutoCancel(true)
             .build()
-        manager.notify(TAG, SUMMARY_ID, summary)
+        manager.notify(SUMMARY_TAG, SUMMARY_ID, summary)
+    }
+
+    /**
+     * J1-4: the app's own cancels leave the summary in place. Removes it when no notice is left but the [gone] ones
+     * (tag and id), which the system may still list right after their cancel.
+     */
+    private fun dropLoneSummary(
+        manager: NotificationManager,
+        active: Array<StatusBarNotification>,
+        gone: Set<Pair<String?, Int>>,
+    ) {
+        if (active.none { Kind.isNotice(it) && (it.tag to it.id) !in gone }) {
+            active.filter { Kind.isSummary(it) }.forEach { manager.cancel(it.tag, it.id) }
+        }
+    }
+
+    /** What kind of posted notification this is (kept apart so the notifier stays small). */
+    private object Kind {
+        /** A held-message or Spam chat notice, not the summary. */
+        fun isNotice(n: StatusBarNotification): Boolean = (n.tag == TAG || n.tag == CHAT_TAG) && !isSummary(n)
+
+        /** Ours, or one an older version posted under [TAG] before the update. */
+        fun isSummary(n: StatusBarNotification): Boolean = (n.tag == SUMMARY_TAG || n.tag == TAG) &&
+            n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
     }
 
     /** I5: removes the notifications of blocked messages that were restored, deleted, or opened in their thread. */
@@ -146,7 +185,12 @@ object BlockedNotifier {
         if (blockedIds.isEmpty()) return
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            blockedIds.forEach { manager.cancel(TAG, notificationId(it)) }
+            val active = runCatching { manager.activeNotifications }.getOrDefault(emptyArray())
+            // J1: a summary of the version before has held message 23313's key; cancelling it would clear the group.
+            val keys = blockedIds.map { TAG to notificationId(it) }
+                .filterNot { key -> active.any { Kind.isSummary(it) && it.tag == key.first && it.id == key.second } }
+            keys.forEach { manager.cancel(it.first, it.second) }
+            dropLoneSummary(manager, active, keys.toSet())
         }
     }
 
@@ -154,7 +198,7 @@ object BlockedNotifier {
     fun cancelAll(context: Context) {
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            manager.activeNotifications.filter { it.tag == TAG || it.tag == CHAT_TAG }
+            manager.activeNotifications.filter { it.tag == TAG || it.tag == CHAT_TAG || it.tag == SUMMARY_TAG }
                 .forEach { manager.cancel(it.tag, it.id) }
         }
     }

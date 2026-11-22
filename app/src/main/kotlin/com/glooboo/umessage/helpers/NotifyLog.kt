@@ -20,6 +20,7 @@ enum class NotifyResult {
     SKIPPED_STALE, // replay only: the message is gone, moved or too old
     SKIPPED_ACTIVE, // replay only: this chat already shows a notification posted after the message
     SKIPPED_BLOCKED, // replay only: the sender is blocked by a rule now
+    SKIPPED_SPAM, // replay only, provider truth: the chat is in Spam now
     CUSTOM_CHANNEL_MISSING, // N8: extra line, the post line follows
 }
 

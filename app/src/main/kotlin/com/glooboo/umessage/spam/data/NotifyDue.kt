@@ -5,11 +5,13 @@ import android.content.SharedPreferences
 import android.provider.Telephony
 import androidx.annotation.VisibleForTesting
 import com.glooboo.umessage.BuildConfig
+import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.postReceivedMessageNotification
 import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
+import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -199,6 +201,7 @@ private object DueReplay {
             row.read != 0 -> NotifyResult.SKIPPED_READ
             alreadyShown(context, row.threadId, marker.createdAt) -> NotifyResult.SKIPPED_ACTIVE
             blockedNow(context, row) -> NotifyResult.SKIPPED_BLOCKED
+            enteredSpamSince(context, row, marker.createdAt) -> NotifyResult.SKIPPED_SPAM
             else -> null
         }
         if (skip != null) return NotifyLog.record(null, row.threadId, skip)
@@ -232,4 +235,16 @@ private object DueReplay {
         val decision = runCatching { UMessage.filter(context).evaluate(incoming) }.getOrNull()
         return (decision as? FilterDecision.Block)?.reason == DecisionReason.BLOCK_RULE
     }
+
+    /**
+     * J1, provider truth: the chat entered Spam after the marker was written (a group turned off, or the user moved
+     * it), so the text is no longer owed a loud notification. A chat that was in Spam already when the text was sent
+     * to Messages (a code, an allowed word, a failed check) still gets it: the sorter removes that row only later.
+     * The place is the rule the lists use. No row, or an error, posts (fail open).
+     */
+    private fun enteredSpamSince(context: Context, row: DueRow, createdAt: Long): Boolean = ProviderTruthFlag.enabled &&
+        runCatching {
+            val since = context.conversationsDB.getSpamThread(row.threadId)?.spamSince ?: 0L
+            since > createdAt && SpamPlacement.inSpamNow(context, row.threadId, row.address)
+        }.getOrDefault(false)
 }
