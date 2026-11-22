@@ -97,7 +97,10 @@ class MainNavigation(
     val onRecycleBin: () -> Unit = {},
 )
 
-/** T-2: the Spam tab's two rule links. Its menu opens the rules screen as it opens; "View rule" the block list (D-6). */
+/**
+ * T-2: the Spam tab's two rule links. Its menu opens the rules screen as it opens; "View rule" the block list
+ * (D-6).
+ */
 internal class SpamRuleLinks(navigation: MainNavigation) {
     val onOpenRules: () -> Unit = navigation.onSpamRules
     val onViewRule: () -> Unit = navigation.onSpamBlockRules

@@ -34,11 +34,13 @@ class BlockedDetailsTest {
 
     @Test
     fun ruleBlockNamesTheRule() {
-        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 7), rules)).isEqualTo("Rule: keyword \"free\"")
+        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 7), rules))
+            .isEqualTo("Rule: keyword \"free\"")
         // P-2: the prefix is isolated whole, so it keeps its + in front in a right-to-left line.
         assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 8), rules))
             .isEqualTo("Rule: numbers starting \u2066+91140\u2069")
-        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 9), rules)).isEqualTo("Rule: sender AX-PROMOS")
+        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 9), rules))
+            .isEqualTo("Rule: sender AX-PROMOS")
     }
 
     @Test
@@ -69,7 +71,8 @@ class BlockedDetailsTest {
 
     @Test
     fun deletedRuleSaysSo() {
-        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 99), rules)).isEqualTo("Rule since removed")
+        assertThat(ruleReasonText(context, message(DecisionReason.BLOCK_RULE, 99), rules))
+            .isEqualTo("Rule since removed")
     }
 
     @Test
