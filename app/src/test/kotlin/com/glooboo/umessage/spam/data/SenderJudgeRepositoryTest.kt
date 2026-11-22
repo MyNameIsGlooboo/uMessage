@@ -30,7 +30,7 @@ import org.junit.runner.RunWith
  * A-2: the sender order wired to the real store. [DefaultSpamFilter.senderJudge] judges, and
  * [DefaultSpamRepository.writeSenderFact] and [AllowGroups] write the facts in Room. For each text the place equals
  * what the chat list would read afterwards ([com.glooboo.umessage.spam.engine.SenderJudge.verdict]). Every number is
- * made up (555 range; 0906 for the Iranian shapes, unassigned).
+ * made up (555 range; the UK drama range 07700 900xxx for the second SIM's region, unassigned).
  */
 @RunWith(AndroidJUnit4::class)
 class SenderJudgeRepositoryTest {
@@ -60,7 +60,7 @@ class SenderJudgeRepositoryTest {
             platform, db, SpamSettingsStore(app), normalizer,
             blockedFromKeywordNote = { RuleNotes.BLOCKED_FROM_KEYWORD },
             allowedFromKeywordNote = { RuleNotes.ALLOWED_FROM_KEYWORD },
-            simRegions = { listOf("IR") },
+            simRegions = { listOf("GB") },
         )
         filter = DefaultSpamFilter(
             rules = repo::currentRules,
@@ -68,7 +68,7 @@ class SenderJudgeRepositoryTest {
             contacts = noContacts,
             normalizer = normalizer,
             groups = repo.groupMembership,
-            simRegions = { listOf("IR") },
+            simRegions = { listOf("GB") },
         )
     }
 
@@ -93,10 +93,10 @@ class SenderJudgeRepositoryTest {
     private fun word(kind: ListKind, pattern: String) =
         runBlocking { repo.addRule(SpamRule(kind = kind, type = RuleType.KEYWORD, pattern = pattern)) }
 
-    @Test fun aCodeInEveryIranianShapeMakesOneMember() {
-        val first = receive(IR_NATIONAL, "کد تایید شما: ۴۸۲۹۱۵")
+    @Test fun aCodeInEveryShapeOfTheSecondRegionMakesOneMember() {
+        val first = receive(REGION2_NATIONAL, "کد تایید شما: ۴۸۲۹۱۵")
         assertEquals(DecisionReason.GROUP_MEMBER, first.verdict.reason)
-        listOf(IR_NATIONAL, IR_PLUS, IR_00).forEach { shape ->
+        listOf(REGION2_NATIONAL, REGION2_PLUS, REGION2_00).forEach { shape ->
             assertEquals(DecisionReason.GROUP_MEMBER, receive(shape, "سلام").verdict.reason)
         }
         assertEquals(1, db.spamDao().getMembers().size)
@@ -143,9 +143,9 @@ class SenderJudgeRepositoryTest {
     private companion object {
         const val SENDER = "+15550001234"
         const val OTHER = "+15550005678"
-        const val IR_NATIONAL = "09061234567"
-        const val IR_PLUS = "+989061234567"
-        const val IR_00 = "00989061234567"
+        const val REGION2_NATIONAL = "07700900123"
+        const val REGION2_PLUS = "+447700900123"
+        const val REGION2_00 = "00447700900123"
         const val SERVICE = "30001234"
     }
 }

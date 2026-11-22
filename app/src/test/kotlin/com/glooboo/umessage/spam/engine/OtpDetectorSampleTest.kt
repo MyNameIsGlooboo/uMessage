@@ -154,7 +154,7 @@ class OtpDetectorSampleTest {
         Sample(OTHER, "رمز کارت شما با موفقیت تغییر کرد", detectedToday = false),
         Sample(OTHER, "سلام، ساعت ۸ جلسه داریم؟", detectedToday = false),
         Sample(OTHER, "قرار ما ساعت ۱۹:۳۰ جلوی سینما", detectedToday = false),
-        Sample(OTHER, "برای دریافت رمز با 09060000000 تماس بگیرید", detectedToday = false),
+        Sample(OTHER, "برای دریافت رمز با 07700900000 تماس بگیرید", detectedToday = false),
         Sample(OTHER, "رمز عبور شما در تاریخ ۱۴۰۵/۰۸/۲۷ ساعت ۱۴۳۲ تغییر کرد", detectedToday = false),
         Sample(OTHER, "رمز کارت شما ۳ بار اشتباه وارد شد", detectedToday = false),
         // Fix round A-1: more real formats.

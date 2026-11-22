@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.fossify.commons.extensions.notificationManager
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.ScheduledExecutorService
@@ -31,7 +32,8 @@ sealed interface SortResult {
     /**
      * The table now equals the verdicts. [added] chats entered Spam, [removed] left it, [changed] stayed with a new
      * cause or a new written form of the sender. [touched] are the threads whose place changed; [leftWithUnread]
-     * those that left Spam with spam texts not looked at (they are marked unread in Messages, B-14).
+     * those that left Spam with spam texts not looked at (they are marked unread in Messages, B-14); [entered] those
+     * that entered Spam (their Messages notification is taken away).
      */
     data class Applied(
         val added: Int,
@@ -39,6 +41,7 @@ sealed interface SortResult {
         val changed: Int,
         val touched: Set<Long> = emptySet(),
         val leftWithUnread: Set<Long> = emptySet(),
+        val entered: Set<Long> = emptySet(),
     ) : SortResult {
         val anyChange: Boolean get() = added + removed + changed > 0
     }
@@ -161,7 +164,7 @@ class ChatSorter(
                 }
             }
         }
-        return SortResult.Applied(added.size, removed.size, changed, added + removed, unread)
+        return SortResult.Applied(added.size, removed.size, changed, added + removed, unread, entered = added)
     }
 
     private data class Wanted(val sender: String, val cause: SpamCause)
@@ -324,7 +327,7 @@ object SpamSorting {
     /** On the sorting thread: one full sort, past the gate (the first run's own sort), caching [newRows] with it. */
     internal fun sortNow(context: Context, newRows: List<Conversation> = emptyList()): SortResult {
         val result = ChatSorter.forApp(context, fresh = true).recompute(newRows = newRows)
-        published(result)
+        published(context, result)
         return result
     }
 
@@ -339,16 +342,30 @@ object SpamSorting {
                 gate = { FirstRun.state(app).value },
                 // A thread sort follows a fact written a moment ago (a new chat, a user action): a fresh snapshot.
                 sort = { threads -> ChatSorter.forApp(app, fresh = threads != null).recompute(threads) },
-                published = SpamSorting::published,
+                published = { published(app, it) },
             ).also { queue = it }
         }
     }
 
     /** After a sort that changed the table: the list screen shows its saved rows again, without reading the store. */
-    internal fun published(result: SortResult) {
+    internal fun published(context: Context, result: SortResult) {
         if (result !is SortResult.Applied || !result.anyChange) return
         changeCount.value++
         result.touched.firstOrNull()?.let { refreshConversations(it) }
+        if (result.entered.isNotEmpty()) {
+            val app = context.applicationContext
+            execute(Runnable { cancelEnteredNotifications(app, result) })
+        }
+    }
+
+    /**
+     * Lock privacy: a chat a sort moved into Spam on its own (a new rule, the filter switched on, a deleted contact,
+     * the first sort) loses its Messages notification, which shows the sender, the text and Reply on the lock screen.
+     * Run off the main thread, as the block from the chat list does.
+     */
+    internal fun cancelEnteredNotifications(context: Context, result: SortResult) {
+        if (result !is SortResult.Applied) return
+        result.entered.forEach { id -> runCatching { context.notificationManager.cancel(id.hashCode()) } }
     }
 }
 
@@ -487,7 +504,7 @@ object NewChatSorting {
         sorter = { ChatSorter.forApp(app, fresh = true) },
         requestThreads = { SpamSorting.requestThreads(app, it) },
         requestPass = { FirstRun.request(app, FirstRunTrigger.NEW_CHATS) },
-        published = SpamSorting::published,
+        published = { SpamSorting.published(app, it) },
     )
 }
 

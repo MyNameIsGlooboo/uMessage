@@ -13,8 +13,8 @@ import org.junit.Test
 
 /**
  * R6, S8, M-T3: one fixed region list (every SIM's country, then the default region) reads a sender the same way in
- * every path and whatever SIM a text arrived on. Includes the block for region IR: a mobile number written with 0,
- * with +98 and with 0098, and a service line. Every number is made up.
+ * every path and whatever SIM a text arrived on. Includes the block for a second region (GB): a mobile number written
+ * with 0, with +44 and with 0044, and a service line. Every number is made up (the UK drama range 07700 900xxx).
  */
 class NumberReadersTest {
 
@@ -22,41 +22,41 @@ class NumberReadersTest {
         NumberReaders(NumberNormalizer { default }) { sims.toList() }
 
     @Test fun theListIsEverySimThenTheDefault() {
-        val list = readers("US", "ir", "GB", "IR").readers()
+        val list = readers("US", "gb", "DE", "GB").readers()
         assertEquals(3, list.size)
     }
 
     @Test fun oneMobileNumberInThreeShapesIsOneSender() {
-        listOf(readers("US", "IR"), readers("IR"), readers("US", "IR", "GB")).forEach { r ->
-            val keys = listOf(IR_NATIONAL, IR_PLUS, IR_00).map(r::senderKey)
-            assertEquals(listOf(IR_PLUS, IR_PLUS, IR_PLUS), keys)
-            assertTrue(r.same(IR_NATIONAL, IR_PLUS))
-            assertTrue(r.same(IR_00, IR_PLUS))
+        listOf(readers("US", "GB"), readers("GB"), readers("US", "GB", "DE")).forEach { r ->
+            val keys = listOf(REGION2_NATIONAL, REGION2_PLUS, REGION2_00).map(r::senderKey)
+            assertEquals(listOf(REGION2_PLUS, REGION2_PLUS, REGION2_PLUS), keys)
+            assertTrue(r.same(REGION2_NATIONAL, REGION2_PLUS))
+            assertTrue(r.same(REGION2_00, REGION2_PLUS))
         }
     }
 
-    /** The receiving SIM is not part of the reading: a SIM order in which IR is second still finds the member. */
+    /** The receiving SIM is not part of the reading: a SIM order in which GB is second still finds the member. */
     @Test fun aMemberStoredUnderOneShapeIsFoundUnderEveryShapeOnTwoSimRegions() {
-        listOf(readers("US", "IR", "GB"), readers("US", "GB", "IR")).forEach { r ->
-            val stored = r.senderKey(IR_PLUS)
-            listOf(IR_NATIONAL, IR_PLUS, IR_00).forEach { shape ->
+        listOf(readers("US", "GB", "DE"), readers("US", "DE", "GB")).forEach { r ->
+            val stored = r.senderKey(REGION2_PLUS)
+            listOf(REGION2_NATIONAL, REGION2_PLUS, REGION2_00).forEach { shape ->
                 assertTrue("$shape in ${r.senderKeys(shape)}", stored in r.senderKeys(shape))
             }
         }
     }
 
     @Test fun aServiceLineIsStableAndNotAMobile() {
-        val r = readers("US", "IR")
-        val key = r.senderKey(IR_SERVICE)
+        val r = readers("US", "GB")
+        val key = r.senderKey(REGION2_SERVICE)
         assertTrue(key.isNotEmpty())
-        assertEquals(key, r.senderKey(IR_SERVICE))
-        assertTrue(r.same(IR_SERVICE, IR_SERVICE))
-        assertFalse(r.same(IR_SERVICE, IR_PLUS))
-        assertNotEquals(key, r.senderKey(IR_PLUS))
+        assertEquals(key, r.senderKey(REGION2_SERVICE))
+        assertTrue(r.same(REGION2_SERVICE, REGION2_SERVICE))
+        assertFalse(r.same(REGION2_SERVICE, REGION2_PLUS))
+        assertNotEquals(key, r.senderKey(REGION2_PLUS))
     }
 
     @Test fun aSenderNameIsItsLowerCaseName() {
-        val r = readers("US", "IR")
+        val r = readers("US", "GB")
         assertEquals("mybank", r.senderKey(" MyBank "))
         assertEquals(setOf("mybank"), r.senderKeys("MYBANK"))
         assertEquals("", r.senderKey("  "))
@@ -76,30 +76,30 @@ class NumberReadersTest {
     @Test fun ruleMatcherUsesTheOneList() {
         val matcher = RuleMatcher(
             NumberNormalizer { "US" },
-            regionForSubscription = { sub -> if (sub == 2) "IR" else null },
-            simRegions = { listOf("IR") },
+            regionForSubscription = { sub -> if (sub == 2) "GB" else null },
+            simRegions = { listOf("GB") },
         )
-        val rule = SpamRule(id = 1, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = IR_PLUS)
-        val onSim1 = IncomingMessage(IR_NATIONAL, "hi", 1)
-        val onSim2 = IncomingMessage(IR_NATIONAL, "hi", 2)
+        val rule = SpamRule(id = 1, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = REGION2_PLUS)
+        val onSim1 = IncomingMessage(REGION2_NATIONAL, "hi", 1)
+        val onSim2 = IncomingMessage(REGION2_NATIONAL, "hi", 2)
 
         assertTrue(matcher.matches(rule, onSim1))
         assertTrue(matcher.matches(rule, onSim2))
     }
 
-    /** Every made-up Iranian number of the provider-truth tests is unassigned (invalid) for libphonenumber. */
-    @Test fun theDummyIranianNumbersAreInvalid() {
+    /** Every made-up second-region number of the provider-truth tests is unassigned (invalid) for libphonenumber. */
+    @Test fun theDummySecondRegionNumbersAreInvalid() {
         val util = PhoneNumberUtil.getInstance()
-        listOf(IR_NATIONAL, "09060000000", IR_PLUS, IR_00).forEach { raw ->
-            val number = util.parse(if (raw.startsWith("00")) "+" + raw.drop(2) else raw, "IR")
+        listOf(REGION2_NATIONAL, "07700900000", REGION2_PLUS, REGION2_00).forEach { raw ->
+            val number = util.parse(if (raw.startsWith("00")) "+" + raw.drop(2) else raw, "GB")
             assertFalse("$raw must stay unassigned", util.isValidNumber(number))
         }
     }
 
     private companion object {
-        const val IR_NATIONAL = "09061234567"
-        const val IR_PLUS = "+989061234567"
-        const val IR_00 = "00989061234567"
-        const val IR_SERVICE = "30001234"
+        const val REGION2_NATIONAL = "07700900123"
+        const val REGION2_PLUS = "+447700900123"
+        const val REGION2_00 = "00447700900123"
+        const val REGION2_SERVICE = "30001234"
     }
 }
