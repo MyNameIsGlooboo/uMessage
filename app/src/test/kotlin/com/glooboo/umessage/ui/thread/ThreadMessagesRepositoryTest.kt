@@ -76,6 +76,8 @@ class ThreadMessagesRepositoryTest {
         repository.loadNewest(THREAD + 1)
 
         source.newest = listOf(message(1, 10), message(2, 20)) // what the old chat's load read
+        source.cached = listOf(message(6, 60))
+        repository.loadCached(THREAD, recycleBin = false, expected = oldChat)
         repository.loadNewest(THREAD, oldChat)
         repository.refresh(THREAD, listOf(message(3, 30)), oldChat)
         repository.addAll(listOf(message(4, 40)), oldChat)

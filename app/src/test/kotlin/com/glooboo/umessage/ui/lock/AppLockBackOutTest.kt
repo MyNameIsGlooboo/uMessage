@@ -1,6 +1,8 @@
 package com.glooboo.umessage.ui.lock
 
 import android.app.Activity
+import android.app.Application
+import androidx.activity.ComponentActivity
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.AppLockGuard
@@ -10,12 +12,14 @@ import org.fossify.commons.extensions.appLockManager
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.helpers.AppLockManager
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
 /**
@@ -51,6 +55,32 @@ class AppLockBackOutTest {
 
         assertTrue(activity.appLockManager.isLocked())
         assertFalse(HiddenChatsSession.isUnlocked())
+    }
+
+    /**
+     * M-T5: the same through the real lifecycle. The guard is registered as the app registers it, the only screen is
+     * closed with Back (the chat's Back button finishes it), and the next screen that opens asks for the lock first.
+     */
+    @Test
+    fun backingOutThroughTheLifecycleLocksAndTheNextScreenAsksForTheLock() {
+        val app: Application = ApplicationProvider.getApplicationContext()
+        app.registerActivityLifecycleCallbacks(AppLockGuard)
+        try {
+            val first = Robolectric.buildActivity(ComponentActivity::class.java).setup()
+            val activity = first.get()
+            activity.baseConfig.isAppPasswordProtectionOn = true
+            activity.appLockManager.unlock()
+
+            activity.finish()
+            first.pause().stop().destroy()
+
+            assertTrue(activity.appLockManager.isLocked())
+            val next = Robolectric.buildActivity(ComponentActivity::class.java).setup().get()
+            assertEquals(LockActivity::class.java.name, shadowOf(next).nextStartedActivity?.component?.className)
+        } finally {
+            app.unregisterActivityLifecycleCallbacks(AppLockGuard)
+            app.baseConfig.isAppPasswordProtectionOn = false
+        }
     }
 
     @Test

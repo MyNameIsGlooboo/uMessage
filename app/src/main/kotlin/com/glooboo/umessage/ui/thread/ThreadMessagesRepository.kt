@@ -114,7 +114,8 @@ class ThreadMessagesRepository(
         val older = source.older(threadId, cutoff, current)
         if (older.isEmpty()) {
             val exhausted = isHistoryExhausted(pageSize = 0, probeHasOlder = source.hasOlder(threadId, cutoff))
-            if (!isStale(expected)) allFetched = exhausted
+            // K2-2: atomic against reset, which clears the flag for the chat loaded in place.
+            store.runIf(expected) { allFetched = exhausted }
             return older
         }
         store.updateIf(expected) { loaded ->
