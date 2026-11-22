@@ -12,7 +12,6 @@ import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.messaging.holdDiedScheduledSend
 import com.glooboo.umessage.models.Conversation
@@ -21,7 +20,6 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
@@ -29,7 +27,6 @@ import kotlinx.coroutines.runBlocking
 import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
 import org.junit.After
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -44,9 +41,6 @@ import org.robolectric.shadows.ShadowToast
  */
 @RunWith(AndroidJUnit4::class)
 class ProviderTruthContextTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -178,17 +172,6 @@ class ProviderTruthContextTest {
             assertThat(context.messagesDB.getThreadMessages(THREAD)).isEmpty()
             assertThat(context.getSmsDraft(THREAD)).isEmpty()
         }
-    }
-
-    @Test
-    fun withTheFlagOffDeleteWorksAsIn0414() {
-        ProviderTruthFlag.enabled = false
-        install()
-        seedChat()
-
-        offMainThread { context.deleteConversation(THREAD) }
-
-        assertThat(notes()).isEmpty()
     }
 
     @Test

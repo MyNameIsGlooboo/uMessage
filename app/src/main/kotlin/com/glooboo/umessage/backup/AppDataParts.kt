@@ -10,7 +10,6 @@ import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.MutePrefs
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SavedTexts
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.composerPrefs
@@ -32,8 +31,7 @@ internal object AppDataParts {
     ): List<AppDataPart> {
         val app = context.applicationContext
         val db = app.getMessagesDB()
-        // Provider truth, flag on only: M-D1 (hidden chats left out keep their scheduled messages out) and M-SEC2.
-        val providerTruth = ProviderTruthFlag.enabled
+        // Provider truth: M-D1 (hidden chats left out keep their scheduled messages out) and M-SEC2.
         return listOf(
             ChatStatePart(
                 drafts = db.DraftsDao(),
@@ -47,8 +45,8 @@ internal object AppDataParts {
             scheduledPart(
                 app,
                 ChatLookup(addressesOf = addressesOf, threadFor = threadFor, conversationFor = conversationFor(app)),
-                hiddenChats = if (providerTruth) ({ HiddenChats.get(app).chosenIds() }) else ({ emptySet() }),
-                hold = if (providerTruth) HeldScheduledRestore.hold(app) else null,
+                hiddenChats = { HiddenChats.get(app).chosenIds() },
+                hold = HeldScheduledRestore.hold(app),
             ),
         )
     }

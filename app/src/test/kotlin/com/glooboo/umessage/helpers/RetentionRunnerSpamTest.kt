@@ -14,7 +14,6 @@ import com.glooboo.umessage.spam.FirstRunState
 import com.glooboo.umessage.spam.FirstRunStore
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.RETENTION_CODE_BODY
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -22,19 +21,15 @@ import com.glooboo.umessage.testing.retentionMessage
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
  * Provider truth, step H (answer 6, 3.5): the clean-ups never touch a chat in Spam, and nothing moves before the first
- * sort is published or while a first-run pass works. With the flag off they run as before. Fake numbers only.
+ * sort is published or while a first-run pass works. Fake numbers only.
  */
 @RunWith(AndroidJUnit4::class)
 class RetentionRunnerSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val now = 400 * MessageRetention.DAY_MS
@@ -133,16 +128,6 @@ class RetentionRunnerSpamTest {
         offMainThread { RetentionRunner(context).runIfDue(now + 1000) }
 
         assertThat(binned()).containsExactly(2L)
-    }
-
-    @Test
-    fun withTheFlagOffTheSpamChatIsCleanedLikeAnyOther() {
-        ProviderTruthFlag.enabled = false
-        writeState(FirstRunState())
-
-        offMainThread { RetentionRunner(context).runNow(now) }
-
-        assertThat(binned()).containsExactly(1L, 2L)
     }
 
     private companion object {

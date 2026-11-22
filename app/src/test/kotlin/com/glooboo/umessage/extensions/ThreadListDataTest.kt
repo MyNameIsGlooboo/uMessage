@@ -1,5 +1,6 @@
 package com.glooboo.umessage.extensions
 
+import android.app.role.RoleManager
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -13,6 +14,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowRoleManager
 
 /** Reading a thread's messages, its preview and the recycle bin against a provider with SMS and MMS rows. */
 @RunWith(AndroidJUnit4::class)
@@ -23,6 +26,10 @@ class ThreadListDataTest {
 
     @Before
     fun setUp() {
+        // B-13: the store deletes only for the default SMS app.
+        val roles = shadowOf(context.getSystemService(RoleManager::class.java)) as ShadowRoleManager
+        roles.addAvailableRole(RoleManager.ROLE_SMS)
+        roles.addHeldRole(RoleManager.ROLE_SMS)
         store = FakeThreadStore.install()
         store.addThread(THREAD, FakeThreadStore.ADDRESS)
     }

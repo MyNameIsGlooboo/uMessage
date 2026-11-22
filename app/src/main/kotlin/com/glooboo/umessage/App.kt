@@ -32,7 +32,6 @@ import com.glooboo.umessage.helpers.CacheCleanup
 import com.glooboo.umessage.helpers.DailyChecks
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessagingCache
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.ShortcutHelper
 import com.glooboo.umessage.messaging.MmsDownloadFailure
 import com.glooboo.umessage.messaging.failStaleOutboxMessages
@@ -104,25 +103,24 @@ class App : FossifyApp() {
         step("spam auto-delete") { if (allowsFullSort()) SpamEngine.purgeExpired(this) },
         // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
         step(BLOCKING_MIGRATION) { runBlocking { BlockingMigration.runOnce(this@App) } },
-        // Step E (E-20), flag on only: MMS notices whose download was lost get their chat. E-26: after the blocking
+        // Step E (E-20): MMS notices whose download was lost get their chat. E-26: after the blocking
         // migration, so the filter that judges them already has the old blocked words and the old switch.
         step(MMS_SWEEP) { MmsDownloadFailure.atAppStart(this) },
         step("sorting") { startSorting() },
         // Step F: held messages still waiting are moved here, off the broadcasts (F-19), and the history check owed
-        // for moved senders is asked for (F-14). Nothing with the flag off; nothing before the first sort.
+        // for moved senders is asked for (F-14). Nothing before the first sort.
         step("held messages") { SpamProviderMigration.runPending(this) },
     )
 
     private fun step(name: String, run: () -> Unit) = name to run
 
-    private fun allowsFullSort() = !ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort
+    private fun allowsFullSort() = FirstRun.state(this).value.allowsFullSort
 
     /**
-     * Provider truth (step B), flag on only: the sorting triggers, the first run (resumed after a kill, or started
+     * Provider truth (step B): the sorting triggers, the first run (resumed after a kill, or started
      * for an update) and the app-start sort, which waits until the first sort is published.
      */
     private fun startSorting() {
-        if (!ProviderTruthFlag.enabled) return
         SpamSorting.install(this)
         sortingStarted = true
         // U9: after each sort the launcher and share shortcuts of chats in Spam go (the sweep runs on its own thread).
@@ -139,17 +137,16 @@ class App : FossifyApp() {
     @Volatile
     private var sortingStarted = false
 
-    /** The first run's pages (step G) on the runner's state; null while the flag is off (no pages, as 0.4.14). */
+    /** The first run's pages (step G) on the runner's state; null until [installFirstRunPages] ran. */
     @Volatile
     private var firstRunPages: FirstRunProgressAdapter? = null
 
     /**
-     * Provider truth, flag on only: the first-run pages read the runner's state now, before the main screen's first
+     * Provider truth: the first-run pages read the runner's state now, before the main screen's first
      * frame (G-B4), and the switch confirm counts the chats a change would move by a dry run (G-B3).
      */
     @VisibleForTesting
     internal fun installFirstRunPages() {
-        if (!ProviderTruthFlag.enabled) return
         firstRunPages = FirstRunProgressAdapter.forApp(this).also(FirstRunPagesHost::install)
         ChatMoveCounting.counter = SortDryRun.forApp(this)
     }
@@ -218,7 +215,7 @@ internal object AppLockGuard : Application.ActivityLifecycleCallbacks {
     override fun onActivityResumed(activity: Activity) {
         applyWindowProtection(activity)
         // Provider truth: the main list after the welcome flow, a new default-app or contacts grant, a return to the
-        // app. Only posts a check to the sorting thread; nothing while the flag is off.
+        // app. Only posts a check to the sorting thread.
         if (activity is MainActivity) (activity.application as? App)?.checkFirstRun()
         // The invisible "Copy code" screen (N6) shows nothing of the app, so it never asks for the PIN.
         if (activity is LockActivity || activity is SplashActivity || activity is CopyCodeActivity) return

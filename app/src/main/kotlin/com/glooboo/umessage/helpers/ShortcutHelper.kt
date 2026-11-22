@@ -153,11 +153,10 @@ class ShortcutHelper(private val context: Context) {
     private fun isHidden(threadId: Long) = HiddenChats.get(context).isMarked(threadId) || spamState(threadId) != false
 
     /**
-     * Provider truth (U9, section 5): whether [threadId] is in Spam; always false while ProviderTruthFlag is off. It
-     * is a database read, so on the main thread, or when the read fails, it is not known (null) and counts as "may be".
+     * Provider truth (U9, section 5): whether [threadId] is in Spam. It is a database read, so on the main thread, or
+     * when the read fails, it is not known (null) and counts as "may be".
      */
     private fun spamState(threadId: Long): Boolean? = when {
-        !ProviderTruthFlag.enabled -> false
         isOnMainThread() -> null
         else -> runCatching { inSpamRead(context, threadId) }.getOrNull()
     }
@@ -180,10 +179,10 @@ class ShortcutHelper(private val context: Context) {
     /**
      * Provider truth (U9, section 5): removes the shortcuts of every chat in Spam, so the launcher and the Share sheet
      * do not offer them. A pinned home-screen shortcut cannot be removed by the app (U22); it opens the chat behind its
-     * lock gate. Off the main thread. Nothing happens while ProviderTruthFlag is off.
+     * lock gate. Off the main thread.
      */
     fun removeSpamShortcuts() {
-        if (!ProviderTruthFlag.enabled || isOnMainThread()) return
+        if (isOnMainThread()) return
         val spam = runCatching { context.conversationsDB.getValidSpamThreads() }.getOrNull() ?: return
         if (spam.isEmpty()) return
         val ids = spam.mapTo(HashSet()) { it.threadId.toString() }
@@ -200,15 +199,14 @@ class ShortcutHelper(private val context: Context) {
     /**
      * Pushes [shortcut], or updates it when the chat has one, and returns it. An update the launcher turns down (a rate
      * limit) keeps the chat's existing shortcut, which is still published, so it is returned too. H-11 (provider
-     * truth): null for a hidden chat or one in Spam, which get none; with ProviderTruthFlag off such a chat returns the
-     * shortcut unpublished, as 0.4.14 did.
+     * truth): null for a hidden chat or one in Spam, which get none.
      */
     @VisibleForTesting
     internal fun publish(shortcut: ShortcutInfoCompat): ShortcutInfoCompat? {
         val id = shortcut.id.toLong()
         if (isHidden(id)) {
             dropIfSpam(id)
-            return if (ProviderTruthFlag.enabled) null else shortcut
+            return null
         }
         if (getShortcut(id) != null) {
             updateShortcutsCall(context, listOf(shortcut))
@@ -281,8 +279,7 @@ class ShortcutHelper(private val context: Context) {
 
         /**
          * Provider truth (U9): at once and after every sort that moved chats, the shortcuts of chats in Spam go
-         * ([removeSpamShortcuts]), on an IO thread. Called once at app start with the flag on; a second call does
-         * nothing. Nothing is removed while ProviderTruthFlag is off.
+         * ([removeSpamShortcuts]), on an IO thread. Called once at app start; a second call does nothing.
          */
         @Synchronized
         fun watchSpam(context: Context) {
@@ -295,19 +292,17 @@ class ShortcutHelper(private val context: Context) {
 
         /**
          * H-3 (provider truth): a text placed [threadId] in Spam on arrival; its launcher and share shortcuts go at
-         * once (no sort reports that move). Never throws. Nothing happens while ProviderTruthFlag is off.
+         * once (no sort reports that move). Never throws.
          */
         fun removeForSpam(context: Context, threadId: Long) {
-            if (!ProviderTruthFlag.enabled) return
             runCatching { ShortcutHelper(context.applicationContext).removeSpamShortcuts(listOf(threadId.toString())) }
         }
 
         /**
          * H-3, J4-1: a spam text arrived in [threadId]; its shortcuts go when the chat is in Spam, or may be (the
-         * read failed). Never throws. Nothing happens while ProviderTruthFlag is off.
+         * read failed). Never throws.
          */
         fun removeIfMaybeSpam(context: Context, threadId: Long) {
-            if (!ProviderTruthFlag.enabled) return
             val app = context.applicationContext
             if (runCatching { inSpamRead(app, threadId) }.getOrDefault(true)) removeForSpam(app, threadId)
         }

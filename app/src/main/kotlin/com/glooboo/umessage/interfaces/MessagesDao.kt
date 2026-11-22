@@ -11,7 +11,6 @@ import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.glooboo.umessage.helpers.MessageFoldBackfill
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.models.RecycleBinMessage
@@ -49,8 +48,8 @@ enum class SearchPlace(val messagesWhere: String, val conversationsWhere: String
     ;
 
     companion object {
-        /** The place of the Messages side: everything while ProviderTruthFlag is off. */
-        fun outsideSpam(): SearchPlace = if (ProviderTruthFlag.enabled) OUTSIDE_SPAM else ALL
+        /** The place of the Messages side. */
+        fun outsideSpam(): SearchPlace = OUTSIDE_SPAM
     }
 }
 

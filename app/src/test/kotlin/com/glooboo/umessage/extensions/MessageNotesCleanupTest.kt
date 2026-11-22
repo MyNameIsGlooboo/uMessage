@@ -1,5 +1,6 @@
 package com.glooboo.umessage.extensions
 
+import android.app.role.RoleManager
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -13,6 +14,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowRoleManager
 
 /**
  * A note stays while its message is in the recycle bin (also after it comes back) and goes when the message is
@@ -26,6 +29,10 @@ class MessageNotesCleanupTest {
 
     @Before
     fun setUp() {
+        // B-13: the store deletes only for the default SMS app.
+        val roles = shadowOf(context.getSystemService(RoleManager::class.java)) as ShadowRoleManager
+        roles.addAvailableRole(RoleManager.ROLE_SMS)
+        roles.addHeldRole(RoleManager.ROLE_SMS)
         store = FakeThreadStore.install()
         store.addThread(THREAD, FakeThreadStore.ADDRESS)
         store.addSms(1, THREAD, "Paid 12.50 at the shop", dateMs = 1_700_000_000_000)

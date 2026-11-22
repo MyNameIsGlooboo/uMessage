@@ -46,7 +46,7 @@ import java.io.InputStream
  *
  * Restoring is idempotent (see [MessagesWriter]), so running the same file again only adds what is missing.
  *
- * Provider truth (flag on): restored old Spam entries go into the phone's store by the message migration's probe and
+ * Provider truth: restored old Spam entries go into the phone's store by the message migration's probe and
  * write steps (S16), and a restore that changed anything runs the history check and the sort
  * ([FirstRunTrigger.RESTORE]).
  */
@@ -95,8 +95,7 @@ class MessagesImporter(
                 MessageCacheImport.restart(context)
                 // J2: the main list reads the restored chats at once, also while it is out of sight.
                 ConversationListSync.refreshNow()
-                // Provider truth (3.5): restored rules, members and sent texts change who is known; nothing with the
-                // flag off.
+                // Provider truth (3.5): restored rules, members and sent texts change who is known.
                 FirstRun.request(context, FirstRunTrigger.RESTORE)
             } else if (summary.appDataRestored > 0) {
                 // Archived chats and recycle-bin names waiting for their rows (PendingArchive, PendingRecycled): the
@@ -108,7 +107,7 @@ class MessagesImporter(
     }
 
     /**
-     * S16: with the flag on, the old Spam entries just restored go into the phone's store with the probe and write
+     * S16: the old Spam entries just restored go into the phone's store with the probe and write
      * steps of the message migration; when uMessage is not the default app they wait in the held table for it. The
      * RESTORE pass that follows checks their senders, so the migration asks for no pass of its own.
      */
@@ -226,8 +225,8 @@ class MessagesImporter(
 
     /**
      * Puts a blocked message back in the Blocked folder (the kinds the user chose). It never reaches the inbox or the
-     * system store from here, sends nothing and shows no notification (with the flag on, [moveRestoredSpam] moves it
-     * to the store at the end). A failure leaves the message out and goes on.
+     * system store from here, sends nothing and shows no notification ([moveRestoredSpam] moves it to the store at
+     * the end). A failure leaves the message out and goes on.
      */
     private fun restoreBlocked(backup: BlockedBackup, options: Options, summary: ImportSummary) {
         if (!(if (backup.isMms) options.mms else options.sms)) return

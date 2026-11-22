@@ -4,31 +4,24 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
 import com.glooboo.umessage.spam.data.BlockedMessageEntity
 import com.glooboo.umessage.spam.data.MigrationMark
 import com.glooboo.umessage.spam.data.SpamDatabase
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
  * Section 9: with provider truth the backup reads Spam from the phone's store like any message, so old Spam entries
- * are written only for held rows not moved yet. With the flag off every held row goes along, as in 0.4.14. Every
- * number is made up.
+ * are written only for held rows not moved yet. Every number is made up.
  */
 @RunWith(AndroidJUnit4::class)
 class OlderSpamBackupTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context get() = ApplicationProvider.getApplicationContext()
     private lateinit var db: SpamDatabase
@@ -60,12 +53,5 @@ class OlderSpamBackupTest {
     @Test
     fun onlyRowsNotMovedYetGoAlongAsOldSpamEntries() {
         assertThat(collected()).containsExactly("not moved", "written, not verified").inOrder()
-    }
-
-    @Test
-    fun withTheFlagOffEveryHeldRowGoesAlongAsIn0414() {
-        ProviderTruthFlag.enabled = false
-
-        assertThat(collected()).hasSize(4)
     }
 }
