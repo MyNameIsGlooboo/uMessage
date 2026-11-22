@@ -24,6 +24,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
+import com.glooboo.umessage.helpers.CleanupPrefs
+import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
@@ -129,15 +131,29 @@ class OnboardingActivity : ComponentActivity() {
 /**
  * Holds the one filter switch (the Welcome choice) and writes it through the frozen [UMessage] repository. Nothing
  * here writes the auto-delete days any more (S13). The one-argument constructor is the one viewModel() finds.
+ * J16: also the quiet Spam notification (`notifyOnBlock`, through the repository) and the weekly summary
+ * ([CleanupPrefs.digestOn]), the same settings Settings shows. Welcome writes neither until its switch is tapped.
  */
 class OnboardingViewModel @JvmOverloads constructor(
     app: Application,
+    // Creating the Config applies the install defaults (InstallDefaults) first, so a new install reads the summary on.
+    private val cleanupPrefs: () -> CleanupPrefs = {
+        Config.newInstance(app)
+        CleanupPrefs.get(app)
+    },
+    // Last, so a test's trailing lambda is the repository.
     private val repository: () -> SpamRepository = { UMessage.repository(app) },
 ) : AndroidViewModel(app) {
     private val _filterOn = MutableStateFlow(SpamSettings().filterOn)
     val filterOn: StateFlow<Boolean> = _filterOn.asStateFlow()
 
-    /** The Welcome choice could not be stored; the page says so, and the next tap tries again. */
+    private val _notifyOnBlock = MutableStateFlow(SpamSettings().notifyOnBlock)
+    val notifyOnBlock: StateFlow<Boolean> = _notifyOnBlock.asStateFlow()
+
+    private val _digestOn = MutableStateFlow(cleanupPrefs().digestOn)
+    val digestOn: StateFlow<Boolean> = _digestOn.asStateFlow()
+
+    /** A Welcome setting could not be stored; the page says so, and the next tap tries again. */
     private val _filterSaveFailed = MutableStateFlow(false)
     val filterSaveFailed: StateFlow<Boolean> = _filterSaveFailed.asStateFlow()
 
@@ -145,13 +161,33 @@ class OnboardingViewModel @JvmOverloads constructor(
     @Volatile
     private var filterChosen = false
 
+    @Volatile
+    private var notifyChosen = false
+
     init {
         viewModelScope.launch {
             // The engine may not be installed yet (or in previews); keep defaults then.
             runCatching { repository().settings.first() }.onSuccess {
                 if (!filterChosen) _filterOn.value = it.filterOn
+                if (!notifyChosen) _notifyOnBlock.value = it.notifyOnBlock
             }
         }
+    }
+
+    /** J16: the quiet notification for texts that go to Spam, the `notifyOnBlock` setting. */
+    fun setNotifyOnBlock(on: Boolean) {
+        notifyChosen = true
+        _notifyOnBlock.value = on
+        viewModelScope.launch {
+            val saved = runCatching { repository().updateSettings { it.copy(notifyOnBlock = on) } }.isSuccess
+            _filterSaveFailed.value = !saved
+        }
+    }
+
+    /** J16: the weekly Spam summary, the switch Settings > Notifications shows. */
+    fun setDigestOn(on: Boolean) {
+        _digestOn.value = on
+        cleanupPrefs().digestOn = on
     }
 
     /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */

@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/** U07, U42: a new install starts with the recycle bin on and the summary off; an older install keeps what it had. */
+/** U07, U42, J16: a new install starts with the recycle bin and the summary on; an older install keeps what it had. */
 @RunWith(AndroidJUnit4::class)
 class InstallDefaultsTest {
 
@@ -28,11 +28,11 @@ class InstallDefaultsTest {
     }
 
     @Test
-    fun aNewInstallKeepsDeletedMessagesStartsWithoutTheSummaryAndAsksForDeliveryReports() {
+    fun aNewInstallKeepsDeletedMessagesStartsWithTheSummaryAndAsksForDeliveryReports() {
         InstallDefaults.apply(context, configPrefs)
 
         assertThat(configPrefs.getBoolean(USE_RECYCLE_BIN, false)).isTrue()
-        assertThat(cleanup.digestOn).isFalse()
+        assertThat(cleanup.digestOn).isTrue()
         assertThat(cleanup.digestChosen).isTrue()
         assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, false)).isTrue()
         assertThat(marker.getBoolean("defaults_applied", false)).isTrue()
@@ -47,20 +47,20 @@ class InstallDefaultsTest {
 
         assertThat(config.useRecycleBin).isTrue()
         assertThat(config.enableDeliveryReports).isTrue()
-        assertThat(cleanup.digestOn).isFalse()
+        assertThat(cleanup.digestOn).isTrue()
     }
 
     @Test
     fun theLaterLaunchesOfANewInstallChangeNothing() {
         InstallDefaults.apply(context, configPrefs)
         configPrefs.edit().putBoolean(USE_RECYCLE_BIN, false).putBoolean(ENABLE_DELIVERY_REPORTS, false).commit()
-        cleanup.digestOn = true
+        cleanup.digestOn = false
 
         InstallDefaults.apply(context, configPrefs)
 
         assertThat(configPrefs.getBoolean(USE_RECYCLE_BIN, true)).isFalse()
         assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, true)).isFalse()
-        assertThat(cleanup.digestOn).isTrue()
+        assertThat(cleanup.digestOn).isFalse()
     }
 
     @Test
@@ -73,7 +73,7 @@ class InstallDefaultsTest {
 
         assertThat(Config.newInstance(context).useRecycleBin).isTrue()
         assertThat(Config.newInstance(context).enableDeliveryReports).isTrue()
-        assertThat(context.cleanupPrefs.digestOn).isFalse()
+        assertThat(context.cleanupPrefs.digestOn).isTrue()
     }
 
     @Test
@@ -122,13 +122,25 @@ class InstallDefaultsTest {
     @Test
     fun aNewInstallNeverOverwritesStoredValues() {
         configPrefs.edit().putBoolean(USE_RECYCLE_BIN, false).putBoolean(ENABLE_DELIVERY_REPORTS, false).commit()
-        cleanup.digestOn = true
+        cleanup.digestOn = false
 
         InstallDefaults.apply(context, configPrefs)
 
         assertThat(configPrefs.getBoolean(USE_RECYCLE_BIN, true)).isFalse()
         assertThat(configPrefs.getBoolean(ENABLE_DELIVERY_REPORTS, true)).isFalse()
-        assertThat(cleanup.digestOn).isTrue()
+        assertThat(cleanup.digestOn).isFalse()
+    }
+
+    @Test
+    fun anUpdateFromAnInstallThatStartedWithTheSummaryOffKeepsItOff() {
+        // J16: an install whose defaults were applied while a new install started with the summary off.
+        cleanup.digestOn = false
+        marker.edit().putBoolean("defaults_applied", true).commit()
+        OnboardingState.setCompleted(context)
+
+        Config.newInstance(context)
+
+        assertThat(cleanup.digestOn).isFalse()
     }
 
     @Test

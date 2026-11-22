@@ -6,8 +6,8 @@ import androidx.core.content.edit
 
 /**
  * I02, I45, I08: what the app cleans up and reports by itself, in its own preferences file. Everything cleans up
- * nothing until the user chooses: [codeDays] and [oldMessageDays] are 0 (never) by default, and so is [digestOn] on a
- * new install (U42): no notification the user did not ask for.
+ * nothing until the user chooses: [codeDays] and [oldMessageDays] are 0 (never) by default. [digestOn] is set by
+ * [InstallDefaults] (on, J16) and offered on the Welcome page.
  */
 class CleanupPrefs private constructor(private val prefs: SharedPreferences) {
 
@@ -26,7 +26,7 @@ class CleanupPrefs private constructor(private val prefs: SharedPreferences) {
         get() = prefs.getBoolean(KEY_CODE_CARD_DISMISSED, false)
         set(value) = prefs.edit { putBoolean(KEY_CODE_CARD_DISMISSED, value) }
 
-    /** I08: a quiet weekly summary of what was blocked. Off until chosen; see [InstallDefaults] for older installs. */
+    /** I08: a quiet weekly summary of what was blocked. Off until set; [InstallDefaults] switches it on (J16). */
     var digestOn: Boolean
         get() = prefs.getBoolean(KEY_DIGEST_ON, false)
         set(value) = prefs.edit { putBoolean(KEY_DIGEST_ON, value) }

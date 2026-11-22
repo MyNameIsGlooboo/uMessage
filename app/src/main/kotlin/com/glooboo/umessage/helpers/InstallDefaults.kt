@@ -6,10 +6,10 @@ import androidx.core.content.edit
 import com.glooboo.umessage.ui.onboarding.OnboardingState
 
 /**
- * U07, U42: the defaults that are not the same for a new install and an old one. A new install keeps deleted
- * messages in the recycle bin for 30 days, starts with the weekly summary off and asks for delivery reports; an
- * install made before that keeps what it had (bin off unless switched on, summary on unless switched off, delivery
- * reports off unless switched on). Run when [Config] is created.
+ * U07, U42, J16: the defaults that are not the same for a new install and an old one. A new install keeps deleted
+ * messages in the recycle bin for 30 days, starts with the weekly summary on (J16; U42 had it off) and asks for
+ * delivery reports; an install made before that keeps what it had (bin off unless switched on, the summary as stored,
+ * else on, delivery reports off unless switched on). Run when [Config] is created.
  *
  * A fresh install is told from an older one by the welcome flow never having been finished, not by a theme key that
  * other code may write first. The answer is applied once: a marker in its own preferences file records it.
@@ -43,7 +43,8 @@ object InstallDefaults {
             if (!configPrefs.contains(USE_RECYCLE_BIN)) putBoolean(USE_RECYCLE_BIN, true)
             if (!configPrefs.contains(ENABLE_DELIVERY_REPORTS)) putBoolean(ENABLE_DELIVERY_REPORTS, true)
         }
-        if (!cleanup.digestChosen) cleanup.digestOn = false
+        // J16: the Welcome page offers the summary switched on. A stored choice (an install from the U42 days) stays.
+        if (!cleanup.digestChosen) cleanup.digestOn = true
     }
 
     private fun applyOlderInstall(configPrefs: SharedPreferences, cleanup: CleanupPrefs) {
