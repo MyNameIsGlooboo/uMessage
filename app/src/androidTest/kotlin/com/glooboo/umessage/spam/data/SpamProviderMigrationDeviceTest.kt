@@ -9,9 +9,12 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.glooboo.umessage.BuildConfig
+import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.mms.BlockedMmsStore
 import com.glooboo.umessage.testing.DeviceTest
+import com.glooboo.umessage.testing.NoForwarding
 import com.glooboo.umessage.testing.SmsRole
 import com.google.android.mms.pdu_alt.PduHeaders
 import org.junit.After
@@ -25,6 +28,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /**
  * Spec 12.2, the message migration against the emulator's real telephony provider. A spamless.db of schema 8 (0.4.14)
@@ -35,8 +40,11 @@ import java.io.ByteArrayOutputStream
  * placeholder writes nothing. A second run changes nothing.
  *
  * The file has its own name and the journal its own preferences, so the app's live spamless.db and journal are not
- * touched. Needs the SMS role (taken for the test and kept until the uninstall). Emulator only. Every number is
- * made up.
+ * touched. The test waits until the app's own start-up work and any first run are over, and its mover serves only
+ * the test's thread, so an app-start run can never move the test file's rows (or the live file's rows into the
+ * test's counts). The pass requests of the migration are stubbed for the test. Needs the SMS role (taken for the
+ * test and kept until the uninstall). Forwarding is paused. Emulator only. Every number is made up and unknown to
+ * the app.
  */
 @RunWith(AndroidJUnit4::class)
 class SpamProviderMigrationDeviceTest {
@@ -47,6 +55,11 @@ class SpamProviderMigrationDeviceTest {
     private val app: Context = DeviceTest.context
     private var db: SpamDatabase? = null
     private val keptFiles = mutableListOf<String>()
+    private val noForwarding = NoForwarding()
+    private val testThread = Thread.currentThread()
+    private val originalMover = SpamProviderMigration.moverFor
+    private val originalRequestPass = SpamProviderMigration.requestPass
+    private val originalAfterPass = SpamProviderMigration.afterPass
 
     /** A held row of the seed and what the migration must do with it. */
     private data class Held(
@@ -78,14 +91,45 @@ class SpamProviderMigrationDeviceTest {
         DeviceTest.assumeEmulator()
         SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
+        DeviceTest.assumeUnknownSenders(SENDERS)
+        noForwarding.start()
+        waitForAppStart()
+        SpamProviderMigration.requestPass = { context, trigger ->
+            if (Thread.currentThread() !== testThread) originalRequestPass(context, trigger)
+        }
+        SpamProviderMigration.afterPass = { context ->
+            if (Thread.currentThread() !== testThread) originalAfterPass(context)
+        }
         DeviceTest.forgetChats(SENDERS)
         app.deleteDatabase(TEST_DB)
         app.deleteSharedPreferences(TEST_JOURNAL)
     }
 
+    /**
+     * The app's start-up steps (App.onCreate, one background thread ending with the app's own migration run) are
+     * over, no first run works, and the sorting thread has nothing queued.
+     */
+    private fun waitForAppStart() {
+        val appStartRunning = {
+            Thread.getAllStackTraces().values.any { frames ->
+                frames.any { it.className == APP_CLASS || it.className.startsWith("$APP_CLASS$") }
+            }
+        }
+        assertTrue("app start finished", DeviceTest.waitFor(timeoutMs = 120_000L) { !appStartRunning() })
+        assertTrue("no first run", DeviceTest.waitFor(timeoutMs = 120_000L) { !FirstRun.state(app).value.active })
+        val drained = CountDownLatch(1)
+        SpamSorting.execute(Runnable { drained.countDown() })
+        assertTrue("sorting idle", drained.await(120L, TimeUnit.SECONDS))
+        // A run still inside the migration holds its lock; this waits for it.
+        synchronized(SpamProviderMigration.lock) {}
+    }
+
     @After
     fun tearDown() {
-        SpamProviderMigration.moverFor = AndroidOlderSpam::mover
+        SpamProviderMigration.moverFor = originalMover
+        SpamProviderMigration.requestPass = originalRequestPass
+        SpamProviderMigration.afterPass = originalAfterPass
+        noForwarding.end()
         runCatching { db?.close() }
         app.deleteDatabase(TEST_DB)
         app.deleteSharedPreferences(TEST_JOURNAL)
@@ -140,15 +184,20 @@ class SpamProviderMigrationDeviceTest {
     private fun migrate(): MigrationResult {
         val opened = db ?: SpamDatabase.build(app, TEST_DB).also { db = it }
         val journal = app.getSharedPreferences(TEST_JOURNAL, Context.MODE_PRIVATE)
+        // Only the test's own thread gets the test file's mover; any other caller gets the app's own.
         SpamProviderMigration.moverFor = { context ->
-            val store = AndroidMigrationStore(context.applicationContext)
-            OlderSpamMover(
-                rows = AndroidMigrationRows(context.applicationContext, opened),
-                probe = store,
-                writer = store,
-                journal = PrefsMigrationJournal(journal),
-                appVersion = BuildConfig.VERSION_CODE,
-            )
+            if (Thread.currentThread() !== testThread) {
+                originalMover(context)
+            } else {
+                val store = AndroidMigrationStore(context.applicationContext)
+                OlderSpamMover(
+                    rows = AndroidMigrationRows(context.applicationContext, opened),
+                    probe = store,
+                    writer = store,
+                    journal = PrefsMigrationJournal(journal),
+                    appVersion = BuildConfig.VERSION_CODE,
+                )
+            }
         }
         return SpamProviderMigration.migrate(app)
     }
@@ -277,6 +326,7 @@ class SpamProviderMigrationDeviceTest {
     private companion object {
         const val TEST_DB = "j10-spamless-v8.db"
         const val TEST_JOURNAL = "j10_older_spam_test"
+        const val APP_CLASS = "com.glooboo.umessage.App"
         const val MINUTE_MS = 60_000L
         const val DAY_S = 24L * 60 * 60
         const val THREE_DAYS_MS = 3 * DAY_S * 1000

@@ -1,16 +1,15 @@
 package com.glooboo.umessage.spam.data
 
+import android.app.NotificationManager
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.spam.ListKind
-import com.glooboo.umessage.spam.RuleType
-import com.glooboo.umessage.spam.SpamRule
-import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.testing.DeviceTest
+import com.glooboo.umessage.testing.NoForwarding
 import com.glooboo.umessage.testing.SmsRole
-import kotlinx.coroutines.runBlocking
+import com.glooboo.umessage.testing.TestRules
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -25,30 +24,32 @@ import org.junit.runner.RunWith
  * sender has a block rule goes the incoming path ([IncomingSmsProcessor.process]); the store keeps it read = 1 and
  * seen = 1 in the sender's own thread, and the app's list readers put that chat in Spam and not in Messages.
  *
- * Needs the SMS role (taken for the test and kept until the uninstall). Emulator only. The sender is made up.
+ * Needs the SMS role (taken for the test and kept until the uninstall). Forwarding is paused for the test. Emulator
+ * only. The sender is made up and must be unknown to the app (no allow rule, group or contact).
  */
 @RunWith(AndroidJUnit4::class)
 class SpamInsertRoundTripTest {
 
     private val app = DeviceTest.context
-    private var ruleId = 0L
+    private val rules = TestRules()
+    private val noForwarding = NoForwarding()
 
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
         SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
+        DeviceTest.assumeUnknownSenders(listOf(SENDER))
+        noForwarding.start()
         DeviceTest.forgetChats(listOf(SENDER))
-        ruleId = runBlocking {
-            SpamEngine.repository(app)
-                .addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER))
-        }
+        rules.add(ListKind.BLOCK, SENDER)
     }
 
     @After
     fun tearDown() {
         DeviceTest.forgetChats(listOf(SENDER))
-        if (ruleId > 0L) runCatching { runBlocking { SpamEngine.repository(app).removeRule(ruleId) } }
+        rules.removeAdded()
+        noForwarding.end()
     }
 
     @Test
@@ -88,12 +89,15 @@ class SpamInsertRoundTripTest {
         assertTrue("in Spam by the list rule", dao.isInSpam(threadId))
         assertFalse("not listed in Messages", dao.getMessagesList().any { it.threadId == threadId })
         assertEquals("unread count in Spam", 1, dao.getSpamThread(threadId)?.unread)
+        // A blocked sender never notifies: no message notification and no Spam notice for the chat.
+        val notifications = app.getSystemService(NotificationManager::class.java).activeNotifications
+        assertFalse("silent", notifications.any { it.id == threadId.hashCode() })
     }
 
     /** One store row as read above. */
     private data class Stored(val threadId: Long, val read: Int, val seen: Int, val type: Int, val date: Long)
 
     private companion object {
-        const val SENDER = "+15550001234"
+        const val SENDER = "+15550004111"
     }
 }

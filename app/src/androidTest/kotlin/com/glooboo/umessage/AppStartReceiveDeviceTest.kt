@@ -17,13 +17,11 @@ import com.glooboo.umessage.activities.MainActivity
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.receivers.SmsReceiver
 import com.glooboo.umessage.spam.ListKind
-import com.glooboo.umessage.spam.RuleType
-import com.glooboo.umessage.spam.SpamRule
-import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.testing.DeviceTest
+import com.glooboo.umessage.testing.NoForwarding
 import com.glooboo.umessage.testing.SmsRole
+import com.glooboo.umessage.testing.TestRules
 import com.glooboo.umessage.ui.onboarding.OnboardingState
-import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -39,26 +37,29 @@ import java.util.TimeZone
 /**
  * Spec 12.2 / M-T5: the app starts and receives a text. MainActivity is launched; then two incoming SMS go the app's
  * receiver path ([SmsReceiver.handle] with an SMS_DELIVER intent and a 3GPP PDU, as Android delivers it; nothing is
- * sent, no `adb emu sms`). The one from an allowed sender is stored unread in its thread, listed in Messages and shown
- * on the main screen; the one from a blocked sender is stored read, silent and listed in Spam only.
+ * sent, no `adb emu sms`). The one from an allowed sender is stored unread in its thread, listed in Messages, shown
+ * on the main screen and announced (one notification for its chat); the one from a blocked sender is stored read,
+ * listed in Spam only and silent (no notification for its chat). Forwarding is paused for the test and the test stops
+ * when a forward rule is on, so the allowed text can never be forwarded.
  *
  * Instrumented tests run on the debug build (`connectedFossDebugAndroidTest`); the minified daily build cannot be the
  * instrumented target, so M-T5 on the daily build stays a manual check (plan 4.4). Needs the SMS role (taken for the
- * test and kept until the uninstall). Emulator only. Both senders are made up.
+ * test and kept until the uninstall). Emulator only. Both senders are made up and must be unknown to the app.
  */
 @RunWith(AndroidJUnit4::class)
 class AppStartReceiveDeviceTest {
 
     private val app = DeviceTest.context
     private var onboardingDone = false
-    private val ruleIds = mutableListOf<Long>()
+    private val rules = TestRules()
+    private val noForwarding = NoForwarding()
+    private val threads = mutableListOf<Long>()
 
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
         SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
-        DeviceTest.forgetChats(SENDERS)
         // Past the Welcome pages, as after a finished onboarding; given back after the test.
         onboardingDone = OnboardingState.isCompleted(app)
         OnboardingState.setCompleted(app, true)
@@ -69,20 +70,30 @@ class AppStartReceiveDeviceTest {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             grantIfMissing(Manifest.permission.POST_NOTIFICATIONS)
         }
-        runBlocking {
-            val repository = SpamEngine.repository(app)
-            ruleIds += repository.addRule(SpamRule(kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = ALLOWED))
-            ruleIds += repository.addRule(SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = BLOCKED))
-        }
+        DeviceTest.assumeUnknownSenders(SENDERS)
+        noForwarding.start()
+        DeviceTest.forgetChats(SENDERS)
+        rules.add(ListKind.ALLOW, ALLOWED)
+        rules.add(ListKind.BLOCK, BLOCKED)
     }
 
     @After
     fun tearDown() {
+        // Only the notifications of the test's own chats go.
+        runCatching {
+            val manager = app.getSystemService(NotificationManager::class.java)
+            manager.activeNotifications.filter { n -> threads.any { n.id == it.hashCode() } }
+                .forEach { manager.cancel(it.tag, it.id) }
+        }
         DeviceTest.forgetChats(SENDERS)
-        runCatching { runBlocking { SpamEngine.repository(app).removeRules(ruleIds) } }
-        runCatching { app.getSystemService(NotificationManager::class.java).cancelAll() }
+        rules.removeAdded()
+        noForwarding.end()
         OnboardingState.setCompleted(app, onboardingDone)
     }
+
+    /** Active notifications of the app for chat [threadId] (a message notification or a Spam notice). */
+    private fun notificationsOf(threadId: Long) = app.getSystemService(NotificationManager::class.java)
+        .activeNotifications.filter { it.id == threadId.hashCode() }
 
     private fun grantIfMissing(permission: String) {
         if (app.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) return
@@ -101,6 +112,7 @@ class AppStartReceiveDeviceTest {
 
             val dao = app.conversationsDB
             val helloRow = storedRow(ALLOWED, hello)
+            threads += helloRow.thread
             assertEquals("allowed text: unread", 0, helloRow.read)
             assertEquals("allowed text: own thread", Threads.getOrCreateThreadId(app, ALLOWED), helloRow.thread)
             assertTrue(
@@ -111,6 +123,7 @@ class AppStartReceiveDeviceTest {
             assertTrue("allowed text: on the main screen", DeviceTest.waitFor(timeoutMs = 20_000L) { shows(hello) })
 
             val advertRow = storedRow(BLOCKED, advert)
+            threads += advertRow.thread
             assertEquals("spam text: read", 1, advertRow.read)
             assertEquals("spam text: seen", 1, advertRow.seen)
             assertEquals("spam text: own thread", Threads.getOrCreateThreadId(app, BLOCKED), advertRow.thread)
@@ -119,6 +132,14 @@ class AppStartReceiveDeviceTest {
                 DeviceTest.waitFor { dao.getSpamList().any { it.threadId == advertRow.thread } },
             )
             assertFalse("spam text: not in Messages", dao.getMessagesList().any { it.threadId == advertRow.thread })
+
+            // Announced and silent. Posts run on a background thread, so the allowed one is waited for; the blocked
+            // text was received right after it, so a notification for it would be there by then too.
+            assertTrue(
+                "allowed text: one notification",
+                DeviceTest.waitFor(timeoutMs = 15_000L) { notificationsOf(helloRow.thread).size == 1 },
+            )
+            assertTrue("spam text: no notification", notificationsOf(advertRow.thread).isEmpty())
         }
     }
 
@@ -159,8 +180,8 @@ class AppStartReceiveDeviceTest {
             .putExtra("format", "3gpp")
 
     private companion object {
-        const val ALLOWED = "+15550001235"
-        const val BLOCKED = "+15550001234"
+        const val ALLOWED = "+15550004121"
+        const val BLOCKED = "+15550004122"
         val SENDERS = listOf(ALLOWED, BLOCKED)
     }
 }
