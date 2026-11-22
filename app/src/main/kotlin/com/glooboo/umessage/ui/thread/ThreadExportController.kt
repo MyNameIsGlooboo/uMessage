@@ -7,6 +7,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -94,6 +95,9 @@ class ThreadExportController(
     private fun showProgress(cancelled: AtomicBoolean) {
         activity.showComposeDialog { dismiss ->
             LaunchedEffect(progressDone) { if (progressDone) dismiss() }
+            // K2-6: closed before the export ended (the chat left under the app lock, or another chat loaded in
+            // place): the export stops, so no share sheet opens later on its own.
+            DisposableEffect(Unit) { onDispose { if (!progressDone) cancelled.set(true) } }
             AlertDialog(
                 onDismissRequest = {},
                 title = { Text(stringResource(R.string.export_conv_title)) },

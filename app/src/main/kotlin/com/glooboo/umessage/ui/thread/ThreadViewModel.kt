@@ -269,6 +269,27 @@ class ThreadViewModel(private val saved: SavedStateHandle = SavedStateHandle(emp
     /** Bumped by the activity to ask the text field for focus (new conversations open the keyboard). */
     var focusInput by mutableIntStateOf(0)
 
+    /** Whether the message field has the focus now; the activity gives it back after the app lock (K2-6). */
+    var composerFocused = false
+
+    /** Bumped by [closeWindows]: dialogs kept in a composable's own state close too. */
+    var windowsClosed by mutableIntStateOf(0)
+        private set
+
+    /**
+     * K2-6: closes the sheets and dialogs of the chat. Each draws in a window of its own, which the app lock's cover
+     * of the screen (M-SEC1) does not hide, so they are closed when the app is left while the lock is on.
+     */
+    fun closeWindows() {
+        showAttachSheet = false
+        showSavedTexts = false
+        pendingLink = null
+        deliveryDetailsFor = null
+        labelsFor = null
+        notes.dismiss()
+        windowsClosed++
+    }
+
     /**
      * Send is on for real text or at least one attachment, and never while a photo is still being shrunk: sending
      * then went out with the full-size original (TU-05). Text of only spaces or line breaks does not count (TU-04).

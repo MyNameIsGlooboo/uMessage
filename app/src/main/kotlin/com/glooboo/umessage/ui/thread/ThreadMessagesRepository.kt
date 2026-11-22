@@ -78,8 +78,12 @@ class ThreadMessagesRepository(
      */
     fun ifCurrent(expected: Int, write: () -> Unit): Boolean = store.runIf(expected, write)
 
-    fun reset() {
-        store.clear()
+    /**
+     * Empties the list for another chat. [beforeBump] clears the screen's fields of the old chat in the same lock and
+     * before the new [generation] can be read (J5-4): whoever reads the new generation sees those fields cleared.
+     */
+    fun reset(beforeBump: () -> Unit = {}) {
+        store.clear(beforeBump)
         allFetched = false
         loadingOlder = false
     }
@@ -114,7 +118,8 @@ class ThreadMessagesRepository(
         val older = source.older(threadId, cutoff, current)
         if (older.isEmpty()) {
             val exhausted = isHistoryExhausted(pageSize = 0, probeHasOlder = source.hasOlder(threadId, cutoff))
-            if (!isStale(expected)) allFetched = exhausted
+            // K2-2: atomic against reset, which clears the flag for the chat loaded in place.
+            store.runIf(expected) { allFetched = exhausted }
             return older
         }
         store.updateIf(expected) { loaded ->
@@ -151,8 +156,8 @@ class ThreadMessagesRepository(
         } ?: current
     }
 
-    /** Adds [message], or replaces the loaded one with the same key. */
-    fun upsert(message: Message): List<Message> = store.update { loaded ->
+    /** Adds [message], or replaces the loaded one with the same key; null when [expected] is stale (M-UI3). */
+    fun upsert(message: Message, expected: Int = generation): List<Message>? = store.updateIf(expected) { loaded ->
         val updated = loaded.toSortedMessages().toMutableList()
         val index = updated.indexOfFirst { it.key == message.key }
         if (index != -1) updated[index] = message else updated.add(message)

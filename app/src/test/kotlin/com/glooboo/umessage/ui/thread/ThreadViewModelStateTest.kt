@@ -61,4 +61,26 @@ class ThreadViewModelStateTest {
         ThreadViewModel(handle).attachmentsToSave = null
         assertNull(ThreadViewModel(handle).attachmentsToSave)
     }
+
+    /** K2-6: every sheet and dialog of the chat closes, and dialogs kept in a composable's own state are told to. */
+    @Test
+    fun closingTheWindowsClosesEverySheetAndDialog() {
+        val vm = ThreadViewModel(SavedStateHandle())
+        vm.showAttachSheet = true
+        vm.showSavedTexts = true
+        vm.pendingLink = "https://example.com"
+        vm.deliveryDetailsFor = com.glooboo.umessage.models.MessageKey(5L, isMMS = false)
+        vm.labelsFor = 3L
+        val before = vm.windowsClosed
+
+        vm.closeWindows()
+
+        assertFalse(vm.showAttachSheet)
+        assertFalse(vm.showSavedTexts)
+        assertNull(vm.pendingLink)
+        assertNull(vm.deliveryDetailsFor)
+        assertNull(vm.labelsFor)
+        assertNull(vm.notes.editing)
+        assertEquals(before + 1, vm.windowsClosed)
+    }
 }

@@ -78,6 +78,8 @@ class ThreadScheduleUi(
                 }
             },
             onScheduleAnyway = callback,
+            // Not answered, only closed by the chat: offered again next time.
+            onClosedUnanswered = { prefs.exactAlarmAsked = false },
         )
     }
 

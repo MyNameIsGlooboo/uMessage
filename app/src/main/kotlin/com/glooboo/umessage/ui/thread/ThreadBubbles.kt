@@ -391,7 +391,7 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
             }
             if (vm.stars.isStarred(message)) StarMark()
             vm.reactions[message.getStableId()]?.let {
-                ReactionChip(it, Modifier.offset(y = (-8).dp).padding(horizontal = 8.dp))
+                ReactionChip(it, vm.windowsClosed, Modifier.offset(y = (-8).dp).padding(horizontal = 8.dp))
             }
             NoteUnderBubble(vm.notes.noteOf(message), maxBubbleWidth) {
                 if (vm.isSelecting) toggle() else vm.notes.startEdit(message)
@@ -404,11 +404,14 @@ private fun MessageBubbleRow(row: ThreadRow.Bubble, vm: ThreadViewModel, actions
     }
 }
 
-/** I30: the emoji of the iPhone reactions on a message; a tap shows the texts the iPhone really sent. */
+/**
+ * I30: the emoji of the iPhone reactions on a message; a tap shows the texts the iPhone really sent. A new
+ * [windowsClosed] closes that dialog (K2-6).
+ */
 @Composable
-private fun ReactionChip(reactions: List<TapbackReaction>, modifier: Modifier = Modifier) {
+private fun ReactionChip(reactions: List<TapbackReaction>, windowsClosed: Int, modifier: Modifier = Modifier) {
     val colors = MaterialTheme.colorScheme
-    var showOriginals by remember { mutableStateOf(false) }
+    var showOriginals by remember(windowsClosed) { mutableStateOf(false) }
     val summary = reactions.joinToString(" ") { if (it.count > 1) "${it.kind.emoji}${it.count}" else it.kind.emoji }
     Surface(
         shape = CircleShape,

@@ -13,6 +13,7 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.rescheduleAllScheduledMessages
 import com.glooboo.umessage.helpers.SCHEDULED_MESSAGE_ID
 import com.glooboo.umessage.models.Attachment
+import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.MessageAttachment
 import com.glooboo.umessage.receivers.ScheduledMessageReceiver
@@ -23,6 +24,8 @@ import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -30,6 +33,7 @@ import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowAlarmManager
 import org.robolectric.shadows.ShadowLooper
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * F3: a scheduled message is sent once, however many senders reach it, and one that is overdue goes out late instead
@@ -68,6 +72,14 @@ class ScheduledSendClaimTest {
         isMMS = false, attachment = attachment, senderPhoneNumber = "", senderName = "", senderPhotoUri = "",
         subscriptionId = -1, isScheduled = true
     )
+
+    private val refreshes = AtomicInteger()
+
+    /** Every "refresh the open chat" the code under test asks for; the bus calls it on the posting thread. */
+    @Subscribe
+    fun onRefreshMessages(@Suppress("UNUSED_PARAMETER") event: Events.RefreshMessages) {
+        refreshes.incrementAndGet()
+    }
 
     private fun store(message: Message) = offMainThread { context.messagesDB.insertOrUpdate(message) }
 
@@ -130,16 +142,24 @@ class ScheduledSendClaimTest {
         FakeSmsMmsProvider.installSms()
         store(scheduled())
         val db = MessagesDatabase.getInstance(context).openHelper
+        EventBus.getDefault().register(this)
 
-        offMainThread {
-            ScheduledMessageReceiver().handleIntent(context, Intent().putExtra(SCHEDULED_MESSAGE_ID, ID)) { c, id ->
-                val won = ScheduledSendClaims.claim(c, id)
-                // The row can no longer be read: the second read throws, as a database error does.
-                db.writableDatabase.execSQL("UPDATE messages SET participants = 'broken' WHERE id = $id")
-                won
+        try {
+            offMainThread {
+                ScheduledMessageReceiver().handleIntent(context, Intent().putExtra(SCHEDULED_MESSAGE_ID, ID)) { c, id ->
+                    val won = ScheduledSendClaims.claim(c, id)
+                    // The row can no longer be read: the second read throws, as a database error does.
+                    db.writableDatabase.execSQL("UPDATE messages SET participants = 'broken' WHERE id = $id")
+                    won
+                }
             }
+        } finally {
+            EventBus.getDefault().unregister(this)
         }
         ShadowLooper.idleMainLooper()
+
+        // K2-9: an open chat is told, so its bubble shows "not sent" with Retry at once.
+        assertThat(refreshes.get()).isEqualTo(1)
 
         assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
         val type = offMainThread {

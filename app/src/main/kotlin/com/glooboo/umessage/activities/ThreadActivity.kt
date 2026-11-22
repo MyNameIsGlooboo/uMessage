@@ -8,9 +8,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.provider.Telephony
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -35,6 +37,7 @@ import org.fossify.commons.extensions.normalizeString
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.extensions.toast
+import org.fossify.commons.helpers.AppLockManager
 import org.fossify.commons.helpers.MyContactsContentProvider
 import org.fossify.commons.helpers.PERMISSION_READ_PHONE_STATE
 import org.fossify.commons.helpers.ensureBackgroundThread
@@ -161,6 +164,7 @@ import com.glooboo.umessage.ui.thread.isSchedulableTime
 import com.glooboo.umessage.ui.thread.ThreadMenuInput
 import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.lock.HiddenChatGate
+import com.glooboo.umessage.ui.lock.LockedLeave
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.thread.ChatLineAction
@@ -260,6 +264,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     /** The stored draft is put back once each time a chat is opened; see [DraftText.restore]. */
     private var draftRestored = false
+
+    /**
+     * K2-6, J5-2: when a picker or camera of the chat's own was opened ([launchForResult]), or [NO_TIME]. A pause
+     * soon after is that trip, and the sheets stay; a permission prompt that never opened does not excuse a later exit.
+     */
+    private var ownScreenAskedMs = NO_TIME
+
+    /** K2-6: the message field had the focus when the chat was left under the app lock; it gets it back after. */
+    private var refocusComposer = false
 
     private var isGroupMessageConfirmationVisible = false
     /** One send from the composer at a time: a second tap while it runs is ignored (MS5). */
@@ -493,15 +506,20 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private fun resetForNewConversation() {
         AudioPlayerManager.release()
         // M-UI3: first, so a load still running for the old chat stops before it writes into the fields below.
-        repository.reset()
-        conversation = null
-        recipients = ThreadRecipients()
+        // J5-4: the old chat's conversation and people are cleared before the new generation can be read.
+        repository.reset {
+            conversation = null
+            recipients = ThreadRecipients()
+        }
         privateContacts = ArrayList()
         lookups.clear()
         threadItems = emptyList()
         refreshedSinceSent = false
         isJumpingToMessage = false
         isGroupMessageConfirmationVisible = false
+        // J5-5: the old chat's sheets and dialogs go too; a delete question confirmed later would act on this chat.
+        vm.closeWindows()
+        LockedLeave.closeHostedDialogs(this)
         resend.clear()
         vm.clearSchedule()
         vm.clearSelection()
@@ -573,7 +591,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     override fun onResume() {
+        closeWindowsIfLocked()
         super.onResume()
+        ownScreenAskedMs = NO_TIME
         hiddenGate.check()
         spamGate.check()
         // A contact may have been added meanwhile: the chat line is worked out again.
@@ -584,6 +604,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         lookups.invalidateSims()
 
         scheduleUi.onResume()
+        restoreComposerFocus()
 
         // M-UI3: what this read finds belongs to the chat open now; another chat loaded meanwhile drops it.
         val generation = repository.generation
@@ -661,6 +682,45 @@ open class ThreadActivity : ComposeSimpleActivity() {
         saveDraftMessage()
         bus?.post(Events.RefreshConversations())
         isActivityVisible = false
+        leaveUnderLock()
+    }
+
+    /**
+     * K2-6: with the app lock on, the chat's dialogs and sheets close when it is left, as the lock's cover does not
+     * hide their windows. Done on pause, while the screen still recomposes, so none is left to show on the way back.
+     */
+    private fun leaveUnderLock() {
+        val asked = ownScreenAskedMs
+        ownScreenAskedMs = NO_TIME
+        val ownTrip = asked != NO_TIME && SystemClock.elapsedRealtime() - asked in 0..AppLockManager.OWN_TRIP_START_MS
+        if (!LockedLeave.closesWindows(this, ownTrip)) return
+        closeWindows()
+    }
+
+    /**
+     * K2-6, J5-1: back under the lock, the windows are closed before anything draws. This catches what a trip of the
+     * chat's own left open (a permission prompt, then the screen went off; a camera trip past the lock's limit).
+     */
+    private fun closeWindowsIfLocked() {
+        if (LockScope.isLockedNow(this)) closeWindows()
+    }
+
+    /** Closes the chat's sheets, menus and dialogs; a focused message field is given its focus back after unlock. */
+    private fun closeWindows() {
+        // Hiding the content under the lock takes the focus from the field: it is given back after the unlock.
+        if (vm.composerFocused) refocusComposer = true
+        vm.closeWindows()
+        // The group question has a dismiss callback of its own, which a closed host never calls.
+        isGroupMessageConfirmationVisible = false
+        LockedLeave.closeHostedDialogs(this)
+    }
+
+    /** K2-6: the field that had the focus before the app lock covered the chat takes it again once the chat shows. */
+    private fun restoreComposerFocus() {
+        if (!refocusComposer || hiddenGate.blocking || spamGate.blocking) return
+        if (findViewById<View>(android.R.id.content)?.visibility != View.VISIBLE) return
+        refocusComposer = false
+        vm.focusInput++
     }
 
     override fun onStop() {
@@ -907,7 +967,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
             try {
                 if (canReuseLoadedThread(providerParticipantsChanged, cachedMessagesCode, hasParticipantWithoutName)) {
-                    adoptWaitingScheduledMessages()
+                    adoptWaitingScheduledMessages(thread, generation)
                     setupAdapter(generation)
                     runOnUiThread { if (!stale()) callback() }
                     return@ensureBackgroundThread
@@ -939,13 +999,20 @@ open class ThreadActivity : ComposeSimpleActivity() {
             }
 
             if (recipients.isEmpty()) {
+                // K2-2: emptied by another chat loaded in place; its intent is not this chat's (and has no number when
+                // a notification opened it), so the "invalid number" close below would shut the chat just opened.
+                if (stale()) return@ensureBackgroundThread
                 val name = intent.getStringExtra(THREAD_TITLE) ?: ""
                 val numbers = getPhoneNumbersFromIntent()
                 if (numbers.isEmpty()) {
                     // No messages, no participants known to the phone and no number in the intent: nothing to write to.
                     Log.w("ThreadActivity", "Chat opened without a conversation, participants or number")
-                    toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
-                    finish()
+                    // J5-4: decided on the main thread, where another chat's reset runs, so the check is exact.
+                    runOnUiThread {
+                        if (stale()) return@runOnUiThread
+                        toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
+                        finish()
+                    }
                     return@ensureBackgroundThread
                 }
                 val fromIntent = ThreadRecipients.fromNumbers(numbers, name)
@@ -953,7 +1020,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             }
 
             if (stale()) return@ensureBackgroundThread
-            adoptWaitingScheduledMessages()
+            adoptWaitingScheduledMessages(thread, generation)
 
             if (!isRecycleBin) {
                 // Only what is new or changed since the cached copy: the whole page used to be rewritten on every open.
@@ -974,13 +1041,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     /**
      * Brings in messages scheduled for these people while they had no conversation yet, which waited in a temporary
-     * thread of their own: without this the real conversation said "No messages yet". Runs in the background.
+     * thread of their own: without this the real conversation said "No messages yet". Runs in the background, for
+     * [thread] as loaded in [generation] (M-UI3, K2-2: not into another chat loaded in place during the lookup).
      */
-    private fun adoptWaitingScheduledMessages() {
+    private fun adoptWaitingScheduledMessages(thread: Long, generation: Int) {
         if (isRecycleBin || recipients.isEmpty()) return
-        val adopted = adoptScheduledMessages(threadId, recipients.addresses)
+        val adopted = adoptScheduledMessages(thread, recipients.addresses)
         if (adopted.isEmpty()) return
-        repository.addAll(adopted)
+        repository.addAll(adopted, generation)
         bus?.post(Events.RefreshConversations())
     }
 
@@ -1146,8 +1214,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         if (repository.loadingOlder) {
-            // Another page load is running: try again when it is done instead of dropping the jump.
-            window?.decorView?.postDelayed({ if (!isFinishing) jumpToMessage(target) }, JUMP_RETRY_MS)
+            // Another page load is running: try again when it is done instead of dropping the jump. K2-2: only in the
+            // same chat; another one loaded in place meanwhile would be paged through for a message it does not have.
+            val forChat = repository.generation
+            window?.decorView?.postDelayed({
+                if (!isFinishing && !repository.isStale(forChat)) jumpToMessage(target)
+            }, JUMP_RETRY_MS)
             return
         }
         // M-UI3: set here on the main thread, before another chat's reset can clear them, never after it.
@@ -1441,6 +1513,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // The picker or camera the user opened here is not leaving the app: coming back does not lock it again.
             appLockManager.allowOwnTrip()
             launcher.launch(input)
+            ownScreenAskedMs = SystemClock.elapsedRealtime()
         } catch (e: ActivityNotFoundException) {
             showErrorToast(getString(error))
         } catch (e: Exception) {
@@ -1580,15 +1653,22 @@ open class ThreadActivity : ComposeSimpleActivity() {
             isMms = isMmsMessage(text),
             attachments = attachmentController.asMessageAttachments(messageId),
         )
+        // A thread without messages gets a temporary thread until a real message is sent.
+        val startsTemporaryThread = messages.isEmpty()
+        val savedConversation = conversation
+        // M-UI3 (K2-2): the chat this was scheduled in; another one loaded in place meanwhile keeps its own thread.
+        val generation = repository.generation
         ensureBackgroundThread {
             try {
-                // A thread without messages gets a temporary thread until a real message is sent.
-                val startsTemporaryThread = messages.isEmpty()
-                val message = scheduleController.save(pickedMessage, startsTemporaryThread, conversation, repeat)
-                if (startsTemporaryThread) threadId = message.threadId
-                insertOrUpdateMessage(message)
+                val message = scheduleController.save(pickedMessage, startsTemporaryThread, savedConversation, repeat)
+                repository.ifCurrent(generation) {
+                    if (startsTemporaryThread) threadId = message.threadId
+                }
+                // Saved in any case; shown only in the chat it was scheduled in (J5-4).
+                insertOrUpdateMessage(message, generation)
 
                 runOnUiThread {
+                    if (repository.isStale(generation)) return@runOnUiThread
                     clearCurrentMessage()
                     vm.clearSchedule()
                 }
@@ -1684,15 +1764,17 @@ open class ThreadActivity : ComposeSimpleActivity() {
         updateMessageType()
     }
 
-    private fun insertOrUpdateMessage(message: Message) {
-        repository.upsert(message)
-
-        val newItems = getThreadItems()
-        runOnUiThread {
-            publishItems(newItems)
-            vm.scrollToBottom()
-            if (!refreshedSinceSent) {
-                refreshMessages()
+    /** Saves [message] and shows it, unless another chat was loaded in place since [expected] (M-UI3, J5-4). */
+    private fun insertOrUpdateMessage(message: Message, expected: Int = repository.generation) {
+        if (repository.upsert(message, expected) != null) {
+            val newItems = getThreadItems()
+            runOnUiThread {
+                if (repository.isStale(expected)) return@runOnUiThread
+                publishItems(newItems)
+                vm.scrollToBottom()
+                if (!refreshedSinceSent) {
+                    refreshMessages()
+                }
             }
         }
         messagesDB.insertOrUpdate(message)
@@ -1726,12 +1808,15 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     fun refreshMessages(@Suppress("unused") event: Events.RefreshMessages) {
+        // M-UI3 (K2-2): the chat this refresh is for is fixed first, before it waits its turn and before any field is
+        // read; once another chat is loaded in place, it does nothing.
+        val generation = repository.generation
         // ASYNC events run on a pool: one refresh at a time, so an older read cannot publish over a newer one.
-        synchronized(refreshLock) { refreshMessagesLocked() }
+        synchronized(refreshLock) { refreshMessagesLocked(generation) }
     }
 
-    private fun refreshMessagesLocked() {
-        if (isRecycleBin) {
+    private fun refreshMessagesLocked(generation: Int) {
+        if (isRecycleBin || repository.isStale(generation)) {
             return
         }
 
@@ -1748,8 +1833,6 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // Still loading: no recipients yet, so there is nothing to look up (an empty list would blank the thread, B13).
         if (recipients.isEmpty()) return
 
-        // M-UI3: a refresh for the chat open when it began; another chat loaded in place meanwhile stops it.
-        val generation = repository.generation
         val messageSnapshot = messages.toSortedMessages()
         val lastMaxId = messageSnapshot.filterNot { it.isScheduled }.maxByOrNull { it.id }?.id ?: 0L
         val providerParticipantsChanged = reconcileProviderParticipants(generation)
@@ -1918,6 +2001,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     companion object {
         private const val JUMP_RETRY_MS = 300L
+        private const val NO_TIME = -1L
         /** Boolean extra: open the "Search in conversation" bar (TH-20), for example from Conversation details. */
         const val EXTRA_OPEN_SEARCH = "com.glooboo.spamless.extra.OPEN_THREAD_SEARCH"
     }

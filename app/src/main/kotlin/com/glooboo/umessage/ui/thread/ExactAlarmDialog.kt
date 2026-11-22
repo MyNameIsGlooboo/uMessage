@@ -5,6 +5,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.showComposeDialog
@@ -29,18 +31,33 @@ fun ExactAlarmDialog(onOpenSettings: () -> Unit, onScheduleAnyway: () -> Unit, o
     )
 }
 
-fun Activity.showExactAlarmDialog(onOpenSettings: () -> Unit, onScheduleAnyway: () -> Unit) {
+/**
+ * [onClosedUnanswered] runs when the dialog goes without the user's answer: the chat closed it (K2-6, left under the
+ * app lock or another chat loaded in place), so the offer can be made again next time.
+ */
+fun Activity.showExactAlarmDialog(
+    onOpenSettings: () -> Unit,
+    onScheduleAnyway: () -> Unit,
+    onClosedUnanswered: () -> Unit = {},
+) {
     showComposeDialog { dismiss ->
+        val answered = remember { booleanArrayOf(false) }
+        DisposableEffect(Unit) { onDispose { if (!answered[0]) onClosedUnanswered() } }
         ExactAlarmDialog(
             onOpenSettings = {
+                answered[0] = true
                 dismiss()
                 onOpenSettings()
             },
             onScheduleAnyway = {
+                answered[0] = true
                 dismiss()
                 onScheduleAnyway()
             },
-            onDismiss = dismiss,
+            onDismiss = {
+                answered[0] = true
+                dismiss()
+            },
         )
     }
 }
