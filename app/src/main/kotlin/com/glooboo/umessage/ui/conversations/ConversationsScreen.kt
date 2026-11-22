@@ -223,24 +223,17 @@ private suspend fun showEvent(
                 callbacks.onCommitReportSpam(event.token)
             }
         }
-        is ConversationsEvent.ReportedSpam -> {
-            val text = if (event.archived) {
-                R.plurals.convlist_reported_spam_archived
+        is ConversationsEvent.ReportedSpam -> commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
+            val result = snackbar.showSnackbar(
+                message = resources.getQuantityString(R.plurals.convlist_reported_spam, event.count, event.count) +
+                    stayedNote(resources, event.stayed),
+                actionLabel = undoLabel,
+                duration = SnackbarDuration.Long,
+            )
+            if (result == SnackbarResult.ActionPerformed) {
+                callbacks.onUndoReportSpam(event.token)
             } else {
-                R.plurals.convlist_reported_spam
-            }
-            commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
-                val result = snackbar.showSnackbar(
-                    message = resources.getQuantityString(text, event.count, event.count) +
-                        stayedNote(resources, event.stayed),
-                    actionLabel = undoLabel,
-                    duration = SnackbarDuration.Long,
-                )
-                if (result == SnackbarResult.ActionPerformed) {
-                    callbacks.onUndoReportSpam(event.token)
-                } else {
-                    callbacks.onCommitReportSpam(event.token)
-                }
+                callbacks.onCommitReportSpam(event.token)
             }
         }
         is ConversationsEvent.Message -> snackbar.showSnackbar(resources.getString(event.res))

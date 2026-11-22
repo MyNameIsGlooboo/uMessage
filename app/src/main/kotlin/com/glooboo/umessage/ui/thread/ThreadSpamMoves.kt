@@ -40,8 +40,6 @@ import kotlinx.coroutines.withContext
  *   block list (4.2).
  * - "Not spam": a user-made allow rule; a sender name asks once first (4.4); Undo removes only that rule.
  * - Keep: the line about an automatic allow goes for good; the allow stays automatic.
- *
- * Used only while ProviderTruthFlag is on; [ThreadSenderActions] keeps 0.4.14's actions for the flag off.
  */
 internal class ThreadSpamMoves(
     private val activity: Activity,

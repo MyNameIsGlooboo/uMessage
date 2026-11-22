@@ -56,7 +56,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.theme.success
 import kotlinx.coroutines.delay
@@ -185,14 +184,11 @@ object FirstRunPagePolicy {
      * The page for [progress]. The full page while an UPDATE or FRESH_INSTALL pass runs, the small bar for any other
      * pass or once the user went on in the background, then "What changed" when it has something to show, unless
      * [deferWhatChanged] (the user was using the app meanwhile: it waits for the next open of the app, G-4).
-     * Nothing while the flag is off.
      */
     fun pageFor(
         progress: FirstRunProgress,
-        flagOn: Boolean = ProviderTruthFlag.enabled,
         deferWhatChanged: Boolean = false,
     ): FirstRunPage = when {
-        !flagOn -> FirstRunPage.NONE
         progress.running && progress.passKind != FirstRunPassKind.OTHER && !progress.inBackground ->
             FirstRunPage.PROGRESS
         progress.running -> FirstRunPage.BAR

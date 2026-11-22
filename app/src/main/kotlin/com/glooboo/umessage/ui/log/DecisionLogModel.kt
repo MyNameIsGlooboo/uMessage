@@ -1,13 +1,10 @@
 package com.glooboo.umessage.ui.log
 
-import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.ui.settings.SimCard
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import kotlin.math.abs
 
 /** SE-38 / ID-39: the filter row above the log. Forwards and errors show only under [ALL]. */
 enum class LogFilter { ALL, BLOCKED, ALLOWED }
@@ -71,7 +68,6 @@ private fun collapses(previous: SpamLogEntry, entry: SpamLogEntry): Boolean =
 /** What the details sheet can do with a row; every action closes the sheet first. */
 internal class DecisionSheetActions(
     val onFix: (allow: Boolean) -> Unit,
-    val onRestore: (BlockedMessage) -> Unit,
 )
 
 /** Key of a log entry for the "fixed" mark; the log has no ids. */
@@ -89,21 +85,4 @@ internal fun canFix(entry: SpamLogEntry): Boolean =
 internal fun simSlot(subscriptionId: Int, sims: List<SimCard>): Int? {
     if (sims.size < 2 || subscriptionId < 0) return null
     return sims.firstOrNull { it.subscriptionId == subscriptionId }?.slot
-}
-
-/** How far apart the log time and the blocked message's received time may be (the network's time can lag). */
-internal const val RESTORE_MATCH_WINDOW_MS = 15 * 60 * 1000L
-
-/**
- * The blocked message a BLOCK entry stands for, so the sheet can offer "Restore message": same sender, received
- * closest to the decision time within [RESTORE_MATCH_WINDOW_MS]. Null when it is no longer in Blocked (restored,
- * deleted or purged) or the entry is not a block.
- */
-internal fun matchBlocked(entry: SpamLogEntry, blocked: List<BlockedMessage>): BlockedMessage? {
-    if (entry.decision != "BLOCK" || entry.fix == SpamLog.FIX_RESTORED) return null
-    val sender = entry.sender.trim()
-    if (sender.isEmpty()) return null
-    return blocked
-        .filter { it.address.trim() == sender && abs(it.receivedAt - entry.time) <= RESTORE_MATCH_WINDOW_MS }
-        .minByOrNull { abs(it.receivedAt - entry.time) }
 }

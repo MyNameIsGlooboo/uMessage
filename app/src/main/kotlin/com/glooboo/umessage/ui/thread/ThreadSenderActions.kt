@@ -2,34 +2,27 @@ package com.glooboo.umessage.ui.thread
 
 import android.app.Activity
 import android.text.TextUtils
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
-import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
-import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.fossify.commons.extensions.isNumberBlocked
 
 /**
- * The thread menu's sender actions: "Block number", "Unblock number" (with "Always allow"), and "Report spam",
+ * The thread menu's sender actions: "Block number", "Unblock number", "Always allow" and "Report spam",
  * all through uMessage rules (CM-06), never the phone's own block list. It also follows the rules, so the menu
  * knows whether the single sender is already reported ([reportedSender]) or blocked ([blockedSender]).
  *
- * [recipients] gives the conversation's current people; [lastReceivedSubscriptionId] the SIM the newest received
- * message came in on (-1 when unknown); [onStatusChanged] runs when [reportedSender] or [blockedSender] changed.
+ * [recipients] gives the conversation's current people; [onStatusChanged] runs when [reportedSender] or
+ * [blockedSender] changed.
  *
- * Provider truth: with ProviderTruthFlag on, each action moves the whole chat ([ThreadSpamMoves], for [threadId]).
+ * Provider truth: each action moves the whole chat ([ThreadSpamMoves], for [threadId]).
  */
 class ThreadSenderActions(
     private val activity: Activity,
@@ -37,7 +30,6 @@ class ThreadSenderActions(
     private val snackbar: SnackbarHostState,
     private val recipients: () -> ThreadRecipients,
     private val senderName: () -> String,
-    private val lastReceivedSubscriptionId: () -> Int,
     private val onStatusChanged: () -> Unit,
     private val threadId: () -> Long = { 0L },
 ) {
@@ -113,9 +105,9 @@ class ThreadSenderActions(
     }
 
     /**
-     * "Block number": after a confirmation, adds a uMessage block rule for every person in the conversation. New
-     * texts from them go to Blocked messages, where they can be read and restored. The phone's own block list is not
-     * used: Android discards texts from numbers on it before the app sees them. Undo removes the rules again.
+     * "Block number": after a confirmation, adds a uMessage block rule for every person in the conversation and moves
+     * the chat to Spam ([ThreadSpamMoves]). The phone's own block list is not used: Android discards texts from
+     * numbers on it before the app sees them. Undo removes the rules again.
      */
     fun askBlock() {
         val numbers = recipients().addresses
@@ -126,122 +118,27 @@ class ThreadSenderActions(
             confirmLabel = activity.getString(R.string.thread_block_confirm),
             dismissLabel = activity.getString(R.string.thread_report_spam_cancel),
         ) {
-            if (ProviderTruthFlag.enabled) spamMoves.block(numbers) else scope.launch { block(numbers) }
-        }
-    }
-
-    private suspend fun block(numbers: List<String>) {
-        val repository = repository
-        val change = runCatching { SenderBlocking.block(repository, numbers) }.getOrElse {
-            snackbar.showSnackbar(activity.getString(R.string.thread_block_failed))
-            return
-        }
-        val outcome = snackbar.showSnackbar(
-            message = activity.getString(R.string.thread_block_done),
-            actionLabel = if (change.isEmpty) null else activity.getString(R.string.thread_report_spam_undo),
-            duration = SnackbarDuration.Short,
-        )
-        if (outcome == SnackbarResult.ActionPerformed) {
-            runCatching { SenderBlocking.undo(repository, change) }
+            spamMoves.block(numbers)
         }
     }
 
     /**
-     * "Unblock number": removes the uMessage block rules for the sender. A number that is also on the phone's own
-     * block list stays there (uMessage does not change that list), and the snackbar says so.
+     * "Unblock number": removes the uMessage block rules for the sender and moves the chat back ([ThreadSpamMoves]).
      */
     fun unblock() {
         val address = address() ?: return
-        if (ProviderTruthFlag.enabled) return spamMoves.unblock(address)
-        scope.launch {
-            val repository = repository
-            val removed = runCatching { SenderBlocking.unblock(repository, address) }.getOrElse {
-                snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed))
-                return@launch
-            }
-            val onSystemList = withContext(Dispatchers.IO) {
-                runCatching { activity.isNumberBlocked(address) }.getOrDefault(false)
-            }
-            if (onSystemList) {
-                offerUndo(repository, removed, R.string.thread_unblock_done_system, SnackbarDuration.Long)
-                return@launch
-            }
-            // Contacts (and every sender in Off mode) reach the inbox; other numbers are still held as unknown
-            // senders, so the snackbar says so and offers an explicit "Always allow" instead of promising the inbox.
-            val subscriptionId = lastReceivedSubscriptionId()
-            val inbox = withContext(Dispatchers.IO) {
-                runCatching { SenderBlocking.reachesInbox(UMessage.filter(activity), address, subscriptionId) }
-                    .getOrDefault(false)
-            }
-            if (inbox) {
-                offerUndo(repository, removed, R.string.thread_unblock_done, SnackbarDuration.Short)
-                return@launch
-            }
-            val outcome = snackbar.showSnackbar(
-                message = activity.getString(R.string.thread_unblock_done_filtered),
-                actionLabel = activity.getString(R.string.thread_unblock_always_allow),
-                duration = SnackbarDuration.Long,
-            )
-            if (outcome == SnackbarResult.ActionPerformed) alwaysAllow(repository, address)
-        }
+        spamMoves.unblock(address)
     }
 
-    private suspend fun offerUndo(repository: SpamRepository, removed: List<SpamRule>, message: Int, duration: SnackbarDuration) {
-        val outcome = snackbar.showSnackbar(
-            message = activity.getString(message),
-            actionLabel = if (removed.isEmpty()) null else activity.getString(R.string.thread_report_spam_undo),
-            duration = duration,
-        )
-        if (outcome == SnackbarResult.ActionPerformed) {
-            runCatching { removed.forEach { repository.addRule(it.copy(id = 0)) } }
-        }
-    }
-
-    /** "Always allow" after an unblock: an allow rule for the sender, with Undo. */
-    private suspend fun alwaysAllow(repository: SpamRepository, address: String) {
-        val ruleId = runCatching { SenderBlocking.allow(repository, address) }.getOrElse {
-            snackbar.showSnackbar(activity.getString(R.string.thread_always_allow_failed))
-            return
-        }
-        val outcome = snackbar.showSnackbar(
-            message = activity.getString(R.string.thread_always_allow_done),
-            actionLabel = activity.getString(R.string.thread_report_spam_undo),
-            duration = SnackbarDuration.Short,
-        )
-        if (outcome == SnackbarResult.ActionPerformed) {
-            runCatching { repository.removeRule(ruleId) }
-        }
-    }
-
-    /**
-     * "Always allow this sender" (TH-11): an allow rule for the sender; their own block rules go (they would be dead
-     * weight under it). Undo puts both back.
-     */
+    /** "Always allow this sender" (TH-11): "Not spam" for the sender ([ThreadSpamMoves]). */
     fun allowSender() {
         val address = address() ?: return
-        if (ProviderTruthFlag.enabled) return spamMoves.notSpam(address)
-        scope.launch {
-            val repository = repository
-            val change = runCatching { SenderBlocking.alwaysAllow(repository, listOf(address)) }.getOrElse {
-                snackbar.showSnackbar(activity.getString(R.string.thread_always_allow_failed))
-                return@launch
-            }
-            val outcome = snackbar.showSnackbar(
-                message = activity.getString(R.string.thread_always_allow_done),
-                actionLabel = activity.getString(R.string.thread_report_spam_undo),
-                duration = SnackbarDuration.Short,
-            )
-            if (outcome == SnackbarResult.ActionPerformed) {
-                runCatching { SenderBlocking.undoAllow(repository, change) }
-            }
-        }
+        spamMoves.notSpam(address)
     }
 
     /**
-     * "Report spam": after a confirmation, adds a uMessage block rule for the sender, the same kind of rule
-     * "Block sender" on the Blocked messages screen adds, so new messages from them are held back. Nothing in
-     * this conversation is deleted. An earlier "Not spam" allow rule for the sender would win over the block
-     * rule, so it is removed; Undo puts everything back.
+     * "Report spam": after a confirmation, blocks the sender as "Block number" does (4.1), so the chat moves to Spam.
+     * Nothing in this conversation is deleted.
      */
     fun askReportSpam() {
         val address = address() ?: return
@@ -253,42 +150,7 @@ class ThreadSenderActions(
             dismissLabel = activity.getString(R.string.thread_report_spam_cancel),
         ) {
             // Provider truth: "Report spam" equals Block (4.1).
-            if (ProviderTruthFlag.enabled) {
-                spamMoves.block(listOf(address), report = true)
-            } else {
-                scope.launch { reportSpam(address) }
-            }
-        }
-    }
-
-    private suspend fun reportSpam(address: String) {
-        val repository = repository
-        val result = runCatching {
-            val plan = planSpamReport(repository.rules.first(), address)
-            plan.allowRulesToRemove.forEach { repository.removeRule(it.id) }
-            val addedId = if (plan.alreadyBlocked) {
-                null
-            } else {
-                val note = com.glooboo.umessage.ui.spam.RuleNotes.REPORTED_SPAM
-                repository.addRule(SpamRule(kind = ListKind.BLOCK, type = plan.type, pattern = address, note = note))
-            }
-            addedId to plan.allowRulesToRemove
-        }
-        val (addedId, allowRules) = result.getOrElse {
-            snackbar.showSnackbar(activity.getString(R.string.thread_report_spam_failed))
-            return
-        }
-        val changed = addedId != null || allowRules.isNotEmpty()
-        val outcome = snackbar.showSnackbar(
-            message = activity.getString(if (addedId != null) R.string.thread_report_spam_done else R.string.thread_report_spam_already),
-            actionLabel = if (changed) activity.getString(R.string.thread_report_spam_undo) else null,
-            duration = SnackbarDuration.Short,
-        )
-        if (outcome == SnackbarResult.ActionPerformed) {
-            runCatching {
-                addedId?.let { repository.removeRule(it) }
-                allowRules.forEach { repository.addRule(it.copy(id = 0)) }
-            }
+            spamMoves.block(listOf(address), report = true)
         }
     }
 }

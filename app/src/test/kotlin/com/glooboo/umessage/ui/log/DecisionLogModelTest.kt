@@ -1,7 +1,5 @@
 package com.glooboo.umessage.ui.log
 
-import com.glooboo.umessage.spam.BlockedMessage
-import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.ui.settings.SimCard
@@ -95,25 +93,6 @@ class DecisionLogModelTest {
         assertThat(simSlot(3, two)).isEqualTo(1)
         assertThat(simSlot(9, two)).isNull()
         assertThat(simSlot(-1, two)).isNull()
-    }
-
-    @Test
-    fun restoreFindsTheClosestBlockedMessageOfTheSender() {
-        val log = entry(day2 + 10 * minute, "+15550001")
-        fun blocked(id: Long, address: String, at: Long) =
-            BlockedMessage(id = id, address = address, body = "hi", subscriptionId = 1, isMms = false, receivedAt = at,
-                reason = DecisionReason.UNKNOWN_SENDER)
-        val list = listOf(
-            blocked(1, "+15550001", day2 + 2 * minute),
-            blocked(2, "+15550001", day2 + 9 * minute),
-            blocked(3, "+15550002", day2 + 10 * minute),
-            blocked(4, "+15550001", day2 + 60 * minute),
-        )
-        assertThat(matchBlocked(log, list)?.id).isEqualTo(2)
-        assertThat(matchBlocked(log, list.filter { it.id != 2L })?.id).isEqualTo(1)
-        assertThat(matchBlocked(log, listOf(list[2], list[3]))).isNull()
-        assertThat(matchBlocked(log.copy(decision = "ALLOW"), list)).isNull()
-        assertThat(matchBlocked(log.copy(fix = SpamLog.FIX_RESTORED), list)).isNull()
     }
 
     @Test

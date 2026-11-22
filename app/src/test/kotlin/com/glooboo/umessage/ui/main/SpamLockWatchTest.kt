@@ -20,7 +20,6 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockScope
@@ -43,9 +42,6 @@ import java.time.Duration
  */
 @RunWith(AndroidJUnit4::class)
 class SpamLockWatchTest {
-
-    @get:Rule(order = 0)
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule(order = 1)
     val compose = createAndroidComposeRule<ComponentActivity>()

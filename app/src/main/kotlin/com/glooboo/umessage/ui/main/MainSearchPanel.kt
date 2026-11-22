@@ -47,7 +47,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.getThreadId
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.SearchResult
 import org.fossify.commons.extensions.toast
 import com.glooboo.umessage.ui.components.rememberCodeHidden
@@ -244,9 +243,7 @@ private fun ConversationResults(
     val contactsTitle = stringResource(R.string.search_section_contacts)
     val notesTitle = stringResource(R.string.notes_section)
     // Provider truth (U9): the section lists Spam chats, under the Spam tab's own name.
-    val blockedTitle = stringResource(
-        if (ProviderTruthFlag.enabled) R.string.main_tab_blocked else R.string.decm_search_section_blocked,
-    )
+    val blockedTitle = stringResource(R.string.main_tab_blocked)
     LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = bottomPadding) {
         conversationSection(
             conversationPage, query, labels, { conversationsShown = Int.MAX_VALUE }, onOpen, conversationsTitle,

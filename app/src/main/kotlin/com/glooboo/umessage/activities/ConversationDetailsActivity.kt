@@ -17,7 +17,6 @@ import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.startContactDetailsIntent
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
@@ -223,14 +222,12 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
         if (block && allowed != null) allowed = false
         lifecycleScope.launch {
             val ok = runCatching {
-                val repository = SpamRepositoryProvider.get(this@ConversationDetailsActivity)
-                when {
-                    // Provider truth (4.1, C-6): the whole chat moves, read; off again undoes this block fully.
-                    // D-5: a block that did not happen says why when the switch goes back.
-                    block && ProviderTruthFlag.enabled -> senderSwitch.blockOrSay(address, threadId) { toast(it) }
-                    ProviderTruthFlag.enabled -> senderSwitch.unblock(address, threadId).let { true }
-                    block -> SenderBlocking.block(repository, listOf(address)).let { true }
-                    else -> SenderBlocking.unblock(repository, address).let { true }
+                // Provider truth (4.1, C-6): the whole chat moves, read; off again undoes this block fully.
+                // D-5: a block that did not happen says why when the switch goes back.
+                if (block) {
+                    senderSwitch.blockOrSay(address, threadId) { toast(it) }
+                } else {
+                    senderSwitch.unblock(address, threadId).let { true }
                 }
             }.getOrDefault(false)
             if (!ok) blocked = !block
@@ -271,13 +268,11 @@ class ConversationDetailsActivity : ComposeSimpleActivity() {
                     allowed = !allow
                     blocked = previousBlocked
                 }
-                if (ProviderTruthFlag.enabled) {
-                    SpamSorting.requestThreads(this@ConversationDetailsActivity, listOf(threadId))
-                }
+                SpamSorting.requestThreads(this@ConversationDetailsActivity, listOf(threadId))
             }
         }
 
-        if (allow && ProviderTruthFlag.enabled && SenderBlocking.isSpoofable(address)) {
+        if (allow && SenderBlocking.isSpoofable(address)) {
             showConfirmDialog(
                 title = getString(R.string.nameallow_title),
                 message = nameAllowBody(resources, listOf(address)),

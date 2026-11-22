@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.NavPrefs
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.showUndo
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.spam.SimDirectory
@@ -37,7 +36,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.extensions.removeAllArchivedConversations
@@ -49,7 +47,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.helpers.ensureBackgroundThread
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -85,8 +82,7 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
         loader.execute {
             val conversations = try {
                 // S1, provider truth: archived and not in Spam (a Spam chat shows only under Spam).
-                val db = app.conversationsDB
-                if (ProviderTruthFlag.enabled) db.getArchivedList() else db.getAllArchived()
+                app.conversationsDB.getArchivedList()
             } catch (_: Exception) {
                 emptyList()
             }
@@ -146,16 +142,9 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
 
     fun delete(ids: Set<Long>) {
         ensureBackgroundThread {
-            if (ProviderTruthFlag.enabled) {
-                // S14: the role is checked once; the first delete that did not happen says why.
-                val message = deleteChats(app, ids.toList()).second
-                if (message != null) _state.update { it.copy(deleteMessage = message) }
-            } else {
-                ids.forEach {
-                    app.deleteConversation(it)
-                    app.notificationManager.cancel(it.hashCode())
-                }
-            }
+            // S14: the role is checked once; the first delete that did not happen says why.
+            val message = deleteChats(app, ids.toList()).second
+            if (message != null) _state.update { it.copy(deleteMessage = message) }
             refreshConversations()
         }
     }

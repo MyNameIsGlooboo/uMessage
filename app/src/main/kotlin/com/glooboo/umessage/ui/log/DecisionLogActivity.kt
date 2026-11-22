@@ -61,12 +61,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
-import com.glooboo.umessage.helpers.refreshConversations
-import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionRuleText
 import com.glooboo.umessage.spam.ForwardRule
-import com.glooboo.umessage.spam.RestoreOutcome
 import com.glooboo.umessage.spam.SpamLog
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.SpamRepository
@@ -95,7 +91,6 @@ import com.glooboo.umessage.ui.theme.success
 import com.glooboo.umessage.ui.thread.planSpamReport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -111,13 +106,6 @@ class DecisionLogActivity : ComponentActivity() {
         setContent { UMessageTheme { DecisionLogRoute(onBack = ::finish) } }
     }
 }
-
-/**
- * The held messages a log row may offer to restore. Provider truth (section 5): none: spam is in the phone's store and
- * a chat leaves Spam by "Not spam" (the row's Allow fix); the old held rows wait for their migration.
- */
-internal fun restoreCandidates(blocked: List<BlockedMessage>): List<BlockedMessage> =
-    if (ProviderTruthFlag.enabled) emptyList() else blocked
 
 /** Everything the rows need besides the entries: rule names, forward rules and the SIMs in the phone. */
 internal data class LogContext(
@@ -137,11 +125,6 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
     var forwardRules by remember { mutableStateOf<List<ForwardRule>>(emptyList()) }
     var sims by remember { mutableStateOf<List<SimCard>>(emptyList()) }
     val rules by repository.rules.collectAsStateWithLifecycle(initialValue = emptyList())
-    // Provider truth (H-14): the old held rows are not read; the restore card is not offered (see restoreCandidates).
-    val blockedRows = remember(repository) {
-        if (ProviderTruthFlag.enabled) flowOf(emptyList<BlockedMessage>()) else repository.blocked
-    }
-    val blocked by blockedRows.collectAsStateWithLifecycle(initialValue = emptyList())
     LaunchedEffect(log) {
         withContext(Dispatchers.IO) {
             // Forward entries name their rule by its note or condition; B4: SIM slots need the SIM list.
@@ -164,11 +147,9 @@ private fun DecisionLogRoute(onBack: () -> Unit) {
     DecisionLogScreen(
         entries = entries,
         logContext = LogContext(rules, forwardRules, sims),
-        blocked = restoreCandidates(blocked),
         snackbarHostState = snackbar,
         onBack = onBack,
         onFix = { entry, allow -> scope.launch { actions.fix(entry, allow) } },
-        onRestore = { entry, message -> scope.launch { actions.restore(entry, message) } },
         onShare = { shown -> scope.launch { actions.share(shown, sims) } },
         onClear = {
             scope.launch {
@@ -233,23 +214,6 @@ private class LogActions(
         }
     }
 
-    /** Puts the blocked message back in the inbox (the Blocked tab's "Not spam"); rules are not touched. */
-    suspend fun restore(entry: SpamLogEntry, message: BlockedMessage) {
-        snackbar.currentSnackbarData?.dismiss()
-        val outcome = runCatching { repository.markNotSpam(message.id) }.getOrDefault(RestoreOutcome.FAILED)
-        val text = when (outcome) {
-            RestoreOutcome.RESTORED -> R.string.declog_restore_done
-            RestoreOutcome.TEXT_ONLY -> R.string.declog_restore_text_only
-            RestoreOutcome.NOTHING -> R.string.declog_restore_nothing
-            RestoreOutcome.FAILED, RestoreOutcome.NOT_FOUND -> R.string.declog_restore_failed
-        }
-        if (outcome != RestoreOutcome.FAILED && outcome != RestoreOutcome.NOT_FOUND) {
-            mark(entry, SpamLog.FIX_RESTORED)
-            refreshConversations()
-        }
-        snackbar.showSnackbar(context.getString(text))
-    }
-
     /** ID-39: the shown decisions as a CSV file through the share sheet. */
     suspend fun share(shown: List<SpamLogEntry>, sims: List<SimCard>) {
         val ok = runCatching {
@@ -277,10 +241,8 @@ private fun DecisionLogScreen(
     onBack: () -> Unit,
     onClear: () -> Unit,
     logContext: LogContext = LogContext(),
-    blocked: List<BlockedMessage> = emptyList(),
     snackbarHostState: SnackbarHostState? = null,
     onFix: (SpamLogEntry, Boolean) -> Unit = { _, _ -> },
-    onRestore: (SpamLogEntry, BlockedMessage) -> Unit = { _, _ -> },
     onShare: (List<SpamLogEntry>) -> Unit = {},
 ) {
     var filter by rememberSaveable { mutableStateOf(LogFilter.ALL) }
@@ -341,12 +303,8 @@ private fun DecisionLogScreen(
         DecisionDetailsSheet(
             group = target,
             text = rememberRowText(target, logContext),
-            blockedMessage = remember(target, blocked) { matchBlocked(target.newest, blocked) },
             onDismiss = { detailsKey = null },
-            actions = DecisionSheetActions(
-                onFix = { allow -> detailsKey = null; onFix(target.newest, allow) },
-                onRestore = { message -> detailsKey = null; onRestore(target.newest, message) },
-            ),
+            actions = DecisionSheetActions(onFix = { allow -> detailsKey = null; onFix(target.newest, allow) }),
         )
     }
 }

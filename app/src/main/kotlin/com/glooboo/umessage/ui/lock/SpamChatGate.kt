@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.glooboo.umessage.AppLockGuard
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.helpers.HiddenChatsSession
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,8 +29,7 @@ import java.util.concurrent.ConcurrentHashMap
  * that is read again, so it does not flash blank; any other chat stays covered until the read ends, and a read that
  * fails counts as "in Spam", so nothing shows unasked. While another gate covers the screen (a hidden chat asking for
  * the lock) this one waits instead of asking a second time, and a lock passed a moment ago counts. [onRevealed] runs
- * when the chat shows after it was covered (the screen marks it read then). Nothing happens while ProviderTruthFlag is
- * off.
+ * when the chat shows after it was covered (the screen marks it read then).
  */
 class SpamChatGate(
     private val activity: ComponentActivity,
@@ -75,7 +73,6 @@ class SpamChatGate(
     }
 
     fun check() {
-        if (!ProviderTruthFlag.enabled) return
         val id = threadId()
         val run = ++checks
         when {

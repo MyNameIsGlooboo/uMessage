@@ -4,12 +4,9 @@ import android.app.Activity
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -25,9 +22,6 @@ import java.util.concurrent.TimeUnit
  */
 @RunWith(AndroidJUnit4::class)
 class SpamChatGateTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private var locked = true
     private var inSpam: (Long) -> Boolean = { true }
@@ -165,15 +159,6 @@ class SpamChatGateTest {
 
         assertThat(screen.gate.blocking).isFalse()
         assertThat(screen.content.visibility).isEqualTo(View.INVISIBLE)
-    }
-
-    @Test
-    fun withTheFlagOffNothingIsCovered() {
-        ProviderTruthFlag.enabled = false
-        val screen = open()
-
-        assertThat(screen.gate.blocking).isFalse()
-        assertThat(lockAsked(screen)).isFalse()
     }
 
     @Test

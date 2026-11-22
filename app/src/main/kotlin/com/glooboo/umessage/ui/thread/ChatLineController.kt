@@ -1,7 +1,6 @@
 package com.glooboo.umessage.ui.thread
 
 import android.content.Context
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.ui.spam.SenderPlace
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
@@ -15,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 /**
  * Provider truth (4.3): works out the chat line of the open one-to-one chat and keeps it in step with the rules, the
- * group members and the switches. Nothing runs while ProviderTruthFlag is off. Main thread.
+ * group members and the switches. Main thread.
  */
 internal class ChatLineController(
     private val context: Context,
@@ -30,7 +29,6 @@ internal class ChatLineController(
      * same sender (the screen came back: a contact may have been added meanwhile).
      */
     fun follow(address: String?, force: Boolean = false) {
-        if (!ProviderTruthFlag.enabled) return
         if (!force && address == this.address && job?.isActive == true) return
         this.address = address
         job?.cancel()
