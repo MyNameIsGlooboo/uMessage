@@ -25,6 +25,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  *   (rescheduleAllScheduledMessages).
  *
  * A failed restore is logged and leaves the backup for the next open; it never stops the database from opening.
+ *
+ * Not copied, by the lead's decision of 22 Nov 2026 (B-23; step J plan, decision L6): `spam_threads`. After a 16 to
+ * 15 to 16 trip the app-start sort adds the Spam rows again, but with no unread count and `spam_since` set to the time
+ * of that sort, so auto-delete never removes the texts those chats received before that sort.
+ * MessagesDatabaseRecoverySpamThreadsTest pins this.
  */
 internal class MessagesDatabaseRecovery(private val context: Context, private val name: String) :
     RoomDatabase.Callback() {
