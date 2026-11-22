@@ -47,11 +47,11 @@ class NumberReadersTest {
 
     @Test fun aServiceLineIsStableAndNotAMobile() {
         val r = readers("US", "GB")
-        val key = r.senderKey(REGION2_SERVICE)
+        val key = r.senderKey(SERVICE)
         assertTrue(key.isNotEmpty())
-        assertEquals(key, r.senderKey(REGION2_SERVICE))
-        assertTrue(r.same(REGION2_SERVICE, REGION2_SERVICE))
-        assertFalse(r.same(REGION2_SERVICE, REGION2_PLUS))
+        assertEquals(key, r.senderKey(SERVICE))
+        assertTrue(r.same(SERVICE, SERVICE))
+        assertFalse(r.same(SERVICE, REGION2_PLUS))
         assertNotEquals(key, r.senderKey(REGION2_PLUS))
     }
 
@@ -100,6 +100,6 @@ class NumberReadersTest {
         const val REGION2_NATIONAL = "07700900123"
         const val REGION2_PLUS = "+447700900123"
         const val REGION2_00 = "00447700900123"
-        const val REGION2_SERVICE = "30001234"
+        const val SERVICE = "60123"
     }
 }

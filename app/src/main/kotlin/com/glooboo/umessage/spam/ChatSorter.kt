@@ -352,21 +352,28 @@ object SpamSorting {
         if (result !is SortResult.Applied || !result.anyChange) return
         changeCount.value++
         result.touched.firstOrNull()?.let { refreshConversations(it) }
-        if (result.entered.isNotEmpty()) {
-            val app = context.applicationContext
-            execute(Runnable { cancelEnteredNotifications(app, result) })
-        }
+        cancelEnteredNotifications(context, result)
     }
 
     /**
      * Lock privacy: a chat a sort moved into Spam on its own (a new rule, the filter switched on, a deleted contact,
      * the first sort) loses its Messages notification, which shows the sender, the text and Reply on the lock screen.
-     * Run off the main thread, as the block from the chat list does.
+     * Only a chat still in Spam ([inSpam]): one a later sort took out ("Not spam", a contact added again) keeps the
+     * notification of its new message. Off the main thread (it reads the Spam table), as every sort runs.
      */
-    internal fun cancelEnteredNotifications(context: Context, result: SortResult) {
+    internal fun cancelEnteredNotifications(
+        context: Context,
+        result: SortResult,
+        inSpam: (Long) -> Boolean = { inSpamTable(context, it) },
+    ) {
         if (result !is SortResult.Applied) return
-        result.entered.forEach { id -> runCatching { context.notificationManager.cancel(id.hashCode()) } }
+        result.entered.forEach { id ->
+            runCatching { if (inSpam(id)) context.notificationManager.cancel(id.hashCode()) }
+        }
     }
+
+    private fun inSpamTable(context: Context, threadId: Long): Boolean =
+        MessagesDatabase.getInstance(context).ConversationsDao().getSpamThread(threadId) != null
 }
 
 /**

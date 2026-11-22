@@ -146,6 +146,6 @@ class SenderJudgeRepositoryTest {
         const val REGION2_NATIONAL = "07700900123"
         const val REGION2_PLUS = "+447700900123"
         const val REGION2_00 = "00447700900123"
-        const val SERVICE = "30001234"
+        const val SERVICE = "60123"
     }
 }

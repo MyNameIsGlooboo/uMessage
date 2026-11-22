@@ -12,6 +12,7 @@ import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.spam.SortingWorld.Companion.CONTACT
 import com.glooboo.umessage.spam.SortingWorld.Companion.SENDER
 import com.glooboo.umessage.spam.SortingWorld.Companion.chat
+import com.glooboo.umessage.spam.engine.SpamCause
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
@@ -71,7 +72,7 @@ class SortNotificationsTest {
         val result = sorter.recompute() as SortResult.Applied
         assertThat(result.entered).containsExactly(1L)
 
-        SpamSorting.cancelEnteredNotifications(context, result)
+        SpamSorting.cancelEnteredNotifications(context, result) { dao.getSpamThread(it) != null }
 
         assertThat(shownIds()).containsExactly(2L.hashCode())
     }
@@ -86,9 +87,37 @@ class SortNotificationsTest {
         val result = sorter.recompute() as SortResult.Applied
         assertThat(result.entered).isEmpty()
 
-        SpamSorting.cancelEnteredNotifications(context, result)
+        SpamSorting.cancelEnteredNotifications(context, result) { dao.getSpamThread(it) != null }
 
         assertThat(shownIds()).containsExactly(1L.hashCode())
+    }
+
+    /**
+     * The real path: [SpamSorting.published] cancels, reading the app's Spam table. A chat a later sort already took
+     * out of Spam (here thread 2, which has no Spam row) keeps the notification of its new message.
+     */
+    @Test
+    fun publishingASortCancelsOnlyTheChatsStillInSpam() {
+        val appDao = MessagesDatabase.getInstance(context).ConversationsDao()
+        offMainThread {
+            appDao.deleteSpamThread(2)
+            appDao.insertSpamThread(SpamThread(1, SENDER, SpamCause.UNKNOWN, spamSince = 1L))
+        }
+        notifyChat(1)
+        notifyChat(2)
+
+        val both = setOf(1L, 2L)
+        val result = SortResult.Applied(added = 2, removed = 0, changed = 0, touched = both, entered = both)
+        offMainThread { SpamSorting.published(context, result) }
+
+        assertThat(shownIds()).containsExactly(2L.hashCode())
+    }
+
+    /** Room refuses the app's own database on the main thread, where Robolectric runs the test. */
+    private fun offMainThread(block: () -> Unit) {
+        var failure: Throwable? = null
+        Thread { runCatching(block).onFailure { failure = it } }.apply { start() }.join()
+        failure?.let { throw it }
     }
 
     private companion object {
