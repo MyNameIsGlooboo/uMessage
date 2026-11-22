@@ -44,6 +44,15 @@ class PhoneNumberDisplayTest {
     }
 
     @Test
+    fun anArabicNumberKeepsItsOpeningBracketInsideTheIsolate() {
+        // H-1: a mark right after "(" left the bracket outside the isolate, so it showed at the far end.
+        val arabic = Locale.forLanguageTag("ar")
+        val shown = displayNumber("5550001234", arabic) { "(555) 000-1234" }
+        assertEquals("(٥٥٥)‎ ‎٠٠٠-‎١٢٣٤", shown)
+        assertEquals("⁦$shown⁩", isolateNumbers(shown))
+    }
+
+    @Test
     fun namesAndSenderIdsAreLeftAlone() {
         val never = { _: String -> "formatted" }
         assertEquals("Sara Ahmadi", displayNumber("Sara Ahmadi", persian, never))

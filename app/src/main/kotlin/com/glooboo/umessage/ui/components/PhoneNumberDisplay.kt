@@ -58,7 +58,8 @@ private const val LRM = '\u200E'
 private const val ARABIC_INDIC_ZERO = '\u0660'
 
 /** What stands between two groups of a grouped number. */
-private const val GROUP_SEPARATORS = " -.()"
+// H-1: no mark after "(": it would split the bracket from the number's isolate.
+private const val GROUP_SEPARATORS = " -.)"
 
 /**
  * G-1: Arabic-Indic digits are weak right-to-left (bidi class AN), so a space or dash between two groups took the
