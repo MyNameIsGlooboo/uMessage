@@ -33,12 +33,13 @@ import com.google.android.mms.pdu_alt.PduHeaders
  * - An MMS goes into the conversation the system would have put it in: the sender plus every other recipient, so a
  *   group picture message stays in its group; a received one without a readable sender goes to "Unknown". It is
  *   the same message when the store already has one, in any conversation, with the same time, box, transaction id,
- *   text and the very same addresses (each of the same type); or when its conversation has one with the same time, box, transaction id and text. The first check does not need
- *   the conversation, which depends on this phone's own number, and many phones do not tell it. A message with
- *   nobody to compare (no usable sender) is only looked for in its conversation, and when two stored messages fit,
- *   the one with the same transaction id or in the same conversation is taken, else the message is written. Its
- *   attachments and addresses are then compared one by one, with missing values compared as missing (not as the
- *   text "null"), and only the missing ones are added. An attachment that failed to write before is written again.
+ *   text and the very same addresses (each of the same type); or when its conversation has one with the same time,
+ *   box, transaction id and text. The first check does not need the conversation, which depends on this phone's own
+ *   number, and many phones do not tell it. A message with nobody to compare (no usable sender) is only looked for
+ *   in its conversation, and when two stored messages fit, the one with the same transaction id or in the same
+ *   conversation is taken, else the message is written. Its attachments and addresses are then compared one by one,
+ *   with missing values compared as missing (not as the text "null"), and only the missing ones are added. An
+ *   attachment that failed to write before is written again.
  *
  * Lookups are cached per conversation and the store's MMS are listed once, so a big restore asks the provider about
  * each conversation once rather than several times per message. Call [fixConversationDates] once at the end.

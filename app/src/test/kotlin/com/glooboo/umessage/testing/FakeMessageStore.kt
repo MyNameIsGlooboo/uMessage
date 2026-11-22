@@ -151,7 +151,7 @@ class FakeMessageStore : ContentProvider() {
 
     /** Gives a stored MMS its transaction id, as the MMS library stores one for a message it received. */
     fun setTransactionId(messageId: Long, transactionId: String) {
-        db.execSQL("UPDATE pdu SET tr_id = ? WHERE _id = ?", arrayOf(transactionId, messageId))
+        db.execSQL("UPDATE pdu SET tr_id = ? WHERE _id = ?", arrayOf<Any>(transactionId, messageId))
     }
 
     // ---- ContentProvider ----------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ class FakeMessageStore : ContentProvider() {
 
             MMS -> when {
                 segments.isEmpty() -> {
-                    if (failMmsList && selection.isNullOrBlank()) throw IllegalStateException("MMS list refused")
+                    check(!failMmsList || !selection.isNullOrBlank()) { "MMS list refused" }
                     db.query("pdu", projection, selection, selectionArgs, null, null, sortOrder)
                 }
                 segments[0] == "part" -> {
