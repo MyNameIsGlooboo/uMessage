@@ -137,9 +137,9 @@ object BlockedNotifier {
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
         val active = manager.activeNotifications
-        val count = active.count { isNotice(it) }
+        val count = active.count { Kind.isNotice(it) }
         // J1: posted once. Posting it again for a new count lifts the whole bundle, every older notice with it.
-        if (count < SUMMARY_FROM || active.any { isSummary(it) }) return
+        if (count < SUMMARY_FROM || active.any { Kind.isSummary(it) }) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(context.getString(R.string.spam_engine_blocked_channel))
@@ -164,17 +164,20 @@ object BlockedNotifier {
         active: Array<StatusBarNotification>,
         gone: Set<Pair<String?, Int>>,
     ) {
-        if (active.none { isNotice(it) && (it.tag to it.id) !in gone }) {
-            active.filter { isSummary(it) }.forEach { manager.cancel(it.tag, it.id) }
+        if (active.none { Kind.isNotice(it) && (it.tag to it.id) !in gone }) {
+            active.filter { Kind.isSummary(it) }.forEach { manager.cancel(it.tag, it.id) }
         }
     }
 
-    /** A held-message or Spam chat notice, not the summary. */
-    private fun isNotice(n: StatusBarNotification): Boolean = (n.tag == TAG || n.tag == CHAT_TAG) && !isSummary(n)
+    /** What kind of posted notification this is (kept apart so the notifier stays small). */
+    private object Kind {
+        /** A held-message or Spam chat notice, not the summary. */
+        fun isNotice(n: StatusBarNotification): Boolean = (n.tag == TAG || n.tag == CHAT_TAG) && !isSummary(n)
 
-    /** Ours, or one an older version posted under [TAG] before the update. */
-    private fun isSummary(n: StatusBarNotification): Boolean = (n.tag == SUMMARY_TAG || n.tag == TAG) &&
-        n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
+        /** Ours, or one an older version posted under [TAG] before the update. */
+        fun isSummary(n: StatusBarNotification): Boolean = (n.tag == SUMMARY_TAG || n.tag == TAG) &&
+            n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
+    }
 
     /** I5: removes the notifications of blocked messages that were restored, deleted, or opened in their thread. */
     fun cancel(context: Context, blockedIds: Collection<Long>) {
@@ -184,7 +187,7 @@ object BlockedNotifier {
             val active = manager.activeNotifications
             // J1: a summary of the version before has held message 23313's key; cancelling it would clear the group.
             val keys = blockedIds.map { TAG to notificationId(it) }
-                .filterNot { key -> active.any { isSummary(it) && it.tag == key.first && it.id == key.second } }
+                .filterNot { key -> active.any { Kind.isSummary(it) && it.tag == key.first && it.id == key.second } }
             keys.forEach { manager.cancel(it.first, it.second) }
             dropLoneSummary(manager, active, keys.toSet())
         }
