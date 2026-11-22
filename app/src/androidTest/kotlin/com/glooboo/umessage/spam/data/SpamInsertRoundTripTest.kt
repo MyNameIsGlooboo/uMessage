@@ -1,6 +1,7 @@
 package com.glooboo.umessage.spam.data
 
 import android.app.NotificationManager
+import android.os.SystemClock
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -89,7 +90,9 @@ class SpamInsertRoundTripTest {
         assertTrue("in Spam by the list rule", dao.isInSpam(threadId))
         assertFalse("not listed in Messages", dao.getMessagesList().any { it.threadId == threadId })
         assertEquals("unread count in Spam", 1, dao.getSpamThread(threadId)?.unread)
-        // A blocked sender never notifies: no message notification and no Spam notice for the chat.
+        // A blocked sender never notifies: no message notification and no Spam notice for the chat, also a moment
+        // later (posts run on a background thread).
+        SystemClock.sleep(NOTIFY_SETTLE_MS)
         val notifications = app.getSystemService(NotificationManager::class.java).activeNotifications
         assertFalse("silent", notifications.any { it.id == threadId.hashCode() })
     }
@@ -99,5 +102,6 @@ class SpamInsertRoundTripTest {
 
     private companion object {
         const val SENDER = "+15550004111"
+        const val NOTIFY_SETTLE_MS = 2_000L
     }
 }

@@ -110,12 +110,7 @@ class SpamProviderMigrationDeviceTest {
      * over, no first run works, and the sorting thread has nothing queued.
      */
     private fun waitForAppStart() {
-        val appStartRunning = {
-            Thread.getAllStackTraces().values.any { frames ->
-                frames.any { it.className == APP_CLASS || it.className.startsWith("$APP_CLASS$") }
-            }
-        }
-        assertTrue("app start finished", DeviceTest.waitFor(timeoutMs = 120_000L) { !appStartRunning() })
+        assertTrue("app start finished", DeviceTest.waitForAppStart())
         assertTrue("no first run", DeviceTest.waitFor(timeoutMs = 120_000L) { !FirstRun.state(app).value.active })
         val drained = CountDownLatch(1)
         SpamSorting.execute(Runnable { drained.countDown() })
@@ -326,7 +321,6 @@ class SpamProviderMigrationDeviceTest {
     private companion object {
         const val TEST_DB = "j10-spamless-v8.db"
         const val TEST_JOURNAL = "j10_older_spam_test"
-        const val APP_CLASS = "com.glooboo.umessage.App"
         const val MINUTE_MS = 60_000L
         const val DAY_S = 24L * 60 * 60
         const val THREE_DAYS_MS = 3 * DAY_S * 1000

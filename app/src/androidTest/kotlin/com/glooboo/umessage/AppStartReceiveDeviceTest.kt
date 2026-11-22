@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.SystemClock
 import android.provider.Telephony
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
@@ -92,11 +93,12 @@ class AppStartReceiveDeviceTest {
     /**
      * The first run's pass (a fresh install's or an update's) is started as the end of the welcome flow starts it
      * (App.checkFirstRun: the pages read the onboarding again, the runner checks) and waited for; then a "What
-     * changed" page it left is closed as its "Got it" button closes it.
+     * changed" page it left is closed as its "Got it" button closes it. checkFirstRun checks only once sorting has
+     * started, so the app's start-up steps are waited for first.
      */
     private fun finishFirstRun() {
+        assertTrue("app start finished", DeviceTest.waitForAppStart())
         (app as App).checkFirstRun()
-        FirstRun.check(app)
         assertTrue(
             "the first run's pass did not finish",
             DeviceTest.waitFor(timeoutMs = FIRST_RUN_TIMEOUT_MS) {
@@ -174,13 +176,13 @@ class AppStartReceiveDeviceTest {
             val listed = dao.getMessagesList().sortedByDescending { it.date }
             val where = "first-run page up: ${firstRunPageUp()}; list at top: $atTop; newest-first position " +
                 "${listed.indexOfFirst { it.threadId == helloRow.thread }} of ${listed.size}; scrolled $scrolls pages"
-            if (scrolls > 0 || !shown) {
-                // One line per node: logcat cuts a single long entry at about 4 KB.
+            if (!shown) {
+                // On failure only: the layout, one line per node (logcat cuts a long entry at about 4 KB). No text of
+                // other chats: every text is blanked except a mark on nodes that hold the test's own text.
                 Log.d(LOG_TAG, "Main screen, $where")
-                screenTree().lines().forEach { Log.d(LOG_TAG, it) }
+                screenLayout().lines().forEach { Log.d(LOG_TAG, it) }
             }
-            val screen = if (shown) "" else screenTexts().take(SCREEN_TEXT_MAX)
-            assertTrue("allowed text: on the main screen ($where). Screen: $screen", shown)
+            assertTrue("allowed text: on the main screen ($where)", shown)
 
             val advertRow = storedRow(BLOCKED, advert)
             threads += advertRow.thread
@@ -200,6 +202,8 @@ class AppStartReceiveDeviceTest {
                 DeviceTest.waitFor(timeoutMs = 15_000L) { notificationsOf(helloRow.thread).size == 1 },
             )
             assertTrue("spam text: no notification", notificationsOf(advertRow.thread).isEmpty())
+            SystemClock.sleep(NOTIFY_SETTLE_MS)
+            assertTrue("spam text: still no notification", notificationsOf(advertRow.thread).isEmpty())
         }
     }
 
@@ -242,17 +246,20 @@ class AppStartReceiveDeviceTest {
         appRoots().forEach { walk(it, 0) }
     }
 
-    /** The texts and content descriptions the app's windows show, in order (made-up test data only). */
-    private fun screenTexts(): String = appNodes().flatMap { (_, node) ->
-        listOfNotNull(node.text?.toString(), node.contentDescription?.toString())
-    }.filter { it.isNotBlank() }.joinToString(" | ")
-
-    /** The node tree of the app's windows: class, text, description, scrollable. */
-    private fun screenTree(): String = appNodes().joinToString("\n") { (depth, node) ->
+    /**
+     * The node layout of the app's windows: class and scrollable. Texts and descriptions are blanked ("[text]",
+     * "[desc]"); a node holding the test's own text is marked "[J10 text]" instead, so no other chat shows.
+     */
+    private fun screenLayout(): String = appNodes().joinToString("\n") { (depth, node) ->
         "  ".repeat(depth) + node.className?.toString()?.substringAfterLast('.') +
-            node.text?.let { " text=\"$it\"" }.orEmpty() +
-            node.contentDescription?.let { " desc=\"$it\"" }.orEmpty() +
+            blanked("text", node.text) + blanked("desc", node.contentDescription) +
             (if (node.isScrollable) " scrollable" else "")
+    }
+
+    private fun blanked(kind: String, value: CharSequence?): String = when {
+        value.isNullOrBlank() -> ""
+        value.contains(TEST_TEXT) -> " [J10 $kind]"
+        else -> " [$kind]"
     }
 
     /** The app's biggest scrollable node (the chat list), null when there is none. */
@@ -282,7 +289,8 @@ class AppStartReceiveDeviceTest {
     private companion object {
         const val FIRST_RUN_TIMEOUT_MS = 240_000L
         const val MAX_SCROLLS = 10
-        const val SCREEN_TEXT_MAX = 1_500
+        const val NOTIFY_SETTLE_MS = 2_000L
+        const val TEST_TEXT = "J10 "
         const val LOG_TAG = "uMessageTest"
         const val ALLOWED = "+15550004121"
         const val BLOCKED = "+15550004122"

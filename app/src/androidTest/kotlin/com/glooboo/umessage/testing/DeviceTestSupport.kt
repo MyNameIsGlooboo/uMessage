@@ -50,6 +50,18 @@ object DeviceTest {
         return ParcelFileDescriptor.AutoCloseInputStream(output).bufferedReader().use { it.readText() }
     }
 
+    /**
+     * True once the app's start-up steps (App.onCreate's one background thread, which also starts sorting) are over:
+     * no thread runs code of the App class any more. Waits at most [timeoutMs].
+     */
+    fun waitForAppStart(timeoutMs: Long = 120_000L): Boolean = waitFor(timeoutMs) {
+        Thread.getAllStackTraces().values.none { frames ->
+            frames.any { it.className == APP_CLASS || it.className.startsWith("$APP_CLASS$") }
+        }
+    }
+
+    private const val APP_CLASS = "com.glooboo.umessage.App"
+
     /** True once [check] holds, polled every 100 ms for at most [timeoutMs]. */
     fun waitFor(timeoutMs: Long = 10_000L, check: () -> Boolean): Boolean {
         val end = SystemClock.uptimeMillis() + timeoutMs
