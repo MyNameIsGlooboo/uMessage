@@ -522,6 +522,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         vm.showPeople = false
         vm.showAttachSheet = false
         vm.showEmojiPanel = false
+        // K2-1: a bank or code chat turned the input off; the new chat's participants decide again.
+        vm.replyDisabled = false
         vm.closeSearch()
         vm.people = emptyList()
         refreshMenuItems()

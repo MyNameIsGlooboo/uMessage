@@ -27,6 +27,7 @@ import com.glooboo.umessage.messaging.canReadScheduledAttachments
 import com.glooboo.umessage.messaging.unreadableScheduledAttachments
 import com.glooboo.umessage.messaging.deleteScheduledRepeat
 import com.glooboo.umessage.messaging.deleteScheduledAttachments
+import com.glooboo.umessage.messaging.holdDiedScheduledSend
 import com.glooboo.umessage.messaging.ScheduledSendClaims
 import com.glooboo.umessage.messaging.scheduledAttachmentTracker
 import com.glooboo.umessage.messaging.sendMessageDetailed
@@ -111,8 +112,12 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         try {
             // K1 hand-over: the row is read again after the claim. The start-up tidy may have swapped its attachments
             // to the app's own copies meanwhile, and the tracker must not write the picker uris back. A row that is
-            // gone (sent or deleted meanwhile) or held sends nothing.
-            val claimedMessage = dueMessage(context, messageId) ?: return
+            // gone (sent or deleted meanwhile) or held sends nothing. K2-5: a read that failed leaves the claimed row in
+            // the outbox, so it is held with Retry; a row that is gone or held already is left as it is.
+            val claimedMessage = dueMessage(context, messageId) ?: run {
+                context.holdDiedScheduledSend(message)
+                return
+            }
             sendClaimed(context, claimedMessage)
         } finally {
             ScheduledSendClaims.release(messageId)
