@@ -35,7 +35,8 @@ class ConversationSnippetTest {
     @After
     fun tearDown() = db.close()
 
-    private fun snippet() = conversations.getAllRows().filterNot { it.isArchived }.single { it.threadId == THREAD }.snippet
+    private fun snippet() =
+        conversations.getAllRows().filterNot { it.isArchived }.single { it.threadId == THREAD }.snippet
 
     @Test
     fun anUnsentScheduledMessageIsNotThePreview() {

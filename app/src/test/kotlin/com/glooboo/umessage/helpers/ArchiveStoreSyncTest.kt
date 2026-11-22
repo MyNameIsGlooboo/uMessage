@@ -62,9 +62,11 @@ class ArchiveStoreSyncTest {
         executor.submit {}.get(60, TimeUnit.SECONDS)
     }
 
-    private fun archivedIds() = offMainThread { context.conversationsDB.getAllRows().filter { it.isArchived } }.map { it.threadId }
+    private fun archivedIds() =
+        offMainThread { context.conversationsDB.getAllRows().filter { it.isArchived } }.map { it.threadId }
 
-    private fun inboxIds() = offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }.map { it.threadId }
+    private fun inboxIds() =
+        offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }.map { it.threadId }
 
     private fun setArchived(threadId: Long, archived: Boolean) =
         offMainThread { context.updateConversationArchivedStatus(threadId, archived) }
