@@ -17,7 +17,10 @@ Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and vid
 - Code: whole app; role request in onboarding (`RoleManager.ROLE_SMS`), receivers in `receivers/`, sending in
   `messaging/`.
 - Google may ask for: a video of first launch, the "Set as default SMS app" dialog, receiving a message, sending a
-  reply, a spam message going to the Spam tab.
+  reply, a chat from an unknown sender going to the Spam tab, blocking a chat.
+- Storage: every message, spam included, is written to Android's own SMS database (`WRITE_SMS`). Spam is stored there
+  marked read and seen; the app only decides whether a chat shows in Messages or in Spam. A spam MMS is downloaded
+  like any other (up to 1 MiB, not while roaming), because a group MMS cannot be told apart before the download.
 - Risk: low. A complete default SMS app is the listed core use. Fallback: none needed.
 
 ## 2. Photo and video permissions (`READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED`)
@@ -101,8 +104,10 @@ Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and vid
 === SMS: core functionality (Default SMS handler) ===
 uMessage is a complete SMS and MMS messaging app. It asks to become the default SMS app during first launch (Android
 role dialog) and works only while it holds that role. It receives, stores, shows and sends text and picture messages,
-group messages and threads, and filters spam into a Spam tab. SMS permissions are used only for these functions.
-Nothing is sent to any server. The app does not request call log permissions.
+group messages and threads, and sorts the chats of unknown and blocked senders into a Spam tab. Every message, spam
+included, is stored in the phone's own SMS database, so the user loses nothing when switching to another SMS app.
+SMS permissions are used only for these functions. Nothing is sent to any server. The app does not request call log
+permissions.
 
 === Photo and video permissions (READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED) ===
 In a conversation, the attach menu shows a row of the user's most recent pictures so a picture can be attached with
@@ -160,11 +165,12 @@ On 8 Nov 2026 a human Google Play Developer Support reviewer confirmed in writin
 > Store description must accurately and prominently disclose the feature (optional, runs locally on the device, sends
 > by SMS using the user's own carrier plan).
 
-What the app does: off by default; the user creates a rule in Settings > Forwarding; matching incoming messages are
-sent as normal SMS to up to three numbers the user typed, from the user's own number, on the user's own plan. Blocked
-and Spam messages are never forwarded; verification codes only if that rule's switch is on; a daily limit and an
-hourly cap per rule exist. Nothing goes through a server, there is no INTERNET permission, and no SMS permission was
-added (SEND_SMS, READ_SMS and RECEIVE_SMS are already declared for the default SMS handler).
+What the app does: off by default; the user creates a rule in Settings > Forwarding; matching incoming messages are sent
+as normal SMS to up to three numbers the user typed, from the user's own number, on the user's own plan. Only texts that
+land in Messages are forwarded; texts in Spam, including those from blocked senders, never are; verification codes only
+if that rule's switch is on; a daily limit and an hourly cap per rule exist. Nothing goes through a server, there is no
+INTERNET permission, and no SMS permission was added (SEND_SMS, READ_SMS and RECEIVE_SMS are already declared for the
+default SMS handler).
 
 Disclosure places: PRIVACY.md (section "Forwarding messages (optional)"), the full description in every language, and
 the Forwarding screens in the app (they say each forward is a paid SMS).

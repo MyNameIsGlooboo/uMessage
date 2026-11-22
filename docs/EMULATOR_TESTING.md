@@ -7,7 +7,7 @@ The emulator can inject incoming SMS with `adb emu sms send`, which is enough to
 1. Install the toolchain: [../scripts/SETUP.md](../scripts/SETUP.md).
 2. Create an AVD with a Google APIs image, API 36 (or 26 to test the legacy default-app flow), then start it:
    `emulator -avd <name>`
-3. Install the debug APK: `adb install -r app/build/outputs/apk/foss/debug/*.apk`
+3. Install the debug APK: `adb install -r app/build/outputs/apk/foss/debug/*.apk` (package `com.glooboo.spamless.debug`; release builds are `com.glooboo.spamless`)
 4. Open uMessage, finish onboarding, and set it as the default SMS app.
 5. Add a contact (Contacts app) with number `5550100`.
 
@@ -27,16 +27,25 @@ CONTACT_NUMBER=5550100 scripts/test-scenarios.sh
 
 Note: `adb emu` requires the emulator console auth token (`~/.emulator_console_auth_token`); adb handles it automatically. Spaces are fine in the text argument; avoid newlines.
 
-## Expected results (Strict mode)
+## Expected results (spam filter on, the default)
 
 | Message | Expected |
 |---|---|
-| From 5550100 (contact) | Appears in inbox, notification shown |
-| From 5550199 (unknown) | Only in Spam folder, no notification |
-| From `VM-HDFCBK` (OTP text) | Blocked; allowed in Smart mode or when the sender is allowed |
-| Body contains "free prize" | Blocked (with a KEYWORD blacklist rule it shows reason BLOCK_RULE) |
+| From 5550100 (contact) | Messages, notification shown |
+| From 5550199 (unknown) | The whole chat in Spam, stored read, no notification |
+| From `VM-HDFCBK` (code text) | Messages, with the code; the sender joins "Senders of a verification code" |
+| Body contains "free prize" from 5550177 | Spam (unknown sender). With a blocked keyword rule "free prize" the sender also gets a block rule and the log shows reason BLOCK_RULE |
 
-Also verify: "Not spam" on a blocked item moves it to the inbox and whitelists the sender (a second message from it now arrives); whitelist beats blacklist; switching mode to Off lets unknown senders through.
+Note: `scripts/test-scenarios.sh` and `.ps1` still print the expectations of the old modes. Trust this table.
+
+Also verify:
+
+- "Not spam" on the 5550199 chat moves the whole chat to Messages and allows the sender (a second message from it now arrives in Messages).
+- Block on a chat in Messages moves the whole chat to Spam at once; a new text from it arrives silently in Spam. Undo puts it back.
+- An allow rule you made beats a block rule for the same number.
+- Writing a text to an unknown number adds it to "People you wrote to"; its reply arrives in Messages.
+- Turning the Spam filter off (Settings > Spam protection) moves unknown senders' chats to Messages; blocked senders stay in Spam.
+- A tracking-number text ("Tracking code 99887766 for your delivery") from an unknown number stays in Spam and does not allow the sender.
 
 ## Dual SIM
 
@@ -45,7 +54,7 @@ The stock emulator has one SIM. Newer emulator versions can add a second SIM in 
 ## Useful commands
 
 ```
-adb logcat | grep -i spamless
-adb shell dumpsys package com.glooboo.spamless | grep -i permission
+adb logcat -s uMessageReceive uMessageSort uMessageNotify uMessageForward
+adb shell dumpsys package com.glooboo.spamless.debug | grep -i permission
 adb shell cmd role get-role-holders android.app.role.SMS
 ```
