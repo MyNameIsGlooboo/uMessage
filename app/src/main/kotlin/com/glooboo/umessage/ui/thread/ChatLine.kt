@@ -35,7 +35,7 @@ import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.spam.RuleNotes
 
-/* Provider truth (4.3, U10; step N item 3): the one line about the sender of a one-to-one chat. Flag on only. */
+/* Provider truth (4.3, U10; step N item 3): the one line about the sender of a one-to-one chat. */
 
 /** What the chat line's buttons do. */
 enum class ChatLineAction { BLOCK, KEEP, UNBLOCK, NOT_SPAM, ADD_CONTACT }

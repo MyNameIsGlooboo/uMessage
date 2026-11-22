@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">Engelleme kaldırıldı. Sohbet Mesajlar\'a döndü</string>
     <string name="thread_unblock_done_system">uMessage uygulamasında engelleme kaldırıldı. Bu numara telefonunuzun engellenenler listesinde de olduğu için Android mesajlarını engellemeye devam ediyor</string>
     <string name="thread_unblock_done_filtered">Engelleme kaldırıldı. Gönderen bilinmediği için Spam\'de kalıyor.</string>
-    <string name="thread_unblock_always_allow">Her zaman izin verin</string>
     <string name="thread_always_allow_done">Her zaman izin verildi. Sohbet Mesajlar\'da</string>
     <string name="thread_always_allow_failed">Bu numaraya izin verilemedi</string>
     <string name="thread_unblock_failed">Bu numaranın engellemesi kaldırılamadı</string>

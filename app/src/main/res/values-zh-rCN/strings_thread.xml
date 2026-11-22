@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">已取消屏蔽。会话已回到“消息”</string>
     <string name="thread_unblock_done_system">已在uMessage中取消屏蔽。此号码仍在手机的屏蔽列表中，Android仍会屏蔽其消息</string>
     <string name="thread_unblock_done_filtered">已取消屏蔽。由于发件人未知，仍留在“垃圾短信”中。</string>
-    <string name="thread_unblock_always_allow">始终允许</string>
     <string name="thread_always_allow_done">已设为始终允许。会话在“消息”中</string>
     <string name="thread_always_allow_failed">无法允许此号码</string>
     <string name="thread_unblock_failed">无法取消屏蔽此号码</string>

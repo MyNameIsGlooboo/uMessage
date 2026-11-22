@@ -1,14 +1,13 @@
 package com.glooboo.umessage.ui.spam
 
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 
 /**
  * Pure conflict checks over the rules held in memory (ID-42). The filter checks allow rules before block rules, so a
- * block rule that an allow rule covers never applies. With [ProviderTruthFlag] on only an allow rule the user made wins
- * (answer 19): one the filter made from an allowed word (H4) loses to a block, so it overrides nothing.
+ * block rule that an allow rule covers never applies. Only an allow rule the user made wins (answer 19): one the
+ * filter made from an allowed word (H4) loses to a block, so it overrides nothing.
  */
 object RuleConflicts {
 
@@ -20,7 +19,7 @@ object RuleConflicts {
      */
     fun overriddenBy(rules: List<SpamRule>, block: SpamRule): SpamRule? {
         if (block.kind != ListKind.BLOCK || block.type !in senderTypes) return null
-        val allows = if (ProviderTruthFlag.enabled) rules.filterNot { RuleNotes.isMadeByFilter(it.note) } else rules
+        val allows = rules.filterNot { RuleNotes.isMadeByFilter(it.note) }
         return RuleValidator.conflictingAllows(allows, block.type, block.pattern, block.subscriptionId).firstOrNull()
     }
 

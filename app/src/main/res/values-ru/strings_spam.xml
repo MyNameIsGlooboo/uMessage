@@ -111,15 +111,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Спам-фильтр</string>
     <string name="spam_settings_unknown_body">Неизвестный отправитель — это тот, кого нет в ваших контактах и в списке разрешенных. Весь его чат без звука попадает в «Спам». Те, кому вы писали, и отправители кодов подтверждения остаются в «Сообщениях».</string>
-    <string name="spam_mode_strict">Строгий</string>
-    <string name="spam_mode_strict_body">Блокирует всех неизвестных отправителей, включая коды</string>
-    <string name="spam_mode_smart">Умный</string>
-    <string name="spam_mode_smart_body">Блокирует неизвестных отправителей, пропускает сообщения только с кодами</string>
-    <string name="spam_mode_off">Выкл.</string>
-    <string name="spam_mode_off_body">Неизвестные отправители не блокируются</string>
-    <string name="spam_strict_warning_title">Строгий режим может скрыть важные сообщения</string>
-    <string name="spam_strict_warning_body">Сообщения от банков и служб доставки, а также одноразовые коды обычно приходят от отправителей, которых нет в ваших контактах. В строгом режиме они попадают в «Спам», включая коды. Выберите умный режим, чтобы пропускать коды, или один раз разрешите этих отправителей.</string>
-    <string name="spam_strict_warning_action">Посмотреть спам</string>
     <string name="spam_settings_cleanup_title">Очистка</string>
     <string name="spam_purge_body">Выключено, пока вы не выберете число дней</string>
     <string name="spam_purge_days">%d дней</string>

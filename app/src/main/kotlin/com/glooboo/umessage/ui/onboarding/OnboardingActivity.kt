@@ -24,12 +24,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
-import com.glooboo.umessage.helpers.Config
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 
@@ -130,16 +127,13 @@ class OnboardingActivity : ComponentActivity() {
 }
 
 /**
- * Holds the unknown-sender choice and how long blocked messages are kept; writes it through the frozen [UMessage]
- * repository. With [ProviderTruthFlag] on it holds the one filter switch instead (the Welcome choice), and nothing
+ * Holds the one filter switch (the Welcome choice) and writes it through the frozen [UMessage] repository. Nothing
  * here writes the auto-delete days any more (S13). The one-argument constructor is the one viewModel() finds.
  */
 class OnboardingViewModel @JvmOverloads constructor(
     app: Application,
     private val repository: () -> SpamRepository = { UMessage.repository(app) },
 ) : AndroidViewModel(app) {
-    private val _mode = MutableStateFlow(SpamSettings().mode)
-    val mode: StateFlow<UnknownSenderMode> = _mode.asStateFlow()
     private val _filterOn = MutableStateFlow(SpamSettings().filterOn)
     val filterOn: StateFlow<Boolean> = _filterOn.asStateFlow()
 
@@ -150,18 +144,11 @@ class OnboardingViewModel @JvmOverloads constructor(
     /** Set by the first tap, so the settings read that finishes later does not undo the choice (G-10). */
     @Volatile
     private var filterChosen = false
-    private val _purgeDays = MutableStateFlow(SpamSettings().purgeAfterDays)
-    val purgeDays: StateFlow<Int> = _purgeDays.asStateFlow()
-    private val config = Config.newInstance(app)
-    private val _deliveryReports = MutableStateFlow(config.enableDeliveryReports)
-    val deliveryReports: StateFlow<Boolean> = _deliveryReports.asStateFlow()
 
     init {
         viewModelScope.launch {
             // The engine may not be installed yet (or in previews); keep defaults then.
             runCatching { repository().settings.first() }.onSuccess {
-                _mode.value = it.mode
-                _purgeDays.value = it.purgeAfterDays
                 if (!filterChosen) _filterOn.value = it.filterOn
             }
         }
@@ -174,36 +161,6 @@ class OnboardingViewModel @JvmOverloads constructor(
         viewModelScope.launch {
             val saved = runCatching { repository().updateSettings { it.copy(filterOn = on) } }.isSuccess
             _filterSaveFailed.value = !saved
-        }
-    }
-
-    fun setMode(mode: UnknownSenderMode) {
-        _mode.value = mode
-        persist()
-    }
-
-    /** Written to the preference at once, so rotation, process death and Settings all see the same value. */
-    fun setDeliveryReports(on: Boolean) {
-        config.enableDeliveryReports = on
-        _deliveryReports.value = on
-    }
-
-    fun setPurgeDays(days: Int) {
-        _purgeDays.value = days
-        persist()
-    }
-
-    private fun persist() {
-        // The mode page and its "Keep spam for" row are not shown with the switch model.
-        if (ProviderTruthFlag.enabled) return
-        val mode = _mode.value
-        val days = _purgeDays.value
-        viewModelScope.launch {
-            runCatching {
-                repository().updateSettings {
-                    it.copy(mode = mode, purgeAfterDays = days)
-                }
-            }
         }
     }
 }

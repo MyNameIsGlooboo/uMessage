@@ -34,14 +34,10 @@
         <item quantity="other">%d天後刪除</item>
     </plurals>
     <string name="spam_purge_left_today">今天刪除</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">已檢舉%d個對話。對方傳來的新簡訊會移至「垃圾訊息」，這些對話也已封存。</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="other">已檢舉%d個對話，已移至「垃圾訊息」。</item>
     </plurals>
     <string name="blocked_title">垃圾訊息</string>
-    <string name="blocked_snack_mode">未知寄件者已設為%1$s</string>
     <string name="blocked_stats_restored">你已還原%1$d則</string>
     <string name="blocked_reason_unknown_link">未知寄件者，含有連結</string>
     <string name="blocked_may_be_important">可能很重要</string>

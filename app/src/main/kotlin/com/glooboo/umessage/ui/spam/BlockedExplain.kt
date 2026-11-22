@@ -3,7 +3,6 @@ package com.glooboo.umessage.ui.spam
 import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
-import com.glooboo.umessage.spam.FilterDecision
 
 /** Why a message was held, in the words the open message shows (ID-16). */
 enum class HeldWhy {
@@ -37,40 +36,5 @@ object BlockedExplain {
         }
         val code = runCatching { OtpCodeExtractor.extract(message.body) }.getOrNull()
         return HeldExplanation(why, code)
-    }
-}
-
-/** What the filter would do with a sample message, for the "Test a message" sheet (ID-52). */
-enum class Verdict {
-    HELD_BY_RULE,
-    HELD_UNKNOWN_WITH_LINK,
-    HELD_UNKNOWN,
-    ALLOWED_BY_RULE,
-    ALLOWED_CONTACT,
-    ALLOWED_KNOWN_CONVERSATION,
-    ALLOWED_CODE,
-    ALLOWED_MODE_OFF,
-    ALLOWED_UNSURE,
-    ALLOWED_OTHER,
-    ;
-
-    val held: Boolean get() = this == HELD_BY_RULE || this == HELD_UNKNOWN_WITH_LINK || this == HELD_UNKNOWN
-
-    companion object {
-        fun of(decision: FilterDecision, body: String): Verdict = when (decision) {
-            is FilterDecision.Block -> when (decision.reason) {
-                DecisionReason.BLOCK_RULE -> HELD_BY_RULE
-                else -> if (BlockedHints.hasLink(body)) HELD_UNKNOWN_WITH_LINK else HELD_UNKNOWN
-            }
-            is FilterDecision.Allow -> when (decision.reason) {
-                DecisionReason.ALLOW_RULE -> ALLOWED_BY_RULE
-                DecisionReason.CONTACT -> ALLOWED_CONTACT
-                DecisionReason.KNOWN_CONVERSATION -> ALLOWED_KNOWN_CONVERSATION
-                DecisionReason.OTP_EXEMPTION -> ALLOWED_CODE
-                DecisionReason.MODE_OFF -> ALLOWED_MODE_OFF
-                DecisionReason.CONTACTS_UNAVAILABLE -> ALLOWED_UNSURE
-                else -> ALLOWED_OTHER
-            }
-        }
     }
 }

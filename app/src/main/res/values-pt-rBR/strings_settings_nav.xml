@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (direitos autorais dos autores do projeto Google Sans Flex) e Vazirmatn (direitos autorais dos autores do projeto Vazirmatn) são licenciadas sob a SIL Open Font License, versão 1.1: você pode usá-las, estudá-las, copiá-las, incorporá-las e redistribuí-las, inclusive em produtos comerciais, mas não vendê-las separadamente, e as versões modificadas não podem usar os nomes reservados das fontes. Roboto (direitos autorais da Google LLC) é licenciada sob a Apache License, versão 2.0. As fontes são fornecidas no estado em que se encontram, sem garantia.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (direitos autorais da Google LLC) são licenciados sob a Apache License, versão 2.0. Os ícones são fornecidos no estado em que se encontram, sem garantia.</string>
     <string name="settings_nav_recommended">Recomendado</string>
-    <string name="settings_nav_strict_confirm_title">Bloqueie também os códigos de verificação?</string>
-    <string name="settings_nav_strict_confirm_body">No modo de filtragem rigoroso, códigos de remetentes que não estão nos seus contatos vão para Spam junto com todo o resto. Mensagens de bancos e transportadoras também são retidas.</string>
-    <string name="settings_nav_strict_confirm_action">Use o modo rigoroso</string>
-    <string name="settings_nav_strict_confirm_cancel">Mantenha o modo atual</string>
     <string name="settings_nav_purge_row">Excluir spam antigo automaticamente</string>
     <string name="settings_nav_group_alerts">Alertas</string>
     <string name="settings_nav_notify_body">Uma notificação silenciosa que abre o Spam. Nunca para um remetente que você bloqueou.</string>

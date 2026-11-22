@@ -2,7 +2,6 @@ package com.glooboo.umessage.spam
 
 import com.glooboo.umessage.spam.engine.ContactNumberIndex
 import com.glooboo.umessage.spam.engine.NumberNormalizer
-import com.glooboo.umessage.spam.engine.RegionBlock
 import com.glooboo.umessage.spam.engine.RuleMatcher
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -48,13 +47,6 @@ class SpamFilterSmallSlips042Test {
         assertEquals(plain, us.normalize("\u200F\u202A+44 7700 900123\u202C"))
         assertEquals(plain, us.normalize("(+44) 7700 900123"))
         assertEquals(plain, us.normalize("\uFF0B44 7700 900123"))
-    }
-
-    @Test fun regionBlockSeesForeignNumbersWrittenWithMarks() {
-        assertTrue(RegionBlock.isForeign("\u200E+44 7700 900123", "US"))
-        assertTrue(RegionBlock.isForeign("(+44) 7700 900123", "US"))
-        assertTrue(RegionBlock.isForeign("\uFF0B44 7700 900123", "US"))
-        assertFalse(RegionBlock.isForeign("\u200E+44 7700 900123", "GB"))
     }
 
     // ---- SP-lowB (B12): one slow search must not kill a rule ----

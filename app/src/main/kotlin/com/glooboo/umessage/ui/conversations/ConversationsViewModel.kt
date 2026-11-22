@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +34,6 @@ import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.ListTiming
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import java.util.Collections
 import java.util.concurrent.Executors
@@ -49,9 +47,7 @@ import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
-import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SimInfo
-import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 
 /**
  * Feeds [ConversationsScreen]. The host activity keeps running the proven telephony sync and hands every
@@ -101,8 +97,6 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** CL-32: the threads an archive marked read because they were unread, by token, so Undo can mark them unread. */
     private val archivedUnread = HashMap<Long, List<Long>>()
 
-    /** "Report spam" actions Undo can still take back: the rules added and the threads archived, by token. */
-    private val reports = HashMap<Long, Pair<SenderBlocking.Change, List<Long>>>()
     private var nextToken = 1L
 
     /** Grows each time a list was published; the Spam tab reads its rows again then (a new spam text). */
@@ -164,17 +158,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private fun observeBlockedCount() {
         // Provider truth (3.4): the number is read from the Spam list, after every list publish and every sort.
-        if (spamMoves.observeCount(app.config.blockedSeenAt.also { blockedSeenAt.value = it })) return
-        viewModelScope.launch {
-            val repository = runCatching { SpamRepositoryProvider.get(app) }.getOrNull() ?: return@launch
-            blockedSeenAt.value = app.config.blockedSeenAt
-            combine(repository.blocked, blockedSeenAt) { blocked, seenAt -> blocked.count { it.receivedAt > seenAt } }
-                .catch { }
-                .collect {
-                    newBlockedCount = it
-                    requestRebuild()
-                }
-        }
+        spamMoves.observeCount(app.config.blockedSeenAt.also { blockedSeenAt.value = it })
     }
 
     /** Keeps [noteThreads] up to date; a failing notes table leaves the marks off, it never breaks the list. */
@@ -542,10 +526,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     /**
-     * Adds a uMessage block rule for each selected sender (CM-06): new texts from them go to Blocked messages, where
-     * they can be read and restored. The phone's own block list is not touched, because Android discards texts from
-     * numbers on it before the app sees them. The conversations stay in the list with their old messages. MC-23: the
-     * snackbar offers Undo, which removes the rules again (through [undoReportSpam], with nothing to unarchive).
+     * Adds a uMessage block rule for each selected sender (CM-06) and moves their chats to Spam (provider truth, 4.1,
+     * [MessagesSpamMoves]). The phone's own block list is not touched, because Android discards texts from numbers on
+     * it before the app sees them. MC-23: the snackbar offers Undo (through [undoReportSpam]).
      */
     fun blockSelected() {
         // A group chat has no single sender, so it is left out, as blockOne and reportSpamSelected do.
@@ -567,80 +550,27 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun block(conversations: List<Conversation>) {
-        if (spamMoves.block(conversations, nextToken++, report = false)) return
-        val numbers = conversations.map { it.phoneNumber }
-        viewModelScope.launch {
-            runCatching { SenderBlocking.block(SpamRepositoryProvider.get(app), numbers) }
-                .onSuccess { change ->
-                    val token = nextToken++
-                    reports[token] = change to emptyList()
-                    _events.trySend(ConversationsEvent.Blocked(token, conversations.size))
-                }
-                .onFailure { _events.trySend(ConversationsEvent.Failed) }
-        }
+        spamMoves.block(conversations, nextToken++, report = false)
     }
 
     /**
-     * "Report spam" (MC-37): blocks each selected sender with a uMessage rule, as "Block number" does, so their new
-     * texts go to Blocked messages, and archives the chats so the spam leaves the list. The old messages stay in the
-     * archived chat; nothing is deleted. One Undo removes the rules and unarchives. Group chats are skipped (the
-     * action is only offered when none is selected). When archiving is not available the chats stay in the list.
+     * "Report spam" (MC-37): blocks each selected sender as "Block number" does, so the chats move to Spam. One Undo
+     * takes it back. Group chats are skipped (the action is only offered when none is selected).
      */
     fun reportSpamSelected() {
         val conversations = selectedConversations().filterNot { it.isGroupConversation }
         if (conversations.isEmpty()) return
         // Provider truth: "Report spam" equals Block; it no longer archives (4.1). C-16: the selection clears.
-        if (ProviderTruthFlag.enabled) clearSelection()
-        if (spamMoves.block(conversations, nextToken++, report = true)) return
-        val threadIds = conversations.map { it.threadId }
-        val numbers = conversations.map { it.phoneNumber }
-        val archive = archiveAvailable
-        if (archive) hidden += threadIds
-        selected = selected - threadIds.toSet()
-        requestRebuild()
-        viewModelScope.launch {
-            val change = runCatching { SenderBlocking.block(SpamRepositoryProvider.get(app), numbers) }.getOrElse {
-                hidden -= threadIds.toSet()
-                requestRebuild()
-                _events.trySend(ConversationsEvent.Failed)
-                return@launch
-            }
-            // A failed archive keeps the block: the report still did its main job, and the snackbar says so.
-            val archivedOk = archive && withContext(Dispatchers.IO) {
-                runCatching {
-                    threadIds.forEach {
-                        app.updateConversationArchivedStatus(it, true)
-                        app.notificationManager.cancel(it.hashCode())
-                    }
-                }.isSuccess
-            }
-            if (archivedOk) source = source.filterNot { it.threadId in threadIds }
-            hidden -= threadIds.toSet()
-            requestRebuild()
-            val token = nextToken++
-            reports[token] = change to (if (archivedOk) threadIds else emptyList())
-            _events.trySend(ConversationsEvent.ReportedSpam(token, conversations.size, archivedOk))
-            if (archivedOk) withContext(Dispatchers.IO) { refreshConversations() }
-        }
+        clearSelection()
+        spamMoves.block(conversations, nextToken++, report = true)
     }
 
     fun undoReportSpam(token: Long) {
-        if (spamMoves.undo(token)) return
-        val (change, threadIds) = reports.remove(token) ?: return
-        viewModelScope.launch {
-            runCatching { SenderBlocking.undo(SpamRepositoryProvider.get(app), change) }
-            if (threadIds.isNotEmpty()) {
-                withContext(Dispatchers.IO) {
-                    runCatching { threadIds.forEach { app.updateConversationArchivedStatus(it, false) } }
-                    refreshConversations()
-                }
-            }
-        }
+        spamMoves.undo(token)
     }
 
     /** The undo window closed. */
     fun commitReportSpam(token: Long) {
-        reports.remove(token)
         spamMoves.commit(token)
     }
 

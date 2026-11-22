@@ -41,16 +41,11 @@
         <item quantity="other">%d दिनों में मिटा दिया जाएगा</item>
     </plurals>
     <string name="spam_purge_left_today">आज मिटा दिया जाएगा</string>
-    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">शिकायत कर दी गई. इस भेजने वाले के नए मैसेज स्पैम में जाएंगे और बातचीत संग्रहित कर दी गई है.</item>
-        <item quantity="other">%d बातचीत की शिकायत कर दी गई. इनके नए मैसेज स्पैम में जाएंगे और बातचीत संग्रहित कर दी गई हैं.</item>
-    </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
         <item quantity="one">रिपोर्ट किया गया. चैट स्पैम में चली गई.</item>
         <item quantity="other">%d चैट रिपोर्ट की गईं. वे स्पैम में चली गईं.</item>
     </plurals>
     <string name="blocked_title">स्पैम</string>
-    <string name="blocked_snack_mode">अनजान भेजने वालों के लिए %1$s चुना गया</string>
     <string name="blocked_stats_restored">आपने %1$d वापस लाए</string>
     <string name="blocked_reason_unknown_link">अनजान भेजने वाला, लिंक के साथ</string>
     <string name="blocked_may_be_important">ज़रूरी हो सकता है</string>

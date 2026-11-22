@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">ان بلاک ہو گیا۔ چیٹ پیغامات میں واپس آ گئی</string>
     <string name="thread_unblock_done_system">uMessage میں ان بلاک ہو گیا۔ یہ نمبر آپ کے فون کی بلاک فہرست میں بھی ہے، اس لیے Android اب بھی اس کے پیغامات بلاک کرتا ہے</string>
     <string name="thread_unblock_done_filtered">ان بلاک ہو گیا۔ بھیجنے والا نامعلوم ہے، اس لیے چیٹ اسپیم میں ہی ہے۔</string>
-    <string name="thread_unblock_always_allow">ہمیشہ اجازت دیں</string>
     <string name="thread_always_allow_done">ہمیشہ کے لیے اجازت دی گئی۔ چیٹ پیغامات میں ہے</string>
     <string name="thread_always_allow_failed">اس نمبر کو اجازت نہیں دی جا سکی</string>
     <string name="thread_unblock_failed">اس نمبر کو ان بلاک نہیں کیا جا سکا</string>

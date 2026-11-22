@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="w7d_banner_stopped">
-        <item quantity="one">Bu hafta %1$s mesaj engellendi</item>
-        <item quantity="other">Bu hafta %1$s mesaj engellendi</item>
-    </plurals>
-    <string name="w7d_banner_none">Bu hafta hiçbir mesaj engellenmedi</string>
     <string name="w7d_fwd_master_switch">İletme</string>
     <string name="w7d_help_menu">Kelimelerle engelleme nasıl çalışır?</string>
     <string name="w7d_help_title">Kelimelerle engelleme nasıl çalışır?</string>

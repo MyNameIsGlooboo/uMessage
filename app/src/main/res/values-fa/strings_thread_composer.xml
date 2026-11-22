@@ -10,9 +10,6 @@
     <string name="thread_report_spam_message">کل گفتگو با %1$s به اسپم می‌رود و پیام‌های جدید بی‌صدا به آنجا می‌آیند. هیچ پیامی حذف نمی‌شود.</string>
     <string name="thread_report_spam_confirm">علامت‌گذاری به‌عنوان اسپم</string>
     <string name="thread_report_spam_cancel">لغو</string>
-    <string name="thread_report_spam_done">به‌عنوان اسپم علامت‌گذاری شد</string>
     <string name="thread_report_spam_rule_note">به‌عنوان اسپم گزارش شد</string>
-    <string name="thread_report_spam_already">از قبل به‌عنوان اسپم علامت‌گذاری شده است</string>
-    <string name="thread_report_spam_failed">علامت‌گذاری به‌عنوان اسپم نشد</string>
     <string name="thread_report_spam_undo">برگردان</string>
 </resources>

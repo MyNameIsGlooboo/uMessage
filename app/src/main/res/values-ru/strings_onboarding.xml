@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Сообщает о новых сообщениях и позволяет ответить или скопировать код.</string>
     <string name="onb_perm_allow_all">Разрешить все</string>
     <string name="onb_perm_open_settings">Открыть настройки</string>
-    <string name="onb_mode_title">Выберите, как обрабатывать сообщения от неизвестных отправителей</string>
-    <string name="onb_mode_strict">Строгий</string>
-    <string name="onb_mode_smart">Умный</string>
-    <string name="onb_mode_off">Выкл.</string>
-    <string name="onb_mode_warning_title">Важно о сообщениях от банков и кодах</string>
-    <string name="onb_mode_warning_body">В строгом режиме уведомления от банков, сообщения о доставке и одноразовые коды от неизвестных отправителей попадают в раздел «Спам», включая сами коды. Уведомлений не будет, поэтому проверяйте раздел «Спам», когда ждете такое сообщение.</string>
     <string name="onb_oem_title">Разрешите uMessage работать в фоне</string>
     <string name="onb_oem_manual_hint">Если экран не открывается, найдите указанное название через поиск в настройках.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi или Poco</string>

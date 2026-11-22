@@ -3,28 +3,22 @@ package com.glooboo.umessage.extensions
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.testing.FakeThreadStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
  * B3-5 (provider truth): "Delete forever" and "Empty the Recycle Bin" say why nothing was deleted, so the bin screen
- * can tell the user instead of staying silent. With the flag off they report a delete, as before.
+ * can tell the user instead of staying silent.
  */
 @RunWith(AndroidJUnit4::class)
 class RecycleBinPurgeResultTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var store: FakeThreadStore
@@ -55,16 +49,6 @@ class RecycleBinPurgeResultTest {
         assertThat(empty).isEqualTo(DeleteResult.NOT_DEFAULT)
         assertThat(deleteForever.messageRes).isNotNull()
         assertThat(offMainThread { store.smsIds() }).containsExactly(1L, 2L)
-    }
-
-    @Test
-    fun withTheFlagOffThePurgeReportsADelete() {
-        ProviderTruthFlag.enabled = false
-
-        val deleteForever = offMainThread { context.deleteRecycleBinMessagesOfConversations(listOf(CHAT)) }
-
-        assertThat(deleteForever).isEqualTo(DeleteResult.DELETED)
-        assertThat(deleteForever.messageRes).isNull()
     }
 
     private companion object {

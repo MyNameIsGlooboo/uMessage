@@ -6,14 +6,10 @@
     <string name="settings_search_start">Ketik kata, seperti tema, cadangkan, atau spam.</string>
     <string name="sks_spam">spam blokir diblokir sampah filter perlindungan penipuan tidak diinginkan</string>
     <string name="sks_unknown_sender">pengirim tidak dikenal orang asing filter spam blokir tombol aktif nonaktif mode</string>
-    <string name="sks_strict">ketat tegas blokir semua kode</string>
-    <string name="sks_smart">cerdas disarankan otomatis default filter</string>
-    <string name="sks_spam_off">nonaktif nonaktifkan hentikan filter izinkan semua</string>
     <string name="sks_rules">aturan izinkan blokir daftar kata kunci pola (regex) pengirim nomor daftar izin daftar blokir</string>
     <string name="sks_blocked_numbers">diblokir nomor daftar blokir telepon kontak Android daftar blokir</string>
     <string name="sks_decision_log">log riwayat alasan diblokir aktivitas terbaru</string>
     <string name="sks_purge">hapus spam diblokir lama singkirkan bersihkan otomatis hari pembersihan penyimpanan</string>
-    <string name="sks_region">negara wilayah luar asing internasional luar negeri blokir</string>
     <string name="sks_links">tautan URL berisiko phishing keamanan kunci web</string>
     <string name="sks_carrier_report">operator laporkan operator teruskan 7726 penyedia spam</string>
     <string name="sks_unknown_notify">tidak dikenal kotak masuk notifikasi suara senyap peringatan orang asing</string>

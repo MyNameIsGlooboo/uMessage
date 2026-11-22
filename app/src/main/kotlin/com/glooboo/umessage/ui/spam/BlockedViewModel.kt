@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import com.glooboo.umessage.helpers.refreshConversations
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.data.SpamAutoDelete
 import com.glooboo.umessage.spam.data.SpamProviderMigration
 import kotlinx.coroutines.withContext
@@ -69,15 +68,12 @@ data class BlockedUiState(
     val stats: SpamStats = SpamStats(0, 0, 0),
     val selected: Set<String> = emptySet(),
     val sims: List<SimInfo> = emptyList(),
-    /**
-     * Current unknown-sender mode, shown on the stats card with a shortcut to the spam settings. With the provider
-     * truth flag on it is the mode the filter switch draws as (shownMode), for the card and the contacts hint.
-     */
+    /** The mode the filter switch draws as (shownMode), for the sorting card and the contacts hint. */
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
     /** Rules by id, so each blocked message can say which rule blocked it (SU-22). */
     val rules: Map<Long, SpamRule> = emptyMap(),
     /** Blocked messages older than this many days are deleted; 0 keeps them (SU-23). */
-    val purgeAfterDays: Int = 30,
+    val purgeAfterDays: Int = 0,
     /** The chip chosen under the banner (ID-14); [groups] only holds what it lets through. */
     val filter: BlockedFilter = BlockedFilter.All,
     /** The text typed in the search box (spamui-20); [groups] only holds the senders that answer it. */
@@ -125,9 +121,6 @@ sealed interface BlockedEvent {
     /** Shown with an Undo action; the deletion becomes final unless the user chooses Undo. */
     data class Deleted(val token: Long, val count: Int) : BlockedEvent
     data object Failed : BlockedEvent
-
-    /** The unknown-sender mode was changed from this screen; Undo puts [previous] back (P1-*). */
-    data class ModeChanged(val previous: UnknownSenderMode, val mode: UnknownSenderMode) : BlockedEvent
 }
 
 /**
@@ -290,11 +283,9 @@ class BlockedViewModel(
     private val afterAllow = mutableMapOf<Long, () -> Unit>()
 
     val state: StateFlow<BlockedUiState> = combine(
-        // Step F (F-1): with the flag on, a held row the message migration took (any mark) is not listed here; its
-        // message is in the phone's store, and "Not spam" refuses it.
-        repository.blocked.map { rows ->
-            if (ProviderTruthFlag.enabled) rows.filter { it.migratedMsgId == null } else rows
-        },
+        // Step F (F-1): a held row the message migration took (any mark) is not listed here; its message is in the
+        // phone's store, and "Not spam" refuses it.
+        repository.blocked.map { rows -> rows.filter { it.migratedMsgId == null } },
         repository.stats,
         combine(repository.settings, repository.rules, filter, restoredLog.entries, ::Aux),
         combine(pendingDeletes, pendingRestores, moves.state) { deletes, restores, move ->
@@ -352,11 +343,9 @@ class BlockedViewModel(
         viewModelScope.launch {
             // Provider truth (step F): waiting held messages are moved and auto-delete acts on the phone's store; the
             // repository purge then deletes no held row (only the file sweep runs).
-            if (ProviderTruthFlag.enabled) {
-                withContext(Dispatchers.IO) {
-                    runCatching { SpamProviderMigration.runPending(getApplication<Application>()) }
-                    runCatching { SpamAutoDelete.run(getApplication<Application>()) }
-                }
+            withContext(Dispatchers.IO) {
+                runCatching { SpamProviderMigration.runPending(getApplication<Application>()) }
+                runCatching { SpamAutoDelete.run(getApplication<Application>()) }
             }
             runCatching { repository.purgeExpired() }
             // The restored list goes with the blocked messages the purge deletes (spamui-15): its entries live no
@@ -365,28 +354,6 @@ class BlockedViewModel(
                 val days = repository.settings.first().purgeAfterDays
                 if (days > 0) restoredLog.dropOlderThan(days)
             }
-        }
-    }
-
-    /**
-     * Changes the unknown-sender mode through the same repository call Spam settings uses, then offers Undo. The
-     * caller confirms before [UnknownSenderMode.OFF].
-     */
-    fun setMode(mode: UnknownSenderMode) {
-        val previous = state.value.mode
-        if (mode == previous) return
-        viewModelScope.launch {
-            runCatching { repository.updateSettings { it.copy(mode = mode) } }
-                .onSuccess { events.trySend(BlockedEvent.ModeChanged(previous, mode)) }
-                .onFailure { events.trySend(BlockedEvent.Failed) }
-        }
-    }
-
-    /** Undo of [setMode]: puts the old mode back without another snackbar. */
-    fun undoMode(previous: UnknownSenderMode) {
-        viewModelScope.launch {
-            runCatching { repository.updateSettings { it.copy(mode = previous) } }
-                .onFailure { events.trySend(BlockedEvent.Failed) }
         }
     }
 

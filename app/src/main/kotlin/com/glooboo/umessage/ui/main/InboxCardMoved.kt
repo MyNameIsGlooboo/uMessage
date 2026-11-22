@@ -26,7 +26,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.FirstRunState
 import com.glooboo.umessage.ui.components.readableOn
@@ -36,10 +35,9 @@ import com.glooboo.umessage.ui.icons.Symbols
 internal fun spamMovedForCard(state: FirstRunState): Int =
     if (state.cardPending) state.movedToSpam.coerceAtLeast(0) else 0
 
-/** [spamMovedForCard] of the first-run runner's state; always 0 while ProviderTruthFlag is off. */
+/** [spamMovedForCard] of the first-run runner's state. */
 @Composable
 internal fun rememberSpamMoved(): Int {
-    if (!ProviderTruthFlag.enabled) return 0
     val context = LocalContext.current
     val state by remember(context) { FirstRun.state(context) }.collectAsState()
     return spamMovedForCard(state)

@@ -5,9 +5,9 @@ import org.junit.Test
 
 class OnboardingPagesTest {
     @Test
-    fun `a phone that still needs something gets four pages`() {
+    fun `a phone that still needs something gets three pages`() {
         assertEquals(
-            listOf(OnboardingPage.WELCOME, OnboardingPage.ALLOW, OnboardingPage.MODE, OnboardingPage.KEEP_RUNNING),
+            listOf(OnboardingPage.WELCOME, OnboardingPage.ALLOW, OnboardingPage.KEEP_RUNNING),
             OnboardingState.pagesFor(allowNeeded = true),
         )
     }
@@ -15,7 +15,7 @@ class OnboardingPagesTest {
     @Test
     fun `the Allow page is skipped when everything is already granted`() {
         assertEquals(
-            listOf(OnboardingPage.WELCOME, OnboardingPage.MODE, OnboardingPage.KEEP_RUNNING),
+            listOf(OnboardingPage.WELCOME, OnboardingPage.KEEP_RUNNING),
             OnboardingState.pagesFor(allowNeeded = false),
         )
     }

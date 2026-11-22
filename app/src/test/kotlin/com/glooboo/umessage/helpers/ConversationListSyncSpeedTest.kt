@@ -81,7 +81,8 @@ class ConversationListSyncSpeedTest {
         return gate
     }
 
-    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getNonArchived() }
+    private fun saved(): List<Conversation> =
+        offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }
 
     private fun recordStoreReads() {
         provider.beforeThreadsQuery = { events += "store" }

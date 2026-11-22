@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Anyone can send texts under these names: %1$s. Allow them and move the chats to Messages?</string>
     <string name="nameallow_more">%1$s and %2$d more</string>
     <string name="nameallow_allow">Always allow</string>
-    <string name="nameallow_not_now">Not now</string>
 </resources>

@@ -26,7 +26,6 @@ import org.fossify.commons.helpers.ensureBackgroundThread
 import org.fossify.commons.helpers.isOnMainThread
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.getThreadId
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.MessagingUtils
 import com.glooboo.umessage.messaging.OwnSentRows
 import com.glooboo.umessage.messaging.SendOutcome
@@ -105,7 +104,7 @@ class SystemContactChecker(
                 // The provider notifies mms-sms for every SMS and MMS change, next to the sms or mms row itself.
                 return
             }
-            // Provider truth (R3): a reply sent outside uMessage makes its recipient a member; flag off, nothing.
+            // Provider truth (R3): a reply sent outside uMessage makes its recipient a member.
             if (uri != null) SentRowWatch.onChanged(appContext, uri)
             if (uri != null && messageRowId(uri) != null && changedMessages.size < MAX_CHANGED_MESSAGES) {
                 changedMessages.add(uri)
@@ -445,8 +444,8 @@ class FossifyLegacyBlocklist(private val context: Context) : LegacyBlocklist, Fr
  * Provider truth (6.3, D3 A): writing to someone allows them. A number the user writes to joins "People you wrote
  * to" (source LIVE) when the sender verdict calls it unknown (in Spam as unknown, or in Messages only because the
  * filter is off), and its chat is sorted again. A blocked number, a contact, an allowed sender, a member and a sender
- * that cannot be read change nothing. Membership is made also while the filter is off (answer 3). Behind
- * [ProviderTruthFlag]; a failure never fails a send.
+ * that cannot be read change nothing. Membership is made also while the filter is off (answer 3). A failure never
+ * fails a send.
  */
 object WroteToGroup {
 
@@ -465,7 +464,7 @@ object WroteToGroup {
      */
     fun onSend(context: Context, addresses: List<String>, groupThread: Boolean = false): List<Joined> {
         // A group MMS thread makes no member (6.3, R11: a group sent as separate texts does).
-        if (!ProviderTruthFlag.enabled || addresses.isEmpty() || groupThread) return emptyList()
+        if (addresses.isEmpty() || groupThread) return emptyList()
         val app = context.applicationContext
         if (isOnMainThread()) {
             runCatching { ensureBackgroundThread { joinNew(app, addresses) } }
@@ -505,7 +504,7 @@ object WroteToGroup {
 
     /** The join of [join]; with [newOnly], only the members that were not members before. */
     private fun joinNew(context: Context, addresses: Collection<String>, newOnly: Boolean = true): List<Joined> {
-        if (!ProviderTruthFlag.enabled || addresses.isEmpty()) return emptyList()
+        if (addresses.isEmpty()) return emptyList()
         val app = context.applicationContext
         return runCatching {
             val filter = UMessage.filter(app) as DefaultSpamFilter
@@ -576,7 +575,6 @@ internal object SentRowWatch {
     internal var delayMs = DELAY_MS
 
     fun onChanged(context: Context, uri: Uri) {
-        if (!ProviderTruthFlag.enabled) return
         if (waiting.incrementAndGet() > MAX_WAITING) {
             waiting.decrementAndGet()
             return
@@ -594,7 +592,6 @@ internal object SentRowWatch {
 
     /** Blocking: joins the recipient of the row [uri] names when it is a new outgoing one-to-one row. */
     internal fun handle(context: Context, uri: Uri, now: Long = System.currentTimeMillis()) {
-        if (!ProviderTruthFlag.enabled) return
         val id = uri.lastPathSegment?.toLongOrNull() ?: return
         val isMms = uri.authority == Telephony.Mms.CONTENT_URI.authority
         val key = (if (isMms) "mms:" else "sms:") + id

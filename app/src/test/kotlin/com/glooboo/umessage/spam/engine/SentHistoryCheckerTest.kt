@@ -8,11 +8,6 @@ import android.net.Uri
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.spam.DecisionReason
-import com.glooboo.umessage.spam.FilterDecision
-import com.glooboo.umessage.spam.IncomingMessage
-import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.testing.FakeTelephonyProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -83,24 +78,10 @@ class SentHistoryCheckerTest {
         override fun update(uri: Uri, values: ContentValues?, selection: String?, args: Array<String>?) = 0
     }
 
-    @Test fun providerErrorGivesUnknownAndTheFilterDelivers() {
+    @Test fun providerErrorGivesUnknown() {
         Robolectric.setupContentProvider(BrokenSmsProvider::class.java, "sms")
         val checker = SystemContactChecker(app, normalizer)
         assertEquals(ContactLookup.UNKNOWN, checker.sentTo("+447121234567"))
-
-        val filter = DefaultSpamFilter(
-            rules = { emptyList() },
-            settings = { SpamSettings(mode = UnknownSenderMode.STRICT) },
-            contacts = object : ContactChecker {
-                override fun isContact(address: String) = false
-                override fun sentTo(address: String) = checker.sentTo(address)
-            },
-            normalizer = normalizer,
-        )
-        assertEquals(
-            FilterDecision.Allow(DecisionReason.CONTACTS_UNAVAILABLE),
-            filter.evaluate(IncomingMessage("+447121234567", "buy now", 1)),
-        )
     }
 
     @Test fun aNewSentMessageIsSeenAfterTheCacheIsDropped() {

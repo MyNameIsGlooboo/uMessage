@@ -11,9 +11,6 @@
     <string name="w3b_filter_none_body">Nothing held fits this filter. Pick another one, or show everything.</string>
     <string name="w3b_filter_show_all">Show all</string>
 
-    <!-- ID-17: Blocked tab with nothing held. -->
-    <string name="w3b_empty_body">uMessage is watching in %1$s mode. Messages it holds back will appear here.</string>
-
     <!-- ID-16: why a message was held, and releasing it once. -->
     <string name="w3b_why_link">Held because the sender is unknown and the text has a link.</string>
     <string name="w3b_why_unknown">Held because the sender is unknown.</string>
@@ -48,7 +45,6 @@
     <string name="w3b_verdict_held_unknown">Would go to Spam: unknown sender.</string>
     <string name="w3b_verdict_allowed_rule">Would go to Messages: one of your allow rules matches.</string>
     <string name="w3b_verdict_allowed_contact">Would go to Messages: the sender is in your contacts.</string>
-    <string name="w3b_verdict_allowed_known">Would be delivered: you have texted this number before.</string>
     <string name="w3b_verdict_allowed_code">Would go to Messages: a verification code. The sender is then allowed.</string>
     <string name="w3b_verdict_allowed_off">Would go to Messages: the spam filter is off.</string>
     <string name="w3b_verdict_allowed_unsure">Would go to Messages: contacts cannot be read, so the sender cannot be judged.</string>

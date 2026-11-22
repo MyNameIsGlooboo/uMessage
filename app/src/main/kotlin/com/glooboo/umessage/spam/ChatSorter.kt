@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.models.Conversation
@@ -244,7 +243,6 @@ class SnapshotCache(
 /**
  * The app's sorting queue (step B): one background thread runs every queued sort and the first-run steps
  * ([FirstRun]), one at a time, so two never overlap. The queued sorts and their gate are [SortQueue].
- * Nothing here runs while [ProviderTruthFlag] is off.
  *
  * Triggers (3.2): rules (not their hit counts, B-3), group members or the filter switches changed ([install]); contacts
  * changed (App calls [requestFull] with [CONTACTS_DELAY_MS]); a new chat row was cached ([requestThreads],
@@ -269,9 +267,9 @@ object SpamSorting {
     /** Grows by one each time the Spam table changed; a list screen can show its saved rows again (step C). */
     val changes: StateFlow<Long> = changeCount.asStateFlow()
 
-    /** Starts the triggers from the rules, the group members and the settings. Once per process; flag on only. */
+    /** Starts the triggers from the rules, the group members and the settings. Once per process. */
     fun install(context: Context) {
-        if (!ProviderTruthFlag.enabled || installed) return
+        if (installed) return
         installed = true
         val app = context.applicationContext
         val repo = SpamEngine.repository(app)
@@ -309,13 +307,12 @@ object SpamSorting {
 
     /** Every cached chat is sorted again, after [delayMs] (a later request moves the deadline later). */
     fun requestFull(context: Context, delayMs: Long = 0L) {
-        if (!ProviderTruthFlag.enabled) return
         queue(context).requestFull(delayMs)
     }
 
     /** These chats are sorted again (a new chat row was cached, a user action on one chat), as soon as possible. */
     fun requestThreads(context: Context, threadIds: Collection<Long>) {
-        if (!ProviderTruthFlag.enabled || threadIds.isEmpty()) return
+        if (threadIds.isEmpty()) return
         queue(context).requestThreads(threadIds)
     }
 
@@ -482,7 +479,7 @@ object NewChatSorting {
 
     private fun forApp(app: Context) = NewChatSorter(
         dao = MessagesDatabase.getInstance(app).ConversationsDao(),
-        state = { if (ProviderTruthFlag.enabled) FirstRun.state(app).value else FirstRunState() },
+        state = { FirstRun.state(app).value },
         checkHistory = { rows ->
             val history = HistoryCheck.forApp(app)
             rows.forEach { history.checkSender(it.phoneNumber, it.threadId) }

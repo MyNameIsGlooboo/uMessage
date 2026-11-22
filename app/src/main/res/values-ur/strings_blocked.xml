@@ -41,16 +41,11 @@
         <item quantity="other">%d دن میں حذف</item>
     </plurals>
     <string name="spam_purge_left_today">آج حذف</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">اطلاع دے دی گئی۔ اس بھیجنے والے کے نئے پیغامات اسپیم میں جائیں گے، اور چیٹ آرکائیو ہو گئی۔</item>
-        <item quantity="other">%d چیٹس کی اطلاع دے دی گئی۔ ان کے نئے پیغامات اسپیم میں جائیں گے، اور چیٹس آرکائیو ہو گئیں۔</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="one">رپورٹ ہو گیا۔ چیٹ اسپیم میں چلی گئی۔</item>
         <item quantity="other">%d چیٹس رپورٹ کی گئیں۔ وہ اسپیم میں چلی گئیں۔</item>
     </plurals>
     <string name="blocked_title">اسپیم</string>
-    <string name="blocked_snack_mode">نامعلوم بھیجنے والے %1$s پر سیٹ</string>
     <string name="blocked_stats_restored">%1$d آپ نے بحال کیے</string>
     <string name="blocked_reason_unknown_link">نامعلوم بھیجنے والا، لنک کے ساتھ</string>
     <string name="blocked_may_be_important">اہم ہو سکتا ہے</string>

@@ -3,7 +3,6 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">채팅 %d개를 읽음으로 표시했어요</item>
     </plurals>
-    <string name="decm_search_section_blocked">스팸</string>
     <string name="decm_blocked_search">스팸함 검색</string>
     <string name="decm_blocked_search_hint">발신자 또는 내용으로 검색</string>
     <string name="decm_blocked_search_close">검색 닫기</string>

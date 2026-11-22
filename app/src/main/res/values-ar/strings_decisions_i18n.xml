@@ -8,7 +8,6 @@
         <item quantity="many">عُلِّمت %d محادثة كمقروءة</item>
         <item quantity="other">عُلِّمت %d محادثة كمقروءة</item>
     </plurals>
-    <string name="decm_search_section_blocked">غير المرغوب فيها</string>
     <string name="decm_blocked_search">البحث في «غير المرغوب فيها»</string>
     <string name="decm_blocked_search_hint">ابحث بالمرسل أو النص</string>
     <string name="decm_blocked_search_close">إغلاق البحث</string>

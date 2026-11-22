@@ -21,11 +21,9 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
@@ -47,9 +45,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "w411dp-h891dp")
 class WelcomeFilterChoiceTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
     val compose = createComposeRule()
@@ -82,9 +77,6 @@ class WelcomeFilterChoiceTest {
         compose.onNodeWithText(res.getString(R.string.pt_onb_filter_off_desc)).assertExists()
         compose.onNodeWithText(res.getString(R.string.pt_onb_filter_hint)).assertExists()
         compose.onNodeWithText(res.getString(R.string.settings_nav_recommended), useUnmergedTree = true).assertExists()
-        // The old three modes are not on the page.
-        compose.onNodeWithText(res.getString(R.string.onb_mode_title)).assertDoesNotExist()
-        compose.onNodeWithText(res.getString(R.string.onb_purge_question)).assertDoesNotExist()
     }
 
     @Test
@@ -103,21 +95,9 @@ class WelcomeFilterChoiceTest {
     }
 
     @Test
-    fun withoutAChoiceHandlerTheWelcomeOf0414Stays() {
-        compose.setContent {
-            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                WelcomePage(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), reduceMotion = true)
-            }
-        }
-        compose.onNodeWithTag(FILTER_ON_TAG).assertDoesNotExist()
-    }
-
-    @Test
     fun theCardHasASentenceForBothStates() {
         assertThat(sortingCardSentence(UnknownSenderMode.SMART)).isEqualTo(R.string.onb_welcome_demo_desc)
         assertThat(sortingCardSentence(UnknownSenderMode.OFF)).isEqualTo(R.string.pt_onb_demo_desc_off)
-        ProviderTruthFlag.enabled = false
-        assertThat(sortingCardSentence(UnknownSenderMode.OFF)).isNull()
     }
 
     @Test
@@ -143,13 +123,8 @@ class WelcomeFilterChoiceTest {
         awaitUntil { !runBlocking { repo.settings.first() }.filterOn }
         assertThat(vm.filterOn.value).isFalse()
 
-        // The old setters write nothing with the switch model (S13: Welcome never writes purgeAfterDays).
-        vm.setPurgeDays(30)
-        vm.setMode(UnknownSenderMode.STRICT)
-        idleMain()
-        val stored = runBlocking { repo.settings.first() }
-        assertThat(stored.purgeAfterDays).isEqualTo(0)
-        assertThat(stored.mode).isNotEqualTo(UnknownSenderMode.STRICT)
+        // S13: Welcome never writes purgeAfterDays.
+        assertThat(runBlocking { repo.settings.first() }.purgeAfterDays).isEqualTo(0)
     }
 
     @Test
@@ -196,17 +171,6 @@ class WelcomeFilterChoiceTest {
             }
         }
         compose.onNodeWithText(res.getString(R.string.spam_snack_failed)).assertExists()
-    }
-
-    @Test
-    fun withoutTheChoiceTheCardIsThe0414CardWhateverIsStored() {
-        // G-9: the flag is off, so there is no choice; a stored "off" must not turn the card to Off.
-        compose.setContent {
-            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
-                WelcomePage(Modifier.fillMaxSize(), reduceMotion = true, filterOn = false, onFilter = null)
-            }
-        }
-        compose.onNode(hasContentDescription(res.getString(R.string.onb_welcome_demo_desc))).assertExists()
     }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()

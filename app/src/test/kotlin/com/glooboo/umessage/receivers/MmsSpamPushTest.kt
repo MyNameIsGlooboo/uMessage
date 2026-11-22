@@ -24,13 +24,11 @@ import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.spam.mms.NoticeVerdict
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.google.android.mms.pdu_alt.NotificationInd
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.ByteArrayOutputStream
@@ -44,8 +42,6 @@ import java.io.ByteArrayOutputStream
  */
 @RunWith(AndroidJUnit4::class)
 class MmsSpamPushTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private lateinit var db: SpamDatabase

@@ -28,7 +28,6 @@
     <string name="thread_unblock_done">Odblokowano. Czat wrócił do folderu Wiadomości</string>
     <string name="thread_unblock_done_system">Odblokowano w uMessage. Ten numer jest też na liście blokowanych telefonu, więc Android nadal blokuje jego wiadomości</string>
     <string name="thread_unblock_done_filtered">Odblokowano. Czat zostaje w folderze Spam, bo nadawca jest nieznany.</string>
-    <string name="thread_unblock_always_allow">Zawsze zezwalaj</string>
     <string name="thread_always_allow_done">Zawsze dozwolone. Czat jest w folderze Wiadomości</string>
     <string name="thread_always_allow_failed">Nie udało się zezwolić na wiadomości z tego numeru</string>
     <string name="thread_unblock_failed">Nie udało się odblokować tego numeru</string>

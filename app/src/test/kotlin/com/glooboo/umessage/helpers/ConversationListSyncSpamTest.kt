@@ -18,14 +18,12 @@ import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.CountingInboxProvider
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.Collections
@@ -41,9 +39,6 @@ import java.util.concurrent.TimeUnit
  */
 @RunWith(AndroidJUnit4::class)
 class ConversationListSyncSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var provider: CountingInboxProvider
@@ -107,15 +102,6 @@ class ConversationListSyncSpamTest {
     }
 
     @Test
-    fun withTheFlagOffTheMessagesListIsAs0414() {
-        markSpam(2)
-        writeState(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
-        ProviderTruthFlag.enabled = false
-
-        assertThat(listed()).containsExactly(1L, 2L, 3L, 4L)
-    }
-
-    @Test
     fun aSpamChatKeepsItsCustomTitleThroughAFullPass() {
         // S1: the sync reads every row, so a Spam chat is never taken for a new one and rewritten.
         markSpam(2)
@@ -144,19 +130,6 @@ class ConversationListSyncSpamTest {
             assertThat(context.messagesDB.getThreadMessages(3).map { it.id }).containsExactly(SCHEDULED_ID)
         }
         assertThat(runBlocking { context.messageNotes.exportAll() }).isEmpty()
-    }
-
-    @Test
-    fun withTheFlagOffAVanishedThreadOnlyLeavesTheList() {
-        seedThreeExtras()
-        ProviderTruthFlag.enabled = false
-
-        provider.deleteThread(3)
-        sync.requestFull()
-        idle()
-
-        offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(3)).isNull() }
-        assertThat(runBlocking { context.messageNotes.exportAll() }).hasSize(1)
     }
 
     @Test

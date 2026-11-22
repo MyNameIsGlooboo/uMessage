@@ -55,10 +55,6 @@
     <string name="spam_purge_left_today">Deleted today</string>
 
     <!-- "Report spam" in the conversation list selection (MC-37). -->
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Reported. New texts from this sender go to Spam, and the chat is archived.</item>
-        <item quantity="other">%d chats reported. New texts from them go to Spam, and the chats are archived.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="one">Reported. The chat moved to Spam.</item>
         <item quantity="other">%d chats reported. They moved to Spam.</item>
@@ -68,7 +64,6 @@
     <string name="blocked_title">Spam</string>
     <!-- Group name for the mode selector: "Unknown senders: Smart, 2 of 3". -->
     <!-- %1$s is the new mode name. -->
-    <string name="blocked_snack_mode">Unknown senders set to %1$s</string>
     <string name="blocked_stats_restored">%1$d restored by you</string>
     <string name="blocked_reason_unknown_link">Unknown sender, with a link</string>
     <string name="blocked_may_be_important">May be important</string>

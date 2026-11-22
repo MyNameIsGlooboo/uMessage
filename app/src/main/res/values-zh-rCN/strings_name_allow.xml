@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">任何人都可以用这些名称发送短信：%1$s。要允许它们并将会话移至“消息”吗？</string>
     <string name="nameallow_more">%1$s及另外%2$d个</string>
     <string name="nameallow_allow">始终允许</string>
-    <string name="nameallow_not_now">暂不</string>
 </resources>

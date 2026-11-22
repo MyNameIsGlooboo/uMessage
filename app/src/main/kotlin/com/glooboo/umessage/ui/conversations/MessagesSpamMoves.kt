@@ -14,7 +14,6 @@ import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.HiddenChats
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.BlockReceipt
@@ -87,8 +86,7 @@ internal object StoreUnread {
  * ([hidden]), their notifications go, the chats are marked read and sorted again, so they move to Spam. Undo puts
  * back the rules, the memberships and every unread text (U5, M-SP3). A chat that stays (a user allow rule still names
  * the sender, C-3, or the sender cannot be read) shows again at once and is not counted as blocked. It also keeps the
- * Spam tab's number ([onCount], 3.4). Every call does nothing and returns false while ProviderTruthFlag is off. Main
- * thread, except the work it starts itself.
+ * Spam tab's number ([onCount], 3.4). Main thread, except the work it starts itself.
  */
 @Suppress("TooManyFunctions") // Block, Undo, commit and the tab number, each small.
 internal class MessagesSpamMoves(
@@ -115,28 +113,24 @@ internal class MessagesSpamMoves(
     }
 
     /** Block ([report] false) or "Report spam" (true, which equals Block, 4.1) on [conversations], Undo by [token]. */
-    fun block(conversations: List<Conversation>, token: Long, report: Boolean): Boolean {
-        if (!ProviderTruthFlag.enabled) return false
+    fun block(conversations: List<Conversation>, token: Long, report: Boolean) {
         val note = if (report) RuleNotes.REPORTED_SPAM else SenderBlocking.NOTE
         move(conversations, note, token) { id, count, stayed ->
             if (report) {
-                ConversationsEvent.ReportedSpam(id, count, archived = false, stayed = stayed)
+                ConversationsEvent.ReportedSpam(id, count, stayed = stayed)
             } else {
                 ConversationsEvent.Blocked(id, count, stayed)
             }
         }
-        return true
     }
 
     /**
      * The Spam tab's number (3.4): chats of unknown senders with unread texts that came after [seenAtMs]; blocked
-     * senders and chats hidden behind the app lock never count. False (and nothing starts) while the flag is off.
+     * senders and chats hidden behind the app lock never count.
      */
-    fun observeCount(seenAtMs: Long): Boolean {
-        if (!ProviderTruthFlag.enabled) return false
+    fun observeCount(seenAtMs: Long) {
         countSeenAt = seenAtMs
         scope.launch { SpamSorting.changes.collect { refreshCount(countSeenAt) } }
-        return true
     }
 
     @Volatile private var countSeenAt = 0L
@@ -146,7 +140,6 @@ internal class MessagesSpamMoves(
 
     /** Reads the number again (a list was published, the tab was seen at [seenAtMs]). */
     fun refreshCount(seenAtMs: Long) {
-        if (!ProviderTruthFlag.enabled) return
         countSeenAt = seenAtMs
         val read = ++countReads
         scope.launch {
@@ -245,17 +238,11 @@ internal fun ConversationsEvent.moveToken(): Long? = when (this) {
 }
 
 /**
- * The ids of every saved chat, so a deleted chat's SIM entry can be dropped: with ProviderTruthFlag on every cached
- * row, Spam chats too (S1); else the non-archived and archived rows, as in 0.4.14. Blocking.
+ * The ids of every saved chat, so a deleted chat's SIM entry can be dropped: every cached row, Spam chats too (S1).
+ * Blocking.
  */
-internal fun liveChatIds(context: Context): Set<Long> {
-    val db = context.conversationsDB
-    return if (ProviderTruthFlag.enabled) {
-        db.getAllRows().mapTo(HashSet()) { it.threadId }
-    } else {
-        (db.getNonArchived() + db.getAllArchived()).mapTo(HashSet()) { it.threadId }
-    }
-}
+internal fun liveChatIds(context: Context): Set<Long> =
+    context.conversationsDB.getAllRows().mapTo(HashSet()) { it.threadId }
 
 /**
  * Provider truth (3.4, C-7, C-13): the Spam tab's number with one COUNT query: valid Spam rows (S9) of unknown
@@ -282,27 +269,22 @@ internal object SpamTabCount {
 }
 
 /**
- * Deletes the chats [ids] from the phone's store. Returns the ids that went, and with ProviderTruthFlag on the message
- * of the first one that did not (S14: not the default app, nothing deleted). The role is checked once. Blocking.
+ * Deletes the chats [ids] from the phone's store. Returns the ids that went, and the message of the first one that
+ * did not (S14: not the default app, nothing deleted). The role is checked once. Blocking.
  */
 internal fun deleteChats(context: Context, ids: List<Long>): Pair<Set<Long>, Int?> {
-    val honest = ProviderTruthFlag.enabled
-    val isDefault = if (honest) {
-        runCatching { DefaultSmsRole.status(context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
-    } else {
-        null
-    }
+    val isDefault = runCatching { DefaultSmsRole.status(context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
     val results = ids.associateWith {
         runCatching {
             context.deleteConversation(it, isDefault).also { result ->
-                if (!honest || result == DeleteResult.DELETED) {
+                if (result == DeleteResult.DELETED) {
                     context.notificationManager.cancel(it.hashCode())
                     BlockedNotifier.cancelChat(context, it)
                 }
             }
         }.getOrNull()
     }
-    val deleted = results.filterValues { it != null && (!honest || it == DeleteResult.DELETED) }.keys
-    val message = results.values.firstNotNullOfOrNull { if (honest) it?.messageRes else null }
+    val deleted = results.filterValues { it == DeleteResult.DELETED }.keys
+    val message = results.values.firstNotNullOfOrNull { it?.messageRes }
     return deleted to message
 }

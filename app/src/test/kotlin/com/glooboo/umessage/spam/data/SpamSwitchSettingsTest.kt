@@ -5,13 +5,10 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.backup.BackupSettings
 import com.glooboo.umessage.backup.SettingsBackup
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -21,8 +18,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class SpamSwitchSettingsTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = false)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -81,12 +76,9 @@ class SpamSwitchSettingsTest {
         assertThat(store.get().filterOn).isTrue()
     }
 
-    @Test fun withTheFlagOnAutoDeleteReadsKeepForeverUntilTheStepRan() {
+    @Test fun autoDeleteReadsKeepForeverUntilTheStepRan() {
         stored(mode = "SMART", purgeDays = 30)
-        assertThat(store().get().purgeAfterDays).isEqualTo(30)
-        flagOn {
-            assertThat(store().get().purgeAfterDays).isEqualTo(0)
-        }
+        assertThat(store().get().purgeAfterDays).isEqualTo(0)
     }
 
     /** The 0.4.14 screens change the mode; the switch follows. A new screen changes the switch; the mode follows. */
@@ -134,14 +126,10 @@ class SpamSwitchSettingsTest {
         assertThat(store.get().filterOn).isTrue()
     }
 
-    /** A-4: auto-delete defaults to keep forever with the flag on, and to 0.4.14's 30 days with it off. */
-    @Test fun theAutoDeleteDefaultFollowsTheFlag() {
-        assertThat(SpamSettings().purgeAfterDays).isEqualTo(30)
-        assertThat(store().get().purgeAfterDays).isEqualTo(30)
-        flagOn {
-            assertThat(SpamSettings().purgeAfterDays).isEqualTo(0)
-            assertThat(store().get().purgeAfterDays).isEqualTo(0)
-        }
+    /** A-4: auto-delete defaults to keep forever. */
+    @Test fun theAutoDeleteDefaultIsKeepForever() {
+        assertThat(SpamSettings().purgeAfterDays).isEqualTo(0)
+        assertThat(store().get().purgeAfterDays).isEqualTo(0)
     }
 
     @Test fun groupSwitchesAreStored() {
@@ -150,10 +138,5 @@ class SpamSwitchSettingsTest {
         assertThat(store.get().codeGroupOn).isFalse()
         assertThat(store.get().wroteGroupOn).isTrue()
         assertThat(store.get().groupOn(AllowGroup.CODE)).isFalse()
-    }
-
-    private fun flagOn(block: () -> Unit) {
-        ProviderTruthFlag.enabled = true
-        block()
     }
 }

@@ -33,7 +33,6 @@ import com.glooboo.umessage.extensions.clearAllMessagesIfNeeded
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.MainTabLinks
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.helpers.NewConversationShortcut
 import com.glooboo.umessage.ui.components.PermissionRequiredDialog
@@ -140,7 +139,7 @@ class MainActivity : ComposeSimpleActivity() {
             conversationsViewModel.syncLeft()
             // Provider truth (C-1): a Spam delete waiting for its Undo window happens now, as in Messages.
             // Only a model that exists: a Spam tab never opened has nothing waiting, and none is made here (D-7).
-            if (ProviderTruthFlag.enabled) SpamChatsViewModel.flushOpen()
+            SpamChatsViewModel.flushOpen()
         }
     }
 
@@ -283,8 +282,8 @@ class MainActivity : ComposeSimpleActivity() {
 
 /**
  * H-10 (provider truth): a link that opens the Spam tab (a Spam notice, the weekly summary) clears the Spam notices,
- * as the old list did when it opened. Nothing happens while ProviderTruthFlag is off.
+ * as the old list did when it opened.
  */
 internal fun clearSpamNoticesFor(context: Context, tab: String?) {
-    if (ProviderTruthFlag.enabled && tab == MainTabLinks.TAB_BLOCKED) BlockedNotifier.cancelAll(context)
+    if (tab == MainTabLinks.TAB_BLOCKED) BlockedNotifier.cancelAll(context)
 }

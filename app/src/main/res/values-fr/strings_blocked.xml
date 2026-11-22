@@ -41,16 +41,11 @@
         <item quantity="other">Suppression dans %d jours</item>
     </plurals>
     <string name="spam_purge_left_today">Suppression aujourd\'hui</string>
-    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Signalement effectué. Les prochains SMS de cet expéditeur iront dans Spam et la conversation est archivée.</item>
-        <item quantity="other">%d conversations signalées. Les prochains SMS de ces expéditeurs iront dans Spam et les conversations sont archivées.</item>
-    </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
         <item quantity="one">Signalé. La discussion est passée dans Spam.</item>
         <item quantity="other">%d discussions signalées. Elles sont passées dans Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Mode des expéditeurs inconnus : %1$s</string>
     <string name="blocked_stats_restored">%1$d restaurés par vous</string>
     <string name="blocked_reason_unknown_link">Expéditeur inconnu, avec un lien</string>
     <string name="blocked_may_be_important">Peut être important</string>

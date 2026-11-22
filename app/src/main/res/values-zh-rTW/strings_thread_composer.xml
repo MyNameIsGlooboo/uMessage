@@ -10,9 +10,6 @@
     <string name="thread_report_spam_message">與%1$s的整個對話會移至「垃圾訊息」，新簡訊會靜默送到那裡。不會刪除任何簡訊。</string>
     <string name="thread_report_spam_confirm">標示為垃圾簡訊</string>
     <string name="thread_report_spam_cancel">取消</string>
-    <string name="thread_report_spam_done">已標示為垃圾簡訊</string>
     <string name="thread_report_spam_rule_note">已檢舉為垃圾簡訊</string>
-    <string name="thread_report_spam_already">已經標示為垃圾簡訊</string>
-    <string name="thread_report_spam_failed">無法標示為垃圾簡訊</string>
     <string name="thread_report_spam_undo">復原</string>
 </resources>

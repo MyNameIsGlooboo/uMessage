@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="w7d_banner_stopped">
-        <item quantity="zero">حُظرت %1$s رسائل هذا الأسبوع</item>
-        <item quantity="one">حُظرت رسالة واحدة (%1$s) هذا الأسبوع</item>
-        <item quantity="two">حُظرت رسالتان (%1$s) هذا الأسبوع</item>
-        <item quantity="few">حُظرت %1$s رسائل هذا الأسبوع</item>
-        <item quantity="many">حُظرت %1$s رسالة هذا الأسبوع</item>
-        <item quantity="other">حُظرت %1$s رسالة هذا الأسبوع</item>
-    </plurals>
-    <string name="w7d_banner_none">لم تُحظر أي رسالة هذا الأسبوع</string>
     <string name="w7d_fwd_master_switch">إعادة التوجيه</string>
     <string name="w7d_help_menu">كيف يعمل الحظر بالكلمات</string>
     <string name="w7d_help_title">كيف يعمل الحظر بالكلمات</string>

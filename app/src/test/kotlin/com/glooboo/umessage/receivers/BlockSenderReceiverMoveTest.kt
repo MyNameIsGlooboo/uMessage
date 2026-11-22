@@ -22,7 +22,6 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.conversations.UnreadTexts
@@ -34,7 +33,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -46,9 +44,6 @@ import org.robolectric.Shadows.shadowOf
  */
 @RunWith(AndroidJUnit4::class)
 class BlockSenderReceiverMoveTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

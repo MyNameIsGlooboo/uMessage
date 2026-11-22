@@ -18,7 +18,7 @@ class DailyChecksReceiver : BroadcastReceiver() {
         try {
             ensureBackgroundThread {
                 try {
-                    // Step F (section 8): held messages still waiting are moved, daily, until done (flag on only).
+                    // Step F (section 8): held messages still waiting are moved, daily, until done.
                     SpamProviderMigration.runPending(context, limit = SpamProviderMigration.RECEIVER_BATCH)
                     DailyChecks.runIfDue(context)
                 } finally {

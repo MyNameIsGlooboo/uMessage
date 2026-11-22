@@ -16,7 +16,6 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.MessageNoteKey
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.refreshConversations
@@ -95,7 +94,7 @@ internal class SpamAutoDeleter(
     }
 }
 
-/** Auto-delete of Spam on this phone; nothing runs while [ProviderTruthFlag] is off or before the first sort. */
+/** Auto-delete of Spam on this phone; nothing runs before the first sort. */
 object SpamAutoDelete {
     private const val TAG = "uMessageReceive"
 
@@ -105,7 +104,6 @@ object SpamAutoDelete {
 
     /** Runs with the stored "Auto-delete of Spam" days. Never throws; returns how many messages were deleted. */
     fun run(context: Context): Int {
-        if (!ProviderTruthFlag.enabled) return 0
         val app = context.applicationContext
         return runCatching {
             // Spam is what the first sort published; before it, no chat is in Spam for good.

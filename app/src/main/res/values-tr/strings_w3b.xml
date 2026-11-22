@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Eşleşen bekletilmiş mesaj yok</string>
     <string name="w3b_filter_none_body">Bekletilen mesajların hiçbiri bu filtreye uymuyor. Başka bir filtre seçin veya tümünü gösterin.</string>
     <string name="w3b_filter_show_all">Tümünü gösterin</string>
-    <string name="w3b_empty_body">uMessage, %1$s modunda kontrol ediyor. Beklettiği mesajlar burada görünecek.</string>
     <string name="w3b_why_link">Gönderen bilinmediği ve mesajda bağlantı olduğu için bekletildi.</string>
     <string name="w3b_why_unknown">Gönderen bilinmediği için bekletildi.</string>
     <string name="w3b_why_rule">Engelleme kurallarınızdan biriyle eşleştiği için bekletildi.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Spam\'e giderdi: bilinmeyen gönderen.</string>
     <string name="w3b_verdict_allowed_rule">Mesajlar\'a giderdi: izin kurallarınızdan biriyle eşleşiyor.</string>
     <string name="w3b_verdict_allowed_contact">Mesajlar\'a giderdi: gönderen kişilerinizde.</string>
-    <string name="w3b_verdict_allowed_known">Teslim edilirdi: bu numaraya daha önce mesaj gönderdiniz.</string>
     <string name="w3b_verdict_allowed_code">Mesajlar\'a giderdi: bir doğrulama kodu. Gönderene bundan sonra izin verilir.</string>
     <string name="w3b_verdict_allowed_off">Mesajlar\'a giderdi: spam filtresi kapalı.</string>
     <string name="w3b_verdict_allowed_unsure">Mesajlar\'a giderdi: kişiler okunamıyor, bu yüzden gönderen değerlendirilemiyor.</string>

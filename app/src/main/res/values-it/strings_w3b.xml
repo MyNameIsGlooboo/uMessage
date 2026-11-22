@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Nessun messaggio trattenuto corrisponde</string>
     <string name="w3b_filter_none_body">Nessun messaggio trattenuto corrisponde al filtro. Scegline un altro o mostra tutto.</string>
     <string name="w3b_filter_show_all">Mostra tutti</string>
-    <string name="w3b_empty_body">uMessage controlla i messaggi in modalità %1$s. Quelli trattenuti appariranno qui.</string>
     <string name="w3b_why_link">Trattenuto perché il mittente è sconosciuto e il testo contiene un link.</string>
     <string name="w3b_why_unknown">Trattenuto perché il mittente è sconosciuto.</string>
     <string name="w3b_why_rule">Trattenuto perché corrisponde a una delle tue regole di blocco.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Andrebbe in Spam: mittente sconosciuto.</string>
     <string name="w3b_verdict_allowed_rule">Andrebbe in Messaggi: corrisponde a una delle tue regole per consentire.</string>
     <string name="w3b_verdict_allowed_contact">Andrebbe in Messaggi: il mittente è nei tuoi contatti.</string>
-    <string name="w3b_verdict_allowed_known">Verrebbe recapitato: hai già scritto a questo numero.</string>
     <string name="w3b_verdict_allowed_code">Andrebbe in Messaggi: un codice di verifica. Poi il mittente è consentito.</string>
     <string name="w3b_verdict_allowed_off">Andrebbe in Messaggi: il filtro antispam è disattivato.</string>
     <string name="w3b_verdict_allowed_unsure">Andrebbe in Messaggi: non è possibile leggere i contatti, quindi il mittente non può essere valutato.</string>

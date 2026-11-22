@@ -43,7 +43,6 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel as composeViewModel
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.W3cPrefs
 import com.glooboo.umessage.models.SearchResult
 import com.glooboo.umessage.ui.components.horizontalChromePadding
@@ -62,7 +61,6 @@ import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.labels.rememberInboxLabels
 import com.glooboo.umessage.ui.lock.BlockedLockGate
 import com.glooboo.umessage.ui.scheduled.rememberScheduledCount
-import com.glooboo.umessage.ui.spam.BlockedRoute
 import com.glooboo.umessage.ui.spam.SpamChatsRoute
 
 /** CL-13, N11: the inbox filters; the search page's tiles turn one on ([SearchFilterTile]). */
@@ -217,24 +215,16 @@ fun MainScreen(
                     )
                     MainTab.Blocked -> BlockedLockGate {
                         BlockedSeenEffects(state.newBlockedCount, viewModel::markBlockedSeen)
-                        if (ProviderTruthFlag.enabled) {
-                            // Provider truth (4.2): the chats in Spam, read again whenever Messages was published.
-                            val published by viewModel.published.collectAsStateWithLifecycle()
-                            val links = SpamRuleLinks(navigation)
-                            SpamChatsRoute(
-                                onOpen = { navigation.onOpenThread(it.threadId, it.title) },
-                                onOpenRules = links.onOpenRules,
-                                onViewRule = links.onViewRule,
-                                onOpenSettings = navigation.onSpamSettings,
-                                reloadKey = published,
-                            )
-                        } else {
-                            BlockedRoute(
-                                onBack = null,
-                                onOpenRules = navigation.onSpamRules,
-                                onOpenSettings = navigation.onSpamSettings,
-                            )
-                        }
+                        // Provider truth (4.2): the chats in Spam, read again whenever Messages was published.
+                        val published by viewModel.published.collectAsStateWithLifecycle()
+                        val links = SpamRuleLinks(navigation)
+                        SpamChatsRoute(
+                            onOpen = { navigation.onOpenThread(it.threadId, it.title) },
+                            onOpenRules = links.onOpenRules,
+                            onViewRule = links.onViewRule,
+                            onOpenSettings = navigation.onSpamSettings,
+                            reloadKey = published,
+                        )
                     }
                     MainTab.Forwarded -> ForwardedRoute(
                         onManageRules = navigation.onManageForwardRules,
@@ -347,12 +337,11 @@ private fun MessagesTab(
     // U03: one at a time.
     var cardsAnswered by remember { mutableIntStateOf(0) }
     val spamMoved = rememberSpamMoved()
-    val inboxCard = rememberInboxCard(state.newBlockedCount, cardsAnswered, spamMoved)
+    val inboxCard = rememberInboxCard(cardsAnswered, spamMoved)
     val header: @Composable () -> Unit = {
         if (!selecting) {
             InboxCardSlot(
                 card = inboxCard,
-                newBlocked = state.newBlockedCount,
                 forwardRuleCount = forwardRuleCount,
                 onOpenBlockedTab = onOpenBlockedTab,
                 onOpenForwarding = navigation.onManageForwardRules,

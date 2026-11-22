@@ -100,7 +100,7 @@ internal class MmsPushDownload(
      * one already handled). False when the library should handle it, which is also the answer for anything that goes
      * wrong before the notification-ind is saved: a message is never dropped here. After it is saved, a failed
      * download start leaves the usual "Tap to download" row, notifies, and still returns true. [spam]: provider truth,
-     * the push gate put the sender's chat in Spam (null: Messages, or the flag is off).
+     * the push gate put the sender's chat in Spam (null: Messages).
      */
     fun handle(context: Context, intent: Intent, spam: SpamNotice? = null): Boolean {
         val indication = readPush(context, intent) ?: return false

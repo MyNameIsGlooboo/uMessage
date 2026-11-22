@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">คำที่บล็อกและจะเพิ่ม: %1$d คำ คำที่คุณมีอยู่แล้วจะถูกข้ามไป</string>
     <string name="spam_reason_rule_domain">กฎ: ลิงก์ไปยัง %1$s</string>
-    <string name="decm_search_section_blocked">สแปม</string>
     <string name="decm_blocked_search">ค้นหาในสแปม</string>
     <string name="decm_blocked_search_hint">ค้นหาจากผู้ส่งหรือข้อความ</string>
     <string name="decm_blocked_search_close">ปิดการค้นหา</string>

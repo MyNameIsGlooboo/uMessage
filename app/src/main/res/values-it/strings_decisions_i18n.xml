@@ -4,7 +4,6 @@
         <item quantity="one">%d chat segnata come letta</item>
         <item quantity="other">%d chat segnate come lette</item>
     </plurals>
-    <string name="decm_search_section_blocked">Spam</string>
     <string name="decm_blocked_search">Cerca in Spam</string>
     <string name="decm_blocked_search_hint">Cerca per mittente o testo</string>
     <string name="decm_blocked_search_close">Chiudi la ricerca</string>

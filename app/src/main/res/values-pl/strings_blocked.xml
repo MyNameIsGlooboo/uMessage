@@ -55,12 +55,6 @@
         <item quantity="other">Usunięcie za %d dnia</item>
     </plurals>
     <string name="spam_purge_left_today">Usunięcie dzisiaj</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Zgłoszono. Nowe wiadomości od tego nadawcy trafią do Spamu, a rozmowa została zarchiwizowana.</item>
-        <item quantity="few">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
-        <item quantity="many">Zgłoszono %d rozmów. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
-        <item quantity="other">Zgłoszono %d rozmowy. Nowe wiadomości od tych nadawców trafią do Spamu, a rozmowy zostały zarchiwizowane.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="one">Zgłoszono. Czat trafił do folderu Spam.</item>
         <item quantity="few">Zgłoszono %d czaty. Trafiły do folderu Spam.</item>
@@ -68,7 +62,6 @@
         <item quantity="other">Zgłoszono %d czatu. Trafiły do folderu Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Tryb dla nieznanych nadawców: %1$s</string>
     <string name="blocked_stats_restored">Przywrócone przez ciebie: %1$d</string>
     <string name="blocked_reason_unknown_link">Nieznany nadawca, wiadomość z linkiem</string>
     <string name="blocked_may_be_important">Może być ważne</string>

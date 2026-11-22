@@ -17,7 +17,6 @@ import com.glooboo.umessage.extensions.getPrivateContactsIfAvailable
 import com.glooboo.umessage.extensions.getSuggestedContacts
 import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.helpers.HiddenChats
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SmsIntentParser
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URI
 import com.glooboo.umessage.helpers.THREAD_ATTACHMENT_URIS
@@ -264,7 +263,7 @@ class NewConversationActivity : ComposeSimpleActivity() {
  * throws when Spam cannot be read, and then no suggestion shows.
  */
 internal fun Context.withoutSpamSenders(suggested: List<SimpleContact>): List<SimpleContact> {
-    if (!ProviderTruthFlag.enabled || suggested.isEmpty()) return suggested
+    if (suggested.isEmpty()) return suggested
     val senders = conversationsDB.getValidSpamThreads().map { it.sender }
     if (senders.isEmpty()) return suggested
     val isSpamSender = spamSenderTest(senders, SpamThreads.readers(this))
@@ -296,6 +295,6 @@ internal fun spamSenderTest(senders: List<String>, readers: NumberReaders): (Str
  * truth): the Messages list itself, so no chat in Spam is offered. Blocking.
  */
 internal fun Context.shareTargetChats(): List<Conversation> {
-    val chats = if (ProviderTruthFlag.enabled) conversationsDB.getMessagesList() else conversationsDB.getNonArchived()
+    val chats = conversationsDB.getMessagesList()
     return HiddenChats.get(this).withoutHidden(chats) { it.threadId }
 }

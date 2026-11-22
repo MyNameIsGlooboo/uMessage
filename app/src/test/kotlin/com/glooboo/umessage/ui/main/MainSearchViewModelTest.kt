@@ -45,15 +45,15 @@ class MainSearchViewModelTest {
             listOf(result(query))
         }
         runNoteSearch = { emptyList() }
-        runBlockedSearch = { emptyList() }
+        runSpamSearch = { emptyList() }
     }
 
-    /** main-22: blocked messages are searched with the notes and cleared with them. */
+    /** main-22, provider truth (U9): the Spam chats are searched with the notes and cleared with them. */
     @Test
-    fun blockedMessagesAreFoundWithTheMessagesAndClearedWithThem() = runTest(dispatcher) {
+    fun spamChatsAreFoundWithTheMessagesAndClearedWithThem() = runTest(dispatcher) {
         val vm = viewModel().apply {
-            runBlockedSearch = { query ->
-                listOf(BlockedHit("+14155550133", "+1 415 555 0133", "free $query", "Mon", 2))
+            runSpamSearch = { query ->
+                listOf(SpamChatHit(BlockedHit("9", "+15550001234", "free $query", "Mon", 2), result(query)))
             }
         }
         vm.onQueryChange("prize")

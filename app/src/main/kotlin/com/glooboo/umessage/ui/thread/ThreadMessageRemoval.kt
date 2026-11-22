@@ -8,7 +8,6 @@ import com.glooboo.umessage.extensions.restoreMessageFromRecycleBin
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.extensions.updateScheduledMessagesThreadId
 import com.glooboo.umessage.helpers.DefaultSmsRole
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.generateRandomId
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Message
@@ -33,7 +32,6 @@ fun Context.removeThreadMessages(
     schedule: ThreadScheduleController,
     onRefused: (Int) -> Unit = {},
 ): Long? {
-    val honest = ProviderTruthFlag.enabled
     val isDefault by lazy {
         runCatching { DefaultSmsRole.status(this) == DefaultSmsRole.Status.Held }.getOrDefault(false)
     }
@@ -43,8 +41,7 @@ fun Context.removeThreadMessages(
             message.isScheduled -> schedule.cancel(message.id)
             toRecycleBin -> moveMessageToRecycleBin(message.id, message.isMMS, message)
             fromRecycleBin -> restoreMessageFromRecycleBin(message.id, message.isMMS)
-            honest -> deleteMessage(message.id, message.isMMS, isDefault).messageRes?.let { refused = refused ?: it }
-            else -> deleteMessage(message.id, message.isMMS)
+            else -> deleteMessage(message.id, message.isMMS, isDefault).messageRes?.let { refused = refused ?: it }
         }
     }
     refused?.let(onRefused)

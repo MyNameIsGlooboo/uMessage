@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">ตัวกรองสแปม</string>
     <string name="spam_settings_unknown_body">ผู้ส่งที่ไม่รู้จักคือผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อและไม่อยู่ในรายการที่อนุญาต แชตทั้งหมดของผู้ส่งนั้นจะไปที่ \"สแปม\" แบบเงียบๆ คนที่คุณเคยส่งข้อความถึงและผู้ส่งรหัสยืนยันจะอยู่ใน \"ข้อความ\" ต่อไป</string>
-    <string name="spam_mode_strict">เข้มงวด</string>
-    <string name="spam_mode_strict_body">บล็อกผู้ส่งที่ไม่รู้จักทั้งหมด รวมถึงรหัสยืนยัน</string>
-    <string name="spam_mode_smart">อัจฉริยะ</string>
-    <string name="spam_mode_smart_body">บล็อกผู้ส่งที่ไม่รู้จัก อนุญาตข้อความที่มีเพียงรหัสยืนยัน</string>
-    <string name="spam_mode_off">ปิด</string>
-    <string name="spam_mode_off_body">ไม่บล็อกผู้ส่งที่ไม่รู้จัก</string>
-    <string name="spam_strict_warning_title">โหมดเข้มงวดอาจซ่อนข้อความสำคัญ</string>
-    <string name="spam_strict_warning_body">ข้อความจากธนาคาร บริษัทขนส่ง และรหัสใช้ครั้งเดียวมักมาจากผู้ส่งที่ไม่อยู่ในรายชื่อติดต่อ ในโหมดเข้มงวด ข้อความเหล่านี้จะไปที่สแปม รวมถึงรหัสด้วย เลือกโหมดอัจฉริยะเพื่อให้รับรหัสได้ หรือเพิ่มผู้ส่งเหล่านั้นในรายการที่อนุญาตเพียงครั้งเดียว</string>
-    <string name="spam_strict_warning_action">ตรวจสอบสแปม</string>
     <string name="spam_settings_cleanup_title">ล้างข้อมูล</string>
     <string name="spam_purge_body">ปิดอยู่จนกว่าคุณจะเลือกจำนวนวัน</string>
     <string name="spam_purge_days">%d วัน</string>

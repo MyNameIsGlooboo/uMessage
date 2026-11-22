@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Thông báo tin nhắn mới, kèm nút trả lời và sao chép mã.</string>
     <string name="onb_perm_allow_all">Cho phép tất cả</string>
     <string name="onb_perm_open_settings">Mở cài đặt</string>
-    <string name="onb_mode_title">Chọn cách xử lý người gửi không xác định</string>
-    <string name="onb_mode_strict">Chế độ lọc nghiêm ngặt</string>
-    <string name="onb_mode_smart">Thông minh</string>
-    <string name="onb_mode_off">Tắt</string>
-    <string name="onb_mode_warning_title">Lưu ý về tin nhắn ngân hàng và mã</string>
-    <string name="onb_mode_warning_body">Trong Chế độ lọc nghiêm ngặt, thông báo ngân hàng, cập nhật giao hàng và mã dùng một lần từ người gửi không xác định đều được giữ trong mục Tin rác, kể cả mã. Bạn sẽ không nhận được thông báo, nên hãy kiểm tra mục Tin rác khi đang chờ tin nhắn.</string>
     <string name="onb_oem_title">Giữ uMessage hoạt động</string>
     <string name="onb_oem_manual_hint">Nếu màn hình không mở, hãy tìm tên hiển thị trong Cài đặt của bạn.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi hoặc Poco</string>

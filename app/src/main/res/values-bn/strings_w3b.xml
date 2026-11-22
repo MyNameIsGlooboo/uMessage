@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">কোনো আটকানো বার্তা মেলেনি</string>
     <string name="w3b_filter_none_body">এই ফিল্টারে কোনো আটকানো বার্তা মেলেনি। অন্য ফিল্টার বেছে নিন বা সব দেখুন।</string>
     <string name="w3b_filter_show_all">সব দেখুন</string>
-    <string name="w3b_empty_body">uMessage %1$s মোডে নজর রাখছে। আটকানো বার্তা এখানে দেখা যাবে।</string>
     <string name="w3b_why_link">প্রেরক অচেনা এবং বার্তায় লিঙ্ক আছে বলে আটকানো হয়েছে।</string>
     <string name="w3b_why_unknown">প্রেরক অচেনা বলে আটকানো হয়েছে।</string>
     <string name="w3b_why_rule">আপনার ব্লক করার একটি নিয়মের সঙ্গে মিলেছে বলে আটকানো হয়েছে।</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">স্প্যামে যাবে: অচেনা প্রেরক।</string>
     <string name="w3b_verdict_allowed_rule">বার্তা ট্যাবে যাবে: আপনার অনুমতি দেওয়ার একটি নিয়মের সঙ্গে মিলেছে।</string>
     <string name="w3b_verdict_allowed_contact">বার্তা ট্যাবে যাবে: প্রেরক আপনার পরিচিতিতে আছেন।</string>
-    <string name="w3b_verdict_allowed_known">পৌঁছে দেওয়া হবে: আপনি আগে এই নম্বরে বার্তা পাঠিয়েছেন।</string>
     <string name="w3b_verdict_allowed_code">বার্তা ট্যাবে যাবে: এটি যাচাইকরণ কোড। এরপর প্রেরক অনুমতি পাবেন।</string>
     <string name="w3b_verdict_allowed_off">বার্তা ট্যাবে যাবে: স্প্যাম ফিল্টার বন্ধ।</string>
     <string name="w3b_verdict_allowed_unsure">বার্তা ট্যাবে যাবে: পরিচিতি পড়া যাচ্ছে না, তাই প্রেরক সম্পর্কে সিদ্ধান্ত নেওয়া যাচ্ছে না।</string>

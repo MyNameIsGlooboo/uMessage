@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.BlockReceipt
@@ -122,15 +121,13 @@ class DefaultSpamRepository(
 
     /**
      * Spec 2.2: a block rule the user adds for an exact number or sender name (also on the rules screen) takes the
-     * sender out of the group rules and, with ProviderTruthFlag on, removes its automatic allow rules, as
-     * [blockAddress] does.
-     * With the flag off, 0.4.14's "allow wins" stays (no group has members then).
+     * sender out of the group rules and removes its automatic allow rules, as [blockAddress] does.
      */
     private fun takeOutOfAutomatic(blockRuleId: Long) {
         val rule = dao.getRule(blockRuleId) ?: return
         if (rule.type != RuleType.NUMBER && rule.type != RuleType.SENDER_ID) return
         groups.leave(rule.pattern)
-        if (ProviderTruthFlag.enabled) automaticAllowsOf(rule.pattern).forEach { dao.deleteRule(it.id) }
+        automaticAllowsOf(rule.pattern).forEach { dao.deleteRule(it.id) }
     }
 
     override suspend fun updateRule(rule: SpamRule): Long = withContext(Dispatchers.IO) {
@@ -253,8 +250,8 @@ class DefaultSpamRepository(
             synchronized(SpamProviderMigration.lock) {
                 val stored = dao.getBlocked(blockedId)?.toModel()
                     ?: return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
-                // With the flag on, a row the migration took (written or done) is in the store already: never again.
-                if (ProviderTruthFlag.enabled && stored.migratedMsgId != null) {
+                // A row the migration took (written or done) is in the store already: never again.
+                if (stored.migratedMsgId != null) {
                     return@withLock RestoreReceipt(null, RestoreOutcome.NOT_FOUND)
                 }
                 val receipt = if (stored.hasStoredMedia) restoreKeptMms(stored) else restoreText(blockedId)
@@ -383,60 +380,6 @@ class DefaultSpamRepository(
         db.runInTransaction<BlockReceipt?> { blockInTransaction(message.address, blockedFromMessageNote()) }
         Unit
     }
-
-    /**
-     * After a keyword or regex BLOCK rule [ruleId] blocked the stored message [blockedId], also blocks its sender:
-     * adds a block rule for the number or sender id and removes their allow rules. Does nothing when the rule is not a
-     * block rule of those two types, when [mayBlock] says no for the address (a contact, a number the user wrote to,
-     * or a lookup that failed), or when the sender already has a block rule. Never throws. True when a rule was added.
-     */
-    suspend fun blockSenderOfKeywordMatch(blockedId: Long, ruleId: Long?, mayBlock: (String) -> Boolean): Boolean =
-        withContext(Dispatchers.IO) {
-            runCatching {
-                val matched = ruleId?.let { id -> dao.getRules().firstOrNull { it.id == id } }
-                val message = dao.getBlocked(blockedId)
-                val eligible = message != null && matched != null && isKeywordRule(matched, ListKind.BLOCK)
-                if (message == null || !eligible || !mayBlock(message.address)) return@runCatching false
-                val type = ruleTypeFor(message.address)
-                val pattern = normalizer.normalize(message.address)
-                db.runInTransaction<Boolean> {
-                    val rules = dao.getRules().filter { it.type == type && it.pattern == pattern }
-                    if (rules.any { it.kind == ListKind.BLOCK }) return@runInTransaction false
-                    rules.filter { it.kind == ListKind.ALLOW }.forEach { dao.deleteRule(it.id) }
-                    val note = blockedFromKeywordNote()
-                    insertRule(SpamRule(kind = ListKind.BLOCK, type = type, pattern = pattern, note = note))
-                    true
-                }
-            }.getOrDefault(false)
-        }
-
-    /**
-     * After a keyword or regex ALLOW rule [ruleId] allowed a delivered message from [address], also allows its sender:
-     * adds an allow rule for the number or sender id. The mirror of [blockSenderOfKeywordMatch], but it never removes
-     * a rule: a sender that already has any rule (an explicit block wins and stays; an explicit allow is enough) is
-     * left alone. Does nothing when the rule is not an allow rule of those two types, when the address is blank, or
-     * when [mayAllow] says no (a contact, a number the user wrote to, or a lookup that failed). Never throws. True
-     * when a rule was added.
-     */
-    suspend fun allowSenderOfKeywordMatch(address: String, ruleId: Long?, mayAllow: (String) -> Boolean): Boolean =
-        withContext(Dispatchers.IO) {
-            runCatching {
-                val matched = ruleId?.let { id -> dao.getRules().firstOrNull { it.id == id } }
-                val pattern = normalizer.normalize(address)
-                val eligible = matched != null && isKeywordRule(matched, ListKind.ALLOW) && pattern.isNotEmpty()
-                if (!eligible || !mayAllow(address)) return@runCatching false
-                val type = ruleTypeFor(address)
-                db.runInTransaction<Boolean> {
-                    if (dao.getRules().any { it.type == type && it.pattern == pattern }) return@runInTransaction false
-                    val note = allowedFromKeywordNote()
-                    insertRule(SpamRule(kind = ListKind.ALLOW, type = type, pattern = pattern, note = note))
-                    true
-                }
-            }.getOrDefault(false)
-        }
-
-    private fun isKeywordRule(rule: SpamRuleEntity, kind: ListKind): Boolean =
-        rule.kind == kind && (rule.type == RuleType.KEYWORD || rule.type == RuleType.REGEX)
 
     /**
      * Provider truth (R1, facts first): writes [fact] for the sender of [address] before its text is stored. Every
@@ -671,21 +614,13 @@ class DefaultSpamRepository(
     }
 
     /**
-     * Deletes expired blocked messages together with their kept MMS content, and content no row refers to.
+     * Deletes kept MMS content no row refers to.
      *
-     * Provider truth (step F): with the flag on, no held row is ever deleted by age here. "Auto-delete of Spam" then
-     * acts on the phone's store (SpamAutoDelete), and a held row goes only once the message migration moved it, 30
-     * days later (SpamProviderMigration). Only the sweep of files no row refers to runs.
+     * Provider truth (step F): no held row is ever deleted by age here. "Auto-delete of Spam" acts on the phone's
+     * store (SpamAutoDelete), and a held row goes only once the message migration moved it, 30 days later
+     * (SpamProviderMigration). Only the sweep of files no row refers to runs.
      */
     override suspend fun purgeExpired() = withContext(Dispatchers.IO) {
-        val days = settingsStore.get().purgeAfterDays
-        if (days > 0 && !ProviderTruthFlag.enabled) {
-            val before = System.currentTimeMillis() - days * DAY_MS
-            val files = db.runInTransaction<List<String>> {
-                dao.mediaFilesBefore(before).also { dao.deleteBlockedBefore(before) }
-            }
-            if (files.isNotEmpty()) platform.deleteMedia(files)
-        }
         platform.sweepMedia(dao.allMediaFiles().toSet() + heldMedia)
     }
 

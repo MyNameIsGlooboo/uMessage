@@ -7,23 +7,17 @@ import org.junit.Test
 class InboxCardPolicyTest {
 
     @Test
-    fun heldSpamComesFirstWhateverElseIsDue() {
-        val card = InboxCardPolicy.pick(spamHeldDue = true, checklistDue = true, cleanupDue = true)
-        assertEquals(InboxCard.SpamHeld, card)
-    }
-
-    @Test
     fun checklistBeatsTheCodeQuestion() {
-        assertEquals(InboxCard.Checklist, InboxCardPolicy.pick(false, checklistDue = true, cleanupDue = true))
+        assertEquals(InboxCard.Checklist, InboxCardPolicy.pick(checklistDue = true, cleanupDue = true))
     }
 
     @Test
     fun codeQuestionShowsOnlyWhenNothingElseIsDue() {
-        assertEquals(InboxCard.CodeCleanup, InboxCardPolicy.pick(false, false, cleanupDue = true))
+        assertEquals(InboxCard.CodeCleanup, InboxCardPolicy.pick(false, cleanupDue = true))
     }
 
     @Test
     fun noCardWhenNothingIsDue() {
-        assertNull(InboxCardPolicy.pick(false, false, false))
+        assertNull(InboxCardPolicy.pick(false, false))
     }
 }

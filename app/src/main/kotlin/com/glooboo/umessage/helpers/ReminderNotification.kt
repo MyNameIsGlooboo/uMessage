@@ -64,10 +64,9 @@ class ReminderNotification(private val context: Context) {
 
     /**
      * The chat is in Spam and the app lock covers Spam ([LockScope.blockedLocked]); a failed read counts as "in Spam".
-     * Always false while ProviderTruthFlag is off.
      */
     private fun lockedSpam(threadId: Long): Boolean {
-        if (!ProviderTruthFlag.enabled || !LockScope.blockedLocked(context)) return false
+        if (!LockScope.blockedLocked(context)) return false
         return runCatching { context.conversationsDB.isInSpam(threadId) }.getOrDefault(true)
     }
 

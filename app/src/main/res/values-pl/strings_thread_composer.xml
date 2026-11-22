@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Cały czat z %1$s trafi do folderu Spam, a nowe wiadomości będą tam przychodzić po cichu. Żadna wiadomość nie jest usuwana.</string>
     <string name="thread_report_spam_confirm">Oznacz jako spam</string>
     <string name="thread_report_spam_cancel">Anuluj</string>
-    <string name="thread_report_spam_done">Oznaczono jako spam</string>
     <string name="thread_report_spam_rule_note">Zgłoszono spam</string>
-    <string name="thread_report_spam_already">Już oznaczono jako spam</string>
-    <string name="thread_report_spam_failed">Nie udało się oznaczyć jako spam</string>
     <string name="thread_report_spam_undo">Cofnij</string>
 </resources>

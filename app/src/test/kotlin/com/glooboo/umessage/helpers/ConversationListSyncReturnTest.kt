@@ -85,7 +85,8 @@ class ConversationListSyncReturnTest {
         return gate
     }
 
-    private fun saved(): List<Conversation> = offMainThread { context.conversationsDB.getNonArchived() }
+    private fun saved(): List<Conversation> =
+        offMainThread { context.conversationsDB.getAllRows().filterNot { it.isArchived } }
 
     /** J2-5: the sent receiver names the new chat; it shows on return although no full pass ran or was held. */
     @Test

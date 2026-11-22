@@ -10,8 +10,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.glooboo.umessage.ui.spam.SortChange
 import com.glooboo.umessage.ui.theme.UMessageTheme
@@ -31,16 +29,13 @@ import org.robolectric.annotation.Config
 class SpamFilterGroupTest {
 
     @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
-
-    @get:Rule
     val compose = createComposeRule()
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val res = app.resources
     private val repo = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())
     private val switchModel = SpamFilterSwitchViewModel(app, { repo }, moveCounter = { { 6 } })
-    private val spam = SpamSummary(UnknownSenderMode.SMART, 0, 0, 0, filterOn = true)
+    private val spam = SpamSummary(0, 0, 0, filterOn = true)
 
     private fun stored(): SpamSettings = runBlocking { repo.settings.first() }
 

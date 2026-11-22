@@ -223,7 +223,7 @@ class RulesUiTest {
     @Test
     fun spamSettingsHaveNoSeparatePasscodeSwitch() {
         compose.setContent { UMessageTheme { SettingsScreen(SettingsUiState(loading = false, settings = SpamSettings()), SettingsActions()) } }
-        compose.onNodeWithText(str(R.string.spam_mode_smart_body)).assertExists()
+        compose.onNodeWithText(str(R.string.pt_filter_on_summary)).assertExists()
         compose.onNodeWithText("passcode", substring = true, ignoreCase = true).assertDoesNotExist()
     }
 }

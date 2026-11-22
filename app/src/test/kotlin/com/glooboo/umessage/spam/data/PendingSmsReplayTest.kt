@@ -30,8 +30,9 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 
 /**
- * SE-41: the write-ahead path every incoming SMS takes (pending row, filter, blocked store or inbox, replay).
- * The rule under test: a message is removed from pending_sms only once it is stored somewhere.
+ * SE-41: the write-ahead path every incoming SMS takes (pending row, filter, phone's store, replay). The rule under
+ * test: a message is removed from pending_sms only once it is stored somewhere. The filter here is not the app's
+ * own, so every text fails open to Messages; the Spam side is in ProviderTruthSmsTest.
  */
 @RunWith(AndroidJUnit4::class)
 class PendingSmsReplayTest {
@@ -130,15 +131,6 @@ class PendingSmsReplayTest {
         replay()
         assertEquals(1, FakeSmsProvider.inserted.size)
         assertEquals("Dinner at 8?", FakeSmsProvider.inserted.single().getAsString(Telephony.Sms.BODY))
-        assertTrue(offMainThread { dao.getPending() }.isEmpty())
-    }
-
-    @Test fun blockedRowIsStoredAsBlockedAndLeavesTheQueue() {
-        decide = { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) }
-        addPending(pending(body = "You won a prize"))
-        replay()
-        assertTrue(FakeSmsProvider.inserted.isEmpty())
-        assertEquals("You won a prize", offMainThread { dao.getAllBlocked() }.single().body)
         assertTrue(offMainThread { dao.getPending() }.isEmpty())
     }
 
@@ -244,13 +236,5 @@ class PendingSmsReplayTest {
         replay()
         assertEquals(1, FakeSmsProvider.inserted.size)
         assertTrue(offMainThread { dao.getPending() }.isEmpty())
-    }
-
-    @Test fun anOrdinaryRowIsStillFiltered() {
-        decide = { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) }
-        addPending(pending())
-        replay()
-        assertTrue(FakeSmsProvider.inserted.isEmpty())
-        assertEquals(1, offMainThread { dao.getAllBlocked() }.size)
     }
 }

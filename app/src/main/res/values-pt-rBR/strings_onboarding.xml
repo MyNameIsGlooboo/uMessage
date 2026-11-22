@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Avisa sobre novas mensagens, com botões para responder e copiar códigos.</string>
     <string name="onb_perm_allow_all">Permita tudo</string>
     <string name="onb_perm_open_settings">Abra as configurações</string>
-    <string name="onb_mode_title">Escolha como tratar remetentes desconhecidos</string>
-    <string name="onb_mode_strict">Rigoroso</string>
-    <string name="onb_mode_smart">Inteligente</string>
-    <string name="onb_mode_off">Desativado</string>
-    <string name="onb_mode_warning_title">Atenção às mensagens de bancos e códigos</string>
-    <string name="onb_mode_warning_body">No modo rigoroso, alertas de bancos, atualizações de entregas e códigos de uso único de remetentes desconhecidos ficam em Spam, inclusive os códigos. Você não recebe notificação, então confira Spam quando esperar uma dessas mensagens.</string>
     <string name="onb_oem_title">Mantenha o uMessage funcionando</string>
     <string name="onb_oem_manual_hint">Se uma tela não abrir, procure o nome indicado nas configurações.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi ou Poco</string>

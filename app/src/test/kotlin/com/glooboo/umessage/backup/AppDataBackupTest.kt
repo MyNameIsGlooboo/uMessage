@@ -111,7 +111,8 @@ class AppDataBackupTest {
         fresh.ConversationsDao().insertOrUpdate(conversation(70))
 
         assertThat(pending.applyTo(fresh.ConversationsDao())).isEqualTo(1)
-        assertThat(fresh.ConversationsDao().getAllArchived().map { it.threadId }).containsExactly(70L)
+        val archived = fresh.ConversationsDao().getAllRows().filter { it.isArchived }
+        assertThat(archived.map { it.threadId }).containsExactly(70L)
         assertThat(pending.applyTo(fresh.ConversationsDao())).isEqualTo(0)
     }
 

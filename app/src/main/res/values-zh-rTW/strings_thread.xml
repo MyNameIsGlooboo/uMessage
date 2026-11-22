@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">已解除封鎖。對話已回到「訊息」</string>
     <string name="thread_unblock_done_system">已在uMessage中解除封鎖。這個號碼也在手機的封鎖清單中，因此Android仍會封鎖它的訊息</string>
     <string name="thread_unblock_done_filtered">已解除封鎖。由於寄件者不明，仍留在「垃圾訊息」中。</string>
-    <string name="thread_unblock_always_allow">一律允許</string>
     <string name="thread_always_allow_done">已設為一律允許。對話在「訊息」中</string>
     <string name="thread_always_allow_failed">無法允許這個號碼</string>
     <string name="thread_unblock_failed">無法解除封鎖這個號碼</string>

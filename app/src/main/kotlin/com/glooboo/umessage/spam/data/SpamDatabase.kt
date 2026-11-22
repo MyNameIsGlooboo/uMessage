@@ -128,7 +128,7 @@ abstract class SpamDatabase : RoomDatabase() {
         /**
          * Schema 9, provider truth (7.2, S15, U15): every spam rule covers both SIMs, duplicates merged; the Keep
          * state of automatic allow rules; the members of the two group rules; the done mark of the message migration.
-         * Not behind ProviderTruthFlag; see [ProviderTruthRuleMigration] for why the old filter still works on it.
+         * See [ProviderTruthRuleMigration] for why the old filter still works on it.
          */
         private val MIGRATION_8_9 = object : Migration(VERSION_RULE_STATS, VERSION_PROVIDER_TRUTH) {
             override fun migrate(db: SupportSQLiteDatabase) = ProviderTruthRuleMigration.migrate(db)
@@ -184,7 +184,7 @@ abstract class SpamDatabase : RoomDatabase() {
  * 4. The table of the group members, empty.
  * 5. blocked_messages.migratedMsgId and migrateTries for the message migration, empty.
  *
- * Safe for the 0.4.14 filter (ProviderTruthFlag off): it reads no new column or table, and a rule for one SIM now
+ * Safe for the 0.4.14 filter (after a downgrade): it reads no new column or table, and a rule for one SIM now
  * matches on both, which only widens a rule the user made (the owner decided every rule covers both SIMs). No rule,
  * held message or event is lost; a downgrade copies the shared columns back (SpamDatabaseRecovery).
  */

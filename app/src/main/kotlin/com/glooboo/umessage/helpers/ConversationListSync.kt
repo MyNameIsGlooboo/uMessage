@@ -327,12 +327,9 @@ class ConversationListSync(
     /**
      * The Messages list (S1). Provider truth (B-4): always without the chats in Spam. Before the first sort the table
      * holds only rows of texts that arrived as spam; the sort's transaction is the publish, so the list never waits for
-     * the runner's state. With the flag off: every chat that is not archived, as in 0.4.14.
+     * the runner's state.
      */
-    private fun saved(): ArrayList<Conversation> {
-        val db = context.conversationsDB
-        return ArrayList(if (ProviderTruthFlag.enabled) db.getMessagesList() else db.getNonArchived())
-    }
+    private fun saved(): ArrayList<Conversation> = ArrayList(context.conversationsDB.getMessagesList())
 
     private fun publishSaved(kind: String = "saved", cached: Boolean = false) {
         publishRows(kind, cached) { saved() }
@@ -455,7 +452,7 @@ class ConversationListSync(
         val freshById = conversations.associateBy { it.threadId }
         // B2-1: when the read lists no chat at all, or most of a big cache vanished at once, the read is not trusted
         // to say "deleted": only the cached rows go, as before step B, and everything comes back at the next good read.
-        val massVanish = ProviderTruthFlag.enabled && isMassVanish(cachedConversations, freshById)
+        val massVanish = isMassVanish(cachedConversations, freshById)
         if (massVanish) Log.w(TAG, "Most cached chats are missing from the store read; nothing of them is forgotten")
         // The newest thread of a number wins, as the old first-match search did.
         val freshByNumber by lazy { conversations.asReversed().associateBy { it.phoneNumber } }
@@ -464,15 +461,14 @@ class ConversationListSync(
         val added = ArrayList<Conversation>()
         conversations.forEach { fresh ->
             if (cachedIds.add(fresh.threadId)) {
-                if (!ProviderTruthFlag.enabled) db.insertOrUpdate(fresh)
                 cachedConversations.add(fresh)
                 added += fresh
             }
         }
         // 3.2, B-6: new chat rows are cached with their sort (and their senders' history first), never before it.
-        if (ProviderTruthFlag.enabled) NewChatSorting.cacheAndSort(context, added)
+        NewChatSorting.cacheAndSort(context, added)
 
-        val storeThreads by lazy { if (ProviderTruthFlag.enabled && !massVanish) storeThreadIds() else null }
+        val storeThreads by lazy { if (!massVanish) storeThreadIds() else null }
         cachedConversations.forEach { cached ->
             val threadId = cached.threadId
             val isTemporaryThread = cached.isScheduled
@@ -528,12 +524,11 @@ class ConversationListSync(
 
     /**
      * A cached chat the full read did not list. S19 (provider truth): when the phone's store has no such thread any
-     * more (another app deleted it), everything the app kept of it goes. Otherwise (the flag is off, the thread only
-     * has no recipients, the store could not be read, or the read looks like a mass disappearance) only the cached
-     * row goes, as before.
+     * more (another app deleted it), everything the app kept of it goes. Otherwise (the thread only has no recipients,
+     * the store could not be read, or the read looks like a mass disappearance) only the cached row goes, as before.
      */
     private fun forgetVanished(threadId: Long, storeThreads: Set<Long>?) {
-        if (ProviderTruthFlag.enabled && storeThreads != null && threadId !in storeThreads) {
+        if (storeThreads != null && threadId !in storeThreads) {
             context.forgetThread(threadId, vanished = true)
         } else {
             context.conversationsDB.deleteThreadId(threadId)

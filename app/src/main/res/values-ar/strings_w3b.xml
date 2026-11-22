@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">لا توجد رسائل محتجزة مطابقة</string>
     <string name="w3b_filter_none_body">لا توجد رسائل محتجزة تطابق هذه التصفية. اختر تصفية أخرى أو اعرض الكل.</string>
     <string name="w3b_filter_show_all">اعرض الكل</string>
-    <string name="w3b_empty_body">يراقب uMessage الرسائل في وضع %1$s. ستظهر هنا الرسائل التي يحتجزها.</string>
     <string name="w3b_why_link">احتُجزت لأن المرسل غير معروف والنص يحتوي على رابط.</string>
     <string name="w3b_why_unknown">احتُجزت لأن المرسل غير معروف.</string>
     <string name="w3b_why_rule">احتُجزت لأنها تطابق إحدى قواعد الحظر لديك.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">ستذهب إلى «غير المرغوب فيها»: مرسل غير معروف.</string>
     <string name="w3b_verdict_allowed_rule">ستذهب إلى «الرسائل»: تنطبق عليها إحدى قواعد السماح لديك.</string>
     <string name="w3b_verdict_allowed_contact">ستذهب إلى «الرسائل»: المرسل ضمن جهات اتصالك.</string>
-    <string name="w3b_verdict_allowed_known">ستصل: سبق أن راسلت هذا الرقم.</string>
     <string name="w3b_verdict_allowed_code">ستذهب إلى «الرسائل»: رمز تحقق. ويصبح المرسل مسموحًا به بعد ذلك.</string>
     <string name="w3b_verdict_allowed_off">ستذهب إلى «الرسائل»: فلتر الرسائل غير المرغوب فيها متوقف.</string>
     <string name="w3b_verdict_allowed_unsure">ستذهب إلى «الرسائل»: تتعذر قراءة جهات الاتصال، لذا لا يمكن الحكم على المرسل.</string>

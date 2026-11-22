@@ -2,7 +2,6 @@ package com.glooboo.umessage.backup
 
 import android.content.Context
 import android.util.Base64
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.BlockedBackup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
@@ -36,10 +35,9 @@ class BlockedBackupSupport(
     /** Calls [emit] for each blocked message of the kinds wanted; returns how many it emitted. */
     fun collect(sms: Boolean, mms: Boolean, emit: (BlockedBackup) -> Unit): Int {
         var count = 0
-        val movedLeftOut = ProviderTruthFlag.enabled
         for (row in dao.getAllBlocked().sortedBy { it.receivedAt }) {
             // Moved (or nothing to move): the store's copy is in the backup as a message.
-            val moved = movedLeftOut && MigrationMark.isDone(row.migratedMsgId)
+            val moved = MigrationMark.isDone(row.migratedMsgId)
             if (!(if (row.isMms) mms else sms) || moved) continue
             val data = row.mediaFile?.takeIf { row.media == MmsMedia.STORED }?.let(readMedia)
                 ?.takeIf { it.size <= MAX_MEDIA_BYTES }

@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">次の名前は誰でも使って送信できます：%1$s。許可して、会話を「メッセージ」に移動しますか？</string>
     <string name="nameallow_more">%1$s、ほか%2$d件</string>
     <string name="nameallow_allow">常に許可</string>
-    <string name="nameallow_not_now">後で</string>
 </resources>

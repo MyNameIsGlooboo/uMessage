@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">已完成</string>
     <string name="w3c_checklist_action_set">设置</string>
     <string name="w3c_checklist_action_open">打开</string>
-    <string name="w3c_receipt_title">已暂存垃圾短信，点按查看</string>
-    <string name="w3c_receipt_body">一条来自未知发件人的消息已暂存在“垃圾短信”中。消息没有丢失，可随时查看并恢复。</string>
     <string name="w3c_receipt_review">查看</string>
-    <string name="w3c_receipt_got_it">知道了</string>
     <string name="w3c_new_paste">粘贴号码</string>
     <string name="w3c_new_paste_none">剪贴板中没有电话号码</string>
     <string name="w3c_details_allow_spoof_hint">任何人都能以此名称发送短信，这些短信也会被允许</string>

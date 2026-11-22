@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (حقوق Google Sans Flex Project Authors) اور Vazirmatn (حقوق Vazirmatn Project Authors) SIL Open Font License، ورژن 1.1 کے تحت لائسنس یافتہ ہیں: آپ انہیں استعمال، مطالعہ، کاپی، ایمبیڈ اور دوبارہ تقسیم کر سکتے ہیں، تجارتی مصنوعات میں بھی، لیکن انہیں الگ سے فروخت نہیں کر سکتے، اور ترمیم شدہ ورژن محفوظ فونٹ نام استعمال نہیں کر سکتے۔ Roboto (حقوق Google LLC) Apache License، ورژن 2.0 کے تحت لائسنس یافتہ ہے۔ فونٹس جیسے ہیں ویسے ہی فراہم کیے جاتے ہیں، بغیر کسی وارنٹی کے۔</string>
     <string name="settings_nav_license_icons_body">Material Symbols (حقوق Google LLC) Apache License، ورژن 2.0 کے تحت لائسنس یافتہ ہیں۔ آئیکنز جیسے ہیں ویسے ہی فراہم کیے جاتے ہیں، بغیر کسی وارنٹی کے۔</string>
     <string name="settings_nav_recommended">تجویز کردہ</string>
-    <string name="settings_nav_strict_confirm_title">تصدیقی کوڈز بھی بلاک کریں؟</string>
-    <string name="settings_nav_strict_confirm_body">سخت موڈ میں، جو بھیجنے والے آپ کے رابطوں میں نہیں ان کے کوڈز بھی باقی سب کے ساتھ اسپیم میں جاتے ہیں۔ بینکوں اور ڈیلیوری کمپنیوں کے پیغامات بھی روک لیے جاتے ہیں۔</string>
-    <string name="settings_nav_strict_confirm_action">سخت استعمال کریں</string>
-    <string name="settings_nav_strict_confirm_cancel">موجودہ موڈ رکھیں</string>
     <string name="settings_nav_purge_row">پرانا اسپیم خود بخود حذف کریں</string>
     <string name="settings_nav_group_alerts">الرٹس</string>
     <string name="settings_nav_notify_body">ایک خاموش اطلاع جو اسپیم کھولتی ہے۔ آپ کے بلاک کیے گئے بھیجنے والے کے لیے کبھی نہیں۔</string>

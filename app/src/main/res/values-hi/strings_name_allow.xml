@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">इन नामों से कोई भी मैसेज भेज सकता है: %1$s. इन्हें अनुमति देकर चैट को मैसेज टैब में ले जाएं?</string>
     <string name="nameallow_more">%1$s और %2$d अन्य</string>
     <string name="nameallow_allow">हमेशा अनुमति दें</string>
-    <string name="nameallow_not_now">अभी नहीं</string>
 </resources>

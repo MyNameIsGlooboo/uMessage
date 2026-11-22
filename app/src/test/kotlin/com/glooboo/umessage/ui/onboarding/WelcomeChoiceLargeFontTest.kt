@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.Density
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import com.google.common.truth.Truth.assertWithMessage
@@ -42,9 +41,6 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(qualifiers = "fa-w360dp-h800dp")
 class WelcomeChoiceLargeFontTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     @get:Rule
     val compose = createComposeRule()

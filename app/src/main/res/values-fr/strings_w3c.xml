@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Terminé</string>
     <string name="w3c_checklist_action_set">Définir</string>
     <string name="w3c_checklist_action_open">Ouvrir</string>
-    <string name="w3c_receipt_title">Spam bloqué : appuyez pour consulter</string>
-    <string name="w3c_receipt_body">Un message d\'un expéditeur inconnu a été retenu dans Spam. Il n\'est pas perdu : vous pouvez le consulter et le restaurer à tout moment.</string>
     <string name="w3c_receipt_review">Consulter</string>
-    <string name="w3c_receipt_got_it">Compris</string>
     <string name="w3c_new_paste">Coller le numéro</string>
     <string name="w3c_new_paste_none">Aucun numéro de téléphone dans le presse-papiers</string>
     <string name="w3c_details_allow_spoof_hint">N\'importe qui peut envoyer des messages sous ce nom : ils seront aussi autorisés</string>

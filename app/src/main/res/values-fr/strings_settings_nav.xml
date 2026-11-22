@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (copyright des auteurs du projet Google Sans Flex) et Vazirmatn (copyright des auteurs du projet Vazirmatn) sont distribuées sous la licence SIL Open Font License, version 1.1 : vous pouvez les utiliser, les étudier, les copier, les intégrer et les redistribuer, y compris dans des produits commerciaux, mais pas les vendre seules. Les versions modifiées ne doivent pas utiliser les noms de polices réservés. Roboto (copyright Google LLC) est distribuée sous la licence Apache, version 2.0. Les polices sont fournies en l\'état, sans garantie.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (copyright Google LLC) est distribué sous la licence Apache, version 2.0. Les icônes sont fournies en l\'état, sans garantie.</string>
     <string name="settings_nav_recommended">Recommandé</string>
-    <string name="settings_nav_strict_confirm_title">Bloquer aussi les codes de validation ?</string>
-    <string name="settings_nav_strict_confirm_body">En mode de filtrage strict, les codes des expéditeurs qui ne figurent pas dans vos contacts vont dans Spam, comme tous leurs autres messages. Les messages des banques et des sociétés de livraison sont aussi retenus.</string>
-    <string name="settings_nav_strict_confirm_action">Activer le mode strict</string>
-    <string name="settings_nav_strict_confirm_cancel">Garder le mode actuel</string>
     <string name="settings_nav_purge_row">Supprimer automatiquement l\'ancien spam</string>
     <string name="settings_nav_group_alerts">Alertes</string>
     <string name="settings_nav_notify_body">Une notification silencieuse qui ouvre Spam. Jamais pour un expéditeur que vous avez bloqué.</string>

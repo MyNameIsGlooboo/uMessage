@@ -83,7 +83,9 @@ abstract class MessagesDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): MessagesDatabase {
             if (db == null) {
-                synchronized(MessagesDatabase::class) {
+                // The companion object, not MessagesDatabase::class: without kotlin-reflect each ::class is a new
+                // object, so that lock let two threads build two databases on one file at the first open.
+                synchronized(this) {
                     if (db == null) {
                         db = build(context.applicationContext, DATABASE_NAME)
                     }

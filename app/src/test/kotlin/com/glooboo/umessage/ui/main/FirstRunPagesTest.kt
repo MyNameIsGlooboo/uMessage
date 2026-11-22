@@ -18,7 +18,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,9 +38,6 @@ import org.robolectric.annotation.Config
 class FirstRunPagesTest {
 
     @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
-
-    @get:Rule
     val compose = createAndroidComposeRule<ComponentActivity>()
 
     private val app: Application = ApplicationProvider.getApplicationContext()
@@ -60,32 +56,25 @@ class FirstRunPagesTest {
 
     @Test
     fun onlyUpdateAndFreshInstallGetTheFullPage() {
-        assertThat(FirstRunPagePolicy.pageFor(update, flagOn = true)).isEqualTo(FirstRunPage.PROGRESS)
+        assertThat(FirstRunPagePolicy.pageFor(update)).isEqualTo(FirstRunPage.PROGRESS)
         val fresh = update.copy(passKind = FirstRunPassKind.FRESH_INSTALL)
-        assertThat(FirstRunPagePolicy.pageFor(fresh, flagOn = true)).isEqualTo(FirstRunPage.PROGRESS)
+        assertThat(FirstRunPagePolicy.pageFor(fresh)).isEqualTo(FirstRunPage.PROGRESS)
         // Switch on, contacts granted, restore, default again, a finished migration: the small bar only.
         val other = update.copy(passKind = FirstRunPassKind.OTHER)
-        assertThat(FirstRunPagePolicy.pageFor(other, flagOn = true)).isEqualTo(FirstRunPage.BAR)
-        assertThat(FirstRunPagePolicy.pageFor(update.copy(inBackground = true), flagOn = true))
+        assertThat(FirstRunPagePolicy.pageFor(other)).isEqualTo(FirstRunPage.BAR)
+        assertThat(FirstRunPagePolicy.pageFor(update.copy(inBackground = true)))
             .isEqualTo(FirstRunPage.BAR)
     }
 
     @Test
     fun whatChangedComesAfterTheWorkAndCanWait() {
         val ended = FirstRunProgress(passKind = FirstRunPassKind.UPDATE, whatChanged = WhatChanged(12, 5))
-        assertThat(FirstRunPagePolicy.pageFor(ended, flagOn = true)).isEqualTo(FirstRunPage.WHAT_CHANGED)
-        assertThat(FirstRunPagePolicy.pageFor(ended, flagOn = true, deferWhatChanged = true))
+        assertThat(FirstRunPagePolicy.pageFor(ended)).isEqualTo(FirstRunPage.WHAT_CHANGED)
+        assertThat(FirstRunPagePolicy.pageFor(ended, deferWhatChanged = true))
             .isEqualTo(FirstRunPage.NONE)
-        assertThat(FirstRunPagePolicy.pageFor(update.copy(whatChanged = WhatChanged(1, 1)), flagOn = true))
+        assertThat(FirstRunPagePolicy.pageFor(update.copy(whatChanged = WhatChanged(1, 1))))
             .isEqualTo(FirstRunPage.PROGRESS)
-        assertThat(FirstRunPagePolicy.pageFor(FirstRunProgress(), flagOn = true)).isEqualTo(FirstRunPage.NONE)
-    }
-
-    @Test
-    fun nothingShowsWhileTheFlagIsOff() {
-        assertThat(FirstRunPagePolicy.pageFor(update, flagOn = false)).isEqualTo(FirstRunPage.NONE)
-        val ended = FirstRunProgress(whatChanged = WhatChanged(1, 1))
-        assertThat(FirstRunPagePolicy.pageFor(ended, flagOn = false)).isEqualTo(FirstRunPage.NONE)
+        assertThat(FirstRunPagePolicy.pageFor(FirstRunProgress())).isEqualTo(FirstRunPage.NONE)
     }
 
     @Test

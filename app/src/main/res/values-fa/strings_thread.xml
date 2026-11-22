@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">آنبلاک شد. گفتگو به پیام‌ها برگشت</string>
     <string name="thread_unblock_done_system">در uMessage آنبلاک شد. این شماره در لیست بلاک گوشی شما هم هست، پس Android هنوز پیام‌هایش را بلاک می‌کند</string>
     <string name="thread_unblock_done_filtered">آنبلاک شد. چون فرستنده ناشناس است، هنوز در اسپم است.</string>
-    <string name="thread_unblock_always_allow">همیشه اجازه دادن</string>
     <string name="thread_always_allow_done">همیشه مجاز شد. گفتگو در پیام‌هاست</string>
     <string name="thread_always_allow_failed">اجازه دادن به این شماره نشد</string>
     <string name="thread_unblock_failed">آنبلاک این شماره نشد</string>

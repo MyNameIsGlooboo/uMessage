@@ -7,7 +7,6 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.interfaces.LabelsDao
@@ -56,13 +55,9 @@ class AppDataBackupSupport(
             val people = addressesOf(link.threadId).sorted()
             if (people.isEmpty()) null else LabelLinkBackup(people, label.name)
         }
-        // S1, B-24: with provider truth the "all rows" query, filtered to archived: the archived mark is the user's, so
-        // it goes along for Spam chats too, as in 0.4.14.
-        val archivedRows = if (ProviderTruthFlag.enabled) {
-            conversations.getAllRows().filter { it.isArchived }
-        } else {
-            conversations.getAllArchived()
-        }
+        // S1, B-24: the "all rows" query, filtered to archived: the archived mark is the user's, so it goes along for
+        // Spam chats too, as in 0.4.14.
+        val archivedRows = conversations.getAllRows().filter { it.isArchived }
         val archived = archivedRows.filter { it.threadId in threadIds }.mapNotNull {
             addressesOf(it.threadId).sorted().takeIf { people -> people.isNotEmpty() }?.let(::ChatRefBackup)
         }

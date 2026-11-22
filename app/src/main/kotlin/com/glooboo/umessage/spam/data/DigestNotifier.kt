@@ -11,11 +11,9 @@ import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.helpers.CleanupPrefs
 import com.glooboo.umessage.helpers.MainTabLinks
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.cleanupPrefs
 import com.glooboo.umessage.interfaces.SpamDigestRow
 import com.glooboo.umessage.spam.FirstRun
-import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
 
 /**
  * I08: posts the weekly summary of what was blocked, when it is due and anything was. One quiet notification on its
@@ -63,25 +61,16 @@ object DigestNotifier {
     fun postIfDue(context: Context, now: Long): Boolean {
         val prefs = context.cleanupPrefs
         if (!prefs.digestOn || !sortAllows(context)) return false
-        val digest = dueDigest(context, prefs, now) ?: return false
+        val digest = spamDigest(context, prefs, now) ?: return false
         if (digest.held == 0) return false
         show(context, digest)
         return true
     }
 
-    /** The digest when the week is up (and claimed); null when it is not, or the count failed. */
-    private fun dueDigest(context: Context, prefs: CleanupPrefs, now: Long): WeeklyDigest? {
-        if (!ProviderTruthFlag.enabled) {
-            if (!prefs.claimDigest(now)) return null
-            val blocked = SpamDatabase.getInstance(context).spamDao().getBlockedBetween(now - WeeklyDigest.WEEK_MS, now)
-            return WeeklyDigest.compute(blocked, now)
-        }
-        return spamDigest(context, prefs, now)
-    }
-
     /**
-     * Provider truth (H-9): counted before the week is claimed, so a failed read does not cost that week's digest; a
-     * check that finds the week not up pauses the count for [NOT_DUE_PAUSE_MS].
+     * The digest when the week is up (and claimed); null when it is not, or the count failed. Provider truth (H-9):
+     * counted before the week is claimed, so a failed read does not cost that week's digest; a check that finds the
+     * week not up pauses the count for [NOT_DUE_PAUSE_MS].
      */
     private fun spamDigest(context: Context, prefs: CleanupPrefs, now: Long): WeeklyDigest? {
         if (now in 0 until notDueUntil) return null
@@ -92,7 +81,7 @@ object DigestNotifier {
     }
 
     private fun sortAllows(context: Context): Boolean =
-        !ProviderTruthFlag.enabled || runCatching { FirstRun.state(context).value.allowsFullSort }.getOrDefault(false)
+        runCatching { FirstRun.state(context).value.allowsFullSort }.getOrDefault(false)
 
     /**
      * Provider truth: the received texts of the last week in the chats now in Spam, each with the time its chat
@@ -117,12 +106,7 @@ object DigestNotifier {
                 NotificationManager.IMPORTANCE_LOW,
             )
         )
-        val open = if (ProviderTruthFlag.enabled) {
-            MainTabLinks.intent(context, MainTabLinks.TAB_BLOCKED).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        } else {
-            Intent(context, BlockedMessagesActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        }
+        val open = MainTabLinks.intent(context, MainTabLinks.TAB_BLOCKED).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         val contentIntent = PendingIntent.getActivity(
             context, REQUEST_OPEN_BLOCKED, open, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )

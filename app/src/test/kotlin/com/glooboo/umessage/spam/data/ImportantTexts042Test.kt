@@ -1,6 +1,5 @@
 package com.glooboo.umessage.spam.data
 
-import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.ui.spam.BlockedHints
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -10,13 +9,11 @@ class ImportantTexts042Test {
 
     private val now = 50 * WeeklyDigest.WEEK_MS
 
-    private fun held(body: String, address: String = "+15550100") = BlockedMessageEntity(
-        address = address, body = body, subscriptionId = 1, isMms = false, receivedAt = now - 1000,
-        reason = DecisionReason.UNKNOWN_SENDER, ruleId = null,
-    )
+    private fun held(body: String, address: String = "+15550001234") =
+        WeeklyDigest.SpamText(address = address, body = body, receivedAt = now - 1000)
 
     @Test fun aCodeWithALinkIsCountedAsImportantAfterOwnerDecisionQ5() {
-        val digest = WeeklyDigest.compute(
+        val digest = WeeklyDigest.computeTexts(
             listOf(
                 held("Your code 482913. Verify at secure-bank.help"),
                 held("Your code 482914. Verify at http://evil.example/a"),

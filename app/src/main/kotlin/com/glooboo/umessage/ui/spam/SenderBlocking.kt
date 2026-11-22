@@ -1,11 +1,8 @@
 package com.glooboo.umessage.ui.spam
 
 import com.glooboo.umessage.spam.BlockReceipt
-import com.glooboo.umessage.spam.FilterDecision
-import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
-import com.glooboo.umessage.spam.SpamFilter
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.ui.thread.planSpamReport
@@ -16,9 +13,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 /**
- * "Block number" in the thread menu and the conversation list. It adds a uMessage block rule, never an entry on the
- * phone's own block list: Android throws away texts from numbers on that list before the app sees them, so they
- * could not be reviewed or restored. With a rule, new texts from the number go to Blocked messages instead.
+ * The rule-only sender helpers: block, unblock and allow rules, without moving any chat ([SenderMoves] moves chats).
+ * A block is a uMessage rule, never an entry on the phone's own block list: Android throws away texts from numbers on
+ * that list before the app sees them, so they could not be reviewed. With a rule, the sender's chat goes to Spam.
  * Numbers already on the phone's list stay there; this object never reads or changes that list.
  */
 object SenderBlocking {
@@ -70,17 +67,6 @@ object SenderBlocking {
         matching.forEach { repository.removeRule(it.id) }
         return matching
     }
-
-    /**
-     * Whether a plain new text from [address] would reach the inbox once its block rules are gone, asked of the
-     * real [filter]. A non-contact is still held as an unknown sender in Smart or Strict mode, so "Unblocked" must
-     * not promise the inbox then. Blocking call (contact lookup); run it off the main thread. A filter failure
-     * counts as "not sure", so the answer is false.
-     */
-    fun reachesInbox(filter: SpamFilter, address: String, subscriptionId: Int): Boolean =
-        runCatching { filter.evaluate(IncomingMessage(address = address, body = "", subscriptionId = subscriptionId)) }
-            .map { it is FilterDecision.Allow }
-            .getOrDefault(false)
 
     /**
      * "Always allow" after an unblock: an allow rule for the sender (both SIMs), the same rule "Not spam" adds.
@@ -139,8 +125,8 @@ object SenderBlocking {
 }
 
 /**
- * Provider truth (4.1: U5, M-SP3; 4.2): moving a sender's whole chat between Messages and Spam. Used only while
- * ProviderTruthFlag is on; [SenderBlocking] keeps the 0.4.14 rule-only actions for the flag off.
+ * Provider truth (4.1: U5, M-SP3; 4.2): moving a sender's whole chat between Messages and Spam. [SenderBlocking] keeps
+ * the rule-only helpers.
  */
 object SenderMoves {
 

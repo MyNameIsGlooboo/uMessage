@@ -30,7 +30,6 @@
     <string name="thread_unblock_done">تم إلغاء الحظر. عادت المحادثة إلى «الرسائل»</string>
     <string name="thread_unblock_done_system">تم إلغاء الحظر في uMessage. هذا الرقم موجود أيضًا في قائمة الحظر بهاتفك، لذا لا يزال Android يحظر رسائله</string>
     <string name="thread_unblock_done_filtered">تم إلغاء الحظر. تبقى في «غير المرغوب فيها» لأن المرسل غير معروف.</string>
-    <string name="thread_unblock_always_allow">اسمح دائمًا</string>
     <string name="thread_always_allow_done">مسموح دائمًا. المحادثة في «الرسائل»</string>
     <string name="thread_always_allow_failed">تعذّر السماح لهذا الرقم</string>
     <string name="thread_unblock_failed">تعذّر إلغاء حظر هذا الرقم</string>

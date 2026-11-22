@@ -122,15 +122,6 @@
     <!-- Settings -->
     <string name="spam_settings_unknown_title">Spam filter</string>
     <string name="spam_settings_unknown_body">An unknown sender is not in your contacts and not on your allowed list. Its whole chat goes to Spam, silently. People you wrote to and senders of a verification code stay in Messages.</string>
-    <string name="spam_mode_strict">Strict</string>
-    <string name="spam_mode_strict_body">Blocks all unknown senders, codes too</string>
-    <string name="spam_mode_smart">Smart</string>
-    <string name="spam_mode_smart_body">Blocks unknown senders, lets verification codes in</string>
-    <string name="spam_mode_off">Off</string>
-    <string name="spam_mode_off_body">No unknown-sender blocking</string>
-    <string name="spam_strict_warning_title">Strict can hide important messages</string>
-    <string name="spam_strict_warning_body">Banks, delivery companies and one-time passcodes usually come from senders who are not in your contacts. In Strict mode they go to Spam, codes included. Choose Smart to let codes through, or allow those senders once.</string>
-    <string name="spam_strict_warning_action">Review Spam</string>
     <string name="spam_settings_cleanup_title">Clean up</string>
     <string name="spam_purge_body">Off until you choose a number of days</string>
     <string name="spam_purge_days">%d days</string>

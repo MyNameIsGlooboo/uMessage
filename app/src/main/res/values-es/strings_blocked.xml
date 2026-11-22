@@ -41,16 +41,11 @@
         <item quantity="other">Se elimina en %d días</item>
     </plurals>
     <string name="spam_purge_left_today">Se elimina hoy</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Denuncia enviada. Los nuevos mensajes de este remitente irán a Spam y el chat se archivó.</item>
-        <item quantity="other">%d chats denunciados. Los nuevos mensajes de sus remitentes irán a Spam y los chats se archivaron.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="one">Denunciado. El chat pasó a Spam.</item>
         <item quantity="other">%d chats denunciados. Pasaron a Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Remitentes desconocidos: %1$s</string>
     <string name="blocked_stats_restored">%1$d restaurados por ti</string>
     <string name="blocked_reason_unknown_link">Remitente desconocido, con un enlace</string>
     <string name="blocked_may_be_important">Puede ser importante</string>

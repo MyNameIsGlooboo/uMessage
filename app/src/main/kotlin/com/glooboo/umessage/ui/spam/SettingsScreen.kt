@@ -1,21 +1,14 @@
 package com.glooboo.umessage.ui.spam
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -37,32 +30,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownInboxNotify
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.SettingsGroup
-import com.glooboo.umessage.ui.components.SettingsRadioRow
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
-import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.onboarding.SortingCard
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import androidx.compose.ui.unit.Dp
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
-import com.glooboo.umessage.ui.components.uiLocale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import android.content.res.Resources
@@ -74,13 +61,10 @@ import com.glooboo.umessage.helpers.threadPrefs
 class SettingsActions(
     val onBack: () -> Unit = {},
     val onOpenRules: () -> Unit = {},
-    val onOpenBlocked: () -> Unit = {},
-    val onMode: (UnknownSenderMode) -> Unit = {},
     val onPurgeDays: (Int) -> Unit = {},
     val onNotify: (Boolean) -> Unit = {},
     val onUnknownNotify: (UnknownInboxNotify) -> Unit = {},
     val onOpenLinkAction: (Boolean) -> Unit = {},
-    val onOutsideRegion: (String) -> Unit = {},
     /** Null hides the "Why was it blocked?" row (no engine log in this build). */
     val onOpenDecisionLog: (() -> Unit)? = null,
     /** Provider truth: the filter switch was tapped; it asks first (U11). */
@@ -96,22 +80,18 @@ class SettingsActions(
 fun SettingsRoute(
     onBack: () -> Unit,
     onOpenRules: () -> Unit,
-    onOpenBlocked: () -> Unit,
     onOpenDecisionLog: (() -> Unit)? = null,
 ) {
     val viewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory)
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val actions = remember(viewModel, onBack, onOpenRules, onOpenBlocked, onOpenDecisionLog) {
+    val actions = remember(viewModel, onBack, onOpenRules, onOpenDecisionLog) {
         SettingsActions(
             onBack = onBack,
             onOpenRules = onOpenRules,
-            onOpenBlocked = onOpenBlocked,
-            onMode = viewModel::setMode,
             onPurgeDays = viewModel::setPurgeDays,
             onNotify = viewModel::setNotifyOnBlock,
             onUnknownNotify = viewModel::setUnknownInboxNotify,
             onOpenLinkAction = viewModel::setOpenLinkAction,
-            onOutsideRegion = viewModel::setBlockOutsideRegion,
             onOpenDecisionLog = onOpenDecisionLog,
             onFilter = { on -> viewModel.switches.request(SortChange.Filter(on)) },
             onConfirmSwitch = viewModel.switches::confirm,
@@ -150,26 +130,15 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, snackbarHos
 @Composable
 private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, modifier: Modifier = Modifier, bottomInset: Dp = 0.dp) {
     val settings = state.settings
-    // SE-23: choosing Strict first asks, because it also blocks verification codes.
-    var confirmStrict by rememberSaveable { mutableStateOf(false) }
     var purgeDialog by rememberSaveable { mutableStateOf(false) }
     var unknownNotifyDialog by rememberSaveable { mutableStateOf(false) }
-    var regionDialog by rememberSaveable { mutableStateOf(false) }
     var restoredOpen by rememberSaveable { mutableStateOf(false) }
-    val switchModel = ProviderTruthFlag.enabled
     val cardMode = rememberSortingCardMode(settings.shownMode())
-    val chooseMode: (UnknownSenderMode) -> Unit = { mode ->
-        if (mode == UnknownSenderMode.STRICT && settings.mode != UnknownSenderMode.STRICT) {
-            confirmStrict = true
-        } else {
-            actions.onMode(mode)
-        }
-    }
     Column(
         modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(bottom = 32.dp + bottomInset),
     ) {
-        // U02: the one Spam protection page: the mode, the rules, retention, countries, links and alerts.
-        FilterPart(settings, switchModel, cardMode, chooseMode, actions)
+        // U02: the one Spam protection page: the filter switch, the rules, retention, links and alerts.
+        FilterSwitchGroup(settings.filterOn, cardMode, actions.onFilter)
 
         SettingsGroup(stringResource(R.string.settings_f_group_rules)) {
             SettingsRow(
@@ -196,9 +165,6 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
                 showChevron = true,
             )
         }
-
-        // Answer 7: "hold numbers from other countries" goes with the switch model; its stored key is no longer read.
-        if (!switchModel) RegionGroup(settings.blockOutsideRegion, onOpen = { regionDialog = true })
 
         LinksGroup()
 
@@ -244,34 +210,6 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
         val restored by RestoredLog.get(LocalContext.current).entries.collectAsStateWithLifecycle()
         RestoredSheet(restored, onDismiss = { restoredOpen = false })
     }
-    if (confirmStrict) {
-        AlertDialog(
-            onDismissRequest = { confirmStrict = false },
-            title = { Text(stringResource(R.string.settings_nav_strict_confirm_title)) },
-            text = { Text(stringResource(R.string.settings_nav_strict_confirm_body)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    confirmStrict = false
-                    actions.onMode(UnknownSenderMode.STRICT)
-                }) { Text(stringResource(R.string.settings_nav_strict_confirm_action)) }
-            },
-            dismissButton = {
-                TextButton(onClick = { confirmStrict = false }) {
-                    Text(stringResource(R.string.settings_nav_strict_confirm_cancel))
-                }
-            },
-        )
-    }
-    if (regionDialog) {
-        CountryPicker(
-            selected = settings.blockOutsideRegion,
-            onSelect = { region ->
-                regionDialog = false
-                actions.onOutsideRegion(region)
-            },
-            onDismiss = { regionDialog = false },
-        )
-    }
     if (unknownNotifyDialog) {
         val choices = UnknownInboxNotify.entries
         ChoiceDialog(
@@ -300,68 +238,6 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
     }
     state.switchConfirm?.let { SwitchConfirmDialog(it, actions.onConfirmSwitch, actions.onDismissSwitch) }
     state.purgeWarning?.let { PurgeWarningDialog(it, actions.onConfirmPurge, actions.onDismissPurge) }
-}
-
-/** The top of the page: the filter switch, or (flag off) the three modes with the Strict warning. */
-@Composable
-private fun FilterPart(
-    settings: SpamSettings,
-    switchModel: Boolean,
-    cardMode: UnknownSenderMode?,
-    chooseMode: (UnknownSenderMode) -> Unit,
-    actions: SettingsActions,
-) {
-    if (switchModel) {
-        FilterSwitchGroup(settings.filterOn, cardMode, actions.onFilter)
-        return
-    }
-    ModeGroup(settings, cardMode, chooseMode)
-    if (settings.mode == UnknownSenderMode.STRICT) {
-        StrictWarning(
-            onReview = actions.onOpenBlocked,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
-        )
-    }
-}
-
-/** "Hold numbers from other countries" (0.4.14 only). */
-@Composable
-private fun RegionGroup(region: String, onOpen: () -> Unit) {
-    SettingsGroup(stringResource(R.string.region_group_title)) {
-        SettingsRow(
-            title = stringResource(R.string.region_title),
-            summary = stringResource(R.string.region_summary),
-            value = regionValue(region),
-            onClick = onOpen,
-            showChevron = true,
-        )
-    }
-}
-
-/** The three unknown-sender modes of 0.4.14, while [ProviderTruthFlag] is off. */
-@Composable
-private fun ModeGroup(settings: SpamSettings, cardMode: UnknownSenderMode?, chooseMode: (UnknownSenderMode) -> Unit) {
-    SettingsGroup(
-        title = stringResource(R.string.spam_settings_unknown_title),
-        description = stringResource(R.string.spam_settings_unknown_body),
-        descriptionExtra = cardMode?.let { shown ->
-            { SortingCard(mode = shown, containerColor = MaterialTheme.colorScheme.surface) }
-        },
-    ) {
-        ModeChoice(
-            UnknownSenderMode.STRICT, R.string.spam_mode_strict, R.string.spam_mode_strict_body,
-            settings, chooseMode,
-        )
-        ModeChoice(
-            UnknownSenderMode.SMART, R.string.spam_mode_smart, R.string.spam_mode_smart_body,
-            settings, chooseMode,
-            badge = stringResource(R.string.settings_nav_recommended),
-        )
-        ModeChoice(
-            UnknownSenderMode.OFF, R.string.spam_mode_off, R.string.spam_mode_off_body,
-            settings, chooseMode,
-        )
-    }
 }
 
 /**
@@ -483,10 +359,6 @@ private fun LinksGroup() {
 }
 
 @Composable
-private fun regionValue(region: String): String =
-    if (region.isBlank()) stringResource(R.string.region_off) else CountryOptions.nameOf(region, uiLocale())
-
-@Composable
 private fun unknownNotifyLabel(choice: UnknownInboxNotify): String = stringResource(
     when (choice) {
         UnknownInboxNotify.NOTIFY -> R.string.unotify_notify
@@ -502,45 +374,6 @@ internal fun purgeSummary(days: Int): Int? = if (days == 0) R.string.spam_purge_
 private fun purgeLabel(days: Int): String =
     if (days == 0) stringResource(R.string.spam_purge_forever) else stringResource(R.string.spam_purge_days, days)
 
-@Composable
-private fun ModeChoice(
-    mode: UnknownSenderMode,
-    title: Int,
-    body: Int,
-    settings: SpamSettings,
-    onChoose: (UnknownSenderMode) -> Unit,
-    badge: String? = null,
-) {
-    SettingsRadioRow(
-        title = stringResource(title),
-        summary = stringResource(body),
-        selected = settings.mode == mode,
-        onSelect = { onChoose(mode) },
-        badge = badge,
-    )
-}
-
-@Composable
-private fun StrictWarning(onReview: () -> Unit, modifier: Modifier = Modifier) {
-    val colors = MaterialTheme.colorScheme
-    Card(
-        modifier = modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
-        colors = CardDefaults.cardColors(containerColor = colors.errorContainer, contentColor = colors.onErrorContainer),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(28.dp),
-    ) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Icon(Symbols.Warning, contentDescription = null, modifier = Modifier.size(24.dp))
-                Text(stringResource(R.string.spam_strict_warning_title), style = MaterialTheme.typography.titleMedium)
-            }
-            Text(stringResource(R.string.spam_strict_warning_body), style = MaterialTheme.typography.bodyMedium)
-            TextButton(onClick = onReview, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.spam_strict_warning_action))
-            }
-        }
-    }
-}
-
 // region Previews
 
 @Composable
@@ -548,13 +381,13 @@ private fun PreviewHost(settings: SpamSettings) = UMessageTheme {
     SettingsScreen(SettingsUiState(loading = false, settings = settings), SettingsActions())
 }
 
-@Preview(name = "Settings - strict", showBackground = true, widthDp = 360, heightDp = 1100)
+@Preview(name = "Settings - filter off", showBackground = true, widthDp = 360, heightDp = 1100)
 @Composable
-private fun SettingsStrictPreview() = PreviewHost(SpamSettings(mode = UnknownSenderMode.STRICT))
+private fun SettingsFilterOffPreview() = PreviewHost(SpamSettings(filterOn = false))
 
-@Preview(name = "Settings - smart", showBackground = true, widthDp = 360, heightDp = 1100)
+@Preview(name = "Settings - filter on", showBackground = true, widthDp = 360, heightDp = 1100)
 @Composable
-private fun SettingsSmartPreview() = PreviewHost(SpamSettings(mode = UnknownSenderMode.SMART, purgeAfterDays = 60))
+private fun SettingsFilterOnPreview() = PreviewHost(SpamSettings(purgeAfterDays = 60))
 
 @Preview(
     name = "Settings - dark", showBackground = true, widthDp = 360, heightDp = 1100,

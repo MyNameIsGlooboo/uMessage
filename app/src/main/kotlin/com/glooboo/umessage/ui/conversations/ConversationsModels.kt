@@ -94,11 +94,10 @@ sealed interface ConversationsEvent {
     /** Block rules were added for [count] conversations' senders. Offers Undo ([token] as for [ReportedSpam]). */
     data class Blocked(val token: Long, val count: Int, val stayed: Int = 0) : ConversationsEvent
 
-    /** "Report spam" blocked [count] senders and, when [archived], archived their chats. Offers Undo. */
+    /** "Report spam" blocked [count] senders, so their chats moved to Spam. Offers Undo. */
     data class ReportedSpam(
         val token: Long,
         val count: Int,
-        val archived: Boolean,
         /** Provider truth (D-5): chats of the choice that stayed in Messages (a user allow rule still lets them in). */
         val stayed: Int = 0,
     ) : ConversationsEvent

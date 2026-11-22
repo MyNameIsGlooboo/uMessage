@@ -3,7 +3,6 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">%d件のチャットを既読にしました</item>
     </plurals>
-    <string name="decm_search_section_blocked">迷惑メッセージ</string>
     <string name="decm_blocked_search">迷惑メッセージを検索</string>
     <string name="decm_blocked_search_hint">送信者または本文で検索</string>
     <string name="decm_blocked_search_close">検索を閉じる</string>

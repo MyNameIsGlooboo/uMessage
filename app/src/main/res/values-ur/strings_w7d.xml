@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="w7d_banner_stopped">
-        <item quantity="one">اس ہفتے %1$s روکا گیا</item>
-        <item quantity="other">اس ہفتے %1$s روکے گئے</item>
-    </plurals>
-    <string name="w7d_banner_none">اس ہفتے کچھ نہیں روکا گیا</string>
     <string name="w7d_fwd_master_switch">فارورڈنگ</string>
     <string name="w7d_help_menu">الفاظ کو بلاک کرنا کیسے کام کرتا ہے</string>
     <string name="w7d_help_title">الفاظ کو بلاک کرنا کیسے کام کرتا ہے</string>

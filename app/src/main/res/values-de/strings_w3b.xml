@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Keine passende zurückgehaltene Nachricht</string>
     <string name="w3b_filter_none_body">Keine zurückgehaltene Nachricht passt zu diesem Filter. Wähle einen anderen oder zeige alle an.</string>
     <string name="w3b_filter_show_all">Alle anzeigen</string>
-    <string name="w3b_empty_body">uMessage prüft im Modus „%1$s“. Zurückgehaltene Nachrichten erscheinen hier.</string>
     <string name="w3b_why_link">Zurückgehalten, weil der Absender unbekannt ist und der Text einen Link enthält.</string>
     <string name="w3b_why_unknown">Zurückgehalten, weil der Absender unbekannt ist.</string>
     <string name="w3b_why_rule">Zurückgehalten, weil eine deiner Regeln zum Blockieren zutrifft.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Würde in „Spam“ landen: unbekannter Absender.</string>
     <string name="w3b_verdict_allowed_rule">Würde in „Nachrichten“ landen: Eine deiner Regeln zum Erlauben trifft zu.</string>
     <string name="w3b_verdict_allowed_contact">Würde in „Nachrichten“ landen: Der Absender ist in deinen Kontakten.</string>
-    <string name="w3b_verdict_allowed_known">Würde zugestellt: Du hast dieser Nummer schon geschrieben.</string>
     <string name="w3b_verdict_allowed_code">Würde in „Nachrichten“ landen: ein Bestätigungscode. Der Absender ist danach erlaubt.</string>
     <string name="w3b_verdict_allowed_off">Würde in „Nachrichten“ landen: Der Spamfilter ist aus.</string>
     <string name="w3b_verdict_allowed_unsure">Würde in „Nachrichten“ landen: Die Kontakte können nicht gelesen werden, daher kann der Absender nicht beurteilt werden.</string>

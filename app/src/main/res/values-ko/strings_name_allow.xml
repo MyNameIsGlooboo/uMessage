@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">누구나 다음 이름으로 문자를 보낼 수 있어요: %1$s. 허용하고 대화를 메시지 탭으로 옮길까요?</string>
     <string name="nameallow_more">%1$s 외 %2$d개</string>
     <string name="nameallow_allow">항상 허용</string>
-    <string name="nameallow_not_now">지금 안 함</string>
 </resources>

@@ -8,13 +8,11 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeThreadStore
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows.shadowOf
@@ -26,9 +24,6 @@ import org.robolectric.shadows.ShadowRoleManager
  */
 @RunWith(AndroidJUnit4::class)
 class RecycleBinSpamTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var store: FakeThreadStore
@@ -75,16 +70,6 @@ class RecycleBinSpamTest {
         assertThat(result).isEqualTo(DeleteResult.DELETED)
         assertThat(binEntries()).containsExactly(3L)
         assertThat(offMainThread { store.smsIds() }).containsExactly(1L, 3L)
-        assertThat(offMainThread { context.recycleBinEntryCount() }).isEqualTo(0)
-    }
-
-    @Test
-    fun withTheFlagOffEmptyTakesEverything() {
-        com.glooboo.umessage.helpers.ProviderTruthFlag.enabled = false
-
-        offMainThread { context.emptyRecycleBinAndTidyConversations() }
-
-        assertThat(binEntries()).isEmpty()
         assertThat(offMainThread { context.recycleBinEntryCount() }).isEqualTo(0)
     }
 

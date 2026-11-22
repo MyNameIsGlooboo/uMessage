@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
-        <item quantity="one">এই সপ্তাহে %1$sটি আটকানো হয়েছে</item>
-        <item quantity="other">এই সপ্তাহে %1$sটি আটকানো হয়েছে</item>
-    </plurals>
-    <string name="w7d_banner_none">এই সপ্তাহে কিছু আটকানো হয়নি</string>
     <string name="w7d_fwd_master_switch">ফরোয়ার্ড করা</string>
     <string name="w7d_help_menu">শব্দ দিয়ে ব্লক করা কীভাবে কাজ করে</string>
     <string name="w7d_help_title">শব্দ দিয়ে ব্লক করা কীভাবে কাজ করে</string>

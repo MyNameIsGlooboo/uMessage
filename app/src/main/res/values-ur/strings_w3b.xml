@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">کوئی روکا گیا پیغام مماثل نہیں</string>
     <string name="w3b_filter_none_body">کوئی روکا گیا پیغام اس فلٹر پر پورا نہیں اترتا۔ کوئی دوسرا منتخب کریں، یا سب کچھ دکھائیں۔</string>
     <string name="w3b_filter_show_all">سبھی دکھائیں</string>
-    <string name="w3b_empty_body">uMessage %1$s موڈ میں نگرانی کر رہی ہے۔ جو پیغامات یہ روکے گی وہ یہاں نظر آئیں گے۔</string>
     <string name="w3b_why_link">روکا گیا کیونکہ بھیجنے والا نامعلوم ہے اور متن میں لنک ہے۔</string>
     <string name="w3b_why_unknown">روکا گیا کیونکہ بھیجنے والا نامعلوم ہے۔</string>
     <string name="w3b_why_rule">روکا گیا کیونکہ یہ آپ کے بلاک کے کسی اصول سے مماثل ہے۔</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">اسپیم میں جائے گا: نامعلوم بھیجنے والا۔</string>
     <string name="w3b_verdict_allowed_rule">پیغامات میں جائے گا: آپ کی اجازت کا ایک اصول مماثل ہے۔</string>
     <string name="w3b_verdict_allowed_contact">پیغامات میں جائے گا: بھیجنے والا آپ کے رابطوں میں ہے۔</string>
-    <string name="w3b_verdict_allowed_known">پہنچا دیا جائے گا: آپ پہلے اس نمبر کو پیغام بھیج چکے ہیں۔</string>
     <string name="w3b_verdict_allowed_code">پیغامات میں جائے گا: یہ تصدیقی کوڈ ہے۔ اس کے بعد بھیجنے والے کو اجازت مل جاتی ہے۔</string>
     <string name="w3b_verdict_allowed_off">پیغامات میں جائے گا: اسپیم فلٹر بند ہے۔</string>
     <string name="w3b_verdict_allowed_unsure">پیغامات میں جائے گا: رابطے پڑھے نہیں جا سکتے، اس لیے بھیجنے والے کا فیصلہ نہیں ہو سکتا۔</string>

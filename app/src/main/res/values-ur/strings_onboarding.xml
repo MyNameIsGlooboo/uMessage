@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">نئے پیغامات کی اطلاع دیتا ہے، جواب اور کوڈ کاپی کے بٹنوں کے ساتھ۔</string>
     <string name="onb_perm_allow_all">سب کی اجازت دیں</string>
     <string name="onb_perm_open_settings">سیٹنگز کھولیں</string>
-    <string name="onb_mode_title">منتخب کریں کہ نامعلوم بھیجنے والوں کے ساتھ کیا کریں</string>
-    <string name="onb_mode_strict">سخت</string>
-    <string name="onb_mode_smart">اسمارٹ</string>
-    <string name="onb_mode_off">بند</string>
-    <string name="onb_mode_warning_title">بینک اور کوڈ والے پیغامات کے بارے میں توجہ دیں</string>
-    <string name="onb_mode_warning_body">سخت موڈ میں نامعلوم بھیجنے والوں کے بینک الرٹس، ڈیلیوری اپ ڈیٹس اور ایک بار کے کوڈ اسپیم میں روک لیے جاتے ہیں، کوڈ بھی۔ آپ کو اطلاع نہیں ملے گی، اس لیے جب کسی پیغام کا انتظار ہو تو اسپیم دیکھ لیں۔</string>
     <string name="onb_oem_title">uMessage کو چلتا رکھیں</string>
     <string name="onb_oem_manual_hint">اگر کوئی اسکرین نہ کھلے تو اپنی سیٹنگز میں دکھایا گیا نام تلاش کریں۔</string>
     <string name="onb_oem_xiaomi">Xiaomi، Redmi یا Poco</string>

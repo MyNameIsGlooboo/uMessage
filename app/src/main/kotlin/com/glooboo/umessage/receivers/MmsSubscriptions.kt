@@ -22,7 +22,7 @@ fun Intent.receivingSubscriptionId(): Int {
 }
 
 /**
- * Which SIM an incoming MMS arrived on, for the content filter that runs after download. mmslib does not pass the
+ * Which SIM an incoming MMS arrived on, for the MMS once it is downloaded. mmslib does not pass the
  * subscription to [MmsReceiver]'s hooks, so this remembers it per sender when the WAP push comes in, and falls back
  * to the sub_id of the sender's pending notification-ind row in the provider (survives a process restart).
  */

@@ -11,7 +11,6 @@ import com.glooboo.umessage.helpers.NotifyContext
 import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
@@ -242,7 +241,7 @@ private object DueReplay {
      * to Messages (a code, an allowed word, a failed check) still gets it: the sorter removes that row only later.
      * The place is the rule the lists use. No row, or an error, posts (fail open).
      */
-    private fun enteredSpamSince(context: Context, row: DueRow, createdAt: Long): Boolean = ProviderTruthFlag.enabled &&
+    private fun enteredSpamSince(context: Context, row: DueRow, createdAt: Long): Boolean =
         runCatching {
             val since = context.conversationsDB.getSpamThread(row.threadId)?.spamSince ?: 0L
             since > createdAt && SpamPlacement.inSpamNow(context, row.threadId, row.address)

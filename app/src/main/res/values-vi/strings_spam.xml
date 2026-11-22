@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Bộ lọc tin rác</string>
     <string name="spam_settings_unknown_body">Người gửi không xác định là người không có trong danh bạ và không nằm trong danh sách đã cho phép của bạn. Toàn bộ cuộc trò chuyện của họ sẽ lặng lẽ vào mục Tin rác. Những người bạn từng nhắn tin và người gửi mã xác minh vẫn ở mục Tin nhắn.</string>
-    <string name="spam_mode_strict">Chế độ lọc nghiêm ngặt</string>
-    <string name="spam_mode_strict_body">Chặn mọi người gửi không xác định, kể cả tin nhắn chứa mã</string>
-    <string name="spam_mode_smart">Thông minh</string>
-    <string name="spam_mode_smart_body">Chặn người gửi không xác định, cho qua tin nhắn chỉ chứa mã</string>
-    <string name="spam_mode_off">Tắt</string>
-    <string name="spam_mode_off_body">Không chặn người gửi không xác định</string>
-    <string name="spam_strict_warning_title">Chế độ lọc nghiêm ngặt có thể ẩn tin nhắn quan trọng</string>
-    <string name="spam_strict_warning_body">Tin nhắn từ ngân hàng, đơn vị giao hàng và mã dùng một lần thường đến từ người gửi không có trong danh sách người liên hệ của bạn. Trong chế độ lọc nghiêm ngặt, các tin nhắn này vào thư mục Tin rác, kể cả mã. Chọn Thông minh để cho phép mã hoặc cho phép những người gửi đó một lần.</string>
-    <string name="spam_strict_warning_action">Xem lại tin nhắn rác</string>
     <string name="spam_settings_cleanup_title">Dọn dẹp</string>
     <string name="spam_purge_body">Tắt cho đến khi bạn chọn số ngày</string>
     <string name="spam_purge_days">%d ngày</string>

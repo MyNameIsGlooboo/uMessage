@@ -15,10 +15,17 @@ import org.robolectric.Robolectric
  *
  * Install with [FakeThreadStore.install] at the start of each test. Dates are as the real provider stores them:
  * SMS in milliseconds, MMS in seconds.
+ *
+ * The threads table has none of the list's columns, so a chat-list read fails unless [listColumns] is set: then
+ * `mms-sms/conversations` is a view with the snippet, date and message count of each thread, read live from the
+ * SMS and MMS rows (a thread whose messages were all deleted has a count of 0, as on a phone).
  */
 class FakeThreadStore : ContentProvider() {
 
     private lateinit var db: SQLiteDatabase
+
+    /** Serve the chat list's columns (the threads_list view) instead of the bare threads table. */
+    @Volatile var listColumns = false
 
     override fun onCreate(): Boolean {
         db = SQLiteDatabase.create(null)
@@ -35,6 +42,13 @@ class FakeThreadStore : ContentProvider() {
         db.execSQL("CREATE TABLE addr (_id INTEGER PRIMARY KEY AUTOINCREMENT, msg_id INTEGER, address TEXT, type INTEGER)")
         db.execSQL("CREATE TABLE threads (_id INTEGER PRIMARY KEY, recipient_ids TEXT)")
         db.execSQL("CREATE TABLE canonical_addresses (_id INTEGER PRIMARY KEY, address TEXT)")
+        db.execSQL(
+            "CREATE VIEW threads_list AS SELECT t._id AS _id, t.recipient_ids AS recipient_ids, " +
+                "(SELECT body FROM sms s WHERE s.thread_id = t._id ORDER BY s.date DESC LIMIT 1) AS snippet, " +
+                "COALESCE((SELECT MAX(s.date) FROM sms s WHERE s.thread_id = t._id), 0) AS date, " +
+                "(SELECT COUNT(*) FROM sms s WHERE s.thread_id = t._id) + " +
+                "(SELECT COUNT(*) FROM mms m WHERE m.thread_id = t._id) AS message_count, 0 AS archived FROM threads t"
+        )
         return true
     }
 
@@ -117,7 +131,7 @@ class FakeThreadStore : ContentProvider() {
             }
 
             "mms-sms" -> table = when (segments.firstOrNull()) {
-                "conversations" -> "threads"
+                "conversations" -> if (listColumns) "threads_list" else "threads"
                 "canonical-addresses" -> "canonical_addresses"
                 else -> return null
             }

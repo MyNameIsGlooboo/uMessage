@@ -41,16 +41,11 @@
         <item quantity="other">Exclusão em %d dias</item>
     </plurals>
     <string name="spam_purge_left_today">Exclusão hoje</string>
-    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Denúncia enviada. Novas mensagens deste remetente vão para Spam, e a conversa foi arquivada.</item>
-        <item quantity="other">%d conversas denunciadas. Novas mensagens desses remetentes vão para Spam, e as conversas foram arquivadas.</item>
-    </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
         <item quantity="one">Denunciado. A conversa foi para Spam.</item>
         <item quantity="other">%d conversas denunciadas. Elas foram para Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Modo para remetentes desconhecidos definido como %1$s</string>
     <string name="blocked_stats_restored">%1$d restauradas por você</string>
     <string name="blocked_reason_unknown_link">Remetente desconhecido, com link</string>
     <string name="blocked_may_be_important">Pode ser importante</string>

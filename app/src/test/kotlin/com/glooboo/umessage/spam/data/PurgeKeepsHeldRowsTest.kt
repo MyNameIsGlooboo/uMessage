@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
@@ -16,28 +15,23 @@ import com.glooboo.umessage.spam.FirstRunStore
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.SpamEngine
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.ui.spam.OlderSpam
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
  * Step F hand-over 1 (blocking): with provider truth no purge ever deletes a held row by age, also with auto-delete
- * days set; the purge moves waiting rows and runs auto-delete on the phone's store instead. With the flag off the
- * old purge is unchanged. Also: the migration outside a pass waits for the first sort, a late MMS result reopens a
- * "nothing to move" row, and the older-spam list shows rows that are written but not verified. Numbers are made up.
+ * days set; the purge moves waiting rows and runs auto-delete on the phone's store instead. Also: the migration
+ * outside a pass waits for the first sort, a late MMS result reopens a "nothing to move" row, and the older-spam list
+ * shows rows that are written but not verified. Numbers are made up.
  */
 @RunWith(AndroidJUnit4::class)
 class PurgeKeepsHeldRowsTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private lateinit var db: SpamDatabase
@@ -97,7 +91,7 @@ class PurgeKeepsHeldRowsTest {
         )
     )
 
-    /** Auto-delete set to 7 days after the one-time mapping (with the flag on the days read 0 before it). */
+    /** Auto-delete set to 7 days after the one-time mapping (the days read 0 before it). */
     private fun autoDeleteDays(days: Int) {
         settings.applyProviderTruthMapping()
         settings.update { it.copy(purgeAfterDays = days) }
@@ -105,7 +99,7 @@ class PurgeKeepsHeldRowsTest {
     }
 
     @Test
-    fun withTheFlagOnThePurgeDeletesNoHeldRowEvenWithAutoDeleteDays() = runTest {
+    fun thePurgeDeletesNoHeldRowEvenWithAutoDeleteDays() = runTest {
         autoDeleteDays(7)
         val waiting = oldRow()
         val written = oldRow(mark = MigrationMark.written(40))
@@ -119,18 +113,7 @@ class PurgeKeepsHeldRowsTest {
     }
 
     @Test
-    fun withTheFlagOffThePurgeDeletesOldHeldRowsAsIn0414() = runTest {
-        ProviderTruthFlag.enabled = false
-        settings.update { it.copy(purgeAfterDays = 7) }
-        oldRow()
-
-        repo().purgeExpired()
-
-        assertThat(db.spamDao().getAllBlocked()).isEmpty()
-    }
-
-    @Test
-    fun theEnginePurgeMovesWaitingRowsAndRunsAutoDeleteWithTheFlagOn() {
+    fun theEnginePurgeMovesWaitingRowsAndRunsAutoDelete() {
         firstRun(FirstRunState(phase = FirstRunPhase.DONE, sortPublished = true))
         var movers = 0
         var autoDeletes = 0

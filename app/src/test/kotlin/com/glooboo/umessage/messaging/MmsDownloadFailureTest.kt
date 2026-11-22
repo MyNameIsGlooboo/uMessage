@@ -9,7 +9,6 @@ import android.database.Cursor
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.receivers.MmsPushDownload
 import com.glooboo.umessage.receivers.MmsReceiver
 import com.glooboo.umessage.spam.DecisionReason
@@ -21,7 +20,6 @@ import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.FakeTelephonyProvider
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.WatchedBroadcast
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
@@ -29,7 +27,6 @@ import com.google.common.truth.Truth.assertThat
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -43,8 +40,6 @@ import java.io.File
  */
 @RunWith(AndroidJUnit4::class)
 class MmsDownloadFailureTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val store = FakeMmsSpamStore()
@@ -537,29 +532,12 @@ class MmsDownloadFailureTest {
     }
 
     @Test
-    fun withTheFlagOff_aFailedResultIsLeftToTheLibrary() {
-        flagOff {
-            var handled = 0
-            val receiver = MmsReceiver().apply {
-                failure = MmsDownloadFailure(store = { handled++; store }, notify = {}, toast = {})
-            }
-            val broadcast = WatchedBroadcast.attachTo(receiver)
-
-            receiver.onReceive(context, result())
-
-            assertThat(broadcast.awaitFinished()).isTrue()
-            assertThat(handled).isEqualTo(0)
-        }
-    }
-
-    @Test
-    fun e20_theAppStartSweep_runsWithTheFlagOnOnly() {
+    fun e20_theAppStartSweep_runsOnce() {
         var swept = 0
         val before = MmsDownloadFailure.startSweep
         MmsDownloadFailure.startSweep = { swept++ }
         try {
             MmsDownloadFailure.atAppStart(context)
-            flagOff { MmsDownloadFailure.atAppStart(context) }
         } finally {
             MmsDownloadFailure.startSweep = before
         }
@@ -607,12 +585,6 @@ class MmsDownloadFailureTest {
         override fun insert(uri: Uri, values: ContentValues?): Uri? = null
         override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
         override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = 0
-    }
-
-    /** The rule puts the flag back afterwards. */
-    private fun flagOff(block: () -> Unit) {
-        ProviderTruthFlag.enabled = false
-        block()
     }
 
     private companion object {

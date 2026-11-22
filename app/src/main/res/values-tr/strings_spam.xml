@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Spam filtresi</string>
     <string name="spam_settings_unknown_body">Bilinmeyen gönderen, kişilerinizde ve izin verilenler listenizde olmayan gönderendir. Tüm sohbeti sessizce Spam\'e gider. Mesaj yazdığınız kişiler ve doğrulama kodu gönderenler Mesajlar\'da kalır.</string>
-    <string name="spam_mode_strict">Sıkı</string>
-    <string name="spam_mode_strict_body">Kodlar dahil, bilinmeyen gönderenlerden gelen her şeyi engeller</string>
-    <string name="spam_mode_smart">Akıllı</string>
-    <string name="spam_mode_smart_body">Bilinmeyen gönderenleri engeller, yalnızca kod içeren mesajlara izin verir</string>
-    <string name="spam_mode_off">Kapalı</string>
-    <string name="spam_mode_off_body">Bilinmeyen gönderenler engellenmez</string>
-    <string name="spam_strict_warning_title">Sıkı mod önemli mesajları gizleyebilir</string>
-    <string name="spam_strict_warning_body">Banka ve kargo mesajları ile tek kullanımlık kodlar genellikle kişilerinizde kayıtlı olmayan gönderenlerden gelir. Sıkı modda kodlar dahil tümü Spam klasörüne gider. Kodları almak için Akıllı modu seçin veya bu gönderenlere bir kez izin verin.</string>
-    <string name="spam_strict_warning_action">Spam\'i inceleyin</string>
     <string name="spam_settings_cleanup_title">Temizleyin</string>
     <string name="spam_purge_body">Bir gün sayısı seçene kadar kapalı</string>
     <string name="spam_purge_days">%d gün</string>

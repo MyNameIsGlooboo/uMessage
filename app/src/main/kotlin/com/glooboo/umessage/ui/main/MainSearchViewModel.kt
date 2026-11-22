@@ -10,17 +10,12 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.AppReturnWatch
 import com.glooboo.umessage.helpers.HiddenChats
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.interfaces.SearchPlace
 import com.glooboo.umessage.models.SearchResult
-import com.glooboo.umessage.ui.components.displayNumber
 import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.lock.LockScope
-import com.glooboo.umessage.ui.spam.BlockedFilters
-import com.glooboo.umessage.ui.spam.SenderKeys
-import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import org.fossify.commons.extensions.appLockManager
@@ -46,9 +41,6 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
 
     /** Finds the private notes that hold the text, off the main thread. Tests replace it. */
     internal var runNoteSearch: suspend (String) -> List<NoteHit> = ::searchNotes
-
-    /** Finds the blocked (spam) messages that hold the text, off the main thread. Tests replace it. */
-    internal var runBlockedSearch: suspend (String) -> List<BlockedHit> = ::searchBlocked
 
     /** Provider truth (U9): finds the Spam chats that hold the text, off the main thread. Tests replace it. */
     internal var runSpamSearch: suspend (String) -> List<SpamChatHit> = ::searchSpamChats
@@ -104,11 +96,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             querySpam = lazy { SpamReaders.threadIds(app) }
             state.results = runSearch(text.trim())
             state.noteHits = runNoteSearch(text.trim())
-            if (ProviderTruthFlag.enabled) {
-                searchSpam(app, text.trim())
-            } else {
-                state.blockedHits = runBlockedSearch(text.trim())
-            }
+            searchSpam(app, text.trim())
         }
     }
 
@@ -135,7 +123,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
      * searches Spam again, without retyping. A search still running searches Spam once more as it ends (J4-2).
      */
     private fun searchSpamAgain() {
-        if (!ProviderTruthFlag.enabled || !isSearchable(state.query)) return
+        if (!isSearchable(state.query)) return
         if (searchJob?.isActive == true) {
             spamAgain = true
             return
@@ -164,7 +152,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
         val hiddenChats = HiddenChats.get(app)
         // U9, H-1 (provider truth): nothing of a chat in Spam is found here, left out in the SQL before the cap; a
         // failed read of Spam fails the lookup, which then finds nothing.
-        val place = SearchPlace.outsideSpam()
+        val place = SearchPlace.OUTSIDE_SPAM
         // main-7: the three lookups are independent, so they run side by side.
         val (messages, byTitle, byNumber) = coroutineScope {
             val messagesJob = async {
@@ -218,7 +206,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             val notes = app.messageNotes
             notes.relink()
             // H-18: the notes of Spam chats are left out in the SQL, before the cap.
-            val inPlace = notes.search(text, SearchPlace.outsideSpam())
+            val inPlace = notes.search(text, SearchPlace.OUTSIDE_SPAM)
             val visible = HiddenChats.get(app).withoutHidden(inPlace) { it.threadId }
             val found = SpamReaders.without(visible, spamIds(app)) { it.threadId }
             val chats = found.map { it.threadId }.distinct()
@@ -230,39 +218,6 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
                 formatDate = { seconds -> formatListTimeStyled(app, seconds * 1000L) },
                 displayName = { displayTitle(app, it) },
             )
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
-
-    /**
-     * The blocked messages that hold [text], one hit per sender (main-22). Nothing is found while the app lock covers
-     * only chosen parts and is locked (the Blocked tab is behind it), and a sender who has a chat hidden behind the
-     * lock (B06) is not found until it is unlocked. A failing spam store gives no hits, never an error on the page.
-     */
-    internal suspend fun searchBlocked(text: String): List<BlockedHit> = withContext(Dispatchers.IO) {
-        val app = getApplication<Application>()
-        try {
-            if (LockScope.blockedLocked(app) && app.appLockManager.isLocked()) return@withContext emptyList()
-            val matching = SpamRepositoryProvider.get(app).blocked.first()
-                .filter { BlockedFilters.matchesQuery(it, text) }
-            if (matching.isEmpty()) return@withContext emptyList()
-            val keys = SenderKeys.forDevice(app)
-            val hiddenKeys = HiddenChats.get(app).hiddenIds()
-                .mapNotNull { app.conversationsDB.getConversationWithThreadId(it) }
-                .flatMap { it.phoneNumber.split(',') }
-                .map { it.trim() }.filter { it.isNotEmpty() }
-                .mapTo(HashSet()) { keys.keyOf(it) }
-            buildBlockedHits(
-                messages = matching,
-                query = text,
-                keyOf = keys::keyOf,
-                hiddenSenderKeys = hiddenKeys,
-                title = { displayNumber(app, it) },
-                formatDate = { millis -> formatListTimeStyled(app, millis) },
-            )
-        } catch (e: CancellationException) {
-            throw e
         } catch (_: Exception) {
             emptyList()
         }

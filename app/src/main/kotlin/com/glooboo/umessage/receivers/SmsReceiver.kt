@@ -8,7 +8,6 @@ import android.telephony.SmsMessage
 import android.util.Log
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.helpers.DailyChecks
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.messaging.IncomingDateSent
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.SpamLogEntry
@@ -81,8 +80,7 @@ class SmsReceiver : BroadcastReceiver() {
     internal fun housekeeping(appContext: Context) {
         PendingSmsQueue.replay(appContext)
         // Provider truth (3.5): clean-ups wait until the first sort is published and no pass works, as at app start.
-        val cleanUps = !ProviderTruthFlag.enabled ||
-            runCatching { FirstRun.state(appContext).value.allowsFullSort }.getOrDefault(false)
+        val cleanUps = runCatching { FirstRun.state(appContext).value.allowsFullSort }.getOrDefault(false)
         if (!cleanUps) return
         SpamEngine.purgeExpired(appContext)
         DailyChecks.runIfDue(appContext)

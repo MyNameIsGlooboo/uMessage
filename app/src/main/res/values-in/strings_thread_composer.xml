@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Seluruh chat dengan %1$s dipindahkan ke Spam dan pesan baru akan masuk ke sana tanpa suara. Tidak ada pesan yang dihapus.</string>
     <string name="thread_report_spam_confirm">Tandai sebagai spam</string>
     <string name="thread_report_spam_cancel">Batal</string>
-    <string name="thread_report_spam_done">Ditandai sebagai spam</string>
     <string name="thread_report_spam_rule_note">Dilaporkan sebagai spam</string>
-    <string name="thread_report_spam_already">Sudah ditandai sebagai spam</string>
-    <string name="thread_report_spam_failed">Tidak dapat menandai sebagai spam</string>
     <string name="thread_report_spam_undo">Urungkan</string>
 </resources>

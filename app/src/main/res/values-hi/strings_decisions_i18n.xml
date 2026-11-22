@@ -4,7 +4,6 @@
         <item quantity="one">%d चैट पढ़ी हुई मार्क की गई</item>
         <item quantity="other">%d चैट पढ़ी हुई मार्क की गईं</item>
     </plurals>
-    <string name="decm_search_section_blocked">स्पैम</string>
     <string name="decm_blocked_search">स्पैम में खोजें</string>
     <string name="decm_blocked_search_hint">भेजने वाले या टेक्स्ट से खोजें</string>
     <string name="decm_blocked_search_close">खोज बंद करें</string>

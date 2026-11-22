@@ -1,6 +1,5 @@
 package com.glooboo.umessage.spam.engine
 
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.AllowGroupMember
 import com.glooboo.umessage.spam.DecisionReason
@@ -11,19 +10,14 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
 
 /**
- * [DefaultSpamFilter.evaluate] on both sides of [ProviderTruthFlag]: off, it decides exactly as 0.4.14 (per message,
- * SIM-scoped rules, the hidden "wrote to" check, Smart and Strict); on, it is the probe of the sender order of
- * section 2.1 and writes nothing. Every number and text is made up.
+ * [DefaultSpamFilter.evaluate] is the probe of the sender order of section 2.1 and writes nothing. Every number and
+ * text is made up.
  */
 class DefaultSpamFilterProviderTruthTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = false)
 
     private val normalizer = NumberNormalizer { "US" }
 
@@ -57,38 +51,7 @@ class DefaultSpamFilterProviderTruthTest {
     private fun wordOnSim2() =
         SpamRule(id = 7, kind = ListKind.BLOCK, type = RuleType.KEYWORD, pattern = "lottery", subscriptionId = 2)
 
-    @Test fun flagOff_aCodeIsLetInPerMessageAndTheNextAdvertIsHeld() {
-        val f = filter()
-        assertEquals(FilterDecision.Allow(DecisionReason.OTP_EXEMPTION), f.evaluate(msg(CODE)))
-        assertEquals(FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), f.evaluate(msg("Weekend sale")))
-    }
-
-    @Test fun flagOff_strictHoldsCodesAndOffLetsAllIn() {
-        val strict = filter(settings = SpamSettings(mode = UnknownSenderMode.STRICT))
-        assertEquals(FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), strict.evaluate(msg(CODE)))
-        val off = filter(settings = SpamSettings(mode = UnknownSenderMode.OFF, filterOn = true))
-        assertEquals(FilterDecision.Allow(DecisionReason.MODE_OFF), off.evaluate(msg("Weekend sale")))
-    }
-
-    @Test fun flagOff_theHiddenWroteToCheckAndSimScopedRulesStay() {
-        val known = filter(contacts = Contacts(sent = setOf(SENDER)))
-        assertEquals(FilterDecision.Allow(DecisionReason.KNOWN_CONVERSATION), known.evaluate(msg("hi")))
-
-        val scoped = filter(rules = listOf(wordOnSim2()), settings = SpamSettings(mode = UnknownSenderMode.OFF))
-        assertEquals(FilterDecision.Allow(DecisionReason.MODE_OFF), scoped.evaluate(msg("lottery", sub = 1)))
-        assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, 7), scoped.evaluate(msg("lottery", sub = 2)))
-    }
-
-    @Test fun flagOff_userAllowBeatsBlockAsIn0414EvenForAnAutomaticAllow() {
-        val rules = listOf(
-            SpamRule(id = 1, kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = SENDER, note = AUTO_ALLOW),
-            SpamRule(id = 2, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER),
-        )
-        assertEquals(FilterDecision.Allow(DecisionReason.ALLOW_RULE, 1), filter(rules).evaluate(msg("hi")))
-    }
-
-    @Test fun flagOn_theSenderOrderDecidesAndTheWroteToCheckIsGone() {
-        ProviderTruthFlag.enabled = true
+    @Test fun theSenderOrderDecidesAndTheWroteToCheckIsGone() {
         val contacts = Contacts(sent = setOf(SENDER))
         val f = filter(contacts = contacts)
         assertEquals(FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), f.evaluate(msg("hi")))
@@ -96,8 +59,7 @@ class DefaultSpamFilterProviderTruthTest {
         assertEquals(FilterDecision.Allow(DecisionReason.OTP_EXEMPTION), f.evaluate(msg(CODE)))
     }
 
-    @Test fun flagOn_anAutomaticAllowLosesToABlockAndAMemberIsShown() {
-        ProviderTruthFlag.enabled = true
+    @Test fun anAutomaticAllowLosesToABlockAndAMemberIsShown() {
         val rules = listOf(
             SpamRule(id = 1, kind = ListKind.ALLOW, type = RuleType.NUMBER, pattern = SENDER, note = AUTO_ALLOW),
             SpamRule(id = 2, kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = SENDER),
@@ -108,8 +70,7 @@ class DefaultSpamFilterProviderTruthTest {
         assertEquals(FilterDecision.Allow(DecisionReason.GROUP_MEMBER), member.evaluate(msg("hi", address = OTHER)))
     }
 
-    @Test fun flagOn_rulesCoverBothSimsAndTheSwitchReplacesTheMode() {
-        ProviderTruthFlag.enabled = true
+    @Test fun rulesCoverBothSimsAndTheSwitchReplacesTheMode() {
         val settings = SpamSettings(mode = UnknownSenderMode.STRICT, filterOn = false)
         val f = filter(rules = listOf(wordOnSim2()), settings = settings)
         assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, 7), f.evaluate(msg("lottery", sub = 1)))

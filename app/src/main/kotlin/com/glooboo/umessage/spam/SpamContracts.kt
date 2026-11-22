@@ -2,7 +2,6 @@ package com.glooboo.umessage.spam
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 
 /**
  * Public contract of the uMessage spam engine.
@@ -209,18 +208,14 @@ data class BlockedMessage(
     }
 }
 
-/** 0.4.14's default auto-delete of held messages, kept while ProviderTruthFlag is off. */
-const val LEGACY_PURGE_DAYS = 30
-
 data class SpamStats(val blockedTotal: Int, val blockedLast7Days: Int, val restoredTotal: Int)
 
 data class SpamSettings(
     val mode: UnknownSenderMode = UnknownSenderMode.SMART,
     /**
-     * Blocked messages older than this are purged. 0 = keep forever, the default of provider truth (7.1); 30 while
-     * ProviderTruthFlag is off, as in 0.4.14.
+     * Blocked messages older than this are purged. 0 = keep forever, the default of provider truth (7.1).
      */
-    val purgeAfterDays: Int = if (ProviderTruthFlag.enabled) 0 else LEGACY_PURGE_DAYS,
+    val purgeAfterDays: Int = 0,
     val notifyOnBlock: Boolean = false,
     val unknownInboxNotify: UnknownInboxNotify = UnknownInboxNotify.NOTIFY,
     /** I67: an "Open link" button on notifications from known senders. */
@@ -230,7 +225,7 @@ data class SpamSettings(
     /**
      * Provider truth: the one spam filter switch, on by default. Stored under its own key; while that key is missing
      * it is read from [mode] (Smart, Strict, or no value: on; Off: off, unless the old Fossify "block unknown numbers"
-     * switch is on). See SpamSettingsStore. Read only when ProviderTruthFlag is on.
+     * switch is on). See SpamSettingsStore.
      */
     val filterOn: Boolean = true,
     /** D3 A: the group rule "Senders of a verification code" is on. Off: its members count as unknown (kept stored). */

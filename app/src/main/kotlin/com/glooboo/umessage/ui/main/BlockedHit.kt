@@ -21,10 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
-import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.ui.components.rememberCodeHidden
 import com.glooboo.umessage.ui.icons.Symbols
-import com.glooboo.umessage.ui.spam.BlockedFilters
 import com.glooboo.umessage.ui.theme.contentDirection
 
 /** main-22: a sender of blocked (spam) messages with at least one message that holds the typed text. */
@@ -39,36 +37,6 @@ internal data class BlockedHit(
     /** How many of the sender's blocked messages match. */
     val count: Int,
 )
-
-/**
- * One hit per sender from the held [messages] that answer [query] (text or sender), newest first. Messages of a sender
- * whose key is in [hiddenSenderKeys] are left out: a sender who has a chat hidden behind the app lock is not revealed
- * through the spam section either. [keyOf] says which addresses are one sender (see SenderKeys).
- */
-internal fun buildBlockedHits(
-    messages: List<BlockedMessage>,
-    query: String,
-    keyOf: (String) -> String,
-    hiddenSenderKeys: Set<String>,
-    title: (String) -> String,
-    formatDate: (Long) -> String,
-): List<BlockedHit> = messages
-    .filter { BlockedFilters.matchesQuery(it, query) }
-    .groupBy { keyOf(it.address) }
-    .filterKeys { it !in hiddenSenderKeys }
-    .values
-    .map { list -> list.sortedByDescending { it.receivedAt } }
-    .sortedByDescending { it.first().receivedAt }
-    .map { list ->
-        val newest = list.first()
-        BlockedHit(
-            address = newest.address,
-            title = title(newest.address),
-            snippet = if (newest.hasText) searchExcerpt(newest.body, query) else "",
-            date = formatDate(newest.receivedAt),
-            count = list.size,
-        )
-    }
 
 /**
  * The blocked hits the page lists: only while text is typed and no tile filter is on, like the notes. H-16: none while

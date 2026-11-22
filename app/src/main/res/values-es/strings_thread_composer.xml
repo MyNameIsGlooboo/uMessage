@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Todo el chat con %1$s pasa a Spam y los mensajes nuevos llegan allí sin avisar. No se elimina ningún mensaje.</string>
     <string name="thread_report_spam_confirm">Marcar como spam</string>
     <string name="thread_report_spam_cancel">Cancelar</string>
-    <string name="thread_report_spam_done">Marcado como spam</string>
     <string name="thread_report_spam_rule_note">Denunciado como spam</string>
-    <string name="thread_report_spam_already">Ya está marcado como spam</string>
-    <string name="thread_report_spam_failed">No se pudo marcar como spam</string>
     <string name="thread_report_spam_undo">Deshacer</string>
 </resources>

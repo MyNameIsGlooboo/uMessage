@@ -21,7 +21,6 @@ import com.glooboo.umessage.extensions.insertNewSMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.DefaultSmsRole
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.models.Message
@@ -843,9 +842,9 @@ internal class OlderSpamMover(
 
 /**
  * The message migration of section 8 on this phone. One run at a time, under [lock], which "Not spam" of the old
- * Blocked screen takes too (F-1); nothing runs while [ProviderTruthFlag] is off. Its callers: the first run's "older
- * spam" step ([firstRunStep], also when uMessage becomes the default app again), and [runPending] at app start, from
- * the daily alarm, the purge, a restore of old Spam entries (S16) and a late private MMS result.
+ * Blocked screen takes too (F-1). Its callers: the first run's "older spam" step ([firstRunStep], also when
+ * uMessage becomes the default app again), and [runPending] at app start, from the daily alarm, the purge, a
+ * restore of old Spam entries (S16) and a late private MMS result.
  */
 @Suppress("TooManyFunctions")
 object SpamProviderMigration {
@@ -886,14 +885,13 @@ object SpamProviderMigration {
         SpamSorting.execute(Runnable { runPending(app, announce = false, limit = RECEIVER_BATCH) })
     }
 
-    /** One run; see [OlderSpamMover]. With the flag off nothing happens. Throws when spamless.db cannot be read. */
+    /** One run; see [OlderSpamMover]. Throws when spamless.db cannot be read. */
     internal fun migrate(
         context: Context,
         limit: Int = Int.MAX_VALUE,
         noteUnreadNow: Boolean = true,
         passFollows: Boolean = false,
     ): MigrationResult {
-        if (!ProviderTruthFlag.enabled) return MigrationResult()
         return synchronized(lock) {
             sweepHelpers(context)
             runWith(moverFor(context.applicationContext), limit, noteUnreadNow, passFollows)
@@ -922,7 +920,6 @@ object SpamProviderMigration {
      * waits for the default role.
      */
     fun runPending(context: Context, announce: Boolean = true, limit: Int = Int.MAX_VALUE): Boolean {
-        if (!ProviderTruthFlag.enabled) return true
         synchronized(lock) { sweepHelpers(context) }
         val state = runCatching { FirstRun.state(context).value }.getOrNull()
         val afterSort = state == null || state.allowsFullSort ||
@@ -972,11 +969,9 @@ object SpamProviderMigration {
     /**
      * A late result of a held MMS's private download (receivers/BlockedMmsDownloadReceiver, kept one release) was
      * recorded on row [blockedId]. A row marked "nothing to move" meanwhile has content now and is moved again (a row
-     * already moved as text keeps its kept file, S2-2); then a bounded batch of waiting rows is moved. Never throws;
-     * nothing with the flag off.
+     * already moved as text keeps its kept file, S2-2); then a bounded batch of waiting rows is moved. Never throws.
      */
     fun lateMmsResult(context: Context, blockedId: Long) {
-        if (!ProviderTruthFlag.enabled) return
         runCatching { AndroidMigrationRows(context.applicationContext).reopenNothingToMove(blockedId) }
         runPending(context, limit = RECEIVER_BATCH)
     }

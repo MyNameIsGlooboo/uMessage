@@ -9,7 +9,6 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.LinkExtractor
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.SpamReaders
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.helpers.isUnknownSender
@@ -156,7 +155,6 @@ private fun shortcutCandidates(app: Context, links: Boolean): List<Message> {
     val db = app.messagesDB
     val cap = SearchShortcuts.CANDIDATES
     return when {
-        !ProviderTruthFlag.enabled -> if (links) db.getLinkCandidates(cap) else db.getImageCandidates(cap)
         links -> db.getLinkCandidatesOutsideSpam(cap)
         else -> db.getImageCandidatesOutsideSpam(cap)
     }

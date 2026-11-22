@@ -94,7 +94,7 @@ internal class SpamDatabaseRecovery(
         }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
         val providerTruth = restoreProviderTruthFromImported(db, newest)
         imported.forEach { DatabaseBackups.retire(it) }
-        // The history check runs again for every chat (a RESTORE pass; nothing with the flag off).
+        // The history check runs again for every chat (a RESTORE pass).
         if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
     }
 

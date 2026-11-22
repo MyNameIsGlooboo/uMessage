@@ -19,7 +19,6 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.ChatNotices
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.components.isolateLtr
 import com.google.common.truth.Truth.assertThat
@@ -33,7 +32,6 @@ import kotlinx.coroutines.runBlocking
 import org.greenrobot.eventbus.EventBus
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.shadows.ShadowLooper
@@ -47,9 +45,6 @@ import java.util.Collections
  */
 @RunWith(AndroidJUnit4::class)
 class SpamChatsViewModelTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val app: Application = ApplicationProvider.getApplicationContext()
     private val repository = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())

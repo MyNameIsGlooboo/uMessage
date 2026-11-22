@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Cualquiera puede enviar mensajes con estos nombres: %1$s. ¿Permitirlos y mover los chats a Mensajes?</string>
     <string name="nameallow_more">%1$s y %2$d más</string>
     <string name="nameallow_allow">Permitir siempre</string>
-    <string name="nameallow_not_now">Ahora no</string>
 </resources>

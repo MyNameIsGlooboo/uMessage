@@ -5,36 +5,39 @@ import android.content.Intent
 import android.telephony.SubscriptionManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
+import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.SpamDatabase
+import com.glooboo.umessage.spam.engine.Judgement
+import com.glooboo.umessage.spam.engine.SenderVerdict
+import com.glooboo.umessage.spam.mms.IncomingMms
+import com.glooboo.umessage.spam.mms.MmsSenderCheck
+import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.FakeTelephonyProvider
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.ShadowRecordingSmsManager
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.testing.WatchedBroadcast
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.google.common.truth.Truth.assertThat
 import com.klinker.android.send_message.MmsReceivedReceiver
+import org.fossify.commons.models.PhoneNumber
+import org.fossify.commons.models.SimpleContact
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
 
 /**
- * A downloaded MMS ([MmsReceiver] and its mmslib hooks): the content filter fails open, the SIM it came in on is the
+ * A downloaded MMS ([MmsReceiver] and its mmslib hooks): the content hook never blocks, the SIM it came in on is the
  * one remembered at the push (never the default SIM), and nothing here may crash or hold the broadcast. Robolectric
  * has no MMS provider, so the "announce and forward" step is covered only where it can run without one.
  */
 @RunWith(AndroidJUnit4::class)
 class MmsReceiverTest {
-
-    @get:Rule val flag = ProviderTruthFlagRule(enabled = false)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var spamDb: SpamDatabase
@@ -55,97 +58,84 @@ class MmsReceiverTest {
         ShadowRecordingSmsManager.reset()
     }
 
-    /** Runs the hooks mmslib calls for one downloaded MMS; returns what the filter was asked and whether it blocked. */
-    private fun filterSees(
-        address: String,
-        text: String,
-        decide: (IncomingMessage) -> FilterDecision = { FilterDecision.Allow(DecisionReason.NO_MATCH) },
-    ): Pair<IncomingMessage?, Boolean> {
+    /** The sender checks of a placed MMS: they record the message they are made for and keep it in Messages. */
+    private class AllowCheck : MmsSenderCheck {
+        override fun probe(): FilterDecision = FilterDecision.Allow(DecisionReason.NO_MATCH)
+        override fun judge(): Judgement = Judgement(SenderVerdict.Messages(DecisionReason.NO_MATCH))
+        override fun historyChecked(): Boolean = true
+        override fun log(decision: String, reason: String, ruleId: Long?) = Unit
+    }
+
+    private fun mms() = Message(
+        id = 7L, body = "photo", type = 1, status = -1,
+        participants = arrayListOf(
+            SimpleContact(1, 1, SENDER, "", arrayListOf(PhoneNumber(SENDER, 0, "", SENDER)), ArrayList(), ArrayList()),
+        ),
+        date = 1_700_000_000, read = false, threadId = 12L, isMMS = true, attachment = null,
+        senderPhoneNumber = SENDER, senderName = "", senderPhotoUri = "", subscriptionId = 1,
+    )
+
+    /**
+     * Runs the hooks mmslib calls for one downloaded MMS, then its placement; returns what the sender checks were made
+     * for and whether the content hook blocked.
+     */
+    private fun checksSee(address: String, text: String): Pair<IncomingMessage?, Boolean> {
         var seen: IncomingMessage? = null
-        SpamTestWiring.installFilter { message ->
-            seen = message
-            decide(message)
+        val handler = MmsDownloadHandler().apply {
+            incomingMms = { IncomingMms(FakeMmsSpamStore()) }
+            senderCheck = { _: Context, message: IncomingMessage, _: Long ->
+                seen = message
+                AllowCheck()
+            }
+            announce = { _, _, _, _ -> }
+            forwardOf = { _, _ -> }
+            updateChatOf = { _, _, _ -> }
         }
-        val handler = MmsDownloadHandler()
         handler.isAddressBlocked(context, address)
         val blocked = handler.isContentBlocked(context, text)
+        handler.placeAndAnnounce(context, mms(), SENDER)
         return seen to blocked
     }
 
     @Test
-    fun theFilterIsAskedWithTheSenderWithoutTheTypeSuffixAndTheMmsFlag() {
-        val (seen, blocked) = filterSees("+15550001234/TYPE=PLMN", "hello")
+    fun theChecksGetTheSenderWithoutTheTypeSuffixAndTheMmsFlag() {
+        val (seen, blocked) = checksSee("$SENDER/TYPE=PLMN", "hello")
 
         assertThat(blocked).isFalse()
-        assertThat(seen!!.address).isEqualTo("+15550001234")
+        assertThat(seen!!.address).isEqualTo(SENDER)
         assertThat(seen.body).isEqualTo("hello")
         assertThat(seen.isMms).isTrue()
     }
 
     @Test
     fun theSimIsTheOneRememberedAtThePush() {
-        MmsSubscriptions.remember("+15550001234", 2)
+        MmsSubscriptions.remember(SENDER, 2)
 
-        val (seen, _) = filterSees("+15550001234/TYPE=PLMN", "hi")
+        val (seen, _) = checksSee("$SENDER/TYPE=PLMN", "hi")
 
         assertThat(seen!!.subscriptionId).isEqualTo(2)
     }
 
     @Test
     fun aSenderNeverSeenAtThePush_hasNoSimNotTheDefaultOne() {
-        val (seen, _) = filterSees("+15550009876", "hi")
+        val (seen, _) = checksSee("+15550009876", "hi")
 
         assertThat(seen!!.subscriptionId).isEqualTo(SubscriptionManager.INVALID_SUBSCRIPTION_ID)
     }
 
     @Test
-    fun aFilterThatThrows_letsTheMmsIn() {
-        val (_, blocked) = filterSees("+15550001234", "hello") { error("filter broke") }
-
-        assertThat(blocked).isFalse()
-        assertThat(spamDb.spamDao().getAllBlocked()).isEmpty()
-    }
-
-    @Test
-    fun aBlockThatCannotBeStored_failsOpenAndKeepsTheDownloadedFile() {
-        val file = File(context.cacheDir, "download.fail-open.dat").apply { writeBytes(byteArrayOf(1)) }
-        val handler = MmsDownloadHandler().apply { pduPath = file.path }
-        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) }
-        spamDb.close()
-
-        handler.isAddressBlocked(context, "+15550001234")
-        val blocked = handler.isContentBlocked(context, "spam")
-
-        // Not kept in Blocked, so it is delivered normally: a message is never lost to a storage failure.
-        assertThat(blocked).isFalse()
-        assertThat(file.exists()).isTrue()
-    }
-
-    @Test
-    fun withProviderTruth_theContentHookAlwaysLetsTheLibraryStoreTheMms() {
-        ProviderTruthFlag.enabled = true
-        val file = File(context.cacheDir, "download.provider-truth.dat").apply { writeBytes(byteArrayOf(1)) }
+    fun theContentHookAlwaysLetsTheLibraryStoreTheMms() {
         var asked = 0
         SpamTestWiring.installFilter { asked++; FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L) }
-        val handler = MmsDownloadHandler().apply { pduPath = file.path }
+        val handler = MmsDownloadHandler()
 
-        handler.isAddressBlocked(context, "+15550001234/TYPE=PLMN")
+        handler.isAddressBlocked(context, "$SENDER/TYPE=PLMN")
         val blocked = handler.isContentBlocked(context, "spam")
 
         // 6.2: never "blocked" (the library would delete the notice); the MMS is placed once it is stored.
         assertThat(blocked).isFalse()
         assertThat(asked).isEqualTo(0)
         assertThat(spamDb.spamDao().getAllBlocked()).isEmpty()
-        assertThat(file.exists()).isTrue()
-    }
-
-    @Test
-    fun withProviderTruth_anMmsThatIsNotInTheProvider_doesNotThrow() {
-        ProviderTruthFlag.enabled = true
-
-        MmsDownloadHandler().onMessageReceived(context, null)
-
-        assertThat(ShadowRecordingSmsManager.textSends).isEmpty()
     }
 
     @Test
@@ -168,5 +158,9 @@ class MmsReceiverTest {
         receiver.onReceive(context, result)
 
         assertThat(broadcast.awaitFinished()).isTrue()
+    }
+
+    private companion object {
+        const val SENDER = "+15550001234"
     }
 }

@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Filtro de spam</string>
     <string name="spam_settings_unknown_body">Un remitente desconocido no está en tus contactos ni en tu lista de permitidos. Todo su chat va a Spam, sin avisar. Las personas a las que escribiste y los remitentes de un código de verificación se quedan en Mensajes.</string>
-    <string name="spam_mode_strict">Estricto</string>
-    <string name="spam_mode_strict_body">Bloquea a todos los remitentes desconocidos, incluidos los códigos</string>
-    <string name="spam_mode_smart">Inteligente</string>
-    <string name="spam_mode_smart_body">Bloquea a los remitentes desconocidos y permite mensajes con solo códigos</string>
-    <string name="spam_mode_off">Desactivado</string>
-    <string name="spam_mode_off_body">Sin bloqueo de remitentes desconocidos</string>
-    <string name="spam_strict_warning_title">El modo estricto puede ocultar mensajes importantes</string>
-    <string name="spam_strict_warning_body">Los mensajes de bancos y empresas de entrega, y los códigos de un solo uso suelen venir de remitentes que no están en tus contactos. En modo estricto van a Spam, incluidos los códigos. Elige Inteligente para permitir los códigos o agrega esos remitentes a permitidos una sola vez.</string>
-    <string name="spam_strict_warning_action">Revisar Spam</string>
     <string name="spam_settings_cleanup_title">Limpieza</string>
     <string name="spam_purge_body">Desactivado hasta que elijas un número de días</string>
     <string name="spam_purge_days">%d días</string>

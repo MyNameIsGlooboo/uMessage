@@ -62,9 +62,6 @@ interface SpamDao {
     @Query("SELECT * FROM blocked_messages")
     fun getAllBlocked(): List<BlockedMessageEntity>
 
-    @Query("SELECT * FROM blocked_messages WHERE receivedAt BETWEEN :from AND :to")
-    fun getBlockedBetween(from: Long, to: Long): List<BlockedMessageEntity>
-
     @Query("SELECT * FROM blocked_messages WHERE id = :id")
     fun getBlocked(id: Long): BlockedMessageEntity?
 
@@ -77,9 +74,6 @@ interface SpamDao {
     @Query("DELETE FROM blocked_messages WHERE id IN (:ids)")
     fun deleteBlocked(ids: List<Long>)
 
-    @Query("DELETE FROM blocked_messages WHERE receivedAt < :before")
-    fun deleteBlockedBefore(before: Long): Int
-
     @Query("UPDATE blocked_messages SET media = :media, mediaFile = :mediaFile, body = :body WHERE id = :id")
     fun updateMedia(id: Long, media: MmsMedia, mediaFile: String?, body: String): Int
 
@@ -89,9 +83,6 @@ interface SpamDao {
 
     @Query("SELECT mediaFile FROM blocked_messages WHERE id IN (:ids) AND mediaFile IS NOT NULL")
     fun mediaFilesOf(ids: List<Long>): List<String>
-
-    @Query("SELECT mediaFile FROM blocked_messages WHERE receivedAt < :before AND mediaFile IS NOT NULL")
-    fun mediaFilesBefore(before: Long): List<String>
 
     @Query("SELECT mediaFile FROM blocked_messages WHERE mediaFile IS NOT NULL")
     fun allMediaFiles(): List<String>

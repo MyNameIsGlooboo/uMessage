@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">ব্লক সরানো হয়েছে। চ্যাট বার্তা ট্যাবে ফিরে এসেছে</string>
     <string name="thread_unblock_done_system">uMessage-এ ব্লক সরানো হয়েছে। এই নম্বর আপনার ফোনের ব্লক তালিকাতেও আছে, তাই Android এখনও এর বার্তা ব্লক করে</string>
     <string name="thread_unblock_done_filtered">ব্লক সরানো হয়েছে। প্রেরক অচেনা বলে চ্যাট স্প্যামেই আছে।</string>
-    <string name="thread_unblock_always_allow">সবসময় অনুমতি দিন</string>
     <string name="thread_always_allow_done">সবসময় অনুমতি দেওয়া হয়েছে। চ্যাট বার্তা ট্যাবে আছে</string>
     <string name="thread_always_allow_failed">এই নম্বরকে অনুমতি দেওয়া যায়নি</string>
     <string name="thread_unblock_failed">এই নম্বরের ব্লক সরানো যায়নি</string>

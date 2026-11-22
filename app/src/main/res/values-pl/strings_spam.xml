@@ -111,15 +111,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Filtr spamu</string>
     <string name="spam_settings_unknown_body">Nieznany nadawca to ktoś, kogo nie masz w kontaktach ani na liście dozwolonych. Cały jego czat po cichu trafia do folderu Spam. Osoby, do których wysłano wiadomość, i nadawcy kodów weryfikacyjnych zostają w folderze Wiadomości.</string>
-    <string name="spam_mode_strict">Ścisły</string>
-    <string name="spam_mode_strict_body">Blokuje wszystkich nieznanych nadawców, także kody</string>
-    <string name="spam_mode_smart">Inteligentny</string>
-    <string name="spam_mode_smart_body">Blokuje nieznanych nadawców, przepuszcza same kody</string>
-    <string name="spam_mode_off">Wyłączony</string>
-    <string name="spam_mode_off_body">Bez blokowania nieznanych nadawców</string>
-    <string name="spam_strict_warning_title">Tryb ścisły może ukryć ważne wiadomości</string>
-    <string name="spam_strict_warning_body">Wiadomości od banków i firm kurierskich oraz kody jednorazowe zwykle pochodzą od nadawców spoza twoich kontaktów. W trybie ścisłym trafiają do Spamu, także te z kodami. Wybierz tryb inteligentny, by przepuszczać kody, lub dodaj tych nadawców do dozwolonych — wystarczy raz.</string>
-    <string name="spam_strict_warning_action">Sprawdź Spam</string>
     <string name="spam_settings_cleanup_title">Porządkowanie</string>
     <string name="spam_purge_body">Wyłączone, dopóki nie wybierzesz liczby dni</string>
     <string name="spam_purge_days">%d dni</string>

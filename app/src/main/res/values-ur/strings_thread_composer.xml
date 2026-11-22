@@ -10,9 +10,6 @@
     <string name="thread_report_spam_message">%1$s کے ساتھ پوری چیٹ اسپیم میں چلی جائے گی اور نئے پیغامات خاموشی سے وہاں آئیں گے۔ کوئی پیغام حذف نہیں ہوتا۔</string>
     <string name="thread_report_spam_confirm">اسپیم کے طور پر نشان زد کریں</string>
     <string name="thread_report_spam_cancel">منسوخ کریں</string>
-    <string name="thread_report_spam_done">اسپیم کے طور پر نشان زد ہو گیا</string>
     <string name="thread_report_spam_rule_note">اسپیم کے طور پر اطلاع دی گئی</string>
-    <string name="thread_report_spam_already">پہلے سے اسپیم کے طور پر نشان زد ہے</string>
-    <string name="thread_report_spam_failed">اسپیم کے طور پر نشان زد نہیں ہو سکا</string>
     <string name="thread_report_spam_undo">واپس کریں</string>
 </resources>

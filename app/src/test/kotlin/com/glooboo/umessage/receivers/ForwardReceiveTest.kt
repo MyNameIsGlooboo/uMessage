@@ -25,7 +25,6 @@ import com.glooboo.umessage.testing.SmsPdus
 import com.glooboo.umessage.testing.SpamTestWiring
 import com.glooboo.umessage.testing.joinAppBackgroundThreads
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
-import com.glooboo.umessage.ui.spam.FakeSpamRepository
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
@@ -36,7 +35,8 @@ import org.robolectric.shadows.ShadowLooper
 
 /**
  * Forwarding end to end: an SMS arrives, passes the filter and lands in the inbox, then the forward goes out through
- * the app's SMS path to the recording SmsManager. Blocked spam is never forwarded.
+ * the app's SMS path to the recording SmsManager. That a text for Spam is never forwarded is in
+ * ProviderTruthSmsEdgeTest.
  */
 @RunWith(AndroidJUnit4::class)
 class ForwardReceiveTest {
@@ -109,18 +109,6 @@ class ForwardReceiveTest {
 
         assertThat(sentTexts()).isEmpty()
         assertThat(log()).isEmpty()
-    }
-
-    @Test
-    fun blockedSpam_isNeverForwarded() {
-        addRule(bankRule())
-        UMessage.repositoryFactory = { FakeSpamRepository() }
-        SpamTestWiring.installFilter { FilterDecision.Block(DecisionReason.BLOCK_RULE) }
-
-        receive("+15551234567", "Deposit of 500")
-
-        assertThat(telephony.smsRows()).isEmpty()
-        assertThat(sentTexts()).isEmpty()
     }
 
     @Test

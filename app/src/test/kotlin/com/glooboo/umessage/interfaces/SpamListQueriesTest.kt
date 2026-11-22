@@ -68,12 +68,6 @@ class SpamListQueriesTest {
     }
 
     @Test
-    fun theOldListsKeepTheir0414Meaning() {
-        assertThat(ids(dao.getNonArchived())).containsExactly(1L, 2L, 5L, 6L)
-        assertThat(ids(dao.getAllArchived())).containsExactly(3L, 4L)
-    }
-
-    @Test
     fun onlyRowsThatCountAreValidAndInSpam() {
         assertThat(dao.getValidSpamThreads().map { it.threadId }).containsExactly(2L, 4L)
         assertThat(dao.isInSpam(2)).isTrue()

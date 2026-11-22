@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Yanıtlama ve kod kopyalama düğmeleriyle yeni mesajları bildirir.</string>
     <string name="onb_perm_allow_all">Tümüne izin verin</string>
     <string name="onb_perm_open_settings">Ayarları açın</string>
-    <string name="onb_mode_title">Bilinmeyen gönderenler için ne yapılacağını seçin</string>
-    <string name="onb_mode_strict">Sıkı</string>
-    <string name="onb_mode_smart">Akıllı</string>
-    <string name="onb_mode_off">Kapalı</string>
-    <string name="onb_mode_warning_title">Banka mesajları ve kodlar hakkında</string>
-    <string name="onb_mode_warning_body">Sıkı modda, bilinmeyen gönderenlerden gelen banka bildirimleri, teslimat güncellemeleri ve tek kullanımlık kodlar, kodlar dahil Spam bölümünde tutulur. Bildirim almazsınız; bunlardan birini bekliyorsanız Spam bölümünü kontrol edin.</string>
     <string name="onb_oem_title">uMessage çalışmaya devam etsin</string>
     <string name="onb_oem_manual_hint">Bir ekran açılmazsa gösterilen adı Ayarlar\'da arayın.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi veya Poco</string>

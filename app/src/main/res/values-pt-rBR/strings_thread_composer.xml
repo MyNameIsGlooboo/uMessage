@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">A conversa inteira com %1$s vai para Spam e as novas mensagens chegam lá em silêncio. Nenhuma mensagem é excluída.</string>
     <string name="thread_report_spam_confirm">Marque como spam</string>
     <string name="thread_report_spam_cancel">Cancele</string>
-    <string name="thread_report_spam_done">Marcado como spam</string>
     <string name="thread_report_spam_rule_note">Denunciado como spam</string>
-    <string name="thread_report_spam_already">Já marcado como spam</string>
-    <string name="thread_report_spam_failed">Não foi possível marcar como spam</string>
     <string name="thread_report_spam_undo">Desfaça</string>
 </resources>

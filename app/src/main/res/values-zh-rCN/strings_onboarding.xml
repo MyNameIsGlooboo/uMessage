@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">提醒新消息，并提供回复和复制验证码按钮。</string>
     <string name="onb_perm_allow_all">全部允许</string>
     <string name="onb_perm_open_settings">打开设置</string>
-    <string name="onb_mode_title">选择如何处理未知发件人</string>
-    <string name="onb_mode_strict">严格</string>
-    <string name="onb_mode_smart">智能</string>
-    <string name="onb_mode_off">关闭</string>
-    <string name="onb_mode_warning_title">留意银行通知和验证码消息</string>
-    <string name="onb_mode_warning_body">严格模式会将未知发件人的银行通知、快递动态和一次性验证码保留在“垃圾短信”中，验证码也不例外。你不会收到通知，因此等待这些消息时，请查看“垃圾短信”。</string>
     <string name="onb_oem_title">保持uMessage运行</string>
     <string name="onb_oem_manual_hint">如果无法打开某个页面，请在设置中搜索显示的名称。</string>
     <string name="onb_oem_xiaomi">小米、Redmi或POCO</string>

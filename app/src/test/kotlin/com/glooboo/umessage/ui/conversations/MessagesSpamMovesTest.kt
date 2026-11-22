@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.BlockReceipt
@@ -13,7 +12,6 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.testing.ChatNotices
-import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.FakeSpamRepository
@@ -28,7 +26,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -39,9 +36,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class MessagesSpamMovesTest {
-
-    @get:Rule
-    val flag = ProviderTruthFlagRule(enabled = true)
 
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val repository = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())
@@ -94,7 +88,7 @@ class MessagesSpamMovesTest {
     fun blockHidesTheRowAtOnceAndMovesTheChat(): Unit = runBlocking {
         seedAutomaticAllow(AllowGroup.CODE)
         coroutineScope {
-            assertThat(moves(this).block(listOf(chat(7, SENDER, read = false)), token = 1L, report = false)).isTrue()
+            moves(this).block(listOf(chat(7, SENDER, read = false)), token = 1L, report = false)
             // Hidden at once, before the block is written.
             assertThat(hidden).containsExactly(7L)
         }
@@ -138,7 +132,7 @@ class MessagesSpamMovesTest {
     fun reportSpamEqualsBlockAndNoLongerArchives(): Unit = runBlocking {
         coroutineScope { moves(this).block(listOf(chat(7, SENDER)), token = 1L, report = true) }
         assertThat(rules().single().note).isEqualTo(RuleNotes.REPORTED_SPAM)
-        assertThat(events).containsExactly(ConversationsEvent.ReportedSpam(1L, 1, archived = false))
+        assertThat(events).containsExactly(ConversationsEvent.ReportedSpam(1L, 1))
     }
 
     @Test
@@ -150,17 +144,6 @@ class MessagesSpamMovesTest {
         assertThat(hidden).isEmpty()
         assertThat(events).containsExactly(ConversationsEvent.Failed)
         assertThat(sorted).isEmpty()
-    }
-
-    @Test
-    fun withTheFlagOffNothingChanges(): Unit = runBlocking {
-        ProviderTruthFlag.enabled = false
-        coroutineScope {
-            assertThat(moves(this).block(listOf(chat(7, SENDER)), token = 1L, report = false)).isFalse()
-            assertThat(moves(this).observeCount(0L)).isFalse()
-        }
-        assertThat(hidden).isEmpty()
-        assertThat(rules()).isEmpty()
     }
 
     @Test

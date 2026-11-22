@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">垃圾訊息篩選</string>
     <string name="spam_settings_unknown_body">未知寄件者是指不在你的聯絡人和允許清單上的寄件者。對方的整個對話會靜默移至「垃圾訊息」。你傳過簡訊的人和傳送驗證碼的寄件者會留在「訊息」中。</string>
-    <string name="spam_mode_strict">嚴格</string>
-    <string name="spam_mode_strict_body">封鎖所有未知寄件者，驗證碼也一樣</string>
-    <string name="spam_mode_smart">智慧</string>
-    <string name="spam_mode_smart_body">封鎖未知寄件者，但讓驗證碼通過</string>
-    <string name="spam_mode_off">關閉</string>
-    <string name="spam_mode_off_body">不封鎖未知寄件者</string>
-    <string name="spam_strict_warning_title">嚴格模式可能會隱藏重要訊息</string>
-    <string name="spam_strict_warning_body">銀行、物流公司及一次性驗證碼通常來自不在你聯絡人中的寄件者。在嚴格模式下，這些訊息會移至「垃圾訊息」資料夾，驗證碼也不例外。選擇「智慧」即可讓驗證碼通過，或先允許這些寄件者一次。</string>
-    <string name="spam_strict_warning_action">查看垃圾訊息</string>
     <string name="spam_settings_cleanup_title">清理</string>
     <string name="spam_purge_body">選擇天數之前保持關閉</string>
     <string name="spam_purge_days">%d天</string>

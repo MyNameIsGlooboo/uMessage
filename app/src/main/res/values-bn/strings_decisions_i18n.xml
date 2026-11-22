@@ -4,7 +4,6 @@
         <item quantity="one">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
         <item quantity="other">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
     </plurals>
-    <string name="decm_search_section_blocked">স্প্যাম</string>
     <string name="decm_blocked_search">স্প্যামে খুঁজুন</string>
     <string name="decm_blocked_search_hint">প্রেরক বা লেখা দিয়ে খুঁজুন</string>
     <string name="decm_blocked_search_close">খোঁজা বন্ধ করুন</string>

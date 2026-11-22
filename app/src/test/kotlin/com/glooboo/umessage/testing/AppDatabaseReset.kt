@@ -1,8 +1,12 @@
 package com.glooboo.umessage.testing
 
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.spam.FirstRun
+import com.glooboo.umessage.spam.SpamSorting
 import org.greenrobot.eventbus.EventBus
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * Closes and forgets the app's shared MessagesDatabase. Robolectric keeps static fields between the tests of one
@@ -18,9 +22,28 @@ import java.util.concurrent.ThreadPoolExecutor
  */
 fun resetSharedMessagesDatabase() {
     joinAppBackgroundThreads()
+    resetSortingState()
     val field = MessagesDatabase::class.java.getDeclaredField("db").apply { isAccessible = true }
     (field.get(null) as? MessagesDatabase)?.let { runCatching { it.close() } }
     field.set(null, null)
+}
+
+/**
+ * Fable F3: the sorting thread, its queue and the first-run state are process-wide, while Robolectric gives each test a
+ * new application. Waits until the sorting thread has run what is due, then forgets [SpamSorting]'s queue (it keeps the
+ * application it was built with) and its "installed" mark, and makes [FirstRun] read the next test's own stored state.
+ * A sort still waiting out its delay stays on the old queue.
+ */
+fun resetSortingState(timeoutMs: Long = 10_000L) {
+    val idle = CountDownLatch(1)
+    SpamSorting.execute(Runnable { idle.countDown() })
+    if (!idle.await(timeoutMs, TimeUnit.MILLISECONDS)) {
+        System.err.println("The sorting thread is still busy after $timeoutMs ms")
+    }
+    listOf("queue" to null, "installed" to false).forEach { (name, value) ->
+        SpamSorting::class.java.getDeclaredField(name).apply { isAccessible = true }.set(null, value)
+    }
+    FirstRun::class.java.getDeclaredField("loaded").apply { isAccessible = true }.set(null, false)
 }
 
 /** `Thread {}` gets the JVM's default name "Thread-N"; Room, coroutine and executor threads are named otherwise. */

@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">कोई रोका गया मैसेज मेल नहीं खाता</string>
     <string name="w3b_filter_none_body">कोई रोका गया मैसेज इस फ़िल्टर से मेल नहीं खाता. दूसरा फ़िल्टर चुनें या सभी देखें.</string>
     <string name="w3b_filter_show_all">सभी दिखाएं</string>
-    <string name="w3b_empty_body">uMessage %1$s मोड में निगरानी कर रहा है. रोके गए मैसेज यहां दिखेंगे.</string>
     <string name="w3b_why_link">मैसेज रोका गया क्योंकि भेजने वाला अनजान है और मैसेज में लिंक है.</string>
     <string name="w3b_why_unknown">मैसेज रोका गया क्योंकि भेजने वाला अनजान है.</string>
     <string name="w3b_why_rule">मैसेज रोका गया क्योंकि यह आपके ब्लॉक करने के किसी नियम से मेल खाता है.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">स्पैम में जाएगा: अनजान भेजने वाला.</string>
     <string name="w3b_verdict_allowed_rule">मैसेज टैब में जाएगा: आपके अनुमति देने के किसी नियम से मेल खाता है.</string>
     <string name="w3b_verdict_allowed_contact">मैसेज टैब में जाएगा: भेजने वाला आपके संपर्कों में है.</string>
-    <string name="w3b_verdict_allowed_known">मैसेज आ जाएगा: आपने इस नंबर पर पहले मैसेज भेजा है.</string>
     <string name="w3b_verdict_allowed_code">मैसेज टैब में जाएगा: पुष्टि करने का कोड है. इसके बाद भेजने वाले को अनुमति मिल जाएगी.</string>
     <string name="w3b_verdict_allowed_off">मैसेज टैब में जाएगा: स्पैम फ़िल्टर बंद है.</string>
     <string name="w3b_verdict_allowed_unsure">मैसेज टैब में जाएगा: संपर्क पढ़े नहीं जा सकते, इसलिए भेजने वाले के बारे में तय नहीं किया जा सकता.</string>

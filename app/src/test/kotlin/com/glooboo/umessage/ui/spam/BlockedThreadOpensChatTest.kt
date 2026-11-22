@@ -142,10 +142,10 @@ class BlockedThreadOpensChatTest {
         var closed = 0
         route(repo, NAME, threadId = 7L) { closed++ }
         compose.onNodeWithText(app.getString(R.string.ux8c_not_spam), useUnmergedTree = true).performClick()
-        // The chat waits for the answer to "Always allow this name?"; "Not now" changes nothing.
+        // The chat waits for the answer to "Always allow this name?"; Cancel changes nothing.
         awaitText(app.getString(R.string.nameallow_title))
         assertThat(closed).isEqualTo(0)
-        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
+        compose.onNodeWithText(app.getString(R.string.spam_cancel)).performClick()
         awaitClosed { closed > 0 }
 
         val chat = started().single { it.component?.className == ThreadActivity::class.java.name }
@@ -230,7 +230,7 @@ class BlockedThreadOpensChatTest {
         awaitText(app.getString(R.string.nameallow_title))
         tester.emulateSavedInstanceStateRestore()
         awaitText(app.getString(R.string.nameallow_title))
-        compose.onNodeWithText(app.getString(R.string.nameallow_not_now)).performClick()
+        compose.onNodeWithText(app.getString(R.string.spam_cancel)).performClick()
         awaitClosed { closed > 0 }
 
         assertThat(started().count { it.component?.className == ThreadActivity::class.java.name }).isEqualTo(1)

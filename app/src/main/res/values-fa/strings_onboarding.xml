@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">پیام‌های جدید را با دکمه‌های پاسخ و کپی کد به شما اطلاع می‌دهد.</string>
     <string name="onb_perm_allow_all">اجازه دادن به همه</string>
     <string name="onb_perm_open_settings">باز کردن تنظیمات</string>
-    <string name="onb_mode_title">نحوهٔ برخورد با فرستنده‌های ناشناس را انتخاب کنید</string>
-    <string name="onb_mode_strict">سخت‌گیرانه</string>
-    <string name="onb_mode_smart">هوشمند</string>
-    <string name="onb_mode_off">خاموش</string>
-    <string name="onb_mode_warning_title">دربارهٔ پیام‌های بانکی و کدها</string>
-    <string name="onb_mode_warning_body">در حالت سخت‌گیرانه، اعلان‌های بانکی، وضعیت تحویل و کدهای یک‌بارمصرف از فرستنده‌های ناشناس، حتی خود کدها، در «اسپم» نگه داشته می‌شوند. اعلانی دریافت نمی‌کنید، پس وقتی منتظر چنین پیامی هستید، «اسپم» را بررسی کنید.</string>
     <string name="onb_oem_title">uMessage را فعال نگه دارید</string>
     <string name="onb_oem_manual_hint">اگر صفحه‌ای باز نشد، نام نشان‌داده‌شده را در تنظیمات جستجو کنید.</string>
     <string name="onb_oem_xiaomi">Xiaomi، Redmi یا Poco</string>

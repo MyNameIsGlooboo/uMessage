@@ -91,7 +91,6 @@ import com.glooboo.umessage.helpers.OemStep
 import com.glooboo.umessage.helpers.OemStepKind
 import com.glooboo.umessage.helpers.StepCheck
 import com.glooboo.umessage.helpers.StepState
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.spam.ForwardingAvailability
 import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.setup.PermissionAsker
@@ -153,11 +152,8 @@ fun OnboardingScreen(
     val asker = rememberOnboardingAsker { refresh++ }
     val permanentlyDenied = asker.denied
 
-    val mode by viewModel.mode.collectAsStateWithLifecycle()
     val filterOn by viewModel.filterOn.collectAsStateWithLifecycle()
     val filterSaveFailed by viewModel.filterSaveFailed.collectAsStateWithLifecycle()
-    val purgeDays by viewModel.purgeDays.collectAsStateWithLifecycle()
-    val deliveryReports by viewModel.deliveryReports.collectAsStateWithLifecycle()
 
     // Raised after the default-app dialog closes during "Allow all"; handled once the screen is resumed again.
     var continueAllowAll by remember { mutableStateOf(false) }
@@ -223,7 +219,6 @@ fun OnboardingScreen(
         OnboardingPage.ALLOW ->
             if (isDefault && allGranted) stringResource(R.string.onb_next) else stringResource(R.string.onb_skip)
         OnboardingPage.KEEP_RUNNING -> stringResource(R.string.onb_finish)
-        OnboardingPage.MODE -> stringResource(R.string.onb_next)
     }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -253,7 +248,7 @@ fun OnboardingScreen(
                             context.findActivity()?.let { AppLanguage.apply(it, l) }
                         },
                         filterOn = filterOn,
-                        onFilter = if (ProviderTruthFlag.enabled) viewModel::setFilterOn else null,
+                        onFilter = viewModel::setFilterOn,
                         filterSaveFailed = filterSaveFailed,
                     )
 
@@ -279,16 +274,6 @@ fun OnboardingScreen(
                         onRequest = { requestPermissions(it.permissions) },
                         onAllowAll = ::allowAll,
                         onOpenSettings = { context.openAppSettings() },
-                    )
-
-                    OnboardingPage.MODE -> ModePage(
-                        modifier = pageModifier,
-                        mode = mode,
-                        onMode = viewModel::setMode,
-                        purgeDays = purgeDays,
-                        onPurgeDays = viewModel::setPurgeDays,
-                        deliveryReports = deliveryReports,
-                        onDeliveryReports = viewModel::setDeliveryReports,
                     )
 
                     OnboardingPage.KEEP_RUNNING ->

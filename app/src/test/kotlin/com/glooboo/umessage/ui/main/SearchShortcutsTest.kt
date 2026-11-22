@@ -128,8 +128,8 @@ class SearchShortcutsTest {
             dao.insertRecycleBinEntry(RecycleBinMessage(LINK_EVERY, false, 1))
 
             val start = System.nanoTime()
-            val links = SearchShortcuts.links(dao.getLinkCandidates(SearchShortcuts.CANDIDATES))
-            val pictures = SearchShortcuts.images(dao.getImageCandidates(SearchShortcuts.CANDIDATES))
+            val links = SearchShortcuts.links(dao.getLinkCandidatesOutsideSpam(SearchShortcuts.CANDIDATES))
+            val pictures = SearchShortcuts.images(dao.getImageCandidatesOutsideSpam(SearchShortcuts.CANDIDATES))
             val millis = (System.nanoTime() - start) / NANOS_PER_MILLI
 
             assertThat(links).isNotEmpty()

@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">%1$s के साथ पूरी चैट स्पैम में चली जाएगी और नए मैसेज वहां बिना आवाज़ के आएंगे. कोई मैसेज नहीं मिटाया जाता.</string>
     <string name="thread_report_spam_confirm">स्पैम के तौर पर मार्क करें</string>
     <string name="thread_report_spam_cancel">रद्द करें</string>
-    <string name="thread_report_spam_done">स्पैम के तौर पर मार्क किया गया</string>
     <string name="thread_report_spam_rule_note">स्पैम की शिकायत की गई</string>
-    <string name="thread_report_spam_already">पहले से स्पैम के तौर पर मार्क किया गया है</string>
-    <string name="thread_report_spam_failed">स्पैम के तौर पर मार्क नहीं किया जा सका</string>
     <string name="thread_report_spam_undo">पहले जैसा करें</string>
 </resources>

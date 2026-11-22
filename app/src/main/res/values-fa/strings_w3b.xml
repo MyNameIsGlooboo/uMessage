@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">هیچ پیام نگه‌داشته‌شده‌ای جور نیست</string>
     <string name="w3b_filter_none_body">هیچ پیام نگه‌داشته‌شده‌ای با این فیلتر جور نیست. فیلتر دیگری انتخاب کنید یا همه را نمایش دهید.</string>
     <string name="w3b_filter_show_all">نمایش همه</string>
-    <string name="w3b_empty_body">uMessage در حالت %1$s پیام‌ها را بررسی می‌کند. پیام‌هایی که نگه می‌دارد اینجا نمایش داده می‌شوند.</string>
     <string name="w3b_why_link">چون فرستنده ناشناس است و متن لینک دارد، پیام نگه داشته شد.</string>
     <string name="w3b_why_unknown">چون فرستنده ناشناس است، پیام نگه داشته شد.</string>
     <string name="w3b_why_rule">چون پیام با یکی از قانون‌های بلاک کردن شما جور درمی‌آید، نگه داشته شد.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">به اسپم می‌رود: فرستنده ناشناس است.</string>
     <string name="w3b_verdict_allowed_rule">به پیام‌ها می‌رود: با یکی از قانون‌های مجاز شما جور است.</string>
     <string name="w3b_verdict_allowed_contact">به پیام‌ها می‌رود: فرستنده در مخاطب‌های شماست.</string>
-    <string name="w3b_verdict_allowed_known">تحویل داده می‌شود: قبلاً به این شماره پیام داده‌اید.</string>
     <string name="w3b_verdict_allowed_code">به پیام‌ها می‌رود: کد تأیید است. فرستنده هم بعد از آن مجاز می‌شود.</string>
     <string name="w3b_verdict_allowed_off">به پیام‌ها می‌رود: فیلتر اسپم خاموش است.</string>
     <string name="w3b_verdict_allowed_unsure">به پیام‌ها می‌رود: خواندن مخاطب‌ها ممکن نیست، پس نمی‌توان دربارهٔ فرستنده تصمیم گرفت.</string>

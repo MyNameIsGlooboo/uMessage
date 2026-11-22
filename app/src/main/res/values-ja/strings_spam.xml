@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">迷惑メッセージフィルタ</string>
     <string name="spam_settings_unknown_body">不明な送信者とは、連絡先にも許可リストにもない送信者です。その会話はまるごと、通知なしで「迷惑メッセージ」に移動します。メッセージを送ったことのある相手と、認証コードの送信者は「メッセージ」に残ります。</string>
-    <string name="spam_mode_strict">厳格</string>
-    <string name="spam_mode_strict_body">不明な送信者からのメッセージは、認証コードも含めてすべてブロックします。</string>
-    <string name="spam_mode_smart">スマート</string>
-    <string name="spam_mode_smart_body">不明な送信者をブロックし、単純な認証コードは受信します。</string>
-    <string name="spam_mode_off">オフ</string>
-    <string name="spam_mode_off_body">不明な送信者をブロックしません。</string>
-    <string name="spam_strict_warning_title">厳格モードでは重要なメッセージも非表示になることがあります。</string>
-    <string name="spam_strict_warning_body">銀行や配送会社からのメッセージ、ワンタイムコードは、通常、連絡先にない送信者から届きます。厳格モードでは、認証コードも含めて「迷惑メッセージ」フォルダに入ります。認証コードを受信するには、スマートを選ぶか、送信者を一度許可してください。</string>
-    <string name="spam_strict_warning_action">迷惑メッセージを確認</string>
     <string name="spam_settings_cleanup_title">整理</string>
     <string name="spam_purge_body">日数を選ぶまではオフです</string>
     <string name="spam_purge_days">%d日</string>

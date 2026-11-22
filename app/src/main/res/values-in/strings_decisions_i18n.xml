@@ -3,7 +3,6 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">%d obrolan ditandai sudah dibaca</item>
     </plurals>
-    <string name="decm_search_section_blocked">Spam</string>
     <string name="decm_blocked_search">Cari di Spam</string>
     <string name="decm_blocked_search_hint">Cari berdasarkan pengirim atau teks</string>
     <string name="decm_blocked_search_close">Tutup pencarian</string>

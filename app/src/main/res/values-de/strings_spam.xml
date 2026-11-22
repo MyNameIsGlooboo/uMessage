@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Spamfilter</string>
     <string name="spam_settings_unknown_body">Ein unbekannter Absender ist nicht in deinen Kontakten und nicht auf deiner Liste „Erlaubt“. Sein ganzer Chat landet still in „Spam“. Personen, denen du geschrieben hast, und Absender eines Bestätigungscodes bleiben in „Nachrichten“.</string>
-    <string name="spam_mode_strict">Streng</string>
-    <string name="spam_mode_strict_body">Blockiert alle unbekannten Absender, auch Codes</string>
-    <string name="spam_mode_smart">Intelligent</string>
-    <string name="spam_mode_smart_body">Blockiert unbekannte Absender, lässt Bestätigungscodes durch</string>
-    <string name="spam_mode_off">Aus</string>
-    <string name="spam_mode_off_body">Blockiert keine unbekannten Absender</string>
-    <string name="spam_strict_warning_title">„Streng“ kann wichtige Nachrichten ausblenden</string>
-    <string name="spam_strict_warning_body">Nachrichten von Banken und Lieferdiensten sowie Einmalcodes kommen meist von Absendern, die nicht in deinen Kontakten sind. Im Modus „Streng“ landen sie unter „Spam“, auch Codes. Wähle „Intelligent“, um Codes durchzulassen, oder erlaube diese Absender einmalig.</string>
-    <string name="spam_strict_warning_action">Spam prüfen</string>
     <string name="spam_settings_cleanup_title">Aufräumen</string>
     <string name="spam_purge_body">Aus, bis du eine Anzahl Tage wählst</string>
     <string name="spam_purge_days">%d Tagen</string>

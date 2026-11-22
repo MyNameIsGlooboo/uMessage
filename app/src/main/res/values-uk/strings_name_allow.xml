@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Будь-хто може надсилати повідомлення під цими іменами: %1$s. Дозволити їх і перемістити чати в «Повідомлення»?</string>
     <string name="nameallow_more">%1$s і ще %2$d</string>
     <string name="nameallow_allow">Завжди дозволяти</string>
-    <string name="nameallow_not_now">Не зараз</string>
 </resources>

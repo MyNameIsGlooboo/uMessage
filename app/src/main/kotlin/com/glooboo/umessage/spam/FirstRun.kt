@@ -8,7 +8,6 @@ import androidx.core.content.edit
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getConversationsOrNull
 import com.glooboo.umessage.helpers.DefaultSmsRole
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.engine.SpamEngine
@@ -421,7 +420,6 @@ class FirstRunRunner(
  * Provider truth's first run (3.5, S5, D2 A) for this app: the runner on the sorting thread ([SpamSorting]), its
  * state for the pages of step G, and the five triggers of the history check: the update, the switch going on, a
  * reinstall (a fresh install) or a restore, uMessage becoming the default app again, and contacts becoming readable.
- * Nothing runs while [ProviderTruthFlag] is off.
  */
 object FirstRun {
     private const val RETRY_MS = 30_000L
@@ -453,7 +451,6 @@ object FirstRun {
      * default app again) into triggers. Off the main thread, on the sorting thread.
      */
     fun check(context: Context) {
-        if (!ProviderTruthFlag.enabled) return
         val app = context.applicationContext
         SpamSorting.execute(Runnable { runCatching { checkNow(app) } })
     }
@@ -466,7 +463,6 @@ object FirstRun {
 
     /** A trigger (3.5). The pass runs on the sorting thread. */
     fun request(context: Context, trigger: FirstRunTrigger) {
-        if (!ProviderTruthFlag.enabled) return
         val app = context.applicationContext
         SpamSorting.execute(Runnable { runCatching { finished(app, runner(app).request(trigger)) } })
     }

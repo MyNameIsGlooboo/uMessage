@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Готово</string>
     <string name="w3c_checklist_action_set">Настроить</string>
     <string name="w3c_checklist_action_open">Открыть</string>
-    <string name="w3c_receipt_title">Спам заблокирован: нажмите для просмотра</string>
-    <string name="w3c_receipt_body">Сообщение от неизвестного отправителя попало в «Спам». Оно не потеряно: вы можете просмотреть и восстановить его в любое время.</string>
     <string name="w3c_receipt_review">Просмотреть</string>
-    <string name="w3c_receipt_got_it">Понятно</string>
     <string name="w3c_new_paste">Вставить номер</string>
     <string name="w3c_new_paste_none">В буфере обмена нет номера телефона</string>
     <string name="w3c_details_allow_spoof_hint">Любой может отправлять сообщения под этим именем, и они тоже будут разрешены</string>

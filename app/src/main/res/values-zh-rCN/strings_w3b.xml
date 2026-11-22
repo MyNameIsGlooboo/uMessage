@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">没有匹配的暂存消息</string>
     <string name="w3b_filter_none_body">没有符合此筛选条件的暂存消息。请选择其他条件，或显示全部。</string>
     <string name="w3b_filter_show_all">显示全部</string>
-    <string name="w3b_empty_body">uMessage正以%1$s模式过滤消息。暂存的消息会显示在这里。</string>
     <string name="w3b_why_link">因发件人未知且正文含链接，消息已暂存。</string>
     <string name="w3b_why_unknown">因发件人未知，消息已暂存。</string>
     <string name="w3b_why_rule">因匹配你的某条屏蔽规则，消息已暂存。</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">将进入“垃圾短信”：未知发件人。</string>
     <string name="w3b_verdict_allowed_rule">将进入“消息”：匹配你的某条允许规则。</string>
     <string name="w3b_verdict_allowed_contact">将进入“消息”：发件人在你的联系人中。</string>
-    <string name="w3b_verdict_allowed_known">将送达：你曾向此号码发送过短信。</string>
     <string name="w3b_verdict_allowed_code">将进入“消息”：这是验证码。之后该发件人会被允许。</string>
     <string name="w3b_verdict_allowed_off">将进入“消息”：垃圾短信过滤已关闭。</string>
     <string name="w3b_verdict_allowed_unsure">将进入“消息”：无法读取联系人，因此无法判断发件人。</string>

@@ -8,7 +8,6 @@ import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.helpers.BlockedKeywordsFormat
 import com.glooboo.umessage.helpers.DateStyle
 import com.glooboo.umessage.helpers.NavPrefs
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.TextSize
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3aPrefs
@@ -37,7 +36,6 @@ import java.io.InputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
-import org.fossify.commons.extensions.baseConfig
 
 /**
  * Backup and restore of the allow/block rules, the forward rules and every setting of the app (spam settings, bottom
@@ -204,7 +202,7 @@ object SettingsBackup {
             )
             // An older backup's blocked words become rules at once, like on the phone they came from.
             BlockingMigration.runOnce(app)
-            // Provider truth (3.5): the rules and members that came back re-sort the chats; nothing with the flag off.
+            // Provider truth (3.5): the rules and members that came back re-sort the chats.
             FirstRun.request(app, FirstRunTrigger.RESTORE)
             Result(
                 rulesAdded = rulesAdded,
@@ -246,12 +244,8 @@ object SettingsBackup {
         val w3c = W3cPrefs.get(context)
         val config = context.config
         val core = BackupSettings(
-            spamMode = if (ProviderTruthFlag.enabled) {
-                // 7.1: older app versions read the switch as the mode it maps to.
-                if (spam.filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF
-            } else {
-                exportedMode(spam.mode, context.baseConfig.blockUnknownNumbers)
-            },
+            // 7.1: older app versions read the switch as the mode it maps to.
+            spamMode = if (spam.filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
             purgeAfterDays = spam.purgeAfterDays,
             notifyOnBlock = spam.notifyOnBlock,
             showForwardedTab = nav.showForwardedTab,
@@ -332,10 +326,6 @@ object SettingsBackup {
      */
     internal fun restoredFilterOn(s: BackupSettings, mode: UnknownSenderMode, current: Boolean): Boolean =
         s.filterOn ?: if (s.spamMode != null) mode != UnknownSenderMode.OFF else current
-
-    /** The mode a backup file states: what the phone acts as, the old "Block unknown numbers" switch counted in. */
-    internal fun exportedMode(mode: UnknownSenderMode, switchOn: Boolean): UnknownSenderMode =
-        BlockingMigration.modeAfterSwitch(mode, switchOn)
 
     /** The Forwarded tab, code masking and the daily limit. A restore can stop forwarding, never start it. */
     private fun applyForwarding(context: Context, s: BackupSettings) {

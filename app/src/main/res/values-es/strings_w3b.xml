@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">No hay mensajes retenidos que coincidan</string>
     <string name="w3b_filter_none_body">Ningún mensaje retenido coincide con este filtro. Elige otro o muestra todos.</string>
     <string name="w3b_filter_show_all">Mostrar todos</string>
-    <string name="w3b_empty_body">uMessage está atento en modo %1$s. Los mensajes que retenga aparecerán aquí.</string>
     <string name="w3b_why_link">Retenido porque el remitente es desconocido y el texto contiene un enlace.</string>
     <string name="w3b_why_unknown">Retenido porque el remitente es desconocido.</string>
     <string name="w3b_why_rule">Retenido porque coincide con una de tus reglas de bloqueo.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Iría a Spam: remitente desconocido.</string>
     <string name="w3b_verdict_allowed_rule">Iría a Mensajes: coincide una de tus reglas para permitir.</string>
     <string name="w3b_verdict_allowed_contact">Iría a Mensajes: el remitente está en tus contactos.</string>
-    <string name="w3b_verdict_allowed_known">Se entregaría: ya enviaste mensajes a este número.</string>
     <string name="w3b_verdict_allowed_code">Iría a Mensajes: un código de verificación. Después, el remitente queda permitido.</string>
     <string name="w3b_verdict_allowed_off">Iría a Mensajes: el filtro de spam está desactivado.</string>
     <string name="w3b_verdict_allowed_unsure">Iría a Mensajes: no se pueden leer los contactos, así que no se puede evaluar al remitente.</string>

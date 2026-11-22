@@ -76,8 +76,6 @@ import com.glooboo.umessage.spam.BlockedMessage
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamStats
-import com.glooboo.umessage.spam.UnknownSenderMode
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.conversations.SimBadge
 import com.glooboo.umessage.ui.components.EmptyState
@@ -185,10 +183,6 @@ internal fun BlockedEvents(
                         }
                         settled(result != SnackbarResult.ActionPerformed)
                     }
-                    is BlockedEvent.ModeChanged -> {
-                        val result = snackbar.showSnackbar(text, undoLabel, duration = SnackbarDuration.Long)
-                        if (result == SnackbarResult.ActionPerformed) viewModel.undoMode(event.previous)
-                    }
                     is BlockedEvent.Deleted -> {
                         undoOpen = true
                         val result = try {
@@ -220,8 +214,6 @@ private fun eventText(
 ): String =
     when (event) {
         is BlockedEvent.Restored -> restoredSnackText(resources, event, shownNumber)
-        is BlockedEvent.ModeChanged ->
-            resources.getString(R.string.blocked_snack_mode, resources.getString(blockedModeLabel(event.mode)))
         is BlockedEvent.Deleted -> resources.getQuantityString(R.plurals.spam_snack_deleted, event.count, event.count)
         BlockedEvent.Failed -> failedText
         is BlockedEvent.RestoreFailed ->
@@ -450,7 +442,7 @@ internal fun resetEmptyCardPlayed() {
     emptyCardPlayed = false
 }
 
-/** The rows above the senders: the contacts hint, the mode line (0.4.14 only), the search, the tip, the filters. */
+/** The rows above the senders: the contacts hint, the search, the tip, the filters. */
 private fun LazyListScope.blockedHeaderItems(
     state: BlockedUiState,
     actions: BlockedActions,
@@ -458,12 +450,6 @@ private fun LazyListScope.blockedHeaderItems(
     onCloseSearch: () -> Unit,
 ) {
     item(key = "contacts-off") { ContactsOffBanner(state.mode) }
-    // Provider truth (4.6): the mode line goes with the modes; the filter switch lives in Settings.
-    if (!ProviderTruthFlag.enabled) {
-        item(key = "stats") {
-            BlockedLine(state.stats, state.mode, onOpenSettings = actions.onOpenSettings)
-        }
-    }
     if (state.heldCount > 0 && searching) {
         item(key = "search") { BlockedSearchField(state.query, actions.onSetQuery, onCloseSearch) }
     }
@@ -493,7 +479,7 @@ private fun BlockedList(
         when {
             // Nothing held: say what uMessage is doing, so a fresh install does not look switched off (ID-17).
             state.heldCount == 0 -> {
-                item(key = "empty") { BlockedEmpty(state.mode) }
+                item(key = "empty") { BlockedEmpty() }
                 item(key = "empty-how") {
                     val cardMode = rememberSortingCardMode(state.mode) ?: return@item
                     // Plays once each time the app is opened; later visits of the tab show the finished card.
@@ -557,13 +543,13 @@ private fun BlockedSearchField(query: String, onQuery: (String) -> Unit, onClose
     )
 }
 
-/** Text only (U48): the line above has the mode, and it opens the settings. */
+/** Text only (U48), with the Spam tab's empty text. */
 @Composable
-private fun BlockedEmpty(mode: UnknownSenderMode) {
+private fun BlockedEmpty() {
     EmptyState(
         iconRes = R.drawable.ic_spam_shield_check,
         title = stringResource(R.string.spam_blocked_empty_title),
-        body = stringResource(R.string.w3b_empty_body, stringResource(blockedModeLabel(mode))),
+        body = stringResource(R.string.pt_spam_empty_body),
     )
 }
 

@@ -166,7 +166,6 @@ import com.glooboo.umessage.ui.thread.ThreadPrivacyActions
 import com.glooboo.umessage.ui.lock.HiddenChatGate
 import com.glooboo.umessage.ui.lock.LockedLeave
 import com.glooboo.umessage.ui.lock.SpamChatGate
-import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.ui.thread.ChatLineAction
 import com.glooboo.umessage.ui.thread.ChatLineController
 import com.glooboo.umessage.ui.lock.LockScope
@@ -671,7 +670,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // A refused provider write must not skip the saved flags or the list refresh.
             runCatching { markThreadMessagesRead(thread) }
             // Provider truth (3.4): opening a Spam chat clears uMessage's own unread count of it.
-            if (ProviderTruthFlag.enabled) runCatching { conversationsDB.clearSpamUnread(thread) }
+            runCatching { conversationsDB.clearSpamUnread(thread) }
             repository.markAllRead(thread)
             bus?.post(Events.RefreshConversations(thread))
             // A notification posted while the chat was being read would otherwise stay.
@@ -827,7 +826,6 @@ open class ThreadActivity : ComposeSimpleActivity() {
             snackbar = vm.snackbar,
             recipients = { recipients },
             senderName = { vm.title },
-            lastReceivedSubscriptionId = { messages.lastOrNull { it.isReceivedMessage() }?.subscriptionId ?: -1 },
             onStatusChanged = { refreshMenuItems() },
             threadId = { threadId },
         )
