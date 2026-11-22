@@ -1,9 +1,9 @@
 package com.glooboo.umessage.databases
 
 import android.content.Context
+import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import androidx.sqlite.db.SupportSQLiteDatabase
 import java.io.File
 
 /**
@@ -25,6 +25,9 @@ internal object DatabaseBackups {
     private val BACKUP_NAME = Regex("""\.v(\d+)-backup$""")
     private val IMPORTED_NAME = Regex("""\.v(\d+)-imported$""")
     private val STATE_SUFFIX = Regex("""-(backup|imported)$""")
+
+    /** For the restore connection: logs, and deletes nothing (the default handler deletes the corrupt files). */
+    private val KEEP_FILES = DatabaseErrorHandler { Log.e(TAG, "A database reported corruption during a restore") }
 
     /** Where a database file written by schema [version] is kept after a downgrade. */
     fun backupFile(context: Context, name: String, version: Int): File =
@@ -131,16 +134,15 @@ internal object DatabaseBackups {
 
     /**
      * Copies a backup to a scratch database next to [name], lets [migrate] bring it to the current schema (it opens
-     * and closes the scratch database by its name), then runs [block] with it attached to [db] as `src`.
-     * The scratch files are always deleted.
+     * and closes the scratch database by its name), then runs [block] on a connection of its own to database [name]
+     * with the copy attached as `src` (see [withAttached]). The scratch files are always deleted.
      */
     fun <T> withMigratedCopy(
         context: Context,
         name: String,
         backup: File,
-        db: SupportSQLiteDatabase,
         migrate: (scratchName: String) -> Unit,
-        block: () -> T,
+        block: (db: SQLiteDatabase) -> T,
     ): T {
         val scratchName = "$name.restore-tmp"
         val scratch = context.getDatabasePath(scratchName)
@@ -149,27 +151,37 @@ internal object DatabaseBackups {
             // Checked first: SQLite's corruption handler would quietly replace an unreadable file with an empty one.
             checkNotNull(fileVersion(scratch)) { "${backup.name} is not a readable database" }
             migrate(scratchName)
-            return withAttached(db, scratch, block)
+            return withAttached(context.getDatabasePath(name), scratch, block)
         } finally {
             deleteWithCompanions(scratch)
         }
     }
 
-    /** Runs [block] with [file] attached to [db] as `src`. Must not be called inside a transaction. */
-    fun <T> withAttached(db: SupportSQLiteDatabase, file: File, block: () -> T): T {
-        db.execSQL("ATTACH DATABASE ? AS src", arrayOf<Any?>(file.path))
-        try {
-            return block()
-        } finally {
-            db.execSQL("DETACH DATABASE src")
+    /**
+     * Opens a connection of its own to the database file [live], attaches [file] to it as `src`, runs [block] with it
+     * and closes it.
+     *
+     * Never Room's connection (J14, Run 13): Android answers the first ATTACH on a connection pool by turning WAL off,
+     * which closes the pool's connection and opens a new one. That drops the old connection's temp schema, and with
+     * it Room's invalidation table (`room_table_modification_log`, made in Room's own onOpen, before the callbacks),
+     * so the first observed query after the restore crashed with "no such table". This connection is closed here, so
+     * Room's stays as Room set it up.
+     */
+    fun <T> withAttached(live: File, file: File, block: (db: SQLiteDatabase) -> T): T =
+        SQLiteDatabase.openDatabase(live.path, null, SQLiteDatabase.OPEN_READWRITE, KEEP_FILES).use { db ->
+            db.execSQL("ATTACH DATABASE ? AS src", arrayOf<Any>(file.path))
+            try {
+                block(db)
+            } finally {
+                db.execSQL("DETACH DATABASE src")
+            }
         }
-    }
 
     data class Column(val name: String, val notNull: Boolean, val hasDefault: Boolean, val primaryKey: Boolean)
 
     /** The columns of [table] in the attached [schema] (`main` or `src`); empty when the table does not exist. */
-    fun columns(db: SupportSQLiteDatabase, schema: String, table: String): List<Column> =
-        db.query("PRAGMA $schema.table_info(`$table`)").use { cursor ->
+    fun columns(db: SQLiteDatabase, schema: String, table: String): List<Column> =
+        db.rawQuery("PRAGMA $schema.table_info(`$table`)", null).use { cursor ->
             val name = cursor.getColumnIndexOrThrow("name")
             val notNull = cursor.getColumnIndexOrThrow("notnull")
             val default = cursor.getColumnIndexOrThrow("dflt_value")
@@ -187,7 +199,7 @@ internal object DatabaseBackups {
      * the table is missing there, or `main` needs a value (NOT NULL, no default) that `src` does not have. A rowid
      * primary key is exempt, SQLite fills it in.
      */
-    fun sharedColumns(db: SupportSQLiteDatabase, table: String): List<String>? {
+    fun sharedColumns(db: SQLiteDatabase, table: String): List<String>? {
         val main = columns(db, "main", table)
         val src = columns(db, "src", table).map { it.name }.toSet()
         if (main.isEmpty() || src.isEmpty()) return null
@@ -201,7 +213,7 @@ internal object DatabaseBackups {
      * keeping every row `main` already has (INSERT OR IGNORE on its keys). Returns false when the table cannot be
      * copied (see [sharedColumns]).
      */
-    fun copyRows(db: SupportSQLiteDatabase, table: String, where: String = "1"): Boolean {
+    fun copyRows(db: SQLiteDatabase, table: String, where: String = "1"): Boolean {
         val shared = sharedColumns(db, table) ?: return false
         val list = shared.joinToString { "`$it`" }
         val select = shared.joinToString { "s.`$it`" }
@@ -215,7 +227,7 @@ internal object DatabaseBackups {
      * already in `main` is skipped; otherwise it keeps its id when that id is free, or gets a new one. Rows that
      * break a unique index are skipped. Returns false when the table cannot be copied.
      */
-    fun mergeRows(db: SupportSQLiteDatabase, table: String, id: String = "id", where: String = "1"): Boolean {
+    fun mergeRows(db: SQLiteDatabase, table: String, id: String = "id", where: String = "1"): Boolean {
         val shared = sharedColumns(db, table) ?: return false
         val content = shared.filter { it != id }
         val same = content.joinToString(" AND ") { "m.`$it` IS s.`$it`" }.ifEmpty { "1" }
@@ -235,7 +247,7 @@ internal object DatabaseBackups {
     }
 
     /** Runs [block] in a transaction on [db]; a throw rolls everything back. */
-    inline fun <T> inTransaction(db: SupportSQLiteDatabase, block: () -> T): T {
+    inline fun <T> inTransaction(db: SQLiteDatabase, block: () -> T): T {
         db.beginTransaction()
         try {
             return block().also { db.setTransactionSuccessful() }

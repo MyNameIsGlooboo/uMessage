@@ -1,6 +1,6 @@
 package com.glooboo.umessage.databases
 
-import androidx.sqlite.db.SupportSQLiteDatabase
+import android.database.sqlite.SQLiteDatabase
 
 /**
  * DA2: brings the labels of a downgrade backup back without id collisions. Labels have generated ids, and the live
@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 internal object LabelRecovery {
 
     /** Merges `src.labels` into `main.labels` and copies `src.conversation_labels` through the id mapping. */
-    fun merge(db: SupportSQLiteDatabase) {
+    fun merge(db: SQLiteDatabase) {
         if (!DatabaseBackups.mergeRows(db, "labels")) return
         val shared = DatabaseBackups.sharedColumns(db, "labels")?.filter { it != "id" }.orEmpty()
         if (DatabaseBackups.sharedColumns(db, "conversation_labels") == null) return

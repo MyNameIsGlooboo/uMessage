@@ -34,18 +34,23 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 internal class MessagesDatabaseRecovery(private val context: Context, private val name: String) :
     RoomDatabase.Callback() {
 
+    /**
+     * Never runs SQL on [db], Room's own connection: the restore opens a connection of its own
+     * ([DatabaseBackups.withAttached]), so whatever it does or throws cannot touch the invalidation table Room set up
+     * on [db] just before this callback (J14). Every failure is caught and leaves the backup for the next open.
+     */
     override fun onOpen(db: SupportSQLiteDatabase) {
         val newest = DatabaseBackups.restorableBackups(context, name, MessagesDatabase.VERSION).firstOrNull() ?: return
-        runCatching { restoreFromNewestBackup(db) }.onFailure {
+        runCatching { restoreFromNewestBackup() }.onFailure {
             Log.e(TAG, "Restoring $name from a backup failed", it)
             runCatching { RecoveryAttempts.failed(context, newest) }
         }
     }
 
-    private fun restoreFromNewestBackup(db: SupportSQLiteDatabase) {
+    private fun restoreFromNewestBackup() {
         val backups = DatabaseBackups.restorableBackups(context, name, MessagesDatabase.VERSION)
         val newest = backups.firstOrNull() ?: return
-        DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
+        DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
             DatabaseBackups.inTransaction(db) {
                 val recycled = "EXISTS (SELECT 1 FROM src.recycle_bin_messages r " +
                     "WHERE r.id = s.id AND r.is_mms = s.is_mms)"
