@@ -9,6 +9,7 @@ import android.os.Build
 import android.provider.Telephony
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
+import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -146,8 +147,26 @@ class AppStartReceiveDeviceTest {
                 DeviceTest.waitFor { dao.getMessagesList().any { it.threadId == helloRow.thread } },
             )
             assertFalse("allowed text: not in Spam", dao.isInSpam(helloRow.thread))
-            val shown = DeviceTest.waitFor(timeoutMs = 20_000L) { shows(hello) }
-            assertTrue("allowed text: on the main screen (first-run page up: ${firstRunPageUp()})", shown)
+            // Visible at once, or further down the list: then the list is scrolled (at most 10 pages) to find it.
+            var shown = DeviceTest.waitFor(timeoutMs = 20_000L) { shows(hello) }
+            // Before any scroll: a list that can still scroll up is not at the top, though the newest chat should be
+            // in view there (KeepNewestInView). The test never scrolls up, so that case fails and is reported.
+            val atTop = listAtTop()
+            var scrolls = 0
+            while (!shown && scrolls < MAX_SCROLLS && scrollListDown()) {
+                scrolls++
+                shown = DeviceTest.waitFor(timeoutMs = 2_000L) { shows(hello) }
+            }
+            val listed = dao.getMessagesList()
+            val where = "first-run page up: ${firstRunPageUp()}; list at top: $atTop; list position " +
+                "${listed.indexOfFirst { it.threadId == helloRow.thread }} of ${listed.size}; scrolled $scrolls pages"
+            if (scrolls > 0 || !shown) {
+                // One line per node: logcat cuts a single long entry at about 4 KB.
+                Log.d(LOG_TAG, "Main screen, $where")
+                screenTree().lines().forEach { Log.d(LOG_TAG, it) }
+            }
+            val screen = if (shown) "" else screenTexts().take(SCREEN_TEXT_MAX)
+            assertTrue("allowed text: on the main screen ($where). Screen: $screen", shown)
 
             val advertRow = storedRow(BLOCKED, advert)
             threads += advertRow.thread
@@ -186,14 +205,52 @@ class AppStartReceiveDeviceTest {
     private data class Stored(val read: Int, val seen: Int, val thread: Long)
 
     /** Whether a window of the app (not the shade, not a heads-up) shows [text]. */
-    private fun shows(text: String): Boolean {
+    private fun shows(text: String): Boolean = appRoots().any { contains(it, text) }
+
+    /** The roots of the app's own windows (no system UI, no shade, no heads-up). */
+    private fun appRoots(): List<AccessibilityNodeInfo> {
         val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
         automation.serviceInfo = automation.serviceInfo.apply {
             flags = flags or AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
         }
         val roots = automation.windows.mapNotNull { it.root }.ifEmpty { listOfNotNull(automation.rootInActiveWindow) }
-        return roots.filter { it.packageName == app.packageName }.any { contains(it, text) }
+        return roots.filter { it.packageName == app.packageName }
     }
+
+    /** Every node of the app's windows, depth first, with its depth. */
+    private fun appNodes(): List<Pair<Int, AccessibilityNodeInfo>> = buildList {
+        fun walk(node: AccessibilityNodeInfo, depth: Int) {
+            add(depth to node)
+            for (i in 0 until node.childCount) node.getChild(i)?.let { walk(it, depth + 1) }
+        }
+        appRoots().forEach { walk(it, 0) }
+    }
+
+    /** The texts and content descriptions the app's windows show, in order (made-up test data only). */
+    private fun screenTexts(): String = appNodes().flatMap { (_, node) ->
+        listOfNotNull(node.text?.toString(), node.contentDescription?.toString())
+    }.filter { it.isNotBlank() }.joinToString(" | ")
+
+    /** The node tree of the app's windows: class, text, description, scrollable. */
+    private fun screenTree(): String = appNodes().joinToString("\n") { (depth, node) ->
+        "  ".repeat(depth) + node.className?.toString()?.substringAfterLast('.') +
+            node.text?.let { " text=\"$it\"" }.orEmpty() +
+            node.contentDescription?.let { " desc=\"$it\"" }.orEmpty() +
+            (if (node.isScrollable) " scrollable" else "")
+    }
+
+    /** The app's biggest scrollable node (the chat list), null when there is none. */
+    private fun chatList(): AccessibilityNodeInfo? =
+        appNodes().map { it.second }.filter { it.isScrollable }.maxByOrNull { it.childCount }
+
+    /** Whether the chat list is at its top (it offers no scroll up); null when there is no list on screen. */
+    private fun listAtTop(): Boolean? = chatList()?.let { list ->
+        list.actionList.none { it.id == AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_BACKWARD.id }
+    }
+
+    /** One page down in the app's biggest scrollable node (the chat list); false when there is none or at its end. */
+    private fun scrollListDown(): Boolean =
+        chatList()?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD) == true
 
     private fun contains(node: AccessibilityNodeInfo, text: String): Boolean {
         if (node.text?.contains(text) == true || node.contentDescription?.contains(text) == true) return true
@@ -208,6 +265,9 @@ class AppStartReceiveDeviceTest {
 
     private companion object {
         const val FIRST_RUN_TIMEOUT_MS = 240_000L
+        const val MAX_SCROLLS = 10
+        const val SCREEN_TEXT_MAX = 1_500
+        const val LOG_TAG = "uMessageTest"
         const val ALLOWED = "+15550004121"
         const val BLOCKED = "+15550004122"
         val SENDERS = listOf(ALLOWED, BLOCKED)
