@@ -5,7 +5,7 @@ language is Persian; layouts mirror to right-to-left on their own.
 
 ## Glossary
 
-Use these terms everywhere, in the app's own strings and in the vendored commons strings. The tone is the
+Use these terms everywhere, in the app's own strings and in the commons strings the app shows. The tone is the
 everyday spoken Persian of popular apps (Telegram, WhatsApp, Instagram): short, plain, common loanwords are
 welcome ("بلاک"، "لینک"، "بک‌آپ"). Address the user with the polite plural verb ("کنید") and avoid stiff
 officialese. The 0.4.2 pass replaced the formal words below with the spoken ones (732 strings).
@@ -14,9 +14,9 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 |---|---|---|
 | Spam | اسپم | Tab and screen title: اسپم. Formerly هرزنامه. |
 | Report spam | گزارش اسپم | |
-| Not spam | اسپم نیست | Button that restores a message from Spam. |
+| Not spam | اسپم نیست | The one name of the action that allows a sender and moves its chat to Messages. |
 | Block / Blocked | بلاک کردن / بلاک‌شده | "Block sender" = بلاک کردن فرستنده. Formerly مسدود. |
-| Unblock | رفع بلاک | |
+| Unblock | آنبلاک | "Unblocked" = آنبلاک شد. The app says آنبلاک everywhere (owner, 19 Nov 2026); not رفع بلاک. |
 | Allow / Allowed | اجازه دادن / مجاز | allow list = لیست مجاز. |
 | Rule / Rules | قانون / قانون‌ها | Kept. |
 | Unknown sender | فرستنده ناشناس | Kept. |
@@ -47,7 +47,7 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 | App lock / PIN | قفل برنامه / پین | |
 | Password | رمز | Formerly گذرواژه. |
 | SIM | سیم‌کارت | |
-| Inbox | صندوق ورودی | |
+| Inbox | صندوق ورودی | Only in old strings of the old Spam list. The tab where chats live is «پیام‌ها»; new and changed texts say پیام‌ها, never صندوق ورودی. |
 | Default SMS app | برنامهٔ پیام پیش‌فرض | |
 | App | برنامه | |
 | Theme | زمینه | |
@@ -76,6 +76,7 @@ officialese. The 0.4.2 pass replaced the formal words below with the spoken ones
 
 Words that deliberately stay: بازیابی, ارسال, گفتگو, فرستنده, قانون, الگو, اعلان, مخاطب. The search-keyword
 strings (`sks_*`) keep the old formal words next to the new ones, so a setting is found with either word.
+A unit test (`PersianRetiredWordsTest`) fails when any other Persian string uses a word marked "Formerly" above.
 Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 
 ## Writing rules
@@ -86,7 +87,7 @@ Names stay as they are: uMessage, Google Drive, SMS/MMS, GPL, Material You.
 - Keep placeholders (`%1$s`, `%d`, `%%`), HTML tags, `\n` and `\'` exactly as in English. The unit test
   checks that every Persian string has the same placeholders as the English one.
 - Digits: counts, times and sizes show Persian digits (۰-۹). `%d` placeholders get them from the app's
-  locale; a number written into a Persian string ("پس از ۳۰ ثانیه") uses Persian digits too; code that
+  locale; a number written into a Persian string ("بعد از ۳۰ ثانیه") uses Persian digits too; code that
   builds a number label uses `localizedNumber` / `localizeDigits` (ui/components/LocalizedNumbers.kt),
   never `toString()`. A phone number or number-only sender shown on screen (list, Archive, search,
   thread header, Details) goes through `displayNumber` (ui/components/PhoneNumberDisplay.kt), which

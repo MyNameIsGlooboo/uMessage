@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Motif</string>
     <string name="thread_r2_details_rule">Règle</string>
     <string name="thread_r2_details_forwarded">Transféré</string>
-    <string name="thread_r2_details_decision_restored">Bloqué, puis restauré dans votre boîte de réception</string>
+    <string name="thread_r2_details_decision_restored">Bloqué, puis déplacé dans Messages</string>
     <string name="thread_r2_details_copy">Copier %1$s</string>
     <string name="thread_r2_menu_search">Rechercher dans la conversation</string>
     <string name="thread_r2_menu_always_forward">Toujours transférer les messages de cet expéditeur</string>

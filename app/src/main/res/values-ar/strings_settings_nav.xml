@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">في وضع التصفية الصارم، تنتقل الرموز من مرسلين غير مسجّلين في جهات اتصالك إلى «غير المرغوب فيها» مع بقية الرسائل. تُحتجز رسائل البنوك وشركات التوصيل أيضًا.</string>
     <string name="settings_nav_strict_confirm_action">استخدم وضع التصفية الصارم</string>
     <string name="settings_nav_strict_confirm_cancel">أبقِ الوضع الحالي</string>
-    <string name="settings_nav_purge_row">احذف الرسائل غير المرغوب فيها بعد</string>
+    <string name="settings_nav_purge_row">حذف الرسائل غير المرغوب فيها القديمة تلقائيًا</string>
     <string name="settings_nav_group_alerts">التنبيهات</string>
-    <string name="settings_nav_notify_body">إشعار صامت لكل رسالة غير مرغوب فيها</string>
+    <string name="settings_nav_notify_body">إشعار واحد صامت يفتح «غير المرغوب فيها». لا يظهر أبدًا لمرسل حظرته.</string>
     <string name="settings_nav_theme_title">المظهر</string>
     <string name="settings_nav_theme_modes">الوضع</string>
     <string name="settings_nav_theme_colours">الألوان</string>

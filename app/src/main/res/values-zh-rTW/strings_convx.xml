@@ -2,8 +2,8 @@
 <resources>
     <string name="convx_code_chip">驗證碼%1$s</string>
     <string name="convx_code_copy">複製</string>
-    <string name="convx_block_archive">封鎖並封存</string>
-    <string name="convx_block_archive_hint">之後的簡訊會移至「垃圾訊息」，資料不會離開你的手機。</string>
+    <string name="convx_block_archive">檢舉垃圾訊息</string>
+    <string name="convx_block_archive_hint">對話會移至「垃圾訊息」，資料不會離開你的手機。</string>
     <string name="convx_name_label">名稱</string>
     <string name="convx_clear">清除</string>
     <string name="convx_reset_name">重設為預設名稱</string>

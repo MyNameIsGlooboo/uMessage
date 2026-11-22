@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Lý do</string>
     <string name="thread_r2_details_rule">Quy tắc</string>
     <string name="thread_r2_details_forwarded">Đã chuyển tiếp</string>
-    <string name="thread_r2_details_decision_restored">Đã chặn, sau đó khôi phục vào hộp thư đến của bạn</string>
+    <string name="thread_r2_details_decision_restored">Đã chặn, sau đó chuyển vào mục Tin nhắn</string>
     <string name="thread_r2_details_copy">Sao chép %1$s</string>
     <string name="thread_r2_menu_search">Tìm trong cuộc trò chuyện</string>
     <string name="thread_r2_menu_always_forward">Luôn chuyển tiếp tin nhắn từ người gửi này</string>

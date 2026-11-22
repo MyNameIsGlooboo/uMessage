@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Tutaj pojawiają się czaty nieznanych nadawców i nadawców, których zablokujesz.</string>
+    <string name="pt_spam_filter_off_strip">Filtr spamu jest wyłączony</string>
+    <string name="pt_spam_filter_off_body">Tutaj są tylko nadawcy zablokowani przez ciebie.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">Usunąć %d czat z tego telefonu?</item>
+        <item quantity="few">Usunąć %d czaty z tego telefonu?</item>
+        <item quantity="many">Usunąć %d czatów z tego telefonu?</item>
+        <item quantity="other">Usunąć %d czatu z tego telefonu?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Wiadomości zostaną usunięte dla każdej aplikacji, nie tylko w uMessage. Zaraz potem możesz to cofnąć, później już nie.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">Odblokowano. Czat wrócił do folderu Wiadomości.</item>
+        <item quantity="few">Odblokowano %d nadawców. Ich czaty wróciły do folderu Wiadomości.</item>
+        <item quantity="many">Odblokowano %d nadawców. Ich czaty wróciły do folderu Wiadomości.</item>
+        <item quantity="other">Odblokowano %d nadawcy. Ich czaty wróciły do folderu Wiadomości.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Stary spam zapisany tylko w uMessage</string>
+    <string name="pt_older_spam_hint">Tych wiadomości nie ma jeszcze na samym telefonie. Większość trafi tam, gdy uMessage będzie twoją domyślną aplikacją do SMS-ów. Do tego czasu możesz je czytać tutaj.</string>
+    <string name="pt_block_still_allowed">Nie przeniesiono do folderu Spam: jedna z twoich reguł zezwalania nadal przepuszcza tego nadawcę.</string>
+    <string name="pt_unblock_refused_prefix">Nie odblokowano: reguła blokuje numery zaczynające się od %1$s</string>
+    <string name="pt_line_code">Dozwolony, bo ten nadawca wysłał kod weryfikacyjny.</string>
+    <string name="pt_line_wrote">Dozwolony, bo wysłano wiadomość na ten numer.</string>
+    <string name="pt_line_word">Dozwolony automatycznie, bo wiadomość zawierała jedno z twoich dozwolonych słów.</string>
+    <string name="pt_line_blocked">Ten nadawca jest zablokowany przez ciebie. Nowe wiadomości po cichu trafiają do folderu Spam.</string>
+    <string name="pt_line_blocked_word">Zablokowany automatycznie, bo wiadomość zawierała jedno z twoich zablokowanych słów.</string>
+    <string name="pt_line_unknown">Nieznany nadawca. Wiadomości trafiają do folderu Spam.</string>
+    <string name="pt_line_keep">Zostaw</string>
+    <string name="pt_reply_allows_confirm">To dopuści nadawcę. Wysłać?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d czat jest teraz w folderze Spam</item>
+        <item quantity="few">%d czaty są teraz w folderze Spam</item>
+        <item quantity="many">%d czatów jest teraz w folderze Spam</item>
+        <item quantity="other">%d czatu jest teraz w folderze Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Trafiają tam nieznani i zablokowani nadawcy. Nic nie zostało usunięte.</string>
+</resources>

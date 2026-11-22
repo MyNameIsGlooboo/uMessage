@@ -7,7 +7,7 @@
     <string name="onb_finish">Почати листування</string>
     <string name="onb_welcome_title">Вітаємо в uMessage</string>
     <string name="onb_welcome_intro">Зручне листування, менше спаму.</string>
-    <string name="onb_welcome_demo_desc">Повідомлення від знайомих потрапляють у «Повідомлення», від незнайомців — у «Спам», а коди підтвердження й далі надходять у «Повідомлення».</string>
+    <string name="onb_welcome_demo_desc">Ваші контакти потрапляють у «Повідомлення». Невідомі відправники потрапляють у «Спам». Відправник, який надіслав вам код підтвердження, потрапляє в «Повідомлення».</string>
     <string name="onb_welcome_spam">Спам не пройде</string>
     <string name="onb_welcome_spam_desc">Повідомлення від невідомих відправників чекають у розділі «Спам» й не губляться.</string>
     <string name="onb_welcome_codes">Коди одним дотиком</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Без облікового запису, реклами та хмари. Усе залишається на вашому телефоні.</string>
     <string name="onb_welcome_start">Почати</string>
     <string name="onb_default_title">Зробіть uMessage застосунком для SMS</string>
-    <string name="onb_default_body">Android дозволяє отримувати й фільтрувати повідомлення лише застосунку для SMS за умовчанням. Без цього uMessage не зможе захистити ваші вхідні повідомлення.</string>
+    <string name="onb_default_body">Android дозволяє отримувати й фільтрувати повідомлення лише застосунку для SMS за умовчанням. Без цього uMessage не зможе фільтрувати для вас спам.</string>
     <string name="onb_default_action">Вибрати за умовчанням</string>
     <string name="onb_default_denied">Запит відхилено. Спробуйте ще раз або продовжте й виберіть застосунок пізніше в налаштуваннях Android.</string>
     <string name="onb_default_unavailable">Не вдалося відкрити вікно вибору застосунку за умовчанням. Відкрийте налаштування Android → «Застосунки» → «Застосунки за умовчанням» → «Застосунок для SMS» і виберіть uMessage.</string>

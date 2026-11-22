@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">फ़ैसला</string>
-    <string name="thread_review_details_decision_allowed">अनुमति दी गई: आपके इनबॉक्स में पहुंचाया गया</string>
+    <string name="thread_review_details_decision_allowed">अनुमति दी गई: मैसेज टैब में आया</string>
     <string name="thread_review_details_type">प्रकार</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">সিদ্ধান্ত</string>
-    <string name="thread_review_details_decision_allowed">অনুমতি দেওয়া: আপনার ইনবক্সে পৌঁছেছে</string>
+    <string name="thread_review_details_decision_allowed">অনুমতি দেওয়া: বার্তা ট্যাবে এসেছে</string>
     <string name="thread_review_details_type">ধরন</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

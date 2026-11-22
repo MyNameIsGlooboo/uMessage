@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">نُقلت إلى الرسائل الواردة</string>
-    <string name="nsf_snack_moved_allowed">نُقلت إلى الرسائل الواردة. ستصل الرسائل القادمة من %1$s أيضًا.</string>
+    <string name="nsf_snack_moved">نُقلت إلى «الرسائل»</string>
+    <string name="nsf_snack_moved_allowed">نُقلت إلى «الرسائل». أصبح %1$s مسموحًا به دائمًا.</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="zero">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من %d من المرسلين.</item>
-        <item quantity="one">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من مرسل واحد (%d).</item>
-        <item quantity="two">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من مرسلَين (%d).</item>
-        <item quantity="few">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من %d مرسلين.</item>
-        <item quantity="many">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من %d مرسلًا.</item>
-        <item quantity="other">نُقلت إلى الرسائل الواردة. ستصل أيضًا الرسائل القادمة من %d مرسل.</item>
+        <item quantity="zero">نُقلت إلى «الرسائل». أصبح %d مرسل مسموحًا بهم دائمًا.</item>
+        <item quantity="one">نُقلت إلى «الرسائل». أصبح المرسل مسموحًا به دائمًا.</item>
+        <item quantity="two">نُقلت إلى «الرسائل». أصبح المرسلان مسموحًا بهما دائمًا.</item>
+        <item quantity="few">نُقلت إلى «الرسائل». أصبح %d مرسلين مسموحًا بهم دائمًا.</item>
+        <item quantity="many">نُقلت إلى «الرسائل». أصبح %d مرسلًا مسموحًا بهم دائمًا.</item>
+        <item quantity="other">نُقلت إلى «الرسائل». أصبح %d مرسل مسموحًا بهم دائمًا.</item>
     </plurals>
     <string name="nsf_moving">جارٍ النقل إلى الرسائل الواردة</string>
     <string name="move_progress">جارٍ نقل الرسائل: %1$s من %2$s</string>

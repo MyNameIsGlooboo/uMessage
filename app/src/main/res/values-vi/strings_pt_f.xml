@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="other">Bản sao lưu có %d tin nhắn hẹn giờ</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="other">Sẽ gửi đến %d số vào thời gian đã đặt, chỉ khi bạn bật. Không có gì được gửi cho đến khi bạn chọn.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Bật</string>
+    <string name="pt_restore_scheduled_discard">Xóa</string>
+    <string name="pt_older_spam_stuck">Một số tin nhắn không thể chuyển vào chính điện thoại. Chúng vẫn ở đây và bạn vẫn đọc được.</string>
+    <string name="pt_restore_scheduled_row_body">Việc khôi phục chưa bật các tin nhắn này. Nhấn để bật hoặc xóa.</string>
+    <string name="pt_older_spam_pictures_here">Một số tin nhắn đã có trên chính điện thoại. Chỉ hình ảnh của chúng được giữ ở đây, trong uMessage.</string>
+</resources>

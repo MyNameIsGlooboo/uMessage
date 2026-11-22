@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">ফিল্টারে আটকানো হয়েছে</string>
     <string name="ux8c_not_spam">স্প্যাম নয়</string>
     <string name="ux8c_delete">মুছুন</string>
-    <string name="ux8c_tip">কোনো প্রেরককে আপনার ইনবক্সে নিতে সোয়াইপ করুন। নির্বাচন করতে চেপে ধরে রাখুন।</string>
+    <string name="ux8c_tip">কোনো চ্যাট বার্তা ট্যাবে ফেরাতে সোয়াইপ করুন। নির্বাচন করতে চেপে ধরে রাখুন।</string>
     <string name="ux8c_tip_dismiss">বুঝেছি</string>
     <string name="ux8c_sender_title">এই প্রেরক</string>
     <string name="ux8c_sender_normal">স্বাভাবিক</string>

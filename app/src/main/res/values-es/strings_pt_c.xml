@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Aquí aparecen los chats de remitentes desconocidos y de los remitentes que bloquees.</string>
+    <string name="pt_spam_filter_off_strip">El filtro de spam está desactivado</string>
+    <string name="pt_spam_filter_off_body">Aquí solo aparecen los remitentes que bloqueaste.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">¿Eliminar %d chat de este teléfono?</item>
+        <item quantity="other">¿Eliminar %d chats de este teléfono?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Los mensajes se eliminan para todas las aplicaciones, no solo en uMessage. Puedes deshacerlo justo después, pero no más tarde.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">Desbloqueado. El chat volvió a Mensajes.</item>
+        <item quantity="other">%d remitentes desbloqueados. Sus chats volvieron a Mensajes.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Spam antiguo guardado solo en uMessage</string>
+    <string name="pt_older_spam_hint">Estos mensajes aún no están en el propio teléfono. La mayoría pasará allí cuando uMessage sea tu aplicación de SMS predeterminada. Mientras tanto, puedes leerlos aquí.</string>
+    <string name="pt_block_still_allowed">No pasó a Spam: una de tus reglas para permitir sigue dejando pasar a este remitente.</string>
+    <string name="pt_unblock_refused_prefix">No se desbloqueó: una regla bloquea los números que empiezan por %1$s</string>
+    <string name="pt_line_code">Permitido porque este remitente envió un código de verificación.</string>
+    <string name="pt_line_wrote">Permitido porque escribiste a este número.</string>
+    <string name="pt_line_word">Permitido automáticamente porque un mensaje tenía una de tus palabras permitidas.</string>
+    <string name="pt_line_blocked">Bloqueaste a este remitente. Sus mensajes nuevos llegan a Spam sin avisar.</string>
+    <string name="pt_line_blocked_word">Bloqueado automáticamente porque un mensaje tenía una de tus palabras bloqueadas.</string>
+    <string name="pt_line_unknown">Remitente desconocido. Sus mensajes llegan a Spam.</string>
+    <string name="pt_line_keep">Mantener</string>
+    <string name="pt_reply_allows_confirm">Esto permite al remitente. ¿Enviar?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d chat está ahora en Spam</item>
+        <item quantity="other">%d chats están ahora en Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Allí se colocan los remitentes desconocidos y bloqueados. No se eliminó nada.</string>
+</resources>

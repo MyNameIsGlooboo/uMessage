@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">原因</string>
     <string name="thread_r2_details_rule">规则</string>
     <string name="thread_r2_details_forwarded">已转发</string>
-    <string name="thread_r2_details_decision_restored">已屏蔽，随后恢复至收件箱</string>
+    <string name="thread_r2_details_decision_restored">已屏蔽，随后移至“消息”</string>
     <string name="thread_r2_details_copy">复制%1$s</string>
     <string name="thread_r2_menu_search">搜索会话</string>
     <string name="thread_r2_menu_always_forward">始终转发此发件人的消息</string>

@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">พักไว้โดยตัวกรอง</string>
     <string name="ux8c_not_spam">ไม่ใช่สแปม</string>
     <string name="ux8c_delete">ลบ</string>
-    <string name="ux8c_tip">ปัดผู้ส่งเพื่อย้ายไปยังกล่องข้อความเข้า แตะค้างไว้เพื่อเลือก</string>
+    <string name="ux8c_tip">ปัดแชตเพื่อย้ายกลับไปที่ \"ข้อความ\" แตะค้างไว้เพื่อเลือก</string>
     <string name="ux8c_tip_dismiss">เข้าใจแล้ว</string>
     <string name="ux8c_sender_title">ผู้ส่งรายนี้</string>
     <string name="ux8c_sender_normal">ปกติ</string>

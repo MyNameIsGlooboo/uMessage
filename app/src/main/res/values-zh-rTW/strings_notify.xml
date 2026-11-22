@@ -8,4 +8,6 @@
     <string name="notifications_off_body">你不會收到新訊息的通知。</string>
     <string name="notifications_off_fix">開啟</string>
     <string name="notifications_off_dismiss">暫時不要</string>
+    <string name="notifications_quiet_title">通知沒有聲音</string>
+    <string name="notifications_quiet_body">「%1$s」沒有音效，因此新訊息不會響鈴。請在Android設定中開啟音效。</string>
 </resources>

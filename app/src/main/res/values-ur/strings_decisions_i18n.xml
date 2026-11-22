@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">شامل کرنے کے لیے بلاک کیے گئے الفاظ: %1$d۔ جو الفاظ پہلے سے موجود ہیں انہیں چھوڑ دیا جائے گا۔</string>
     <string name="spam_reason_rule_domain">اصول: %1$s کے لنکس</string>
-    <string name="decm_search_section_blocked">بلاک کیے گئے پیغامات</string>
-    <string name="decm_blocked_search">بلاک کیے گئے پیغامات میں تلاش کریں</string>
+    <string name="decm_search_section_blocked">اسپیم</string>
+    <string name="decm_blocked_search">اسپیم میں تلاش کریں</string>
     <string name="decm_blocked_search_hint">بھیجنے والے یا متن سے تلاش کریں</string>
     <string name="decm_blocked_search_close">تلاش بند کریں</string>
     <string name="decm_blocked_search_none_title">کچھ نہیں ملا</string>
-    <string name="decm_blocked_search_none_body">آپ کے لکھے سے کوئی بلاک شدہ بھیجنے والا یا پیغام میل نہیں کھاتا۔</string>
+    <string name="decm_blocked_search_none_body">اسپیم میں کوئی بھیجنے والا یا پیغام آپ کے لکھے سے مماثل نہیں۔</string>
     <string name="decm_always_allow">ہمیشہ اجازت دیں</string>
     <string name="rdec_match_domain">ویب سائٹ کا لنک</string>
     <string name="rdec_row_type_domain">پیغام میں لنک</string>

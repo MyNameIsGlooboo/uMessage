@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Здесь появляются чаты неизвестных отправителей и тех, кого вы заблокируете.</string>
+    <string name="pt_spam_filter_off_strip">Спам-фильтр выключен</string>
+    <string name="pt_spam_filter_off_body">Здесь только отправители, которых вы заблокировали.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">Удалить %d чат с этого телефона?</item>
+        <item quantity="few">Удалить %d чата с этого телефона?</item>
+        <item quantity="many">Удалить %d чатов с этого телефона?</item>
+        <item quantity="other">Удалить %d чата с этого телефона?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Сообщения удаляются для всех приложений, а не только в uMessage. Сразу после этого действие можно отменить, позже — нет.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">Разблокировано отправителей: %d. Чаты снова в «Сообщениях».</item>
+        <item quantity="few">Разблокированы %d отправителя. Их чаты снова в «Сообщениях».</item>
+        <item quantity="many">Разблокировано %d отправителей. Их чаты снова в «Сообщениях».</item>
+        <item quantity="other">Разблокированы %d отправителя. Их чаты снова в «Сообщениях».</item>
+    </plurals>
+    <string name="pt_older_spam_title">Старый спам, который есть только в uMessage</string>
+    <string name="pt_older_spam_hint">Этих сообщений пока нет на самом телефоне. Большинство из них перенесется туда, когда uMessage станет вашим приложением для SMS по умолчанию. До тех пор их можно читать здесь.</string>
+    <string name="pt_block_still_allowed">Не перемещено в «Спам»: одно из ваших правил разрешения все еще пропускает этого отправителя.</string>
+    <string name="pt_unblock_refused_prefix">Не разблокировано: правило блокирует номера, начинающиеся с %1$s</string>
+    <string name="pt_line_code">Разрешен, потому что этот отправитель прислал код подтверждения.</string>
+    <string name="pt_line_wrote">Разрешен, потому что вы писали на этот номер.</string>
+    <string name="pt_line_word">Разрешен автоматически, потому что в сообщении было одно из ваших разрешенных слов.</string>
+    <string name="pt_line_blocked">Вы заблокировали этого отправителя. Новые сообщения без звука приходят в «Спам».</string>
+    <string name="pt_line_blocked_word">Заблокирован автоматически, потому что в сообщении было одно из ваших заблокированных слов.</string>
+    <string name="pt_line_unknown">Неизвестный отправитель. Сообщения приходят в «Спам».</string>
+    <string name="pt_line_keep">Оставить</string>
+    <string name="pt_reply_allows_confirm">Это разрешит отправителя. Отправить?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d чат теперь в «Спаме»</item>
+        <item quantity="few">%d чата теперь в «Спаме»</item>
+        <item quantity="many">%d чатов теперь в «Спаме»</item>
+        <item quantity="other">%d чата теперь в «Спаме»</item>
+    </plurals>
+    <string name="pt_card_moved_body">Туда попадают неизвестные и заблокированные отправители. Ничего не удалено.</string>
+</resources>

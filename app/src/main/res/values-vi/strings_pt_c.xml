@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Cuộc trò chuyện từ người gửi không xác định và người gửi bạn chặn sẽ hiện ở đây.</string>
+    <string name="pt_spam_filter_off_strip">Bộ lọc tin rác đang tắt</string>
+    <string name="pt_spam_filter_off_body">Ở đây chỉ có những người gửi bạn đã chặn.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">Xóa %d cuộc trò chuyện khỏi điện thoại này?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Tin nhắn sẽ bị xóa cho mọi ứng dụng, không chỉ trong uMessage. Bạn có thể hoàn tác ngay sau đó, nhưng về sau thì không.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">Đã bỏ chặn %d người gửi. Cuộc trò chuyện đã trở lại mục Tin nhắn.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Tin rác cũ chỉ lưu trong uMessage</string>
+    <string name="pt_older_spam_hint">Những tin nhắn này chưa có trên chính điện thoại. Phần lớn sẽ được chuyển sang khi uMessage là ứng dụng SMS mặc định của bạn. Trong lúc chờ, bạn có thể đọc chúng ở đây.</string>
+    <string name="pt_block_still_allowed">Chưa chuyển vào mục Tin rác: một quy tắc cho phép của bạn vẫn cho người gửi này qua.</string>
+    <string name="pt_unblock_refused_prefix">Chưa bỏ chặn: có quy tắc chặn các số bắt đầu bằng %1$s</string>
+    <string name="pt_line_code">Được cho phép vì người gửi này đã gửi mã xác minh.</string>
+    <string name="pt_line_wrote">Được cho phép vì bạn đã nhắn tin cho số này.</string>
+    <string name="pt_line_word">Được tự động cho phép vì một tin nhắn có từ bạn cho phép.</string>
+    <string name="pt_line_blocked">Bạn đã chặn người gửi này. Tin nhắn mới sẽ lặng lẽ vào mục Tin rác.</string>
+    <string name="pt_line_blocked_word">Bị tự động chặn vì một tin nhắn có từ bạn chặn.</string>
+    <string name="pt_line_unknown">Người gửi không xác định. Tin nhắn sẽ vào mục Tin rác.</string>
+    <string name="pt_line_keep">Giữ nguyên</string>
+    <string name="pt_reply_allows_confirm">Việc này sẽ cho phép người gửi. Gửi?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">%d cuộc trò chuyện hiện ở mục Tin rác</item>
+    </plurals>
+    <string name="pt_card_moved_body">Người gửi không xác định và người gửi bị chặn được xếp vào đó. Không có gì bị xóa.</string>
+</resources>

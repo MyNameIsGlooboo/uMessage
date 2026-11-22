@@ -5,7 +5,7 @@
     <string name="thread_r2_details_reason">Reason</string>
     <string name="thread_r2_details_rule">Rule</string>
     <string name="thread_r2_details_forwarded">Forwarded</string>
-    <string name="thread_r2_details_decision_restored">Blocked, then restored to your inbox</string>
+    <string name="thread_r2_details_decision_restored">Blocked, then moved to Messages</string>
     <string name="thread_r2_details_copy">Copy %1$s</string>
 
     <!-- Menus (TH-11, TH-12, TH-18, TH-20) -->

@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">Remitente desconocido</string>
     <string name="spam_reason_other">Filtrado</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Ambas SIM</string>
-    <string name="spam_sim_missing">La SIM no está en el teléfono</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Permitidos</string>
     <string name="spam_rules_tab_blocked">Bloqueados</string>
     <string name="spam_rules_add">Agregar regla</string>
     <string name="spam_rules_empty_allowed_title">No hay reglas permitidas</string>
-    <string name="spam_rules_empty_allowed_body">Todo lo que permitas siempre llegará a tu bandeja de entrada, incluso en modo estricto. Agrega un número, un nombre de remitente o una palabra clave.</string>
     <string name="spam_rules_empty_blocked_title">No hay reglas bloqueadas</string>
-    <string name="spam_rules_empty_blocked_body">Bloquea un número, un prefijo, un nombre de remitente, una palabra clave o un patrón (expresión regular). Sus mensajes van a Spam.</string>
     <string name="spam_rules_delete_rule">Eliminar regla %s</string>
     <string name="spam_rules_deleted">Regla eliminada</string>
     <plurals name="spam_rules_imported">
@@ -57,11 +53,10 @@
     <string name="spam_type_keyword">Palabra clave</string>
     <string name="spam_type_regex">Patrón (expresión regular)</string>
     <string name="spam_type_keyword_help">Cualquier mensaje que contenga este texto, incluso dentro de una palabra más larga: «gana» también coincide con «ganador». No distingue entre mayúsculas y minúsculas. El remitente también se bloquea, salvo que esté en tus contactos.</string>
-    <string name="spam_type_keyword_allow_help">Cualquier mensaje que contenga este texto evita todos tus bloqueos, sin importar el remitente. Usa una frase larga y exacta.</string>
+    <string name="spam_type_keyword_allow_help">Un mensaje que contiene este texto permite a su remitente: todo el chat va a Mensajes. Un remitente que bloqueaste sigue bloqueado. Usa una frase larga y exacta.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">regalo gratis</string>
     <string name="spam_type_regex_hint">gana\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Se aplica a</string>
     <string name="spam_sheet_note_label">Nota (opcional)</string>
     <string name="spam_sheet_add">Agregar regla</string>
     <string name="spam_sheet_clear_value">Borrar valor</string>
@@ -77,9 +72,9 @@
     <string name="spam_err_duplicate">Esta regla ya existe</string>
     <string name="spam_err_regex_unsafe">Este patrón (expresión regular) repite un grupo que ya se repite, lo que puede trabar el filtrado de mensajes. Simplifícalo.</string>
     <string name="spam_err_regex_matches_all">Este patrón (expresión regular) coincide con todos los mensajes. Hazlo más específico.</string>
-    <string name="spam_err_allow_keyword_short">Las palabras permitidas deben tener al menos 4 caracteres, porque cualquier mensaje que las contenga evita todos tus bloqueos</string>
+    <string name="spam_err_allow_keyword_short">Las palabras permitidas necesitan al menos 4 caracteres, porque un mensaje que contenga una permite a su remitente</string>
     <string name="spam_sheet_save_failed">No se pudo guardar la regla. Inténtalo de nuevo.</string>
-    <string name="spam_warn_allow_skips_blocks">Cualquier mensaje que contenga esto evita todos tus bloqueos, sin importar el remitente, incluso si bloqueaste su número.</string>
+    <string name="spam_warn_allow_skips_blocks">Cualquier remitente desconocido cuyo mensaje contenga esto queda permitido desde entonces. Los remitentes que bloqueaste siguen bloqueados.</string>
     <string name="spam_warn_common_word">Esta palabra es corta o común. El spam puede incluirla fácilmente.</string>
     <string name="spam_warn_broad">Esto coincide con mucho texto habitual, así que filtrará muchos mensajes normales.</string>
     <string name="spam_warn_allowed_conflict">Esto está en tu lista de permitidos. Las reglas permitidas siempre tienen prioridad, así que este bloqueo nunca se aplicaría.</string>
@@ -100,8 +95,8 @@
         <item quantity="one">y %d más</item>
         <item quantity="other">y %d más</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Mensajes de remitentes desconocidos</string>
-    <string name="spam_settings_unknown_body">Remitentes que no están en tus contactos, a quienes nunca les has enviado mensajes y que no están en tu lista de permitidos.</string>
+    <string name="spam_settings_unknown_title">Filtro de spam</string>
+    <string name="spam_settings_unknown_body">Un remitente desconocido no está en tus contactos ni en tu lista de permitidos. Todo su chat va a Spam, sin avisar. Las personas a las que escribiste y los remitentes de un código de verificación se quedan en Mensajes.</string>
     <string name="spam_mode_strict">Estricto</string>
     <string name="spam_mode_strict_body">Bloquea a todos los remitentes desconocidos, incluidos los códigos</string>
     <string name="spam_mode_smart">Inteligente</string>
@@ -112,8 +107,8 @@
     <string name="spam_strict_warning_body">Los mensajes de bancos y empresas de entrega, y los códigos de un solo uso suelen venir de remitentes que no están en tus contactos. En modo estricto van a Spam, incluidos los códigos. Elige Inteligente para permitir los códigos o agrega esos remitentes a permitidos una sola vez.</string>
     <string name="spam_strict_warning_action">Revisar Spam</string>
     <string name="spam_settings_cleanup_title">Limpieza</string>
-    <string name="spam_purge_body">El spam antiguo se elimina automáticamente.</string>
+    <string name="spam_purge_body">Desactivado hasta que elijas un número de días</string>
     <string name="spam_purge_days">%d días</string>
     <string name="spam_purge_forever">Conservar siempre</string>
-    <string name="spam_notify_title">Notificar cuando se bloquee un mensaje</string>
+    <string name="spam_notify_title">Avisarme de mensajes de remitentes desconocidos</string>
 </resources>

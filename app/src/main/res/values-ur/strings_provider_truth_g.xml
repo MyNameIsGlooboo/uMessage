@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">نامعلوم بھیجنے والوں کو اسپیم میں رکھیں</string>
+    <string name="pt_onb_filter_on_desc">رابطے، جنہیں آپ نے پیغام بھیجا ہے اور تصدیقی کوڈ بھیجنے والے پیغامات میں ہی رہتے ہیں۔</string>
+    <string name="pt_onb_filter_off">سب کچھ پیغامات میں رکھیں</string>
+    <string name="pt_onb_filter_off_desc">صرف آپ کے بلاک کیے گئے بھیجنے والے اسپیم میں جاتے ہیں۔</string>
+    <string name="pt_onb_filter_hint">آپ بعد میں ترتیبات میں اسے بدل سکتے ہیں۔</string>
+    <string name="pt_onb_demo_desc_off">ہر پیغام پیغامات میں جاتا ہے۔ صرف آپ کے بلاک کیے گئے بھیجنے والے اسپیم میں جاتے ہیں۔</string>
+    <string name="pt_filter_on_summary">آن: نامعلوم بھیجنے والے اسپیم میں جاتے ہیں</string>
+    <string name="pt_filter_off_summary">آف: آپ کے بلاک کیے گئے بھیجنے والوں کے سوا سب کچھ پیغامات میں آتا ہے</string>
+    <string name="pt_filter_off_confirm_title">اسپیم فلٹر بند کریں؟</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d چیٹ اسپیم سے پیغامات میں جائے گی۔ آپ کے بلاک کیے گئے بھیجنے والوں کی چیٹس اسپیم میں ہی رہیں گی۔</item>
+        <item quantity="other">%d چیٹس اسپیم سے پیغامات میں جائیں گی۔ آپ کے بلاک کیے گئے بھیجنے والوں کی چیٹس اسپیم میں ہی رہیں گی۔</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">اسپیم فلٹر آن کریں؟</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">نامعلوم بھیجنے والے کی %d چیٹ اسپیم میں جائے گی۔ کچھ بھی حذف نہیں ہوتا۔</item>
+        <item quantity="other">نامعلوم بھیجنے والوں کی %d چیٹس اسپیم میں جائیں گی۔ کچھ بھی حذف نہیں ہوتا۔</item>
+    </plurals>
+    <string name="pt_confirm_none_move">ابھی کوئی چیٹ منتقل نہیں ہوگی۔</string>
+    <string name="pt_turn_off">بند کریں</string>
+    <string name="pt_purge_warn_title">پرانا اسپیم خود بخود حذف کریں؟</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">جو پیغامات %d دن سے زیادہ پہلے اسپیم میں آئے، وہ فون سے ہی حذف ہو جاتے ہیں، ہر ایپ کے لیے۔ انہیں واپس نہیں لایا جا سکتا۔ آپ کے بھیجے ہوئے، ستارہ لگے یا نوٹ والے پیغامات باقی رہتے ہیں۔</item>
+        <item quantity="other">جو پیغامات %d دن سے زیادہ پہلے اسپیم میں آئے، وہ فون سے ہی حذف ہو جاتے ہیں، ہر ایپ کے لیے۔ انہیں واپس نہیں لایا جا سکتا۔ آپ کے بھیجے ہوئے، ستارہ لگے یا نوٹ والے پیغامات باقی رہتے ہیں۔</item>
+    </plurals>
+    <string name="pt_group_code_title">تصدیقی کوڈ بھیجنے والے</string>
+    <string name="pt_group_wrote_title">جنہیں آپ نے پیغام بھیجا</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d بھیجنے والا</item>
+        <item quantity="other">%d بھیجنے والے</item>
+    </plurals>
+    <string name="pt_group_code_body">جو بھیجنے والا آپ کو تصدیقی کوڈ بھیجے، اسے اس کے بعد سے اجازت ہوتی ہے۔ اسے یہاں سے ہٹائیں، یا اس کی چیٹ میں بلاک کریں۔</string>
+    <string name="pt_group_wrote_body">جس نمبر کو آپ پیغام بھیجیں، اسے اس کے بعد سے اجازت ہوتی ہے۔ اسے یہاں سے ہٹائیں، یا اس کی چیٹ میں بلاک کریں۔</string>
+    <string name="pt_group_member_remove">ہٹائیں</string>
+    <string name="pt_group_member_removed">%1$s فہرست سے ہٹا دیا گیا</string>
+    <string name="pt_group_member_history">آپ کے پرانے پیغامات میں ملا</string>
+    <string name="pt_group_empty">یہاں ابھی کوئی نہیں</string>
+    <string name="pt_group_off_title">“%1$s” بند کریں؟</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d چیٹ اسپیم میں جائے گی۔ بھیجنے والے فہرست میں رہیں گے اور دوبارہ آن کرنے پر واپس آ جائیں گے۔</item>
+        <item quantity="other">%d چیٹس اسپیم میں جائیں گی۔ بھیجنے والے فہرست میں رہیں گے اور دوبارہ آن کرنے پر واپس آ جائیں گے۔</item>
+    </plurals>
+    <string name="pt_group_off_code_note">اس کے بعد نامعلوم بھیجنے والے کا تصدیقی کوڈ بھی اسپیم میں جائے گا۔</string>
+    <string name="pt_verdict_group">پیغامات میں جائے گا: بھیجنے والا “%1$s” میں ہے۔</string>
+    <string name="pt_verdict_allowed_word">پیغامات میں جائے گا: متن میں آپ کا ایک اجازت یافتہ لفظ ہے۔ اس کے بعد بھیجنے والے کو اجازت مل جاتی ہے۔</string>
+    <string name="pt_verdict_blocked_word">اسپیم میں جائے گا: متن میں آپ کا ایک بلاک کیا گیا لفظ ہے۔ اس کے بعد بھیجنے والا بلاک ہو جاتا ہے۔</string>
+    <string name="pt_progress_title">آپ کی چیٹس ترتیب دی جا رہی ہیں</string>
+    <string name="pt_progress_body">یہ صرف ایک بار ہوتا ہے۔ مکمل ہونے سے پہلے کوئی چیٹ منتقل نہیں ہوگی، اور کچھ بھی حذف نہیں ہوتا۔</string>
+    <string name="pt_progress_step_rules">آپ کے اصول اپ ڈیٹ ہو رہے ہیں</string>
+    <string name="pt_progress_step_older">پرانا اسپیم فون میں منتقل ہو رہا ہے</string>
+    <string name="pt_progress_step_history">آپ کے پرانے پیغامات جانچے جا رہے ہیں</string>
+    <string name="pt_progress_step_sort">چیٹس ترتیب دی جا رہی ہیں</string>
+    <string name="pt_progress_background">پس منظر میں جاری رکھیں</string>
+    <string name="pt_changed_title">کیا بدلا</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d چیٹ اسپیم میں گئی</item>
+        <item quantity="other">%d چیٹس اسپیم میں گئیں</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d بھیجنے والے کو خود بخود اجازت ملی</item>
+        <item quantity="other">%d بھیجنے والوں کو خود بخود اجازت ملی</item>
+    </plurals>
+    <string name="pt_changed_switch">اسپیم فلٹر اب ایک ہی سوئچ ہے: آن یا آف۔</string>
+    <string name="pt_changed_sims">آپ کے اصول اب دونوں SIM پر لاگو ہوتے ہیں۔</string>
+    <string name="pt_changed_store">پرانا اسپیم اب باقی تمام پیغامات کی طرح فون میں ہی محفوظ ہے۔</string>
+    <string name="pt_changed_purge">پرانے اسپیم کا خود بخود حذف بند ہے۔ آپ اسے ترتیبات میں آن کر سکتے ہیں۔</string>
+    <string name="pt_changed_open_spam">اسپیم دیکھیں</string>
+    <string name="pt_filter_off_confirm_rest">آپ کے بلاک کیے گئے بھیجنے والوں کی چیٹس اسپیم میں ہی رہیں گی۔</string>
+    <string name="pt_filter_on_confirm_rest">کچھ بھی حذف نہیں ہوتا۔</string>
+    <string name="pt_group_off_rest">بھیجنے والے فہرست میں رہیں گے اور دوبارہ آن کرنے پر واپس آ جائیں گے۔</string>
+    <string name="pt_progress_step_running">جاری ہے</string>
+    <string name="pt_progress_older_waiting">uMessage کے آپ کی ڈیفالٹ SMS ایپ بننے کا انتظار ہے</string>
+</resources>

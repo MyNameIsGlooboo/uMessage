@@ -5,7 +5,7 @@
     <string name="settings_search_none">Nenhuma configuração encontrada. Tente outra palavra.</string>
     <string name="settings_search_start">Digite uma palavra, como tema, backup ou spam.</string>
     <string name="sks_spam">spam bloqueie bloqueado lixo filtro proteção golpe indesejado</string>
-    <string name="sks_unknown_sender">desconhecido estranhos remetentes modo filtro spam bloqueie</string>
+    <string name="sks_unknown_sender">desconhecido estranhos remetentes filtro spam bloqueie chave ativar desativar modo</string>
     <string name="sks_strict">rigoroso forte bloqueie tudo códigos</string>
     <string name="sks_smart">inteligente recomendado automático padrão filtro</string>
     <string name="sks_spam_off">desativado desative pare filtro permita tudo</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">notificação notificações alerta som toque vibração vibre tom silencioso silencie</string>
     <string name="sks_android_notifications">Android sistema canal som toque vibração importância janela</string>
     <string name="sks_code_alert">código OTP verificação canal som janela alerta</string>
-    <string name="sks_block_alert">bloqueado mensagem alerta notifique spam notificação</string>
+    <string name="sks_block_alert">bloqueado mensagem alerta notifique spam notificação remetentes desconhecidos</string>
     <string name="sks_digest">semanal resumo relatório compilação semana</string>
     <string name="sks_wake">ative tela ligue acenda visor</string>
     <string name="sks_bubbles">bolhas flutuantes conversa janela</string>

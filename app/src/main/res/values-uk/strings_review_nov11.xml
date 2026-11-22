@@ -17,12 +17,12 @@
         <item quantity="other">Видалити %d чату?</item>
     </plurals>
     <plurals name="convlist_delete_confirm_message" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Чат і всі його повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
+        <item quantity="one">Усе вибране разом із повідомленнями буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
         <item quantity="few">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
         <item quantity="many">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
         <item quantity="other">Чати й усі їхні повідомлення буде видалено з цього телефона. Одразу після цього видалення можна скасувати на кілька секунд.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s є у ваших контактах. Заблокувати цього відправника? Нові повідомлення від нього потраплятимуть до «Заблоковані повідомлення», а не до вхідних. Одразу після цього блокування можна скасувати.</string>
+    <string name="convlist_block_contact_message">%1$s є у ваших контактах. Заблокувати цього відправника? Увесь чат переміститься в «Спам», а нові повідомлення надходитимуть туди без звуку. Одразу після цього дію можна скасувати.</string>
     <string name="i29_color_red">Червоний</string>
     <string name="i29_color_orange">Помаранчевий</string>
     <string name="i29_color_yellow">Жовтий</string>
@@ -46,10 +46,10 @@
     <string name="rule_preview_loading">Перевіряємо останні повідомлення…</string>
     <string name="rule_preview_failed">Не вдалося перевірити останні повідомлення. Спробуйте ще раз.</string>
     <string name="rule_preview_nothing">Поки немає останніх повідомлень для перевірки.</string>
-    <string name="rule_preview_inbox">Вхідні: правилу відповідають %1$d з останніх %2$d повідомлень</string>
-    <string name="rule_preview_inbox_empty">Вхідні: немає повідомлень для перевірки</string>
-    <string name="rule_preview_blocked">Заблоковані: правилу відповідають %1$d з останніх %2$d повідомлень</string>
-    <string name="rule_preview_blocked_empty">Заблоковані: немає повідомлень для перевірки</string>
+    <string name="rule_preview_inbox">Повідомлення: правилу відповідають %1$d з останніх %2$d повідомлень</string>
+    <string name="rule_preview_inbox_empty">Повідомлення: нічого перевіряти</string>
+    <string name="rule_preview_blocked">Спам: правилу відповідають %1$d з останніх %2$d повідомлень</string>
+    <string name="rule_preview_blocked_empty">Спам: нічого перевіряти</string>
     <string name="rule_preview_examples">Наприклад: %1$s</string>
     <string name="n06_delete_confirm">Видалити цей збережений текст?</string>
     <string name="screens_vcard_email_action">Ел. пошта</string>

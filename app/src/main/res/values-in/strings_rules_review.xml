@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">Ekspor aturan ke file</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Belum ada pengirim yang selalu diizinkan</string>
-    <string name="rules2_empty_allowed_body">Tambahkan nomor, nama pengirim, atau kata agar pesannya selalu masuk ke kotak masuk. Ketuk Tambah aturan di bawah.</string>
+    <string name="rules2_empty_allowed_body">Tambahkan nomor, nama pengirim, atau kata yang harus selalu masuk ke Pesan.</string>
     <string name="rules2_empty_blocked_title">Belum ada pengirim yang selalu diblokir</string>
     <string name="rules2_empty_blocked_body">Tambahkan nomor, nama pengirim, kata, atau pola agar pesannya masuk ke Spam. Ketuk Tambah aturan di bawah.</string>
     <string name="rules2_migrate_title">Pindahkan ke aturan uMessage</string>
-    <string name="rules2_migrate_point_blocked">Pesan lalu masuk ke Spam dan dapat dipulihkan di sana.</string>
+    <string name="rules2_migrate_point_blocked">Chat mereka lalu masuk ke Spam, dari situ Anda bisa memindahkannya kembali.</string>
     <string name="rules2_migrate_remove_needs_first">Centang opsi di atas terlebih dahulu.</string>
     <string name="rules2_migrate_nothing_selected">Belum ada yang dipilih</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -21,7 +21,6 @@
     <string name="rules2_sheet_delete">Hapus aturan</string>
     <string name="rules2_sheet_hint_empty">Masukkan nilai untuk melanjutkan</string>
     <string name="rules2_sheet_hint_fix">Perbaiki nilai di atas untuk melanjutkan</string>
-    <string name="rules2_sheet_sim_help">Aturan untuk satu SIM hanya berlaku pada pesan yang diterima di SIM tersebut.</string>
     <string name="rules2_type_number_help">Nomor telepon lengkap, misalnya +15550001234 atau 05550001234. Nomor pendek seperti 3000 juga bisa. Angka Persia dapat digunakan.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Semua nomor yang diawali angka ini, misalnya +1555 atau 0555.</string>
@@ -40,7 +39,7 @@
     <plurals name="rules2_bn_move">
         <item quantity="other">Pindahkan %1$d nomor ke aturan</item>
     </plurals>
-    <string name="forward2_intro_reassure">Hanya pesan yang masuk ke kotak masuk yang diteruskan. Spam tidak pernah diteruskan.</string>
+    <string name="forward2_intro_reassure">Hanya pesan yang masuk ke Pesan yang diteruskan. Spam tidak pernah diteruskan.</string>
     <string name="forward2_empty_title">Belum ada aturan penerusan</string>
     <string name="forward2_empty_body">Kirim salinan pesan yang cocok, seperti notifikasi bank, ke ponsel lain. Mulai dari salah satu pilihan ini.</string>
     <string name="forward2_template_bank">Teruskan notifikasi bank</string>

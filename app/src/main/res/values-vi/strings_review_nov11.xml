@@ -13,7 +13,7 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">Cuộc trò chuyện và toàn bộ tin nhắn sẽ bị xóa khỏi điện thoại này. Bạn có thể hoàn tác trong vài giây sau đó.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s có trong danh bạ của bạn. Chặn người gửi này? Tin nhắn mới từ họ sẽ vào Tin nhắn đã chặn thay vì hộp thư đến. Bạn có thể hoàn tác ngay sau đó.</string>
+    <string name="convlist_block_contact_message">%1$s có trong danh bạ của bạn. Chặn người gửi này? Toàn bộ cuộc trò chuyện sẽ chuyển vào mục Tin rác và tin nhắn mới sẽ lặng lẽ đến đó. Bạn có thể hoàn tác ngay sau đó.</string>
     <string name="i29_color_red">Đỏ</string>
     <string name="i29_color_orange">Cam</string>
     <string name="i29_color_yellow">Vàng</string>
@@ -34,10 +34,10 @@
     <string name="rule_preview_loading">Đang kiểm tra tin nhắn gần đây…</string>
     <string name="rule_preview_failed">Không kiểm tra được tin nhắn gần đây. Hãy thử lại.</string>
     <string name="rule_preview_nothing">Chưa có tin nhắn gần đây để kiểm tra.</string>
-    <string name="rule_preview_inbox">Hộp thư đến: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
-    <string name="rule_preview_inbox_empty">Hộp thư đến: không có tin nhắn để kiểm tra</string>
-    <string name="rule_preview_blocked">Đã chặn: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
-    <string name="rule_preview_blocked_empty">Đã chặn: không có tin nhắn để kiểm tra</string>
+    <string name="rule_preview_inbox">Tin nhắn: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
+    <string name="rule_preview_inbox_empty">Tin nhắn: không có gì để kiểm tra</string>
+    <string name="rule_preview_blocked">Tin rác: quy tắc này khớp %1$d trong %2$d tin nhắn gần nhất</string>
+    <string name="rule_preview_blocked_empty">Tin rác: không có gì để kiểm tra</string>
     <string name="rule_preview_examples">Ví dụ: %1$s</string>
     <string name="n06_delete_confirm">Xóa văn bản đã lưu này?</string>
     <string name="screens_vcard_email_action">Email</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">Dipindahkan ke kotak masuk</string>
-    <string name="nsf_snack_moved_allowed">Dipindahkan ke kotak masuk. Pesan berikutnya dari %1$s juga akan masuk.</string>
+    <string name="nsf_snack_moved">Dipindahkan ke Pesan</string>
+    <string name="nsf_snack_moved_allowed">Dipindahkan ke Pesan. %1$s kini selalu diizinkan.</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="other">Dipindahkan ke kotak masuk. Pesan berikutnya dari %d pengirim juga akan masuk.</item>
+        <item quantity="other">Dipindahkan ke Pesan. %d pengirim kini selalu diizinkan.</item>
     </plurals>
     <string name="nsf_moving">Memindahkan ke kotak masuk</string>
     <string name="move_progress">Memindahkan pesan: %1$s dari %2$s</string>

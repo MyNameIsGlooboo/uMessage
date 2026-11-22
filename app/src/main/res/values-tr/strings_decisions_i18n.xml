@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">Eklenecek engellenen kelime sayısı: %1$d. Zaten olan kelimeler atlanır.</string>
     <string name="spam_reason_rule_domain">Kural: %1$s bağlantıları</string>
-    <string name="decm_search_section_blocked">Engellenen mesajlar</string>
-    <string name="decm_blocked_search">Engellenen mesajlarda ara</string>
+    <string name="decm_search_section_blocked">Spam</string>
+    <string name="decm_blocked_search">Spam\'de ara</string>
     <string name="decm_blocked_search_hint">Gönderene veya metne göre ara</string>
     <string name="decm_blocked_search_close">Aramayı kapat</string>
     <string name="decm_blocked_search_none_title">Bir şey bulunamadı</string>
-    <string name="decm_blocked_search_none_body">Yazdığınızla eşleşen engellenmiş gönderen ya da mesaj yok.</string>
+    <string name="decm_blocked_search_none_body">Spam\'de yazdığınızla eşleşen bir gönderen veya mesaj yok.</string>
     <string name="decm_always_allow">Her zaman izin ver</string>
     <string name="rdec_match_domain">Bir web sitesi bağlantısı</string>
     <string name="rdec_row_type_domain">Mesajdaki bağlantı</string>

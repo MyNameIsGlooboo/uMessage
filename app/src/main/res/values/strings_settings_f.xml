@@ -25,8 +25,8 @@
     <string name="settings_f_language_fa" translatable="false">فارسی</string>
 
     <string name="settings_f_group_rules">Rules and lists</string>
-    <string name="settings_f_spam_more">Retention and alerts</string>
-    <string name="settings_f_spam_more_body">How long spam is kept, and alerts</string>
+    <string name="settings_f_spam_more">Auto-delete and alerts</string>
+    <string name="settings_f_spam_more_body">Auto-delete of old spam, and alerts</string>
 
     <string name="settings_f_hide_lock_codes_body">Codes show as •••• on the lock screen</string>
     <string name="settings_f_code_alert">Code alert</string>

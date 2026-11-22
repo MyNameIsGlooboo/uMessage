@@ -4,12 +4,12 @@
         <item quantity="one">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
         <item quantity="other">%dটি চ্যাট পড়া হিসেবে মার্ক করা হয়েছে</item>
     </plurals>
-    <string name="decm_search_section_blocked">ব্লক করা বার্তা</string>
-    <string name="decm_blocked_search">ব্লক করা বার্তা খুঁজুন</string>
+    <string name="decm_search_section_blocked">স্প্যাম</string>
+    <string name="decm_blocked_search">স্প্যামে খুঁজুন</string>
     <string name="decm_blocked_search_hint">প্রেরক বা লেখা দিয়ে খুঁজুন</string>
     <string name="decm_blocked_search_close">খোঁজা বন্ধ করুন</string>
     <string name="decm_blocked_search_none_title">কিছু পাওয়া যায়নি</string>
-    <string name="decm_blocked_search_none_body">আপনি যা লিখেছেন তার সঙ্গে মেলে এমন কোনো ব্লক করা প্রেরক বা বার্তা নেই।</string>
+    <string name="decm_blocked_search_none_body">আপনি যা লিখেছেন, তার সঙ্গে স্প্যামের কোনো প্রেরক বা বার্তা মেলে না।</string>
     <string name="decm_always_allow">সবসময় অনুমতি দিন</string>
     <string name="decisions_backup_keywords">যোগ হবে এমন ব্লক করা শব্দ: %1$dটি। যে শব্দ আগে থেকেই আছে সেগুলো বাদ যাবে।</string>
     <string name="thread_failed_reason_generic">ফোন একটি সাধারণ ত্রুটি জানিয়েছে (কোড %1$d)</string>

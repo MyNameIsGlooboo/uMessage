@@ -15,12 +15,6 @@
     <string name="convlist_selected">Selected</string>
     <string name="convlist_sim">SIM %1$d</string>
     <string name="convlist_scroll_handle">Fast scroll</string>
-    <plurals name="convlist_blocked_banner">
-        <item quantity="one">%d spam message</item>
-        <item quantity="other">%d spam messages</item>
-    </plurals>
-    <string name="convlist_blocked_banner_title">Spam</string>
-    <string name="convlist_blocked_banner_cd">%1$d spam messages. Open the Spam folder.</string>
 
     <!-- Actions -->
     <string name="convlist_archive">Archive</string>
@@ -56,20 +50,20 @@
         <item quantity="one">The conversation and all its messages will be deleted from this phone. You can undo it for a few seconds afterwards.</item>
         <item quantity="other">The conversations and all their messages will be deleted from this phone. You can undo it for a few seconds afterwards.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s is in your contacts. Block this sender? New messages from them will go to Blocked messages instead of your inbox. You can undo it right afterwards.</string>
+    <string name="convlist_block_contact_message">%1$s is in your contacts. Block this sender? The whole chat moves to Spam and new texts arrive there silently. You can undo it right afterwards.</string>
     <plurals name="convlist_archived">
         <item quantity="one">%d conversation archived</item>
         <item quantity="other">%d conversations archived</item>
     </plurals>
     <plurals name="convlist_blocked_done">
-        <item quantity="one">Blocked. New messages will go to Spam</item>
-        <item quantity="other">%d senders blocked. New messages will go to Spam</item>
+        <item quantity="one">Blocked. The chat moved to Spam</item>
+        <item quantity="other">%d senders blocked. Their chats moved to Spam</item>
     </plurals>
     <string name="convlist_action_failed">Something went wrong</string>
 
     <!-- Dialogs -->
     <string name="convlist_block_title">Block number?</string>
-    <string name="convlist_block_message">Block %1$s? New messages from it will go to Spam instead of your inbox, where you can still read or restore them.</string>
+    <string name="convlist_block_message">Block %1$s? The whole chat moves to Spam and new texts arrive there silently. You can still read them, and unblock at any time.</string>
     <string name="convlist_block_confirm">Block</string>
     <string name="convlist_rename_title">Rename conversation</string>
     <string name="convlist_cancel">Cancel</string>

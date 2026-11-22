@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">顯示撥號鍵盤</string>
     <string name="ui_show_keyboard">顯示鍵盤</string>
     <string name="ui_settings_system_block_list">系統封鎖清單</string>
-    <string name="ui_settings_system_block_list_body">這支手機上所有應用程式都封鎖的號碼。uMessage也會隱藏這些號碼。</string>
     <string name="ui_settings_blocked_words">已封鎖的字詞</string>
     <string name="ui_settings_character_counter">顯示字元計數</string>
     <string name="ui_settings_send_on_enter">按Enter鍵傳送</string>

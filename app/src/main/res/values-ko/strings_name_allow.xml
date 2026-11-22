@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">이 이름을 항상 허용할까요?</string>
-    <string name="nameallow_body">앞으로 %1$s 이름으로 오는 새 문자는 받은 메시지함에 들어가요. 누구나 원하는 이름으로 문자를 보낼 수 있어, 이 이름을 사칭한 문자도 들어오게 돼요. 이 이름에 대해 직접 설정한 차단 규칙은 삭제돼요.</string>
-    <string name="nameallow_body_many">앞으로 %1$s 이름으로 오는 새 문자는 받은 메시지함에 들어가요. 누구나 원하는 이름으로 문자를 보낼 수 있어, 이 이름들을 사칭한 문자도 들어오게 돼요. 이 이름들에 대해 직접 설정한 차단 규칙은 삭제돼요.</string>
+    <string name="nameallow_title">이 이름을 허용할까요?</string>
+    <string name="nameallow_body">누구나 %1$s 이름으로 문자를 보낼 수 있어요. 허용하고 대화를 메시지 탭으로 옮길까요?</string>
+    <string name="nameallow_body_many">누구나 다음 이름으로 문자를 보낼 수 있어요: %1$s. 허용하고 대화를 메시지 탭으로 옮길까요?</string>
     <string name="nameallow_more">%1$s 외 %2$d개</string>
     <string name="nameallow_allow">항상 허용</string>
     <string name="nameallow_not_now">지금 안 함</string>

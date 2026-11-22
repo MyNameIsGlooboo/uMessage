@@ -7,7 +7,7 @@
     <string name="onb_finish">বার্তা পাঠানো শুরু করুন</string>
     <string name="onb_welcome_title">uMessage-এ স্বাগতম</string>
     <string name="onb_welcome_intro">বার্তা পাঠানো আরও সহজ, স্প্যাম কম।</string>
-    <string name="onb_welcome_demo_desc">পরিচিতদের বার্তা “বার্তা” বিভাগে যায়, অচেনা প্রেরকদের বার্তা “স্প্যাম” বিভাগে যায়, আর যাচাইকরণ কোড “বার্তা” বিভাগেই আসে।</string>
+    <string name="onb_welcome_demo_desc">আপনার পরিচিতিরা বার্তা ট্যাবে যায়। অচেনা প্রেরক স্প্যামে যায়। যে প্রেরক আপনাকে যাচাইকরণ কোড পাঠায়, সে বার্তা ট্যাবে যায়।</string>
     <string name="onb_welcome_spam">স্প্যাম দূরে থাকে</string>
     <string name="onb_welcome_spam_desc">অচেনা প্রেরকের বার্তা স্প্যামে থাকে, হারায় না।</string>
     <string name="onb_welcome_codes">এক ট্যাপেই কোড</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">অ্যাকাউন্ট, বিজ্ঞাপন বা ক্লাউড নেই। সবকিছু আপনার ফোনেই থাকে।</string>
     <string name="onb_welcome_start">শুরু করুন</string>
     <string name="onb_default_title">uMessage-কে আপনার SMS অ্যাপ করুন</string>
-    <string name="onb_default_body">Android শুধু ডিফল্ট SMS অ্যাপকেই বার্তা গ্রহণ ও ফিল্টার করতে দেয়। এটি ছাড়া uMessage আপনার ইনবক্স সুরক্ষিত রাখতে পারবে না।</string>
+    <string name="onb_default_body">Android শুধু ডিফল্ট SMS অ্যাপকেই বার্তা গ্রহণ ও ফিল্টার করতে দেয়। এটি ছাড়া uMessage আপনার জন্য স্প্যাম ফিল্টার করতে পারবে না।</string>
     <string name="onb_default_action">ডিফল্ট করুন</string>
     <string name="onb_default_denied">অনুরোধটি প্রত্যাখ্যান করা হয়েছে। আবার চেষ্টা করতে পারেন, বা এগিয়ে গিয়ে পরে Android সেটিংসে এটি ঠিক করতে পারেন।</string>
     <string name="onb_default_unavailable">আপনার ফোনে ডিফল্ট অ্যাপ বেছে নেওয়ার ডায়ালগ খোলা যায়নি। Android সেটিংস খুলে অ্যাপ, ডিফল্ট অ্যাপ, SMS অ্যাপে যান এবং uMessage বেছে নিন।</string>

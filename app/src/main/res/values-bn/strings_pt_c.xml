@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pt_spam_empty_body">অচেনা প্রেরক এবং আপনার ব্লক করা প্রেরকদের চ্যাট এখানে দেখা যায়।</string>
+    <string name="pt_spam_filter_off_strip">স্প্যাম ফিল্টার বন্ধ</string>
+    <string name="pt_spam_filter_off_body">এখানে শুধু আপনার ব্লক করা প্রেরকেরা আছেন।</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">এই ফোন থেকে %dটি চ্যাট মুছবেন?</item>
+        <item quantity="other">এই ফোন থেকে %dটি চ্যাট মুছবেন?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">বার্তাগুলো সব অ্যাপের জন্য মোছা হয়, শুধু uMessage-এ নয়। ঠিক পরেই আগের অবস্থায় ফেরাতে পারবেন, পরে আর নয়।</string>
+    <plurals name="pt_snack_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">ব্লক সরানো হয়েছে। চ্যাট বার্তা ট্যাবে ফিরে এসেছে।</item>
+        <item quantity="other">%d জন প্রেরকের ব্লক সরানো হয়েছে। তাঁদের চ্যাট বার্তা ট্যাবে ফিরে এসেছে।</item>
+    </plurals>
+    <string name="pt_older_spam_title">শুধু uMessage-এ রাখা পুরোনো স্প্যাম</string>
+    <string name="pt_older_spam_hint">এই বার্তাগুলো এখনও ফোনে নেই। uMessage আপনার ডিফল্ট SMS অ্যাপ হলে এগুলোর বেশিরভাগ সেখানে চলে যাবে। ততক্ষণ আপনি এখানে পড়তে পারবেন।</string>
+    <string name="pt_block_still_allowed">স্প্যামে যায়নি: আপনার অনুমতি দেওয়ার একটি নিয়ম এখনও এই প্রেরককে আসতে দিচ্ছে।</string>
+    <string name="pt_unblock_refused_prefix">ব্লক সরানো যায়নি: একটি নিয়ম %1$s দিয়ে শুরু হওয়া নম্বর ব্লক করে</string>
+    <string name="pt_line_code">অনুমতি দেওয়া হয়েছে, কারণ এই প্রেরক একটি যাচাইকরণ কোড পাঠিয়েছেন।</string>
+    <string name="pt_line_wrote">অনুমতি দেওয়া হয়েছে, কারণ আপনি এই নম্বরে বার্তা পাঠিয়েছেন।</string>
+    <string name="pt_line_word">নিজে থেকে অনুমতি দেওয়া হয়েছে, কারণ একটি বার্তায় আপনার অনুমতি দেওয়া একটি শব্দ ছিল।</string>
+    <string name="pt_line_blocked">আপনি এই প্রেরককে ব্লক করেছেন। নতুন বার্তা নিঃশব্দে স্প্যামে আসে।</string>
+    <string name="pt_line_blocked_word">নিজে থেকে ব্লক করা হয়েছে, কারণ একটি বার্তায় আপনার ব্লক করা একটি শব্দ ছিল।</string>
+    <string name="pt_line_unknown">অচেনা প্রেরক। বার্তা স্প্যামে আসে।</string>
+    <string name="pt_line_keep">থাকুক</string>
+    <string name="pt_reply_allows_confirm">এতে প্রেরক অনুমতি পাবেন। পাঠাবেন?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%dটি চ্যাট এখন স্প্যামে আছে</item>
+        <item quantity="other">%dটি চ্যাট এখন স্প্যামে আছে</item>
+    </plurals>
+    <string name="pt_card_moved_body">অচেনা ও ব্লক করা প্রেরকদের সেখানে সাজানো হয়। কিছুই মোছা হয়নি।</string>
+</resources>

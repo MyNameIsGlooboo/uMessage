@@ -4,12 +4,12 @@
         <item quantity="one">%d चैट पढ़ी हुई मार्क की गई</item>
         <item quantity="other">%d चैट पढ़ी हुई मार्क की गईं</item>
     </plurals>
-    <string name="decm_search_section_blocked">ब्लॉक किए गए मैसेज</string>
-    <string name="decm_blocked_search">ब्लॉक किए गए मैसेज खोजें</string>
+    <string name="decm_search_section_blocked">स्पैम</string>
+    <string name="decm_blocked_search">स्पैम में खोजें</string>
     <string name="decm_blocked_search_hint">भेजने वाले या टेक्स्ट से खोजें</string>
     <string name="decm_blocked_search_close">खोज बंद करें</string>
     <string name="decm_blocked_search_none_title">कुछ नहीं मिला</string>
-    <string name="decm_blocked_search_none_body">आपने जो लिखा, उससे कोई ब्लॉक किया गया भेजने वाला या मैसेज मेल नहीं खाता.</string>
+    <string name="decm_blocked_search_none_body">स्पैम में कोई भेजने वाला या मैसेज आपके लिखे से मेल नहीं खाता.</string>
     <string name="decm_always_allow">हमेशा अनुमति दें</string>
     <string name="decisions_backup_keywords">जोड़े जाने वाले ब्लॉक शब्द: %1$d. जो शब्द पहले से हैं, उन्हें छोड़ दिया जाएगा.</string>
     <string name="thread_failed_reason_generic">फ़ोन ने सामान्य गड़बड़ी बताई (कोड %1$d)</string>

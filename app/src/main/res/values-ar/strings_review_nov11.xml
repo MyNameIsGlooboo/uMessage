@@ -28,7 +28,7 @@
         <item quantity="many">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
         <item quantity="other">ستُحذف المحادثات وكل رسائلها من هذا الهاتف. يمكنك التراجع لبضع ثوانٍ بعد ذلك.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s موجود في جهات اتصالك. هل تريد حظر هذا المرسل؟ ستذهب رسائله الجديدة إلى الرسائل المحظورة بدل صندوق الوارد. يمكنك التراجع مباشرة بعد ذلك.</string>
+    <string name="convlist_block_contact_message">%1$s ضمن جهات اتصالك. هل تريد حظر هذا المرسل؟ تنتقل المحادثة كلها إلى «غير المرغوب فيها» وتصل الرسائل الجديدة إلى هناك دون تنبيه. يمكنك التراجع بعد ذلك مباشرة.</string>
     <string name="i29_color_red">أحمر</string>
     <string name="i29_color_orange">برتقالي</string>
     <string name="i29_color_yellow">أصفر</string>
@@ -54,10 +54,10 @@
     <string name="rule_preview_loading">جارٍ فحص الرسائل الأخيرة…</string>
     <string name="rule_preview_failed">تعذّر فحص الرسائل الأخيرة. حاول مرة أخرى.</string>
     <string name="rule_preview_nothing">لا توجد رسائل أخيرة لفحصها بعد.</string>
-    <string name="rule_preview_inbox">الوارد: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
-    <string name="rule_preview_inbox_empty">الوارد: لا توجد رسائل لفحصها</string>
-    <string name="rule_preview_blocked">المحظورة: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
-    <string name="rule_preview_blocked_empty">المحظورة: لا توجد رسائل لفحصها</string>
+    <string name="rule_preview_inbox">الرسائل: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
+    <string name="rule_preview_inbox_empty">الرسائل: لا شيء للتحقق منه</string>
+    <string name="rule_preview_blocked">غير المرغوب فيها: تنطبق هذه القاعدة على %1$d من آخر %2$d رسالة</string>
+    <string name="rule_preview_blocked_empty">غير المرغوب فيها: لا شيء للتحقق منه</string>
     <string name="rule_preview_examples">مثلًا: %1$s</string>
     <string name="n06_delete_confirm">هل تريد حذف هذا النص المحفوظ؟</string>
     <string name="screens_vcard_email_action">بريد إلكتروني</string>

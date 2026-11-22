@@ -6,15 +6,18 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
 import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.spam.engine.SenderVerdict
+import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.showConfirmDialog
 import com.glooboo.umessage.ui.lock.SpamChatGate
 import com.glooboo.umessage.ui.spam.RuleNotes
+import com.glooboo.umessage.ui.spam.RulesActivity
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import com.glooboo.umessage.ui.spam.SenderPlace
@@ -137,17 +140,24 @@ internal class ThreadSpamMoves(
         }
     }
 
-    /** A prefix (or another wide rule) still blocks the sender: what was removed goes back, and the rule is named. */
+    /**
+     * A prefix (or another wide rule) still blocks the sender: what was removed goes back. A prefix is named, with
+     * "View rule" opening the rules screen (D-6); another rule gives the plain failure text.
+     */
     private suspend fun stillBlockedByRule(repo: SpamRepository, removed: List<SpamRule>, ruleId: Long?) {
         runCatching { repo.restoreRules(removed) }
         wrote()
         val rule = runCatching { repo.rules.first() }.getOrNull()?.firstOrNull { it.id == ruleId }
-        val text = if (rule != null && rule.type == RuleType.PREFIX) {
-            activity.getString(R.string.spam_reason_rule_prefix, rule.pattern)
-        } else {
-            activity.getString(R.string.thread_unblock_failed)
+        if (rule == null || rule.type != RuleType.PREFIX) {
+            snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed), duration = SnackbarDuration.Long)
+            return
         }
-        snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
+        val view = snackbar.showSnackbar(
+            message = activity.getString(R.string.pt_unblock_refused_prefix, isolateLtr(rule.pattern)),
+            actionLabel = activity.getString(R.string.e_view_rule),
+            duration = SnackbarDuration.Long,
+        ) == SnackbarResult.ActionPerformed
+        if (view) activity.startActivity(RulesActivity.intent(activity, ListKind.BLOCK))
     }
 
     /** The message of an unblock, with Undo only when something was removed (no Undo that does nothing). */

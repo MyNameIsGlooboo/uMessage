@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">خروجی گرفتن از قانون‌ها در فایل</string>
     <string name="rules2_meta">%1$s، %2$s</string>
     <string name="rules2_empty_allowed_title">هیچ فرستنده‌ای همیشه مجاز نیست</string>
-    <string name="rules2_empty_allowed_body">شماره، نام فرستنده یا کلمه‌ای اضافه کنید که پیام‌هایش همیشه باید به صندوق ورودی شما برسد.</string>
+    <string name="rules2_empty_allowed_body">شماره، نام فرستنده یا کلمه‌ای اضافه کنید که پیام‌هایش همیشه باید به پیام‌ها برسد.</string>
     <string name="rules2_empty_blocked_title">هیچ فرستنده‌ای همیشه بلاک‌شده نیست</string>
     <string name="rules2_empty_blocked_body">شماره، نام فرستنده، کلمه یا الگویی اضافه کنید تا پیام‌هایش به اسپم برود.</string>
     <string name="rules2_migrate_title">بردن به قانون‌های uMessage</string>
-    <string name="rules2_migrate_point_blocked">بعد از آن، پیام‌ها به اسپم می‌روند و می‌توانید آن‌ها را بازیابی کنید.</string>
+    <string name="rules2_migrate_point_blocked">بعد از آن، گفتگوهایشان به اسپم می‌رود و می‌توانید برشان گردانید.</string>
     <string name="rules2_migrate_remove_needs_first">ابتدا گزینهٔ بالا را علامت بزنید.</string>
     <string name="rules2_migrate_nothing_selected">چیزی انتخاب نشده</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">حذف قانون</string>
     <string name="rules2_sheet_hint_empty">برای ادامه، مقداری وارد کنید</string>
     <string name="rules2_sheet_hint_fix">برای ادامه، مقدار بالا را اصلاح کنید</string>
-    <string name="rules2_sheet_sim_help">قانون‌های یک سیم‌کارت فقط روی پیام‌های دریافتی همان سیم‌کارت اعمال می‌شوند.</string>
     <string name="rules2_type_number_help">یک شماره تلفن دقیق، مانند +15550001234 یا 05550001234. شماره‌های کوتاهی مثل 3000 هم پذیرفته می‌شوند. رقم‌های فارسی هم قابل استفاده‌اند.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">هر شماره‌ای که با این مقدار شروع شود، مثلاً +1555 یا 0555.</string>
@@ -42,7 +41,7 @@
         <item quantity="one">بردن %1$d شماره به قانون‌ها</item>
         <item quantity="other">بردن %1$d شماره به قانون‌ها</item>
     </plurals>
-    <string name="forward2_intro_reassure">فقط پیام‌هایی که به صندوق ورودی شما می‌رسند فوروارد می‌شوند. اسپم هرگز فوروارد نمی‌شود.</string>
+    <string name="forward2_intro_reassure">فقط پیام‌هایی که به «پیام‌ها» می‌رسند فوروارد می‌شوند. اسپم هرگز فوروارد نمی‌شود.</string>
     <string name="forward2_empty_title">هنوز قانون فورواردی ندارید</string>
     <string name="forward2_empty_body">یک نسخه از پیام‌هایی که با قانون جور هستند، مثل هشدارهای بانکی، به گوشی دیگری بفرستید. با یکی از این گزینه‌ها شروع کنید.</string>
     <string name="forward2_template_bank">فوروارد هشدارهای بانکی</string>

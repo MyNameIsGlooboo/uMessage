@@ -3,12 +3,12 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">채팅 %d개를 읽음으로 표시했어요</item>
     </plurals>
-    <string name="decm_search_section_blocked">차단된 메시지</string>
-    <string name="decm_blocked_search">차단된 메시지 검색</string>
+    <string name="decm_search_section_blocked">스팸</string>
+    <string name="decm_blocked_search">스팸함 검색</string>
     <string name="decm_blocked_search_hint">발신자 또는 내용으로 검색</string>
     <string name="decm_blocked_search_close">검색 닫기</string>
     <string name="decm_blocked_search_none_title">결과가 없어요</string>
-    <string name="decm_blocked_search_none_body">입력한 내용과 일치하는 차단된 발신자나 메시지가 없어요.</string>
+    <string name="decm_blocked_search_none_body">입력한 내용과 일치하는 발신자나 문자가 스팸함에 없어요.</string>
     <string name="decm_always_allow">항상 허용</string>
     <string name="decisions_backup_keywords">추가할 차단 단어: %1$d개. 이미 있는 단어는 건너뛰어요.</string>
     <string name="thread_failed_reason_generic">휴대폰에서 일반 오류를 알려 왔어요(코드 %1$d)</string>

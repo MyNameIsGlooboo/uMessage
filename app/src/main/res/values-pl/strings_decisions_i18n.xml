@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">Słowa do zablokowania do dodania: %1$d. Słowa, które już masz, są pomijane.</string>
     <string name="spam_reason_rule_domain">Reguła: linki do %1$s</string>
-    <string name="decm_search_section_blocked">Zablokowane wiadomości</string>
-    <string name="decm_blocked_search">Szukaj w zablokowanych wiadomościach</string>
+    <string name="decm_search_section_blocked">Spam</string>
+    <string name="decm_blocked_search">Szukaj w folderze Spam</string>
     <string name="decm_blocked_search_hint">Szukaj po nadawcy lub treści</string>
     <string name="decm_blocked_search_close">Zamknij wyszukiwanie</string>
     <string name="decm_blocked_search_none_title">Nic nie znaleziono</string>
-    <string name="decm_blocked_search_none_body">Żaden zablokowany nadawca ani wiadomość nie pasuje do wpisanego tekstu.</string>
+    <string name="decm_blocked_search_none_body">Żaden nadawca ani wiadomość w folderze Spam nie pasuje do wpisanego tekstu.</string>
     <string name="decm_always_allow">Zawsze zezwalaj</string>
     <string name="rdec_match_domain">Link do strony</string>
     <string name="rdec_row_type_domain">Link w wiadomości</string>

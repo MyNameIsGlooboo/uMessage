@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">سخت موڈ میں، جو بھیجنے والے آپ کے رابطوں میں نہیں ان کے کوڈز بھی باقی سب کے ساتھ اسپیم میں جاتے ہیں۔ بینکوں اور ڈیلیوری کمپنیوں کے پیغامات بھی روک لیے جاتے ہیں۔</string>
     <string name="settings_nav_strict_confirm_action">سخت استعمال کریں</string>
     <string name="settings_nav_strict_confirm_cancel">موجودہ موڈ رکھیں</string>
-    <string name="settings_nav_purge_row">اسپیم اتنے عرصے بعد حذف کریں</string>
+    <string name="settings_nav_purge_row">پرانا اسپیم خود بخود حذف کریں</string>
     <string name="settings_nav_group_alerts">الرٹس</string>
-    <string name="settings_nav_notify_body">ہر اسپیم پیغام کے لیے ایک خاموش اطلاع</string>
+    <string name="settings_nav_notify_body">ایک خاموش اطلاع جو اسپیم کھولتی ہے۔ آپ کے بلاک کیے گئے بھیجنے والے کے لیے کبھی نہیں۔</string>
     <string name="settings_nav_theme_title">ظاہری شکل</string>
     <string name="settings_nav_theme_modes">موڈ</string>
     <string name="settings_nav_theme_colours">رنگ</string>

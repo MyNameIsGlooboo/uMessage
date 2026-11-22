@@ -7,7 +7,7 @@
     <string name="onb_finish">ابدأ المراسلة</string>
     <string name="onb_welcome_title">مرحبًا بك في uMessage</string>
     <string name="onb_welcome_intro">مراسلة أفضل، ورسائل غير مرغوب فيها أقل.</string>
-    <string name="onb_welcome_demo_desc">تصل رسائل من تعرفهم إلى «الرسائل»، ورسائل الغرباء إلى «غير المرغوب فيها»، وتظل رموز التحقق تصل إلى «الرسائل».</string>
+    <string name="onb_welcome_demo_desc">تذهب جهات اتصالك إلى «الرسائل». ويذهب المرسلون غير المعروفين إلى «غير المرغوب فيها». والمرسل الذي يرسل إليك رمز تحقق يذهب إلى «الرسائل».</string>
     <string name="onb_welcome_spam">أبعد الرسائل غير المرغوب فيها</string>
     <string name="onb_welcome_spam_desc">تبقى رسائل المرسلين غير المعروفين في «غير المرغوب فيها» ولا تضيع.</string>
     <string name="onb_welcome_codes">رموز بنقرة واحدة</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">بلا حساب أو إعلانات أو تخزين سحابي. كل شيء يبقى على هاتفك.</string>
     <string name="onb_welcome_start">ابدأ</string>
     <string name="onb_default_title">اجعل uMessage تطبيقك للرسائل النصية</string>
-    <string name="onb_default_body">يسمح Android لتطبيق الرسائل النصية الافتراضي فقط باستقبال الرسائل وتصفيتها. بدون ذلك، لا يستطيع uMessage حماية الرسائل الواردة.</string>
+    <string name="onb_default_body">يسمح Android لتطبيق الرسائل النصية الافتراضي فقط باستقبال الرسائل وتصفيتها. بدون ذلك، لا يستطيع uMessage تصفية الرسائل غير المرغوب فيها لك.</string>
     <string name="onb_default_action">عيّن كتطبيق افتراضي</string>
     <string name="onb_default_denied">رُفض الطلب. حاول مجددًا، أو تابع وعيّنه لاحقًا في إعدادات Android.</string>
     <string name="onb_default_unavailable">تعذّر على هاتفك فتح نافذة اختيار التطبيق الافتراضي. افتح إعدادات Android، ثم التطبيقات، ثم التطبيقات الافتراضية، ثم تطبيق SMS، واختر uMessage.</string>

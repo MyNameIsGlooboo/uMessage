@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">অচেনা প্রেরক</string>
     <string name="spam_reason_other">ফিল্টারে আটকানো</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">দুটি SIM-ই</string>
-    <string name="spam_sim_missing">ফোনে SIM নেই</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">অনুমতি দেওয়া</string>
     <string name="spam_rules_tab_blocked">ব্লক করা</string>
     <string name="spam_rules_add">নিয়ম যোগ করুন</string>
     <string name="spam_rules_empty_allowed_title">অনুমতি দেওয়ার কোনো নিয়ম নেই</string>
-    <string name="spam_rules_empty_allowed_body">আপনি যেগুলিকে অনুমতি দেন, সেগুলি সবসময় আপনার ইনবক্সে পৌঁছায়, এমনকি কঠোর মোডেও। একটি নম্বর, প্রেরকের নাম বা কিওয়ার্ড যোগ করুন।</string>
     <string name="spam_rules_empty_blocked_title">ব্লক করার কোনো নিয়ম নেই</string>
-    <string name="spam_rules_empty_blocked_body">একটি নম্বর, নম্বরের শুরুর অংশ, প্রেরকের নাম, কিওয়ার্ড বা প্যাটার্ন (রেগেক্স) ব্লক করুন। ওদের বার্তা স্প্যামে যায়।</string>
     <string name="spam_rules_delete_rule">%s নিয়ম মুছুন</string>
     <string name="spam_rules_deleted">নিয়ম মুছে ফেলা হয়েছে</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -57,11 +53,10 @@
     <string name="spam_type_keyword">কিওয়ার্ড</string>
     <string name="spam_type_regex">প্যাটার্ন (রেগেক্স)</string>
     <string name="spam_type_keyword_help">এই লেখা আছে এমন যেকোনো বার্তা, বড় শব্দের মধ্যে থাকলেও: “win” দিলে “window”-ও মিলে যাবে। বড় ও ছোট হাতের অক্ষরে পার্থক্য করা হয় না। প্রেরকও ব্লক হয়, তবে তিনি আপনার কন্টাক্টে থাকলে নয়।</string>
-    <string name="spam_type_keyword_allow_help">যে প্রেরকেরই হোক, এই লেখা থাকা যেকোনো বার্তা আপনার সব ব্লক এড়িয়ে আসবে। একটি দীর্ঘ, নির্দিষ্ট বাক্যাংশ ব্যবহার করুন।</string>
+    <string name="spam_type_keyword_allow_help">যে বার্তায় এই লেখা থাকে, সেটি তার প্রেরককে অনুমতি দেয়: পুরো চ্যাট বার্তা ট্যাবে যায়। আপনার ব্লক করা প্রেরক ব্লকই থাকে। একটি লম্বা, হুবহু বাক্যাংশ ব্যবহার করুন।</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">বিনামূল্যে উপহার</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">যার জন্য প্রযোজ্য</string>
     <string name="spam_sheet_note_label">নোট (ঐচ্ছিক)</string>
     <string name="spam_sheet_add">নিয়ম যোগ করুন</string>
     <string name="spam_sheet_clear_value">মান মুছুন</string>
@@ -77,9 +72,9 @@
     <string name="spam_err_duplicate">এই নিয়ম আগে থেকেই আছে</string>
     <string name="spam_err_regex_unsafe">এই প্যাটার্নে (রেগেক্স) আগে থেকেই বারবার আসা একটি গ্রুপ আবারও বারবার আসে, যা বার্তা ফিল্টার করা আটকে দিতে পারে। এটি সহজ করুন।</string>
     <string name="spam_err_regex_matches_all">এই প্যাটার্ন (রেগেক্স) সব বার্তার সঙ্গে মিলে যায়। আরও নির্দিষ্ট করুন।</string>
-    <string name="spam_err_allow_keyword_short">অনুমতি দেওয়া শব্দে অন্তত 4টি অক্ষর চাই, কারণ সেগুলি থাকা যেকোনো বার্তা আপনার সব ব্লক এড়িয়ে আসবে</string>
+    <string name="spam_err_allow_keyword_short">অনুমতি দেওয়া শব্দে অন্তত 4টি অক্ষর থাকতে হবে, কারণ এমন শব্দ থাকা বার্তা তার প্রেরককে অনুমতি দেয়</string>
     <string name="spam_sheet_save_failed">নিয়ম সেভ করা যায়নি। আবার চেষ্টা করুন।</string>
-    <string name="spam_warn_allow_skips_blocks">যে প্রেরকেরই হোক, এমনকি আপনার ব্লক করা নম্বর থেকেও, এটি থাকা যেকোনো বার্তা আপনার সব ব্লক এড়িয়ে আসবে।</string>
+    <string name="spam_warn_allow_skips_blocks">যে অচেনা প্রেরকের বার্তায় এটি থাকবে, তিনি তখন থেকে অনুমতি পাবেন। আপনার ব্লক করা প্রেরকেরা ব্লকই থাকবেন।</string>
     <string name="spam_warn_common_word">এটি ছোট বা বহুল ব্যবহৃত একটি শব্দ। স্প্যামেও সহজেই এটি থাকতে পারে।</string>
     <string name="spam_warn_broad">এটি সাধারণ অনেক লেখার সঙ্গে মিলে যায়, তাই অনেক স্বাভাবিক বার্তাও আটকে যাবে।</string>
     <string name="spam_warn_allowed_conflict">এটি আপনার “অনুমতি দেওয়া” তালিকায় আছে। অনুমতি দেওয়ার নিয়ম সবসময় অগ্রাধিকার পায়, তাই এই ব্লক কখনোই কার্যকর হবে না।</string>
@@ -100,8 +95,8 @@
         <item quantity="one">এবং আরও %dটি</item>
         <item quantity="other">এবং আরও %dটি</item>
     </plurals>
-    <string name="spam_settings_unknown_title">অচেনা প্রেরকের বার্তা</string>
-    <string name="spam_settings_unknown_body">যেসব প্রেরক আপনার পরিচিতিতে নেই, যাঁদের আপনি কখনো বার্তা পাঠাননি এবং যাঁরা আপনার অনুমতি দেওয়া তালিকায় নেই।</string>
+    <string name="spam_settings_unknown_title">স্প্যাম ফিল্টার</string>
+    <string name="spam_settings_unknown_body">অচেনা প্রেরক হলো যিনি আপনার পরিচিতিতে নেই এবং অনুমতি দেওয়া তালিকাতেও নেই। তাঁর পুরো চ্যাট নিঃশব্দে স্প্যামে যায়। যাঁদের আপনি বার্তা পাঠিয়েছেন এবং যাচাইকরণ কোডের প্রেরকেরা বার্তা ট্যাবেই থাকেন।</string>
     <string name="spam_mode_strict">কঠোর</string>
     <string name="spam_mode_strict_body">সব অচেনা প্রেরককে ব্লক করে, কোডও</string>
     <string name="spam_mode_smart">স্মার্ট</string>
@@ -112,8 +107,8 @@
     <string name="spam_strict_warning_body">ব্যাংক, ডেলিভারি সংস্থার বার্তা ও একবার ব্যবহারযোগ্য কোড সাধারণত এমন প্রেরকের কাছ থেকে আসে, যাঁরা আপনার পরিচিতিতে নেই। কঠোর মোডে কোডসহ এসব বার্তা স্প্যামে যায়। কোড আসতে দিতে স্মার্ট বেছে নিন, অথবা ওই প্রেরকদের একবার অনুমতি দিন।</string>
     <string name="spam_strict_warning_action">স্প্যাম দেখে নিন</string>
     <string name="spam_settings_cleanup_title">পরিষ্কার করুন</string>
-    <string name="spam_purge_body">পুরোনো স্প্যাম নিজে থেকেই মুছে যায়।</string>
+    <string name="spam_purge_body">দিনের সংখ্যা বেছে না নেওয়া পর্যন্ত বন্ধ থাকে</string>
     <string name="spam_purge_days">%d দিন</string>
     <string name="spam_purge_forever">চিরকাল রাখুন</string>
-    <string name="spam_notify_title">বার্তা ব্লক করা হলে বিজ্ঞপ্তি দিন</string>
+    <string name="spam_notify_title">অচেনা প্রেরকের বার্তার জন্য বিজ্ঞপ্তি দিন</string>
 </resources>

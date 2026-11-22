@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">بیک اپ میں %d شیڈول پیغام ہے</item>
+        <item quantity="other">بیک اپ میں %d شیڈول پیغامات ہیں</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">صرف آپ کے آن کرنے پر، مقررہ وقت پر %d نمبر کو بھیجا جائے گا۔ آپ کے چننے تک کچھ نہیں بھیجا جاتا۔</item>
+        <item quantity="other">صرف آپ کے آن کرنے پر، مقررہ اوقات پر %d مختلف نمبروں کو بھیجے جائیں گے۔ آپ کے چننے تک کچھ نہیں بھیجا جاتا۔</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">آن کریں</string>
+    <string name="pt_restore_scheduled_discard">ہٹائیں</string>
+    <string name="pt_older_spam_stuck">ان میں سے کچھ پیغامات فون میں منتقل نہیں ہو سکے۔ وہ یہیں رہیں گے، اور آپ انہیں پڑھ سکتے ہیں۔</string>
+    <string name="pt_restore_scheduled_row_body">بیک اپ بحال کرتے وقت یہ آن نہیں ہوئے۔ آن کرنے یا ہٹانے کے لیے تھپتھپائیں۔</string>
+    <string name="pt_older_spam_pictures_here">ان میں سے کچھ پیغامات پہلے سے فون میں ہیں۔ صرف ان کی تصویریں یہاں، uMessage میں رکھی گئی ہیں۔</string>
+</resources>

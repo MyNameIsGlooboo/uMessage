@@ -38,7 +38,7 @@
         <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Spam, dan percakapan diarsipkan.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Spam.</item>
+        <item quantity="other">%d chat dilaporkan. Chat dipindahkan ke Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Mode pengirim tidak dikenal diatur ke %1$s</string>

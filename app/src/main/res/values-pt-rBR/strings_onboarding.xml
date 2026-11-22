@@ -7,7 +7,7 @@
     <string name="onb_finish">Comece a enviar mensagens</string>
     <string name="onb_welcome_title">Boas-vindas ao uMessage</string>
     <string name="onb_welcome_intro">Mais facilidade nas mensagens, menos spam.</string>
-    <string name="onb_welcome_demo_desc">Mensagens de quem você conhece vão para Mensagens, as de desconhecidos vão para Spam e os códigos de verificação continuam chegando em Mensagens.</string>
+    <string name="onb_welcome_demo_desc">Seus contatos vão para Mensagens. Remetentes desconhecidos vão para Spam. Um remetente que envia um código de verificação para você vai para Mensagens.</string>
     <string name="onb_welcome_spam">Spam fica de fora</string>
     <string name="onb_welcome_spam_desc">Mensagens de remetentes desconhecidos ficam em Spam, sem se perder.</string>
     <string name="onb_welcome_codes">Códigos com um toque</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Sem conta, sem anúncios, sem nuvem. Tudo fica no seu celular.</string>
     <string name="onb_welcome_start">Comece agora</string>
     <string name="onb_default_title">Defina o uMessage como seu app de SMS</string>
-    <string name="onb_default_body">O Android só permite que o app de SMS padrão receba e filtre mensagens. Sem isso, o uMessage não pode proteger sua caixa de entrada.</string>
+    <string name="onb_default_body">O Android só permite que o app de SMS padrão receba e filtre mensagens. Sem isso, o uMessage não pode filtrar spam para você.</string>
     <string name="onb_default_action">Defina como padrão</string>
     <string name="onb_default_denied">A solicitação foi recusada. Tente de novo ou continue e defina depois nas configurações do Android.</string>
     <string name="onb_default_unavailable">Seu celular não conseguiu abrir a janela de app padrão. Abra as configurações do Android, Apps, Apps padrão, App de SMS e escolha uMessage.</string>

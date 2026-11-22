@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Benachrichtigungen sind aus</string>
     <string name="notifications_off_body">Du wirst nicht über neue Nachrichten benachrichtigt.</string>
     <string name="notifications_off_fix">Aktivieren</string>
+    <string name="notifications_quiet_title">Benachrichtigungen sind lautlos</string>
+    <string name="notifications_quiet_body">„%1$s“ hat keinen Ton, daher klingeln neue Nachrichten nicht. Schalte den Ton in den Android-Einstellungen ein.</string>
 </resources>

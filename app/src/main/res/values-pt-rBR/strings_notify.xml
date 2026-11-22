@@ -7,4 +7,6 @@
     <string name="notifications_off_title">As notificações estão desativadas</string>
     <string name="notifications_off_body">Você não receberá avisos de novas mensagens.</string>
     <string name="notifications_off_fix">Ative</string>
+    <string name="notifications_quiet_title">As notificações estão silenciosas</string>
+    <string name="notifications_quiet_body">“%1$s” não tem som, então as novas mensagens não tocam. Ative o som nas configurações do Android.</string>
 </resources>

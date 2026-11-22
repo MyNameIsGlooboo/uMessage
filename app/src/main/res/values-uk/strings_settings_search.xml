@@ -5,7 +5,7 @@
     <string name="settings_search_none">Налаштування не знайдено. Спробуйте інше слово.</string>
     <string name="settings_search_start">Введіть слово, наприклад: тема, резервне копіювання чи спам.</string>
     <string name="sks_spam">спам заблокувати заблоковано мотлох фільтр захист шахрайство небажані</string>
-    <string name="sks_unknown_sender">невідомі незнайомці відправники режим фільтр спам заблокувати</string>
+    <string name="sks_unknown_sender">невідомі незнайомці відправники фільтр спам заблокувати перемикач увімкнути вимкнути режим</string>
     <string name="sks_strict">суворий жорсткий заблокувати все коди</string>
     <string name="sks_smart">розумний рекомендований автоматичний за умовчанням фільтр</string>
     <string name="sks_spam_off">вимкнено вимкнути зупинити фільтр дозволити все</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">сповіщення сповіщення сигнал звук мелодія вібрація вібрувати тон беззвучно вимкнути звук</string>
     <string name="sks_android_notifications">Android система канал звук мелодія вібрація важливість спливні</string>
     <string name="sks_code_alert">код одноразовий код підтвердження канал звук спливні сповіщення</string>
-    <string name="sks_block_alert">заблоковано повідомлення сигнал сповістити спам сповіщення</string>
+    <string name="sks_block_alert">заблоковано повідомлення сигнал сповістити спам сповіщення невідомі відправники</string>
     <string name="sks_digest">щотижневий підсумок звіт огляд тиждень</string>
     <string name="sks_wake">пробудити екран увімкнути підсвічування дисплей</string>
     <string name="sks_bubbles">бульбашки плаваючі чати значки спливні</string>

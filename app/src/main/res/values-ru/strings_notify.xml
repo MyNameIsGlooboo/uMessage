@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Уведомления выключены</string>
     <string name="notifications_off_body">Вы не получите уведомлений о новых сообщениях.</string>
     <string name="notifications_off_fix">Включить</string>
+    <string name="notifications_quiet_title">Уведомления без звука</string>
+    <string name="notifications_quiet_body">У канала «%1$s» нет звука, поэтому новые сообщения не звенят. Включите звук в настройках Android.</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="w2b1_archived_find" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заархівовано %d чат. Знайдіть його на вкладці «Заархівовано»</item>
+        <item quantity="one">Заархівовано чатів: %d. Шукайте на вкладці «Заархівовано»</item>
         <item quantity="few">Заархівовано %d чати. Знайдіть їх на вкладці «Заархівовано»</item>
         <item quantity="many">Заархівовано %d чатів. Знайдіть їх на вкладці «Заархівовано»</item>
         <item quantity="other">Заархівовано %d чату. Знайдіть їх на вкладці «Заархівовано»</item>

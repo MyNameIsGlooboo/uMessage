@@ -49,9 +49,9 @@
     <string name="settings_nav_strict_confirm_body">No modo de filtragem rigoroso, códigos de remetentes que não estão nos seus contatos vão para Spam junto com todo o resto. Mensagens de bancos e transportadoras também são retidas.</string>
     <string name="settings_nav_strict_confirm_action">Use o modo rigoroso</string>
     <string name="settings_nav_strict_confirm_cancel">Mantenha o modo atual</string>
-    <string name="settings_nav_purge_row">Exclua o spam após</string>
+    <string name="settings_nav_purge_row">Excluir spam antigo automaticamente</string>
     <string name="settings_nav_group_alerts">Alertas</string>
-    <string name="settings_nav_notify_body">Uma notificação silenciosa para cada mensagem de spam</string>
+    <string name="settings_nav_notify_body">Uma notificação silenciosa que abre o Spam. Nunca para um remetente que você bloqueou.</string>
     <string name="settings_nav_theme_title">Aparência</string>
     <string name="settings_nav_theme_modes">Modo</string>
     <string name="settings_nav_theme_colours">Cores</string>

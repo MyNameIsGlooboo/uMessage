@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">La copia de seguridad tiene %d mensaje programado</item>
+        <item quantity="other">La copia de seguridad tiene %d mensajes programados</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Se envía a %d número a la hora fijada, solo si lo activas. No se envía nada hasta que elijas.</item>
+        <item quantity="other">Se envían a %d números distintos a las horas fijadas, solo si los activas. No se envía nada hasta que elijas.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Activar</string>
+    <string name="pt_restore_scheduled_discard">Descartar</string>
+    <string name="pt_older_spam_stuck">Algunos de estos mensajes no se pudieron pasar al propio teléfono. Se quedan aquí y puedes seguir leyéndolos.</string>
+    <string name="pt_restore_scheduled_row_body">La restauración no los activó. Toca para activarlos o descartarlos.</string>
+    <string name="pt_older_spam_pictures_here">Algunos de estos mensajes ya están en el propio teléfono. Solo sus imágenes se guardan aquí, en uMessage.</string>
+</resources>

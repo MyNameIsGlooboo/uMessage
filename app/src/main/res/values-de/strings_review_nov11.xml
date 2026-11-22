@@ -16,7 +16,7 @@
         <item quantity="one">Die Unterhaltung und alle ihre Nachrichten werden von diesem Telefon gelöscht. Du kannst das noch einige Sekunden lang rückgängig machen.</item>
         <item quantity="other">Die Unterhaltungen und alle ihre Nachrichten werden von diesem Telefon gelöscht. Du kannst das noch einige Sekunden lang rückgängig machen.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s ist in deinen Kontakten. Diesen Absender blockieren? Neue Nachrichten von ihm landen dann in den blockierten Nachrichten statt im Posteingang. Du kannst das gleich danach rückgängig machen.</string>
+    <string name="convlist_block_contact_message">%1$s ist in deinen Kontakten. Diesen Absender blockieren? Der ganze Chat wandert nach „Spam“, und neue Nachrichten kommen dort still an. Du kannst es direkt danach rückgängig machen.</string>
     <string name="i29_color_red">Rot</string>
     <string name="i29_color_orange">Orange</string>
     <string name="i29_color_yellow">Gelb</string>
@@ -38,10 +38,10 @@
     <string name="rule_preview_loading">Letzte Nachrichten werden geprüft…</string>
     <string name="rule_preview_failed">Die letzten Nachrichten konnten nicht geprüft werden. Versuche es erneut.</string>
     <string name="rule_preview_nothing">Es gibt noch keine letzten Nachrichten zum Prüfen.</string>
-    <string name="rule_preview_inbox">Posteingang: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
-    <string name="rule_preview_inbox_empty">Posteingang: keine Nachrichten zum Prüfen</string>
-    <string name="rule_preview_blocked">Blockiert: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
-    <string name="rule_preview_blocked_empty">Blockiert: keine Nachrichten zum Prüfen</string>
+    <string name="rule_preview_inbox">Nachrichten: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
+    <string name="rule_preview_inbox_empty">Nachrichten: nichts zu prüfen</string>
+    <string name="rule_preview_blocked">Spam: Diese Regel trifft auf %1$d der letzten %2$d Nachrichten zu</string>
+    <string name="rule_preview_blocked_empty">Spam: nichts zu prüfen</string>
     <string name="rule_preview_examples">Zum Beispiel: %1$s</string>
     <string name="n06_delete_confirm">Diesen gespeicherten Text löschen?</string>
     <string name="screens_vcard_email_action">E-Mail</string>

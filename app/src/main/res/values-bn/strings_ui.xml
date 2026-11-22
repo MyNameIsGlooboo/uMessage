@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">ডায়াল প্যাড দেখান</string>
     <string name="ui_show_keyboard">কিবোর্ড দেখান</string>
     <string name="ui_settings_system_block_list">সিস্টেমের ব্লক তালিকা</string>
-    <string name="ui_settings_system_block_list_body">এই ফোনের সব অ্যাপে ব্লক করা নম্বর। uMessage-ও এগুলো লুকিয়ে রাখে।</string>
     <string name="ui_settings_blocked_words">ব্লক করা শব্দ</string>
     <string name="ui_settings_character_counter">অক্ষরের সংখ্যা দেখান</string>
     <string name="ui_settings_send_on_enter">Enter কী দিয়ে পাঠান</string>

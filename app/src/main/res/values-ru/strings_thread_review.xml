@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">Решение</string>
-    <string name="thread_review_details_decision_allowed">Разрешено: доставлено во входящие</string>
+    <string name="thread_review_details_decision_allowed">Разрешено: попало в «Сообщения»</string>
     <string name="thread_review_details_type">Тип</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

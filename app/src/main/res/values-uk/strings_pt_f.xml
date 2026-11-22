@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">У резервній копії %d заплановане повідомлення</item>
+        <item quantity="few">У резервній копії %d заплановані повідомлення</item>
+        <item quantity="many">У резервній копії %d запланованих повідомлень</item>
+        <item quantity="other">У резервній копії %d запланованого повідомлення</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Буде надіслано на %d номер у визначений час, лише якщо ви це ввімкнете. Доки ви не вирішите, нічого не надсилається.</item>
+        <item quantity="few">Буде надіслано на %d різні номери у визначений час, лише якщо ви це ввімкнете. Доки ви не вирішите, нічого не надсилається.</item>
+        <item quantity="many">Буде надіслано на %d різних номерів у визначений час, лише якщо ви це ввімкнете. Доки ви не вирішите, нічого не надсилається.</item>
+        <item quantity="other">Буде надіслано на %d різного номера у визначений час, лише якщо ви це ввімкнете. Доки ви не вирішите, нічого не надсилається.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Увімкнути</string>
+    <string name="pt_restore_scheduled_discard">Видалити</string>
+    <string name="pt_older_spam_stuck">Деякі з цих повідомлень не вдалося перенести на сам телефон. Вони залишаються тут, і їх можна читати.</string>
+    <string name="pt_restore_scheduled_row_body">Під час відновлення їх не було ввімкнено. Натисніть, щоб увімкнути або видалити їх.</string>
+    <string name="pt_older_spam_pictures_here">Деякі з цих повідомлень уже є на самому телефоні. Тут, в uMessage, зберігаються лише їхні зображення.</string>
+</resources>

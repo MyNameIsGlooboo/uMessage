@@ -7,7 +7,7 @@
     <string name="onb_finish">Commencer à échanger</string>
     <string name="onb_welcome_title">Bienvenue sur uMessage</string>
     <string name="onb_welcome_intro">De meilleurs échanges, moins de spam.</string>
-    <string name="onb_welcome_demo_desc">Les messages des personnes que vous connaissez arrivent dans Messages, ceux des inconnus dans Spam, et les codes de validation continuent d\'arriver dans Messages.</string>
+    <string name="onb_welcome_demo_desc">Vos contacts vont dans Messages. Les expéditeurs inconnus vont dans Spam. Un expéditeur qui vous envoie un code de validation va dans Messages.</string>
     <string name="onb_welcome_spam">Le spam reste à l\'écart</string>
     <string name="onb_welcome_spam_desc">Les messages des expéditeurs inconnus restent dans Spam, sans être perdus.</string>
     <string name="onb_welcome_codes">Vos codes en un geste</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Sans compte, sans publicité, sans cloud. Tout reste sur votre téléphone.</string>
     <string name="onb_welcome_start">Commencer</string>
     <string name="onb_default_title">Faites d\'uMessage votre application SMS</string>
-    <string name="onb_default_body">Android autorise uniquement l\'application SMS par défaut à recevoir et filtrer les messages. Sans cela, uMessage ne peut pas protéger votre boîte de réception.</string>
+    <string name="onb_default_body">Android autorise uniquement l\'application SMS par défaut à recevoir et filtrer les messages. Sans cela, uMessage ne peut pas filtrer le spam pour vous.</string>
     <string name="onb_default_action">Définir par défaut</string>
     <string name="onb_default_denied">La demande a été refusée. Vous pouvez réessayer ou continuer et définir l\'application par défaut plus tard dans les paramètres Android.</string>
     <string name="onb_default_unavailable">Votre téléphone n\'a pas pu ouvrir la fenêtre de choix de l\'application par défaut. Dans les paramètres Android, ouvrez Applications, Applications par défaut, Application SMS, puis choisissez uMessage.</string>

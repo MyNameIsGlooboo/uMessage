@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">Regeln in Datei exportieren</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Keine Absender immer erlaubt</string>
-    <string name="rules2_empty_allowed_body">Füge eine Nummer, einen Absendernamen oder ein Wort hinzu, damit passende Nachrichten immer in deinem Posteingang landen. Tippe unten auf „Regel hinzufügen“.</string>
+    <string name="rules2_empty_allowed_body">Füge eine Nummer, einen Absendernamen oder ein Wort hinzu, das immer in „Nachrichten“ ankommen soll.</string>
     <string name="rules2_empty_blocked_title">Keine Absender immer blockiert</string>
     <string name="rules2_empty_blocked_body">Füge eine Nummer, einen Absendernamen, ein Wort oder ein Muster (Regex) hinzu, um passende Nachrichten nach „Spam“ zu verschieben. Tippe unten auf „Regel hinzufügen“.</string>
     <string name="rules2_migrate_title">In uMessage-Regeln übertragen</string>
-    <string name="rules2_migrate_point_blocked">Nachrichten landen dann unter „Spam“, wo du sie wiederherstellen kannst.</string>
+    <string name="rules2_migrate_point_blocked">Ihre Chats landen dann in „Spam“, von wo du sie zurückholen kannst.</string>
     <string name="rules2_migrate_remove_needs_first">Aktiviere zuerst die Option oben.</string>
     <string name="rules2_migrate_nothing_selected">Nichts ausgewählt</string>
     <plurals name="rules2_migrate_confirm_count">
@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">Regel löschen</string>
     <string name="rules2_sheet_hint_empty">Gib einen Wert ein, um fortzufahren</string>
     <string name="rules2_sheet_hint_fix">Korrigiere den Wert oben, um fortzufahren</string>
-    <string name="rules2_sheet_sim_help">Regeln für eine bestimmte SIM gelten nur für Nachrichten, die auf dieser SIM eingehen.</string>
     <string name="rules2_type_number_help">Eine genaue Telefonnummer, zum Beispiel +15550001234 oder 05550001234. Auch Kurzwahlnummern wie 3000 sind möglich. Persische Ziffern gehen ebenfalls.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Alle Nummern, die damit beginnen, zum Beispiel +1555 oder 0555.</string>
@@ -42,7 +41,7 @@
         <item quantity="one">%1$d Nummer in Regeln übertragen</item>
         <item quantity="other">%1$d Nummern in Regeln übertragen</item>
     </plurals>
-    <string name="forward2_intro_reassure">Nur Nachrichten, die deinen Posteingang erreichen, werden weitergeleitet. Spam wird nie weitergeleitet.</string>
+    <string name="forward2_intro_reassure">Nur Nachrichten, die in „Nachrichten“ ankommen, werden weitergeleitet. Spam nie.</string>
     <string name="forward2_empty_title">Noch keine Weiterleitungsregeln</string>
     <string name="forward2_empty_body">Sende eine Kopie passender Nachrichten, etwa Bankbenachrichtigungen, an ein anderes Telefon. Starte mit einer dieser Vorlagen.</string>
     <string name="forward2_template_bank">Bankbenachrichtigungen weiterleiten</string>

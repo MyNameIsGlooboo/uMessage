@@ -5,7 +5,7 @@
     <string name="settings_search_none">Ayar bulunamadı. Başka bir kelime deneyin.</string>
     <string name="settings_search_start">Tema, yedekleme veya spam gibi bir kelime yazın.</string>
     <string name="sks_spam">spam engelleyin engellendi gereksiz filtre koruma dolandırıcılık istenmeyen</string>
-    <string name="sks_unknown_sender">bilinmeyen yabancılar gönderenler mod filtre spam engelleyin</string>
+    <string name="sks_unknown_sender">bilinmeyen yabancılar gönderenler filtre spam engelleyin anahtar açık kapalı mod</string>
     <string name="sks_strict">sıkı katı engelleyin her şey kodlar</string>
     <string name="sks_smart">akıllı önerilen otomatik varsayılan filtre</string>
     <string name="sks_spam_off">kapalı devre dışı durdur filtre izin verin her şey</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">bildirim bildirimler uyarı ses zil sesi titreşim titret ton sessiz sustur</string>
     <string name="sks_android_notifications">Android sistem kanal ses zil sesi titreşim önem açılır pencere</string>
     <string name="sks_code_alert">kod OTP doğrulama kanal ses açılır pencere uyarı</string>
-    <string name="sks_block_alert">engellendi mesaj uyarı bildir spam bildirim</string>
+    <string name="sks_block_alert">engellendi mesaj uyarı bildir spam bildirim bilinmeyen gönderenler</string>
     <string name="sks_digest">haftalık özet rapor derleme hafta</string>
     <string name="sks_wake">uyandır ekran aç ışık görüntü</string>
     <string name="sks_bubbles">baloncuklar yüzen sohbet başlıkları açılır pencere</string>

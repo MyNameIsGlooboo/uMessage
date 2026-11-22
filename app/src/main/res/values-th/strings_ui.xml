@@ -15,7 +15,6 @@
     <string name="ui_show_dialpad">แสดงแป้นโทรศัพท์</string>
     <string name="ui_show_keyboard">แสดงแป้นพิมพ์</string>
     <string name="ui_settings_system_block_list">รายการบล็อกของระบบ</string>
-    <string name="ui_settings_system_block_list_body">หมายเลขที่บล็อกสำหรับทุกแอปในโทรศัพท์นี้ uMessage จะซ่อนหมายเลขเหล่านี้ด้วย</string>
     <string name="ui_settings_blocked_words">คำที่บล็อก</string>
     <string name="ui_settings_character_counter">แสดงจำนวนอักขระ</string>
     <string name="ui_settings_send_on_enter">ส่งด้วยปุ่ม Enter</string>

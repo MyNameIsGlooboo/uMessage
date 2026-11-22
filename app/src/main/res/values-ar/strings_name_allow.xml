@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">السماح بهذا الاسم دائمًا؟</string>
-    <string name="nameallow_body">ستصل الرسائل الجديدة من %1$s إلى الرسائل الواردة. يمكن لأي شخص إرسال رسائل بأي اسم، لذا ستمر أيضًا الرسائل المزيفة التي تحمل هذا الاسم. ستُزال قواعد الحظر التي وضعتها لهذا الاسم.</string>
-    <string name="nameallow_body_many">ستصل الرسائل الجديدة من %1$s إلى الرسائل الواردة. يمكن لأي شخص إرسال رسائل بأي اسم، لذا ستمر أيضًا الرسائل المزيفة التي تحمل هذه الأسماء. ستُزال قواعد الحظر التي وضعتها لهذه الأسماء.</string>
+    <string name="nameallow_title">هل تريد السماح بهذا الاسم؟</string>
+    <string name="nameallow_body">يمكن لأي شخص إرسال رسائل باسم %1$s. هل تريد السماح به ونقل المحادثة إلى «الرسائل»؟</string>
+    <string name="nameallow_body_many">يمكن لأي شخص إرسال رسائل بهذه الأسماء: %1$s. هل تريد السماح بها ونقل المحادثات إلى «الرسائل»؟</string>
     <string name="nameallow_more">%1$s و%2$d أسماء أخرى</string>
     <string name="nameallow_allow">اسمح دائمًا</string>
     <string name="nameallow_not_now">ليس الآن</string>

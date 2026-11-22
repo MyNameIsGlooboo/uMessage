@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">Người gửi không xác định</string>
     <string name="spam_reason_other">Đã lọc</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Cả hai SIM</string>
-    <string name="spam_sim_missing">SIM không có trong điện thoại</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Đã cho phép</string>
     <string name="spam_rules_tab_blocked">Đã chặn</string>
     <string name="spam_rules_add">Thêm quy tắc</string>
     <string name="spam_rules_empty_allowed_title">Chưa có quy tắc cho phép</string>
-    <string name="spam_rules_empty_allowed_body">Tin nhắn bạn cho phép luôn vào hộp thư đến, kể cả trong chế độ lọc nghiêm ngặt. Thêm số điện thoại, tên người gửi hoặc từ khóa.</string>
     <string name="spam_rules_empty_blocked_title">Chưa có quy tắc chặn</string>
-    <string name="spam_rules_empty_blocked_body">Chặn số điện thoại, đầu số, tên người gửi, từ khóa hoặc biểu thức chính quy. Tin nhắn của họ sẽ vào thư mục Tin rác.</string>
     <string name="spam_rules_delete_rule">Xóa quy tắc %s</string>
     <string name="spam_rules_deleted">Đã xóa quy tắc</string>
     <plurals name="spam_rules_imported">
@@ -53,11 +49,10 @@
     <string name="spam_type_keyword">Từ khóa</string>
     <string name="spam_type_regex">Biểu thức chính quy</string>
     <string name="spam_type_keyword_help">Mọi tin nhắn chứa nội dung này, kể cả trong một từ dài hơn: “win” cũng khớp với “window”. Không phân biệt chữ hoa, chữ thường. Người gửi cũng bị chặn, trừ khi họ có trong danh bạ của bạn.</string>
-    <string name="spam_type_keyword_allow_help">Mọi tin nhắn chứa nội dung này đều bỏ qua tất cả quy tắc chặn của bạn, bất kể người gửi. Dùng cụm từ dài, chính xác.</string>
+    <string name="spam_type_keyword_allow_help">Tin nhắn chứa nội dung này sẽ cho phép người gửi: toàn bộ cuộc trò chuyện vào mục Tin nhắn. Người gửi bạn đã chặn vẫn bị chặn. Hãy dùng một cụm từ dài và chính xác.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">quà miễn phí</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Áp dụng cho</string>
     <string name="spam_sheet_note_label">Ghi chú (không bắt buộc)</string>
     <string name="spam_sheet_add">Thêm quy tắc</string>
     <string name="spam_sheet_clear_value">Xóa giá trị</string>
@@ -73,9 +68,9 @@
     <string name="spam_err_duplicate">Quy tắc này đã tồn tại</string>
     <string name="spam_err_regex_unsafe">Biểu thức chính quy này lặp lại một nhóm vốn đã lặp, có thể làm treo bộ lọc tin nhắn. Hãy đơn giản hóa.</string>
     <string name="spam_err_regex_matches_all">Biểu thức chính quy này khớp với mọi tin nhắn. Hãy viết cụ thể hơn.</string>
-    <string name="spam_err_allow_keyword_short">Từ được cho phép cần ít nhất 4 ký tự vì mọi tin nhắn chứa từ đó đều bỏ qua tất cả quy tắc chặn của bạn</string>
+    <string name="spam_err_allow_keyword_short">Từ được cho phép cần ít nhất 4 ký tự, vì tin nhắn chứa một từ như vậy sẽ cho phép người gửi</string>
     <string name="spam_sheet_save_failed">Không lưu được quy tắc. Thử lại.</string>
-    <string name="spam_warn_allow_skips_blocks">Mọi tin nhắn chứa nội dung này đều bỏ qua tất cả quy tắc chặn của bạn, bất kể người gửi, kể cả số bạn đã chặn.</string>
+    <string name="spam_warn_allow_skips_blocks">Bất kỳ người gửi không xác định nào có tin nhắn chứa nội dung này sẽ được cho phép từ đó về sau. Người gửi bạn đã chặn vẫn bị chặn.</string>
     <string name="spam_warn_common_word">Đây là từ ngắn hoặc phổ biến. Tin nhắn rác rất dễ chứa từ này.</string>
     <string name="spam_warn_broad">Tiêu chí này khớp với nhiều nội dung thông thường nên sẽ chặn nhiều tin nhắn bình thường.</string>
     <string name="spam_warn_allowed_conflict">Mục này nằm trong danh sách Đã cho phép của bạn. Quy tắc cho phép luôn được ưu tiên nên quy tắc chặn này sẽ không bao giờ áp dụng.</string>
@@ -93,8 +88,8 @@
     <plurals name="spam_import_more">
         <item quantity="other">và %d mục khác</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Tin nhắn từ người gửi không xác định</string>
-    <string name="spam_settings_unknown_body">Người gửi không có trong danh sách người liên hệ của bạn, bạn chưa từng nhắn tin cho họ và họ không nằm trong danh sách đã cho phép của bạn.</string>
+    <string name="spam_settings_unknown_title">Bộ lọc tin rác</string>
+    <string name="spam_settings_unknown_body">Người gửi không xác định là người không có trong danh bạ và không nằm trong danh sách đã cho phép của bạn. Toàn bộ cuộc trò chuyện của họ sẽ lặng lẽ vào mục Tin rác. Những người bạn từng nhắn tin và người gửi mã xác minh vẫn ở mục Tin nhắn.</string>
     <string name="spam_mode_strict">Chế độ lọc nghiêm ngặt</string>
     <string name="spam_mode_strict_body">Chặn mọi người gửi không xác định, kể cả tin nhắn chứa mã</string>
     <string name="spam_mode_smart">Thông minh</string>
@@ -105,8 +100,8 @@
     <string name="spam_strict_warning_body">Tin nhắn từ ngân hàng, đơn vị giao hàng và mã dùng một lần thường đến từ người gửi không có trong danh sách người liên hệ của bạn. Trong chế độ lọc nghiêm ngặt, các tin nhắn này vào thư mục Tin rác, kể cả mã. Chọn Thông minh để cho phép mã hoặc cho phép những người gửi đó một lần.</string>
     <string name="spam_strict_warning_action">Xem lại tin nhắn rác</string>
     <string name="spam_settings_cleanup_title">Dọn dẹp</string>
-    <string name="spam_purge_body">Tin nhắn rác cũ sẽ tự động bị xóa.</string>
+    <string name="spam_purge_body">Tắt cho đến khi bạn chọn số ngày</string>
     <string name="spam_purge_days">%d ngày</string>
     <string name="spam_purge_forever">Giữ mãi mãi</string>
-    <string name="spam_notify_title">Thông báo khi tin nhắn bị chặn</string>
+    <string name="spam_notify_title">Thông báo cho tôi khi có tin nhắn từ người gửi không xác định</string>
 </resources>

@@ -32,17 +32,13 @@
     <string name="spam_reason_unknown_sender">Невідомий відправник</string>
     <string name="spam_reason_other">Відфільтровано</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Обидві SIM</string>
-    <string name="spam_sim_missing">SIM немає в телефоні</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Дозволено</string>
     <string name="spam_rules_tab_blocked">Заблоковані</string>
     <string name="spam_rules_add">Додати правило</string>
     <string name="spam_rules_empty_allowed_title">Немає правил дозволу</string>
-    <string name="spam_rules_empty_allowed_body">Усе, що ви дозволили, завжди потрапляє до вхідних, навіть у суворому режимі. Додайте номер, ім’я відправника або ключове слово.</string>
     <string name="spam_rules_empty_blocked_title">Немає правил блокування</string>
-    <string name="spam_rules_empty_blocked_body">Заблокуйте номер, префікс, ім’я відправника, ключове слово або регулярний вираз. Їхні повідомлення потрапляють до папки «Спам».</string>
     <string name="spam_rules_delete_rule">Видалити правило %s</string>
     <string name="spam_rules_deleted">Правило видалено</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -65,11 +61,10 @@
     <string name="spam_type_keyword">Ключове слово</string>
     <string name="spam_type_regex">Регулярний вираз</string>
     <string name="spam_type_keyword_help">Будь-яке повідомлення з цим текстом, навіть у складі довшого слова: «дар» також знайде «подарунок». Регістр літер не має значення. Відправника також буде заблоковано, якщо його немає у ваших контактах.</string>
-    <string name="spam_type_keyword_allow_help">Будь-яке повідомлення з цим текстом оминає всі ваші блокування незалежно від відправника. Вкажіть довгу, точну фразу.</string>
+    <string name="spam_type_keyword_allow_help">Повідомлення з цим текстом дозволяє свого відправника: увесь чат потрапляє в «Повідомлення». Відправник, якого ви заблокували, залишається заблокованим. Використовуйте довгу точну фразу.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">безкоштовний подарунок</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Застосувати до</string>
     <string name="spam_sheet_note_label">Примітка (необов’язково)</string>
     <string name="spam_sheet_add">Додати правило</string>
     <string name="spam_sheet_clear_value">Очистити значення</string>
@@ -85,9 +80,9 @@
     <string name="spam_err_duplicate">Таке правило вже є</string>
     <string name="spam_err_regex_unsafe">Цей регулярний вираз повторює групу, яка вже має повторення. Через це фільтрація повідомлень може зависнути. Спростіть його.</string>
     <string name="spam_err_regex_matches_all">Цей регулярний вираз відповідає всім повідомленням. Уточніть його.</string>
-    <string name="spam_err_allow_keyword_short">Дозволені слова мають містити щонайменше 4 символи, бо будь-яке повідомлення з ними оминає всі ваші блокування</string>
+    <string name="spam_err_allow_keyword_short">Дозволені слова мають бути не коротші за 4 символи, бо повідомлення з таким словом дозволяє свого відправника</string>
     <string name="spam_sheet_save_failed">Не вдалося зберегти правило. Спробуйте ще раз.</string>
-    <string name="spam_warn_allow_skips_blocks">Будь-яке повідомлення з цим текстом оминає всі ваші блокування незалежно від відправника, навіть із заблокованих номерів.</string>
+    <string name="spam_warn_allow_skips_blocks">Будь-який невідомий відправник, чиє повідомлення містить цей текст, відтепер дозволений. Заблоковані вами відправники залишаються заблокованими.</string>
     <string name="spam_warn_common_word">Це коротке або поширене слово. Воно легко може трапитися у спамі.</string>
     <string name="spam_warn_broad">Це відповідає багатьом звичайним текстам, тому правило зачепить багато звичайних повідомлень.</string>
     <string name="spam_warn_allowed_conflict">Це є у вашому списку дозволених. Правила дозволу завжди мають перевагу, тому це блокування ніколи не діятиме.</string>
@@ -114,8 +109,8 @@
         <item quantity="many">і ще %d</item>
         <item quantity="other">і ще %d</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Повідомлення від невідомих відправників</string>
-    <string name="spam_settings_unknown_body">Відправники, яких немає у ваших контактах, яким ви ніколи не писали та яких немає у вашому списку дозволених.</string>
+    <string name="spam_settings_unknown_title">Спам-фільтр</string>
+    <string name="spam_settings_unknown_body">Невідомий відправник — це той, кого немає у ваших контактах і в списку дозволених. Увесь його чат без звуку потрапляє в «Спам». Ті, кому ви писали, і відправники кодів підтвердження залишаються в «Повідомленнях».</string>
     <string name="spam_mode_strict">Суворий</string>
     <string name="spam_mode_strict_body">Блокує всіх невідомих відправників, навіть повідомлення з кодами</string>
     <string name="spam_mode_smart">Розумний</string>
@@ -126,8 +121,8 @@
     <string name="spam_strict_warning_body">Повідомлення від банків і служб доставки та одноразові коди зазвичай надходять від відправників, яких немає у ваших контактах. У суворому режимі вони потрапляють до папки «Спам», навіть коди. Виберіть розумний режим, щоб пропускати коди, або один раз дозвольте цих відправників.</string>
     <string name="spam_strict_warning_action">Переглянути спам</string>
     <string name="spam_settings_cleanup_title">Очищення</string>
-    <string name="spam_purge_body">Старий спам видаляється автоматично.</string>
+    <string name="spam_purge_body">Вимкнено, доки ви не виберете кількість днів</string>
     <string name="spam_purge_days">%d днів</string>
     <string name="spam_purge_forever">Зберігати завжди</string>
-    <string name="spam_notify_title">Сповіщати про заблоковане повідомлення</string>
+    <string name="spam_notify_title">Сповіщати про повідомлення від невідомих відправників</string>
 </resources>

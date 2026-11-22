@@ -7,7 +7,7 @@
     <string name="onb_finish">메시지 시작</string>
     <string name="onb_welcome_title">uMessage 앱에 오신 걸 환영해요.</string>
     <string name="onb_welcome_intro">스팸은 줄이고, 메시지는 더 편하게 주고받아요.</string>
-    <string name="onb_welcome_demo_desc">아는 사람이 보낸 문자는 메시지로, 모르는 사람이 보낸 문자는 스팸으로 분류돼요. 인증 코드는 계속 메시지로 받아볼 수 있어요.</string>
+    <string name="onb_welcome_demo_desc">연락처는 메시지 탭으로 가요. 알 수 없는 발신자는 스팸함으로 가요. 인증 코드를 보낸 발신자는 메시지 탭으로 가요.</string>
     <string name="onb_welcome_spam">스팸 차단</string>
     <string name="onb_welcome_spam_desc">알 수 없는 발신자의 메시지는 사라지지 않고 스팸함에 보관돼요.</string>
     <string name="onb_welcome_codes">한 번에 코드 복사</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">계정도, 광고도, 클라우드도 없어요. 모든 데이터는 휴대전화에만 저장돼요.</string>
     <string name="onb_welcome_start">시작하기</string>
     <string name="onb_default_title">uMessage 기본 SMS 앱 설정</string>
-    <string name="onb_default_body">Android 시스템에서는 기본 SMS 앱만 메시지를 수신하고 필터링할 수 있어요. 기본 SMS 앱으로 설정해야 uMessage 앱에서 받은 메시지함을 보호할 수 있어요.</string>
+    <string name="onb_default_body">Android 시스템에서는 기본 SMS 앱만 메시지를 수신하고 필터링할 수 있어요. 기본 SMS 앱으로 설정해야 uMessage 앱에서 스팸을 걸러 낼 수 있어요.</string>
     <string name="onb_default_action">기본 앱 설정</string>
     <string name="onb_default_denied">요청이 거부됐어요. 다시 시도하거나, 계속 진행한 후 Android 설정에서 변경할 수 있어요.</string>
     <string name="onb_default_unavailable">휴대전화에서 기본 앱 선택 창을 열지 못했어요. Android 설정에서 앱, 기본 앱, SMS 앱을 차례로 열고 uMessage 앱을 선택해 주세요.</string>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">Il backup contiene %d messaggio programmato</item>
+        <item quantity="other">Il backup contiene %d messaggi programmati</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Inviato a %d numero all\'ora stabilita, solo se lo attivi. Non viene inviato nulla finché non scegli.</item>
+        <item quantity="other">Inviati a %d numeri diversi agli orari stabiliti, solo se li attivi. Non viene inviato nulla finché non scegli.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Attiva</string>
+    <string name="pt_restore_scheduled_discard">Elimina</string>
+    <string name="pt_older_spam_stuck">Alcuni di questi messaggi non sono stati spostati sul telefono stesso. Restano qui e puoi ancora leggerli.</string>
+    <string name="pt_restore_scheduled_row_body">Il ripristino non li ha attivati. Tocca per attivarli o eliminarli.</string>
+    <string name="pt_older_spam_pictures_here">Alcuni di questi messaggi sono già sul telefono stesso. Qui, in uMessage, sono conservate solo le loro immagini.</string>
+</resources>

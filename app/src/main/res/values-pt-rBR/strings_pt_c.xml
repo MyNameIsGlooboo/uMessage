@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pt_spam_empty_body">Conversas de remetentes desconhecidos e de remetentes que você bloquear aparecem aqui.</string>
+    <string name="pt_spam_filter_off_strip">O filtro de spam está desativado</string>
+    <string name="pt_spam_filter_off_body">Aqui aparecem só os remetentes que você bloqueou.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">Excluir %d conversa deste celular?</item>
+        <item quantity="other">Excluir %d conversas deste celular?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">As mensagens são excluídas para todos os apps, não só no uMessage. Você pode desfazer logo depois, mas não mais tarde.</string>
+    <plurals name="pt_snack_unblocked" tools:ignore="ImpliedQuantity">
+        <item quantity="one">Desbloqueado. A conversa voltou para Mensagens.</item>
+        <item quantity="other">%d remetentes desbloqueados. As conversas deles voltaram para Mensagens.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Spam antigo guardado só no uMessage</string>
+    <string name="pt_older_spam_hint">Estas mensagens ainda não estão no próprio celular. A maioria vai para lá quando o uMessage for seu app de SMS padrão. Até lá, você pode lê-las aqui.</string>
+    <string name="pt_block_still_allowed">Não foi para Spam: uma das suas regras de permissão ainda deixa este remetente passar.</string>
+    <string name="pt_unblock_refused_prefix">Não desbloqueado: uma regra bloqueia números que começam com %1$s</string>
+    <string name="pt_line_code">Permitido porque este remetente enviou um código de verificação.</string>
+    <string name="pt_line_wrote">Permitido porque você escreveu para este número.</string>
+    <string name="pt_line_word">Permitido automaticamente porque uma mensagem tinha uma das suas palavras permitidas.</string>
+    <string name="pt_line_blocked">Você bloqueou este remetente. As novas mensagens chegam em Spam em silêncio.</string>
+    <string name="pt_line_blocked_word">Bloqueado automaticamente porque uma mensagem tinha uma das suas palavras bloqueadas.</string>
+    <string name="pt_line_unknown">Remetente desconhecido. As mensagens chegam em Spam.</string>
+    <string name="pt_line_keep">Manter</string>
+    <string name="pt_reply_allows_confirm">Isso permite o remetente. Enviar?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d conversa agora está em Spam</item>
+        <item quantity="other">%d conversas agora estão em Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Remetentes desconhecidos e bloqueados são separados lá. Nada foi excluído.</string>
+</resources>

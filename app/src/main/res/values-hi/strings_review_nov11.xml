@@ -16,7 +16,7 @@
         <item quantity="one">बातचीत और उसके सभी मैसेज इस फ़ोन से मिटा दिए जाएंगे. इसके बाद कुछ सेकंड तक आप इसे पहले जैसा कर सकते हैं.</item>
         <item quantity="other">ये बातचीत और इनके सभी मैसेज इस फ़ोन से मिटा दिए जाएंगे. इसके बाद कुछ सेकंड तक आप इसे पहले जैसा कर सकते हैं.</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$s आपके संपर्कों में है. क्या इस भेजने वाले को ब्लॉक करें? इसके नए मैसेज इनबॉक्स की जगह ब्लॉक किए गए मैसेज में जाएंगे. आप तुरंत बाद इसे पहले जैसा कर सकते हैं.</string>
+    <string name="convlist_block_contact_message">%1$s आपके संपर्कों में है. इस भेजने वाले को ब्लॉक करें? पूरी चैट स्पैम में चली जाएगी और नए मैसेज वहां बिना आवाज़ के आएंगे. आप तुरंत बाद इसे पहले जैसा कर सकते हैं.</string>
     <string name="i29_color_red">लाल</string>
     <string name="i29_color_orange">नारंगी</string>
     <string name="i29_color_yellow">पीला</string>
@@ -38,10 +38,10 @@
     <string name="rule_preview_loading">हाल के मैसेज जांचे जा रहे हैं…</string>
     <string name="rule_preview_failed">हाल के मैसेज नहीं जांचे जा सके. फिर कोशिश करें.</string>
     <string name="rule_preview_nothing">जांचने के लिए अभी कोई हाल का मैसेज नहीं है.</string>
-    <string name="rule_preview_inbox">इनबॉक्स: यह नियम पिछले %2$d में से %1$d मैसेज पर लागू होता है</string>
-    <string name="rule_preview_inbox_empty">इनबॉक्स: जांचने के लिए कोई मैसेज नहीं</string>
-    <string name="rule_preview_blocked">ब्लॉक किए गए: यह नियम पिछले %2$d में से %1$d मैसेज पर लागू होता है</string>
-    <string name="rule_preview_blocked_empty">ब्लॉक किए गए: जांचने के लिए कोई मैसेज नहीं</string>
+    <string name="rule_preview_inbox">मैसेज: यह नियम पिछले %2$d में से %1$d मैसेज पर लागू होता है</string>
+    <string name="rule_preview_inbox_empty">मैसेज: जांचने के लिए कुछ नहीं</string>
+    <string name="rule_preview_blocked">स्पैम: यह नियम पिछले %2$d में से %1$d मैसेज पर लागू होता है</string>
+    <string name="rule_preview_blocked_empty">स्पैम: जांचने के लिए कुछ नहीं</string>
     <string name="rule_preview_examples">जैसे: %1$s</string>
     <string name="n06_delete_confirm">यह सेव किया गया टेक्स्ट मिटाएं?</string>
     <string name="screens_vcard_email_action">ईमेल</string>

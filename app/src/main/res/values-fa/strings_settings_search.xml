@@ -7,7 +7,7 @@
 
     <!-- کلمه‌هایی که ممکن است برای یک تنظیم تایپ شوند، جدا از عنوان و توضیح آن. با فاصله جدا شوند. -->
     <string name="sks_spam">اسپم بلاک کردن فیلتر محافظت مزاحم تبلیغ کلاهبرداری ناخواسته spam block هرزنامه مسدود مسدودسازی</string>
-    <string name="sks_unknown_sender">فرستنده ناشناس غریبه حالت فیلتر اسپم بلاک هرزنامه مسدود</string>
+    <string name="sks_unknown_sender">فرستنده ناشناس غریبه فیلتر اسپم بلاک کلید روشن خاموش هرزنامه مسدود</string>
     <string name="sks_strict">سخت‌گیرانه سخت همه بلاک کد کدها مسدود</string>
     <string name="sks_smart">هوشمند پیشنهادی خودکار پیش‌فرض فیلتر</string>
     <string name="sks_spam_off">خاموش غیرفعال توقف فیلتر اجازه همه</string>
@@ -28,7 +28,7 @@
     <string name="sks_notifications">اعلان اعلان‌ها هشدار صدا زنگ لرزش ویبره بی‌صدا سکوت</string>
     <string name="sks_android_notifications">اندروید سیستم کانال صدا زنگ لرزش اهمیت پنجره</string>
     <string name="sks_code_alert">کد رمز یک‌بارمصرف تأیید کانال صدا هشدار</string>
-    <string name="sks_block_alert">پیام بلاک هشدار اعلان اسپم مسدود هرزنامه</string>
+    <string name="sks_block_alert">پیام بلاک هشدار اعلان اسپم مسدود هرزنامه فرستنده‌های ناشناس</string>
     <string name="sks_digest">خلاصه هفتگی گزارش هفته</string>
     <string name="sks_wake">روشن شدن صفحه بیدار نمایشگر</string>
     <string name="sks_bubbles">حباب شناور چت پنجره</string>

@@ -46,8 +46,8 @@
         <item quantity="other">%d conversations signalées. Les prochains SMS de ces expéditeurs iront dans Spam et les conversations sont archivées.</item>
     </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Signalement effectué. Les prochains SMS de cet expéditeur iront dans Spam.</item>
-        <item quantity="other">%d conversations signalées. Les prochains SMS de ces expéditeurs iront dans Spam.</item>
+        <item quantity="one">Signalé. La discussion est passée dans Spam.</item>
+        <item quantity="other">%d discussions signalées. Elles sont passées dans Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Mode des expéditeurs inconnus : %1$s</string>

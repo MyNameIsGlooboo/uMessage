@@ -6,7 +6,6 @@
     <string name="w3b_filter_unknown">Unknown sender</string>
     <string name="w3b_filter_rules">My rules</string>
     <string name="w3b_filter_link">Has link</string>
-    <string name="w3b_filter_sim">SIM %1$s</string>
     <string name="w3b_filter_with_count">%1$s %2$s</string>
     <string name="w3b_filter_none_title">No held message matches</string>
     <string name="w3b_filter_none_body">Nothing held fits this filter. Pick another one, or show everything.</string>
@@ -25,7 +24,7 @@
     <string name="w3b_release_once">Release once</string>
 
     <!-- ID-40: fix a decision from the decision log. -->
-    <string name="w3b_fix_note">The rule applies to new messages from this sender. Messages already held stay where they are.</string>
+    <string name="w3b_fix_note">The rule acts on the sender, so the whole chat moves.</string>
     <string name="w3b_fix_allow">Always allow this sender</string>
     <string name="w3b_fix_block">Block this sender</string>
     <string name="w3b_fix_allowed">%1$s is now allowed</string>
@@ -40,21 +39,20 @@
     <string name="w3b_test_sender">Sender</string>
     <string name="w3b_test_sender_hint">Number or name, such as +1555… or MYBANK</string>
     <string name="w3b_test_text">Message text</string>
-    <string name="w3b_test_sim">SIM</string>
     <string name="w3b_test_run">Test</string>
     <string name="w3b_test_create_rule">Create rule</string>
     <string name="w3b_test_close">Close</string>
     <string name="w3b_test_failed">The filter could not be asked. Try again.</string>
-    <string name="w3b_verdict_held_rule">Would be held: one of your block rules matches.</string>
-    <string name="w3b_verdict_held_link">Would be held: unknown sender with a link.</string>
-    <string name="w3b_verdict_held_unknown">Would be held: unknown sender.</string>
-    <string name="w3b_verdict_allowed_rule">Would be delivered: an allow rule matches.</string>
-    <string name="w3b_verdict_allowed_contact">Would be delivered: the sender is in your contacts.</string>
+    <string name="w3b_verdict_held_rule">Would go to Spam: one of your block rules matches.</string>
+    <string name="w3b_verdict_held_link">Would go to Spam: unknown sender, with a link.</string>
+    <string name="w3b_verdict_held_unknown">Would go to Spam: unknown sender.</string>
+    <string name="w3b_verdict_allowed_rule">Would go to Messages: one of your allow rules matches.</string>
+    <string name="w3b_verdict_allowed_contact">Would go to Messages: the sender is in your contacts.</string>
     <string name="w3b_verdict_allowed_known">Would be delivered: you have texted this number before.</string>
-    <string name="w3b_verdict_allowed_code">Would be delivered: a verification code.</string>
-    <string name="w3b_verdict_allowed_off">Would be delivered: unknown-sender blocking is off.</string>
-    <string name="w3b_verdict_allowed_unsure">Would be delivered: contacts cannot be read, so the sender cannot be judged.</string>
-    <string name="w3b_verdict_allowed_other">Would be delivered.</string>
+    <string name="w3b_verdict_allowed_code">Would go to Messages: a verification code. The sender is then allowed.</string>
+    <string name="w3b_verdict_allowed_off">Would go to Messages: the spam filter is off.</string>
+    <string name="w3b_verdict_allowed_unsure">Would go to Messages: contacts cannot be read, so the sender cannot be judged.</string>
+    <string name="w3b_verdict_allowed_other">Would go to Messages.</string>
 
     <!-- ID-53: empty rules tabs that teach with examples. -->
     <string name="w3b_examples_title">Start with an example</string>

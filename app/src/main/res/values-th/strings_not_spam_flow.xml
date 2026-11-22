@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">ย้ายไปกล่องข้อความเข้าแล้ว</string>
-    <string name="nsf_snack_moved_allowed">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความถัดไปจาก %1$s จะเข้ามาด้วย</string>
+    <string name="nsf_snack_moved">ย้ายไปที่ \"ข้อความ\" แล้ว</string>
+    <string name="nsf_snack_moved_allowed">ย้ายไปที่ \"ข้อความ\" แล้ว ตอนนี้ %1$s ได้รับอนุญาตเสมอ</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="other">ย้ายไปกล่องข้อความเข้าแล้ว ข้อความต่อไปจากผู้ส่ง %d รายจะเข้ากล่องข้อความเข้าด้วย</item>
+        <item quantity="other">ย้ายไปที่ \"ข้อความ\" แล้ว ตอนนี้ผู้ส่ง %d รายได้รับอนุญาตเสมอ</item>
     </plurals>
     <string name="nsf_moving">กำลังย้ายไปกล่องข้อความเข้า</string>
     <string name="move_progress">กำลังย้ายข้อความ: %1$s จาก %2$s</string>

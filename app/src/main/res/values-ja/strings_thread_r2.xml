@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">理由</string>
     <string name="thread_r2_details_rule">ルール</string>
     <string name="thread_r2_details_forwarded">転送済み</string>
-    <string name="thread_r2_details_decision_restored">ブロック後、受信トレイに復元済み</string>
+    <string name="thread_r2_details_decision_restored">ブロック後、「メッセージ」に移動しました</string>
     <string name="thread_r2_details_copy">%1$sをコピー</string>
     <string name="thread_r2_menu_search">会話内を検索</string>
     <string name="thread_r2_menu_always_forward">この送信者からは常に転送</string>

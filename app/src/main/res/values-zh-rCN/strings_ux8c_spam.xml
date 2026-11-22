@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">已由过滤器暂存</string>
     <string name="ux8c_not_spam">不是垃圾短信</string>
     <string name="ux8c_delete">删除</string>
-    <string name="ux8c_tip">滑动发件人可将其消息移至收件箱。长按可选择。</string>
+    <string name="ux8c_tip">滑动会话可将其移回“消息”。长按可选择。</string>
     <string name="ux8c_tip_dismiss">知道了</string>
     <string name="ux8c_sender_title">此发件人</string>
     <string name="ux8c_sender_normal">正常</string>

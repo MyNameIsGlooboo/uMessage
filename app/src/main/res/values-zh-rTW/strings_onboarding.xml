@@ -7,7 +7,7 @@
     <string name="onb_finish">開始傳訊息</string>
     <string name="onb_welcome_title">歡迎使用uMessage</string>
     <string name="onb_welcome_intro">更好的訊息體驗，更少的垃圾簡訊。</string>
-    <string name="onb_welcome_demo_desc">認識的人傳來的簡訊會歸到「訊息」，陌生人的簡訊會歸到「垃圾簡訊」，驗證碼仍會送到「訊息」。</string>
+    <string name="onb_welcome_demo_desc">聯絡人的簡訊會進入「訊息」。未知寄件者的簡訊會進入「垃圾訊息」。傳過驗證碼給你的寄件者會進入「訊息」。</string>
     <string name="onb_welcome_spam">擋下垃圾簡訊</string>
     <string name="onb_welcome_spam_desc">未知寄件者的訊息會留在「垃圾訊息」，不會遺失。</string>
     <string name="onb_welcome_codes">一鍵複製驗證碼</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">無需帳戶、沒有廣告、不用雲端。所有資料都留在你的手機上。</string>
     <string name="onb_welcome_start">開始使用</string>
     <string name="onb_default_title">將uMessage設為簡訊應用程式</string>
-    <string name="onb_default_body">Android只允許預設簡訊應用程式接收及篩選訊息。如果不設定，uMessage就無法保護你的收件匣。</string>
+    <string name="onb_default_body">Android只允許預設簡訊應用程式接收及篩選訊息。如果不設定，uMessage就無法為你篩選垃圾訊息。</string>
     <string name="onb_default_action">設為預設</string>
     <string name="onb_default_denied">要求遭到拒絕。你可以再試一次，或先繼續，之後在Android設定中設定。</string>
     <string name="onb_default_unavailable">你的手機無法開啟預設應用程式對話框。請開啟Android設定，依序點選「應用程式」、「預設應用程式」、「簡訊應用程式」，然後選擇uMessage。</string>

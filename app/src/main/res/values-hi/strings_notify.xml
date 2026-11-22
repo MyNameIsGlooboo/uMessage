@@ -7,4 +7,6 @@
     <string name="notifications_off_title">सूचनाएं बंद हैं</string>
     <string name="notifications_off_body">आपको नए मैसेज की सूचना नहीं मिलेगी.</string>
     <string name="notifications_off_fix">चालू करें</string>
+    <string name="notifications_quiet_title">सूचनाएं बिना आवाज़ की हैं</string>
+    <string name="notifications_quiet_body">“%1$s” में कोई आवाज़ नहीं है, इसलिए नए मैसेज पर घंटी नहीं बजती. Android सेटिंग में आवाज़ चालू करें.</string>
 </resources>

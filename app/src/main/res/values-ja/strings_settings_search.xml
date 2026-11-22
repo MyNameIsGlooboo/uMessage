@@ -5,7 +5,7 @@
     <string name="settings_search_none">設定が見つかりません。別の言葉で検索してください。</string>
     <string name="settings_search_start">テーマ、バックアップ、迷惑メッセージなどの言葉を入力してください。</string>
     <string name="sks_spam">迷惑メッセージ ブロック ブロック済み 不要 フィルター 保護 詐欺 受信拒否</string>
-    <string name="sks_unknown_sender">不明 知らない人 送信者 モード フィルター 迷惑メッセージ ブロック</string>
+    <string name="sks_unknown_sender">不明 知らない人 送信者 フィルター フィルタ 迷惑メッセージ ブロック スイッチ オン オフ モード</string>
     <string name="sks_strict">厳格 強力 ブロック すべて 認証コード</string>
     <string name="sks_smart">スマート おすすめ 自動 デフォルト フィルター</string>
     <string name="sks_spam_off">オフ 無効 停止 フィルター 許可 すべて</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">通知 お知らせ アラート 音 着信音 バイブレーション 振動 通知音 サイレント ミュート</string>
     <string name="sks_android_notifications">Android システム チャンネル 音 着信音 バイブレーション 重要度 ポップアップ</string>
     <string name="sks_code_alert">認証コード OTP 認証 チャンネル 音 ポップアップ アラート</string>
-    <string name="sks_block_alert">ブロック済み メッセージ アラート 通知する 迷惑メッセージ 通知</string>
+    <string name="sks_block_alert">ブロック済み メッセージ アラート 通知する 迷惑メッセージ 通知 不明な送信者</string>
     <string name="sks_digest">毎週 まとめ レポート ダイジェスト 週</string>
     <string name="sks_wake">スリープ解除 画面 点灯 明るさ ディスプレイ</string>
     <string name="sks_bubbles">バブル フローティング チャットヘッド ポップアップ</string>

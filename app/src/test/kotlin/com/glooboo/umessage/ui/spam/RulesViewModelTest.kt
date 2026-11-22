@@ -84,9 +84,9 @@ class RulesViewModelTest {
     private lateinit var repo: Repo
     private lateinit var vm: RulesViewModel
 
-    private fun start(rules: List<SpamRule> = emptyList()) {
+    private fun start(rules: List<SpamRule> = emptyList(), initialTab: ListKind = ListKind.ALLOW) {
         repo = Repo(rules)
-        vm = RulesViewModel(app, repo)
+        vm = RulesViewModel(app, repo, initialTab = initialTab)
         scope.launch { vm.state.collect { } }
         scope.launch { vm.eventFlow.collect { events += it } }
         awaitUntil { !vm.state.value.loading }
@@ -316,6 +316,22 @@ class RulesViewModelTest {
         vm.selectTab(ListKind.ALLOW)
         idleMain()
         assertThat(vm.state.value.selected).isEmpty()
+    }
+
+    @Test
+    fun theScreenOpensOnTheTabTheIntentNames() {
+        start(listOf(SpamRule(1, ListKind.BLOCK, RuleType.PREFIX, "+1555")), initialTab = ListKind.BLOCK)
+        assertThat(vm.state.value.tab).isEqualTo(ListKind.BLOCK)
+        assertThat(vm.state.value.visible.map { it.id }).containsExactly(1L)
+    }
+
+    @Test
+    fun theTabExtraNamesTheBlockListAndAPlainIntentHasNone() {
+        val block = RulesActivity.intent(app, ListKind.BLOCK)
+        assertThat(RulesActivity.tabOf(block.getStringExtra(RulesActivity.EXTRA_TAB))).isEqualTo(ListKind.BLOCK)
+        assertThat(RulesActivity.intent(app).hasExtra(RulesActivity.EXTRA_TAB)).isFalse()
+        assertThat(RulesActivity.tabOf(null)).isNull()
+        assertThat(RulesActivity.tabOf("FORWARD")).isNull()
     }
 
     // endregion

@@ -11,14 +11,6 @@
     <string name="e_restored_empty">從現在起，你移至收件匣的訊息會在這裡列出30天。</string>
     <string name="e_restored_when">已於%1$s移至收件匣</string>
     <string name="e_restored_open">開啟與%1$s的對話</string>
-    <string name="e_snack_allowed_one">兩張SIM均已設為一律允許%1$s</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="other">兩張SIM均已設為一律允許%d個寄件者</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">已設為一律允許%1$s</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="other">已設為一律允許%d個寄件者</item>
-    </plurals>
     <string name="e_view_rule">查看規則</string>
     <string name="e_rules_title">規則</string>
     <string name="e_rules_menu_backup">備份規則</string>
@@ -53,7 +45,7 @@
     <plurals name="e_migrate_title_numbers">
         <item quantity="other">將%d個號碼移至uMessage規則</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• 對方的簡訊會移至「垃圾訊息」，你可以在那裡閱讀及還原。</string>
+    <string name="e_migrate_point_blocked">• 對方的對話會移至「垃圾訊息」，你可以在那裡閱讀並移回。</string>
     <string name="e_migrate_point_android">• 在號碼移出Android清單前，Android仍會丟棄對方的簡訊。</string>
     <string name="e_migrate_calls_note">Android的清單也會封鎖來電。從清單移除的號碼將能再次打給你。</string>
     <string name="e_bn_row_calls_texts">封鎖來電與簡訊</string>
@@ -61,7 +53,7 @@
     <string name="e_bn_move_one">移至uMessage規則</string>
     <string name="e_bn_moved">%1$s現已成為uMessage規則。它的簡訊會移至「垃圾訊息」，來電則不再封鎖。</string>
     <string name="e_bn_field_help">例如+989121234567，或輸入+98912*來涵蓋所有開頭為+98912的號碼</string>
-    <string name="e_bn_short_code_warning">這看起來像是簡碼。Android會在uMessage收到前丟棄它的簡訊，因此你將無法還原任何一則，例如驗證碼或銀行通知。</string>
+    <string name="e_bn_short_code_warning">這看起來像是簡碼。Android會在uMessage看到前丟棄它的簡訊，因此你永遠看不到其中任何一則，例如驗證碼或銀行通知。</string>
     <string name="e_bn_add_as_rule">改為新增成uMessage規則</string>
     <string name="e_bn_added_as_rule">已將%1$s新增為uMessage規則。它的簡訊會移至「垃圾訊息」。</string>
 </resources>

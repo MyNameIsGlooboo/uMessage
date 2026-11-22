@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">Bilinmeyen gönderen</string>
     <string name="spam_reason_other">Filtrelendi</string>
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Her iki SIM</string>
-    <string name="spam_sim_missing">SIM telefonda değil</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">İzin verildi</string>
     <string name="spam_rules_tab_blocked">Engellenenler</string>
     <string name="spam_rules_add">Kural ekleyin</string>
     <string name="spam_rules_empty_allowed_title">İzin verme kuralı yok</string>
-    <string name="spam_rules_empty_allowed_body">İzin verdiğiniz her şey, Sıkı modda bile gelen kutunuza ulaşır. Bir numara, gönderen adı veya anahtar kelime ekleyin.</string>
     <string name="spam_rules_empty_blocked_title">Engelleme kuralı yok</string>
-    <string name="spam_rules_empty_blocked_body">Bir numarayı, numara önekini, gönderen adını, anahtar kelimeyi veya düzenli ifadeyi engelleyin. Bunların mesajları Spam klasörüne gider.</string>
     <string name="spam_rules_delete_rule">Kuralı silin: %s</string>
     <string name="spam_rules_deleted">Kural silindi</string>
     <plurals name="spam_rules_imported">
@@ -57,11 +53,10 @@
     <string name="spam_type_keyword">Anahtar kelime</string>
     <string name="spam_type_regex">Düzenli ifade</string>
     <string name="spam_type_keyword_help">Bu metni daha uzun bir kelimenin içinde bile içeren her mesaj: “kaz” kelimesi “kazanç” ile de eşleşir. Büyük ve küçük harf ayrımı yapılmaz. Gönderen de engellenir, ancak kişilerinizdeyse engellenmez.</string>
-    <string name="spam_type_keyword_allow_help">Bu metni içeren her mesaj, göndereni kim olursa olsun tüm engellemelerinizi aşar. Uzun ve tam bir ifade kullanın.</string>
+    <string name="spam_type_keyword_allow_help">Bu metni içeren bir mesaj, gönderenine izin verir: tüm sohbet Mesajlar\'a gider. Engellediğiniz bir gönderen engelli kalır. Uzun ve tam bir ifade kullanın.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">ücretsiz hediye</string>
     <string name="spam_type_regex_hint">kazan\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Geçerli olduğu SIM</string>
     <string name="spam_sheet_note_label">Not (isteğe bağlı)</string>
     <string name="spam_sheet_add">Kural ekleyin</string>
     <string name="spam_sheet_clear_value">Değeri temizleyin</string>
@@ -77,9 +72,9 @@
     <string name="spam_err_duplicate">Bu kural zaten var</string>
     <string name="spam_err_regex_unsafe">Bu düzenli ifade, zaten tekrarlanan bir grubu tekrar ediyor. Bu, mesaj filtrelemeyi dondurabilir. İfadeyi basitleştirin.</string>
     <string name="spam_err_regex_matches_all">Bu düzenli ifade her mesajla eşleşiyor. Daha belirgin hale getirin.</string>
-    <string name="spam_err_allow_keyword_short">İzin verilen kelimeler en az 4 karakter olmalıdır. Bu kelimeleri içeren her mesaj tüm engellemelerinizi aşar</string>
+    <string name="spam_err_allow_keyword_short">İzin verilen kelimeler en az 4 karakter olmalıdır, çünkü bunlardan birini içeren bir mesaj gönderenine izin verir</string>
     <string name="spam_sheet_save_failed">Kural kaydedilemedi. Tekrar deneyin.</string>
-    <string name="spam_warn_allow_skips_blocks">Bu metni içeren her mesaj, engellediğiniz numaralar dahil hangi gönderenden gelirse gelsin tüm engellemelerinizi aşar.</string>
+    <string name="spam_warn_allow_skips_blocks">Mesajı bunu içeren her bilinmeyen gönderene o andan itibaren izin verilir. Engellediğiniz gönderenler engelli kalır.</string>
     <string name="spam_warn_common_word">Bu kelime kısa veya yaygın. Spam mesajlar bu kelimeyi kolayca içerebilir.</string>
     <string name="spam_warn_broad">Bu, birçok sıradan metinle eşleşir ve çok sayıda normal mesajı da yakalar.</string>
     <string name="spam_warn_allowed_conflict">Bu, izin verilenler listenizde. İzin verme kuralları her zaman önceliklidir, bu nedenle bu engelleme hiç uygulanmaz.</string>
@@ -100,8 +95,8 @@
         <item quantity="one">ve %d tane daha</item>
         <item quantity="other">ve %d tane daha</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Bilinmeyen gönderenlerden gelen mesajlar</string>
-    <string name="spam_settings_unknown_body">Kişilerinizde kayıtlı olmayan, hiç mesaj göndermediğiniz ve izin verilenler listenizde bulunmayan gönderenler.</string>
+    <string name="spam_settings_unknown_title">Spam filtresi</string>
+    <string name="spam_settings_unknown_body">Bilinmeyen gönderen, kişilerinizde ve izin verilenler listenizde olmayan gönderendir. Tüm sohbeti sessizce Spam\'e gider. Mesaj yazdığınız kişiler ve doğrulama kodu gönderenler Mesajlar\'da kalır.</string>
     <string name="spam_mode_strict">Sıkı</string>
     <string name="spam_mode_strict_body">Kodlar dahil, bilinmeyen gönderenlerden gelen her şeyi engeller</string>
     <string name="spam_mode_smart">Akıllı</string>
@@ -112,8 +107,8 @@
     <string name="spam_strict_warning_body">Banka ve kargo mesajları ile tek kullanımlık kodlar genellikle kişilerinizde kayıtlı olmayan gönderenlerden gelir. Sıkı modda kodlar dahil tümü Spam klasörüne gider. Kodları almak için Akıllı modu seçin veya bu gönderenlere bir kez izin verin.</string>
     <string name="spam_strict_warning_action">Spam\'i inceleyin</string>
     <string name="spam_settings_cleanup_title">Temizleyin</string>
-    <string name="spam_purge_body">Eski spam otomatik olarak silinir.</string>
+    <string name="spam_purge_body">Bir gün sayısı seçene kadar kapalı</string>
     <string name="spam_purge_days">%d gün</string>
     <string name="spam_purge_forever">Sonsuza kadar sakla</string>
-    <string name="spam_notify_title">Mesaj engellendiğinde bildirin</string>
+    <string name="spam_notify_title">Bilinmeyen gönderenlerden gelen mesajlar için bildir</string>
 </resources>

@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">要新增的封鎖字詞：%1$d 個。已有的字詞會略過。</string>
     <string name="spam_reason_rule_domain">規則：連到 %1$s 的連結</string>
-    <string name="decm_search_section_blocked">被封鎖的訊息</string>
-    <string name="decm_blocked_search">搜尋被封鎖的訊息</string>
+    <string name="decm_search_section_blocked">垃圾訊息</string>
+    <string name="decm_blocked_search">搜尋垃圾訊息</string>
     <string name="decm_blocked_search_hint">依寄件者或內容搜尋</string>
     <string name="decm_blocked_search_close">關閉搜尋</string>
     <string name="decm_blocked_search_none_title">找不到結果</string>
-    <string name="decm_blocked_search_none_body">沒有被封鎖的寄件者或訊息符合你輸入的內容。</string>
+    <string name="decm_blocked_search_none_body">「垃圾訊息」中沒有符合你輸入內容的寄件者或簡訊。</string>
     <string name="decm_always_allow">一律允許</string>
     <string name="rdec_match_domain">網站連結</string>
     <string name="rdec_row_type_domain">訊息中的連結</string>

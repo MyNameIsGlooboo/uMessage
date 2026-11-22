@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="zero">تحتوي النسخة الاحتياطية على %d رسالة مجدولة</item>
+        <item quantity="one">تحتوي النسخة الاحتياطية على رسالة مجدولة واحدة</item>
+        <item quantity="two">تحتوي النسخة الاحتياطية على رسالتين مجدولتين</item>
+        <item quantity="few">تحتوي النسخة الاحتياطية على %d رسائل مجدولة</item>
+        <item quantity="many">تحتوي النسخة الاحتياطية على %d رسالة مجدولة</item>
+        <item quantity="other">تحتوي النسخة الاحتياطية على %d رسالة مجدولة</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="zero">تُرسل إلى %d رقم في المواعيد المحددة، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+        <item quantity="one">تُرسل إلى رقم واحد في الموعد المحدد، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+        <item quantity="two">تُرسل إلى رقمين مختلفين في المواعيد المحددة، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+        <item quantity="few">تُرسل إلى %d أرقام مختلفة في المواعيد المحددة، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+        <item quantity="many">تُرسل إلى %d رقمًا مختلفًا في المواعيد المحددة، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+        <item quantity="other">تُرسل إلى %d رقم مختلف في المواعيد المحددة، فقط إذا شغّلتها. لا يُرسل أي شيء حتى تختار.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">شغّلها</string>
+    <string name="pt_restore_scheduled_discard">احذف</string>
+    <string name="pt_older_spam_stuck">تعذّر نقل بعض هذه الرسائل إلى الهاتف نفسه. ستبقى هنا، ويمكنك قراءتها.</string>
+    <string name="pt_restore_scheduled_row_body">لم تُشغَّل عند الاستعادة. انقر لتشغيلها أو حذفها.</string>
+    <string name="pt_older_spam_pictures_here">بعض هذه الرسائل موجودة على الهاتف نفسه بالفعل. صورها فقط محفوظة هنا، في uMessage.</string>
+</resources>

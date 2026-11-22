@@ -37,10 +37,7 @@
 
     <!-- SIM -->
     <string name="spam_sim_label">SIM %d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">Both SIMs</string>
-    <!-- Shown on a rule made for a SIM that is no longer in the phone, so the rule does not apply. -->
-    <string name="spam_sim_missing">SIM not in phone</string>
     <string name="spam_sim_named">SIM %1$d, %2$s</string>
 
     <!-- Rules -->
@@ -48,9 +45,7 @@
     <string name="spam_rules_tab_blocked">Blocked</string>
     <string name="spam_rules_add">Add rule</string>
     <string name="spam_rules_empty_allowed_title">No allowed rules</string>
-    <string name="spam_rules_empty_allowed_body">Anything you allow always reaches your inbox, even in Strict mode. Add a number, a sender name or a keyword.</string>
     <string name="spam_rules_empty_blocked_title">No blocked rules</string>
-    <string name="spam_rules_empty_blocked_body">Block a number, a prefix, a sender name, a keyword or a pattern. Their messages land in Spam.</string>
     <string name="spam_rules_delete_rule">Delete rule %s</string>
     <string name="spam_rules_deleted">Rule deleted</string>
     <plurals name="spam_rules_imported">
@@ -71,13 +66,12 @@
     <string name="spam_type_keyword">Keyword</string>
     <string name="spam_type_regex">Pattern</string>
     <string name="spam_type_keyword_help">Any message that contains this text, even inside a longer word: “win” also matches “window”. Capital letters do not matter. The sender is blocked too, unless they are in your contacts.</string>
-    <string name="spam_type_keyword_allow_help">Any message that contains this text skips all your blocks, from any sender. Use a long, exact phrase.</string>
+    <string name="spam_type_keyword_allow_help">A text that contains this allows its sender: the whole chat goes to Messages. A sender you blocked stays blocked. Use a long, exact phrase.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">free gift</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
 
     <!-- Add rule sheet -->
-    <string name="spam_sheet_sim_label">Applies to</string>
     <string name="spam_sheet_note_label">Note (optional)</string>
     <string name="spam_sheet_add">Add rule</string>
     <string name="spam_sheet_clear_value">Clear value</string>
@@ -95,11 +89,11 @@
     <string name="spam_err_duplicate">This rule already exists</string>
     <string name="spam_err_regex_unsafe">This pattern repeats a group that already repeats, which can freeze message filtering. Simplify it.</string>
     <string name="spam_err_regex_matches_all">This pattern matches every message. Make it more specific.</string>
-    <string name="spam_err_allow_keyword_short">Allowed words need at least 4 characters, because any message that contains them skips all your blocks</string>
+    <string name="spam_err_allow_keyword_short">Allowed words need at least 4 characters, because a text that contains one allows its sender</string>
     <string name="spam_sheet_save_failed">Could not save the rule. Try again.</string>
 
     <!-- Rule warnings: shown in the sheet and in the confirmation dialog before saving -->
-    <string name="spam_warn_allow_skips_blocks">Any message that contains this skips all your blocks, from any sender, even numbers you blocked.</string>
+    <string name="spam_warn_allow_skips_blocks">Any unknown sender whose text contains this is allowed from then on. Senders you blocked stay blocked.</string>
     <string name="spam_warn_common_word">This is a short or common word. Spam can easily include it.</string>
     <string name="spam_warn_broad">This matches a lot of ordinary text, so it will catch many normal messages.</string>
     <string name="spam_warn_allowed_conflict">This is on your Allowed list. Allowed rules always win, so this block would never apply.</string>
@@ -126,8 +120,8 @@
     </plurals>
 
     <!-- Settings -->
-    <string name="spam_settings_unknown_title">Messages from unknown senders</string>
-    <string name="spam_settings_unknown_body">Senders that are not in your contacts, that you have never texted, and that are not on your allowed list.</string>
+    <string name="spam_settings_unknown_title">Spam filter</string>
+    <string name="spam_settings_unknown_body">An unknown sender is not in your contacts and not on your allowed list. Its whole chat goes to Spam, silently. People you wrote to and senders of a verification code stay in Messages.</string>
     <string name="spam_mode_strict">Strict</string>
     <string name="spam_mode_strict_body">Blocks all unknown senders, codes too</string>
     <string name="spam_mode_smart">Smart</string>
@@ -138,8 +132,8 @@
     <string name="spam_strict_warning_body">Banks, delivery companies and one-time passcodes usually come from senders who are not in your contacts. In Strict mode they go to Spam, codes included. Choose Smart to let codes through, or allow those senders once.</string>
     <string name="spam_strict_warning_action">Review Spam</string>
     <string name="spam_settings_cleanup_title">Clean up</string>
-    <string name="spam_purge_body">Old spam is removed automatically.</string>
+    <string name="spam_purge_body">Off until you choose a number of days</string>
     <string name="spam_purge_days">%d days</string>
     <string name="spam_purge_forever">Keep forever</string>
-    <string name="spam_notify_title">Notify when a message is blocked</string>
+    <string name="spam_notify_title">Notify me for texts from unknown senders</string>
 </resources>

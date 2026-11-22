@@ -2,12 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">Заблокованих слів для додавання: %1$d. Слова, які у вас уже є, пропускаються.</string>
     <string name="spam_reason_rule_domain">Правило: посилання на %1$s</string>
-    <string name="decm_search_section_blocked">Заблоковані повідомлення</string>
-    <string name="decm_blocked_search">Пошук у заблокованих повідомленнях</string>
+    <string name="decm_search_section_blocked">Спам</string>
+    <string name="decm_blocked_search">Пошук у «Спамі»</string>
     <string name="decm_blocked_search_hint">Пошук за відправником або текстом</string>
     <string name="decm_blocked_search_close">Закрити пошук</string>
     <string name="decm_blocked_search_none_title">Нічого не знайдено</string>
-    <string name="decm_blocked_search_none_body">Жоден заблокований відправник чи повідомлення не збігається з тим, що ви ввели.</string>
+    <string name="decm_blocked_search_none_body">У «Спамі» немає відправників чи повідомлень, що відповідають вашому запиту.</string>
     <string name="decm_always_allow">Завжди дозволяти</string>
     <string name="rdec_match_domain">Посилання на сайт</string>
     <string name="rdec_row_type_domain">Посилання в повідомленні</string>

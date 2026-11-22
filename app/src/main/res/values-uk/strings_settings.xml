@@ -5,10 +5,10 @@
     <string name="settings_deprecated">Застаріле</string>
     <string name="settings_spam_stats">Заблоковано за останні 7 днів: %1$d, загалом: %2$d, відновлено: %3$d</string>
     <string name="settings_spam_open_settings">Налаштування спаму</string>
-    <string name="settings_spam_open_settings_body">Режим, термін зберігання та сповіщення</string>
+    <string name="settings_spam_open_settings_body">Фільтр, автовидалення та сповіщення</string>
     <string name="settings_block_group">Списки заблокованих</string>
     <string name="settings_block_umessage_title">Правила uMessage</string>
-    <string name="settings_block_umessage_body">Заблоковані повідомлення потрапляють у спам. Їх можна відновити.</string>
+    <string name="settings_block_umessage_body">Чати заблокованих відправників потрапляють у «Спам». Їх можна повернути.</string>
     <string name="settings_spam_open_rules">Правила дозволу та блокування</string>
     <string name="settings_spam_blocked_numbers_body">Номери, заблоковані через системний список заблокованих</string>
     <string name="settings_spam_blocked_keywords_body">Приховувати повідомлення з цими словами</string>

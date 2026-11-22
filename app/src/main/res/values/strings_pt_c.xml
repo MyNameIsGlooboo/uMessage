@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Provider truth, step C (Spam tab, chat line, card). Wording approved with the string key list (19 Nov).
-     Step I moves these into the shared files and translates them. -->
+     Translated in step I; every locale has a file of the same name. -->
 <resources>
     <!-- Spam tab -->
     <string name="pt_spam_empty_body">Chats from unknown senders and from senders you block show up here.</string>
@@ -16,10 +16,12 @@
         <item quantity="other">%d senders unblocked. Their chats are back in Messages.</item>
     </plurals>
     <string name="pt_older_spam_title">Older spam kept only in uMessage</string>
-    <string name="pt_older_spam_hint">These texts are not on the phone itself yet. They move there when uMessage is your default SMS app. Until then you can only read them here.</string>
+    <string name="pt_older_spam_hint">These texts are not on the phone itself yet. Most of them move there when uMessage is your default SMS app. Until then you can read them here.</string>
 
     <!-- Block that does not move the chat: a user allow rule (a prefix, say) still names the sender (C-3). -->
     <string name="pt_block_still_allowed">Not moved to Spam: one of your allow rules still lets this sender in.</string>
+    <!-- Unblock refused: a prefix block rule still covers the sender (D-6). %1$s = the prefix. Action: e_view_rule. -->
+    <string name="pt_unblock_refused_prefix">Not unblocked: a rule blocks numbers starting with %1$s</string>
 
     <!-- Chat screen: the one line about the sender (4.3) -->
     <string name="pt_line_code">Allowed because this sender sent a verification code.</string>

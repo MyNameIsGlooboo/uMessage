@@ -5,7 +5,7 @@
     <string name="settings_search_none">कोई सेटिंग नहीं मिली. कोई और शब्द आज़माएं.</string>
     <string name="settings_search_start">कोई शब्द लिखें, जैसे थीम, बैकअप या स्पैम.</string>
     <string name="sks_spam">स्पैम ब्लॉक करें ब्लॉक किया गया बेकार फ़िल्टर सुरक्षा धोखाधड़ी अनचाहे</string>
-    <string name="sks_unknown_sender">अनजान अजनबी भेजने वाले मोड फ़िल्टर स्पैम ब्लॉक करें</string>
+    <string name="sks_unknown_sender">अनजान अजनबी भेजने वाले फ़िल्टर स्पैम ब्लॉक करें स्विच चालू बंद मोड</string>
     <string name="sks_strict">सख़्त कड़ा ब्लॉक करें सबकुछ कोड</string>
     <string name="sks_smart">स्मार्ट सुझाया गया अपने आप डिफ़ॉल्ट फ़िल्टर</string>
     <string name="sks_spam_off">बंद निष्क्रिय रोकें फ़िल्टर अनुमति दें सबकुछ</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">सूचना सूचनाएं अलर्ट आवाज़ रिंगटोन वाइब्रेशन कंपन टोन साइलेंट म्यूट</string>
     <string name="sks_android_notifications">Android सिस्टम चैनल आवाज़ रिंगटोन वाइब्रेशन अहमियत पॉपअप</string>
     <string name="sks_code_alert">कोड ओटीपी पुष्टि चैनल आवाज़ पॉपअप अलर्ट</string>
-    <string name="sks_block_alert">ब्लॉक किया गया मैसेज अलर्ट सूचित करें स्पैम सूचना</string>
+    <string name="sks_block_alert">ब्लॉक किया गया मैसेज अलर्ट सूचित करें स्पैम सूचना अनजान भेजने वाले</string>
     <string name="sks_digest">साप्ताहिक सारांश रिपोर्ट संक्षेप हफ़्ता</string>
     <string name="sks_wake">जगाएं स्क्रीन चालू करें रोशनी डिस्प्ले</string>
     <string name="sks_bubbles">बबल तैरते चैट हेड पॉपअप</string>

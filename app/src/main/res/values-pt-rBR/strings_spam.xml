@@ -28,17 +28,13 @@
     <string name="spam_reason_unknown_sender">Remetente desconhecido</string>
     <string name="spam_reason_other">Filtrada</string>
     <string name="spam_sim_label">Chip %d</string>
-    <string name="spam_sim_generic">Chip</string>
     <string name="spam_sim_both">Ambos os chips</string>
-    <string name="spam_sim_missing">Chip ausente do celular</string>
     <string name="spam_sim_named">Chip %1$d, %2$s</string>
     <string name="spam_rules_tab_allowed">Permitidos</string>
     <string name="spam_rules_tab_blocked">Bloqueados</string>
     <string name="spam_rules_add">Adicione uma regra</string>
     <string name="spam_rules_empty_allowed_title">Nenhuma regra de permissão</string>
-    <string name="spam_rules_empty_allowed_body">Tudo o que você permitir sempre chega à caixa de entrada, mesmo no modo rigoroso. Adicione um número, um nome de remetente ou uma palavra-chave.</string>
     <string name="spam_rules_empty_blocked_title">Nenhuma regra de bloqueio</string>
-    <string name="spam_rules_empty_blocked_body">Bloqueie um número, um prefixo, um nome de remetente, uma palavra-chave ou um padrão (expressão regular). As mensagens deles vão para Spam.</string>
     <string name="spam_rules_delete_rule">Exclua a regra %s</string>
     <string name="spam_rules_deleted">Regra excluída</string>
     <plurals name="spam_rules_imported" tools:ignore="ImpliedQuantity">
@@ -57,11 +53,10 @@
     <string name="spam_type_keyword">Palavra-chave</string>
     <string name="spam_type_regex">Padrão (expressão regular)</string>
     <string name="spam_type_keyword_help">Qualquer mensagem que contenha este texto, mesmo dentro de uma palavra maior: “casa” também encontra “casamento”. Maiúsculas e minúsculas não fazem diferença. O remetente também é bloqueado, a menos que esteja nos seus contatos.</string>
-    <string name="spam_type_keyword_allow_help">Qualquer mensagem que contenha este texto passa por todos os seus bloqueios, seja qual for o remetente. Use uma frase longa e exata.</string>
+    <string name="spam_type_keyword_allow_help">Uma mensagem que contém este texto permite o remetente dela: a conversa inteira vai para Mensagens. Um remetente que você bloqueou continua bloqueado. Use uma frase longa e exata.</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">brinde grátis</string>
     <string name="spam_type_regex_hint">ganhe\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">Aplica-se a</string>
     <string name="spam_sheet_note_label">Observação (opcional)</string>
     <string name="spam_sheet_add">Adicione uma regra</string>
     <string name="spam_sheet_clear_value">Limpe o valor</string>
@@ -77,9 +72,9 @@
     <string name="spam_err_duplicate">Esta regra já existe</string>
     <string name="spam_err_regex_unsafe">Este padrão (expressão regular) repete um grupo que já se repete, o que pode travar a filtragem de mensagens. Simplifique-o.</string>
     <string name="spam_err_regex_matches_all">Este padrão (expressão regular) corresponde a todas as mensagens. Torne-o mais específico.</string>
-    <string name="spam_err_allow_keyword_short">Palavras permitidas precisam ter pelo menos 4 caracteres, pois qualquer mensagem que as contenha passa por todos os seus bloqueios</string>
+    <string name="spam_err_allow_keyword_short">Palavras permitidas precisam ter pelo menos 4 caracteres, porque uma mensagem que contém uma delas permite o remetente</string>
     <string name="spam_sheet_save_failed">Não foi possível salvar a regra. Tente novamente.</string>
-    <string name="spam_warn_allow_skips_blocks">Qualquer mensagem que contenha isto passa por todos os seus bloqueios, seja qual for o remetente, até mesmo números que você bloqueou.</string>
+    <string name="spam_warn_allow_skips_blocks">Qualquer remetente desconhecido cuja mensagem contenha isto passa a ser permitido. Remetentes que você bloqueou continuam bloqueados.</string>
     <string name="spam_warn_common_word">Esta palavra é curta ou comum. Mensagens de spam podem facilmente incluí-la.</string>
     <string name="spam_warn_broad">Isto corresponde a muitos textos comuns e vai bloquear várias mensagens normais.</string>
     <string name="spam_warn_allowed_conflict">Isto está na sua lista de permitidos. Regras de permissão sempre têm prioridade, então este bloqueio nunca seria aplicado.</string>
@@ -100,8 +95,8 @@
         <item quantity="one">e mais %d</item>
         <item quantity="other">e mais %d</item>
     </plurals>
-    <string name="spam_settings_unknown_title">Mensagens de remetentes desconhecidos</string>
-    <string name="spam_settings_unknown_body">Remetentes que não estão nos seus contatos, para quem você nunca enviou mensagens e que não estão na sua lista de permitidos.</string>
+    <string name="spam_settings_unknown_title">Filtro de spam</string>
+    <string name="spam_settings_unknown_body">Um remetente desconhecido não está nos seus contatos nem na sua lista de permitidos. A conversa inteira dele vai para Spam, em silêncio. Pessoas para quem você escreveu e remetentes de um código de verificação ficam em Mensagens.</string>
     <string name="spam_mode_strict">Rigoroso</string>
     <string name="spam_mode_strict_body">Bloqueia todos os remetentes desconhecidos, inclusive códigos</string>
     <string name="spam_mode_smart">Inteligente</string>
@@ -112,8 +107,8 @@
     <string name="spam_strict_warning_body">Mensagens de bancos, transportadoras e códigos de uso único geralmente vêm de remetentes que não estão nos seus contatos. No modo rigoroso, vão para Spam, inclusive os códigos. Escolha o modo inteligente para permitir códigos ou permita esses remetentes uma vez.</string>
     <string name="spam_strict_warning_action">Revise o Spam</string>
     <string name="spam_settings_cleanup_title">Limpeza</string>
-    <string name="spam_purge_body">Spam antigo é removido automaticamente.</string>
+    <string name="spam_purge_body">Desativado até você escolher um número de dias</string>
     <string name="spam_purge_days">%d dias</string>
     <string name="spam_purge_forever">Manter para sempre</string>
-    <string name="spam_notify_title">Notifique quando uma mensagem for bloqueada</string>
+    <string name="spam_notify_title">Me avisar de mensagens de remetentes desconhecidos</string>
 </resources>

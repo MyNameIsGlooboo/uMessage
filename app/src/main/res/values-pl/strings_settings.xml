@@ -5,10 +5,10 @@
     <string name="settings_deprecated">Przestarzałe</string>
     <string name="settings_spam_stats">Zatrzymano: %1$d w ostatnich 7 dniach, %2$d łącznie, przywrócono: %3$d</string>
     <string name="settings_spam_open_settings">Ustawienia spamu</string>
-    <string name="settings_spam_open_settings_body">Tryb, czas przechowywania i alerty</string>
+    <string name="settings_spam_open_settings_body">Filtr, automatyczne usuwanie i alerty</string>
     <string name="settings_block_group">Listy zablokowanych</string>
     <string name="settings_block_umessage_title">Reguły uMessage</string>
-    <string name="settings_block_umessage_body">Zablokowane wiadomości trafiają do spamu. Możesz je przywrócić.</string>
+    <string name="settings_block_umessage_body">Czaty zablokowanych nadawców trafiają do folderu Spam. Możesz je przenieść z powrotem.</string>
     <string name="settings_spam_open_rules">Reguły zezwalania i blokowania</string>
     <string name="settings_spam_blocked_numbers_body">Numery zablokowane przez systemową listę blokowanych</string>
     <string name="settings_spam_blocked_keywords_body">Ukrywaj wiadomości zawierające te słowa</string>

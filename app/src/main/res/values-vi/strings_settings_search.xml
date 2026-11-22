@@ -5,7 +5,7 @@
     <string name="settings_search_none">Không tìm thấy cài đặt. Thử từ khác.</string>
     <string name="settings_search_start">Nhập một từ, như giao diện, sao lưu hoặc tin nhắn rác.</string>
     <string name="sks_spam">tin nhắn rác chặn đã chặn rác lọc bảo vệ lừa đảo không mong muốn</string>
-    <string name="sks_unknown_sender">người gửi không xác định người lạ người gửi chế độ lọc tin nhắn rác chặn</string>
+    <string name="sks_unknown_sender">người gửi không xác định người lạ người gửi lọc bộ lọc tin nhắn rác chặn công tắc bật tắt chế độ</string>
     <string name="sks_strict">nghiêm ngặt chặn chặt tất cả mã</string>
     <string name="sks_smart">thông minh đề xuất tự động mặc định lọc</string>
     <string name="sks_spam_off">tắt vô hiệu hóa dừng lọc cho phép tất cả</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">thông báo thông báo cảnh báo âm thanh nhạc chuông chế độ rung rung âm báo im lặng tắt tiếng</string>
     <string name="sks_android_notifications">Android hệ thống kênh âm thanh nhạc chuông chế độ rung mức độ quan trọng cửa sổ bật lên</string>
     <string name="sks_code_alert">mã OTP mã xác minh kênh âm thanh cửa sổ bật lên cảnh báo</string>
-    <string name="sks_block_alert">đã chặn tin nhắn cảnh báo thông báo tin nhắn rác thông báo</string>
+    <string name="sks_block_alert">đã chặn tin nhắn cảnh báo thông báo tin nhắn rác thông báo người gửi không xác định</string>
     <string name="sks_digest">hằng tuần tóm tắt báo cáo tổng hợp tuần</string>
     <string name="sks_wake">đánh thức màn hình bật sáng hiển thị</string>
     <string name="sks_bubbles">bong bóng nổi bong bóng trò chuyện cửa sổ bật lên</string>

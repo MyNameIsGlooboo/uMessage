@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Đưa người gửi không xác định vào mục Tin rác</string>
+    <string name="pt_onb_filter_on_desc">Người liên hệ, những người bạn từng nhắn tin và người gửi mã xác minh vẫn ở mục Tin nhắn.</string>
+    <string name="pt_onb_filter_off">Giữ mọi thứ ở mục Tin nhắn</string>
+    <string name="pt_onb_filter_off_desc">Chỉ người gửi bạn chặn mới vào mục Tin rác.</string>
+    <string name="pt_onb_filter_hint">Bạn có thể thay đổi sau trong phần Cài đặt.</string>
+    <string name="pt_onb_demo_desc_off">Mọi tin nhắn đều vào mục Tin nhắn. Chỉ người gửi bạn chặn mới vào mục Tin rác.</string>
+    <string name="pt_filter_on_summary">Bật: người gửi không xác định vào mục Tin rác</string>
+    <string name="pt_filter_off_summary">Tắt: mọi thứ đều đến mục Tin nhắn, trừ người gửi bạn đã chặn</string>
+    <string name="pt_filter_off_confirm_title">Tắt bộ lọc tin rác?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="other">%d cuộc trò chuyện sẽ chuyển từ mục Tin rác sang mục Tin nhắn. Cuộc trò chuyện của người gửi bạn đã chặn vẫn ở mục Tin rác.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Bật bộ lọc tin rác?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="other">%d cuộc trò chuyện từ người gửi không xác định sẽ chuyển vào mục Tin rác. Không có gì bị xóa.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Hiện không có cuộc trò chuyện nào bị chuyển.</string>
+    <string name="pt_turn_off">Tắt</string>
+    <string name="pt_purge_warn_title">Tự động xóa tin rác cũ?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="other">Tin nhắn đến mục Tin rác hơn %d ngày trước sẽ bị xóa khỏi chính điện thoại, cho mọi ứng dụng. Không thể khôi phục. Tin nhắn bạn đã gửi, gắn dấu sao hoặc thêm ghi chú sẽ được giữ lại.</item>
+    </plurals>
+    <string name="pt_group_code_title">Người gửi mã xác minh</string>
+    <string name="pt_group_wrote_title">Những người bạn đã nhắn tin</string>
+    <plurals name="pt_group_count">
+        <item quantity="other">%d người gửi</item>
+    </plurals>
+    <string name="pt_group_code_body">Người gửi đã gửi mã xác minh cho bạn sẽ được cho phép từ đó về sau. Xóa họ ở đây, hoặc chặn trong cuộc trò chuyện của họ.</string>
+    <string name="pt_group_wrote_body">Số điện thoại bạn đã nhắn tin sẽ được cho phép từ đó về sau. Xóa số đó ở đây, hoặc chặn trong cuộc trò chuyện.</string>
+    <string name="pt_group_member_remove">Xóa khỏi danh sách</string>
+    <string name="pt_group_member_removed">Đã xóa %1$s khỏi danh sách</string>
+    <string name="pt_group_member_history">Tìm thấy trong tin nhắn cũ của bạn</string>
+    <string name="pt_group_empty">Chưa có ai ở đây</string>
+    <string name="pt_group_off_title">Tắt “%1$s”?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="other">%d cuộc trò chuyện sẽ chuyển vào mục Tin rác. Người gửi vẫn ở trong danh sách và sẽ trở lại khi bạn bật lại.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">Sau đó, mã xác minh từ người gửi không xác định cũng sẽ vào mục Tin rác.</string>
+    <string name="pt_verdict_group">Sẽ vào mục Tin nhắn: người gửi thuộc “%1$s”.</string>
+    <string name="pt_verdict_allowed_word">Sẽ vào mục Tin nhắn: tin nhắn có một trong các từ bạn cho phép. Sau đó người gửi được cho phép.</string>
+    <string name="pt_verdict_blocked_word">Sẽ vào mục Tin rác: tin nhắn có một trong các từ bạn chặn. Sau đó người gửi bị chặn.</string>
+    <string name="pt_progress_title">Đang sắp xếp các cuộc trò chuyện</string>
+    <string name="pt_progress_body">Việc này chỉ diễn ra một lần. Không cuộc trò chuyện nào được chuyển trước khi xong, và không có gì bị xóa.</string>
+    <string name="pt_progress_step_rules">Đang cập nhật quy tắc của bạn</string>
+    <string name="pt_progress_step_older">Đang chuyển tin rác cũ vào điện thoại</string>
+    <string name="pt_progress_step_history">Đang kiểm tra tin nhắn cũ của bạn</string>
+    <string name="pt_progress_step_sort">Đang sắp xếp cuộc trò chuyện</string>
+    <string name="pt_progress_background">Tiếp tục trong nền</string>
+    <string name="pt_changed_title">Những gì đã thay đổi</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="other">%d cuộc trò chuyện đã chuyển vào mục Tin rác</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="other">%d người gửi đã được tự động cho phép</item>
+    </plurals>
+    <string name="pt_changed_switch">Bộ lọc tin rác giờ chỉ là một công tắc: bật hoặc tắt.</string>
+    <string name="pt_changed_sims">Quy tắc của bạn giờ áp dụng cho cả hai SIM.</string>
+    <string name="pt_changed_store">Tin rác cũ giờ được lưu trên chính điện thoại, như mọi tin nhắn khác.</string>
+    <string name="pt_changed_purge">Tính năng tự động xóa tin rác cũ đang tắt. Bạn có thể bật trong phần Cài đặt.</string>
+    <string name="pt_changed_open_spam">Xem mục Tin rác</string>
+    <string name="pt_filter_off_confirm_rest">Cuộc trò chuyện của người gửi bạn đã chặn vẫn ở mục Tin rác.</string>
+    <string name="pt_filter_on_confirm_rest">Không có gì bị xóa.</string>
+    <string name="pt_group_off_rest">Người gửi vẫn ở trong danh sách và sẽ trở lại khi bạn bật lại.</string>
+    <string name="pt_progress_step_running">Đang thực hiện</string>
+    <string name="pt_progress_older_waiting">Chờ đến khi uMessage là ứng dụng SMS mặc định của bạn</string>
+</resources>

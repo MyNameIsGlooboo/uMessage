@@ -11,16 +11,6 @@
     <string name="e_restored_empty">Los mensajes que muevas a la bandeja de entrada a partir de ahora aparecerán aquí durante 30 días.</string>
     <string name="e_restored_when">Movido a la bandeja de entrada: %1$s</string>
     <string name="e_restored_open">Abrir la conversación con %1$s</string>
-    <string name="e_snack_allowed_one">%1$s ahora está permitido siempre en ambas SIM</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d remitente ahora está permitido siempre en ambas SIM</item>
-        <item quantity="other">%d remitentes ahora están permitidos siempre en ambas SIM</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s ahora está permitido siempre</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d remitente ahora está permitido siempre</item>
-        <item quantity="other">%d remitentes ahora están permitidos siempre</item>
-    </plurals>
     <string name="e_view_rule">Ver regla</string>
     <string name="e_rules_title">Reglas</string>
     <string name="e_rules_menu_backup">Copia de seguridad y restauración</string>
@@ -56,7 +46,7 @@
         <item quantity="one">Mover %d número a las reglas de uMessage</item>
         <item quantity="other">Mover %d números a las reglas de uMessage</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Sus mensajes irán a Spam, donde podrás leerlos y restaurarlos.</string>
+    <string name="e_migrate_point_blocked">• Sus chats irán a Spam, donde podrás leerlos y devolverlos.</string>
     <string name="e_migrate_point_android">• Android seguirá descartando sus mensajes hasta que salgan de su lista.</string>
     <string name="e_migrate_calls_note">La lista de Android también bloquea llamadas. Los números que quites de ella podrán volver a llamarte.</string>
     <string name="e_bn_row_calls_texts">Bloquea llamadas y mensajes</string>
@@ -64,7 +54,7 @@
     <string name="e_bn_move_one">Mover a las reglas de uMessage</string>
     <string name="e_bn_moved">%1$s ahora es una regla de uMessage. Sus mensajes van a Spam y sus llamadas ya no están bloqueadas.</string>
     <string name="e_bn_field_help">Por ejemplo, +15550001234 o +1555* para todos los números que empiecen con +1555</string>
-    <string name="e_bn_short_code_warning">Parece un número corto. Android descarta sus mensajes antes de que uMessage los reciba, así que nunca podrías restaurarlos, ni siquiera un código o un aviso del banco.</string>
+    <string name="e_bn_short_code_warning">Parece un número corto. Android descarta sus mensajes antes de que uMessage los vea, así que nunca verías ninguno, ni siquiera un código o un aviso del banco.</string>
     <string name="e_bn_add_as_rule">Agregar como regla de uMessage en su lugar</string>
     <string name="e_bn_added_as_rule">%1$s se agregó como regla de uMessage. Sus mensajes van a Spam.</string>
 </resources>

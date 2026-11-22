@@ -38,7 +38,7 @@
         <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Tin rác và các cuộc trò chuyện được lưu trữ.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Tin nhắn mới từ họ sẽ vào mục Tin rác.</item>
+        <item quantity="other">Đã báo cáo %d cuộc trò chuyện. Đã chuyển vào mục Tin rác.</item>
     </plurals>
     <string name="blocked_title">Tin rác</string>
     <string name="blocked_snack_mode">Đã đặt chế độ cho người gửi không xác định thành %1$s</string>

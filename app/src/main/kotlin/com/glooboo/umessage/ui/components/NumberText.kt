@@ -29,3 +29,11 @@ fun isolateNumbers(text: String): String {
         if (value.count { it.isDigit() } < MIN_DIGITS) value else "$LRI$value$PDI"
     }
 }
+
+/**
+ * Wraps the whole of [text] in one left-to-right isolate, for a value that is always read left to right whatever its
+ * length, such as a block prefix rule ("+98", "+1"). [isolateNumbers] skips runs of fewer than three digits, so a
+ * short prefix showed as "98+" in a right-to-left line. Empty text and text that already has isolates are returned
+ * as is.
+ */
+fun isolateLtr(text: String): String = if (text.isEmpty() || LRI in text) text else "$LRI$text$PDI"

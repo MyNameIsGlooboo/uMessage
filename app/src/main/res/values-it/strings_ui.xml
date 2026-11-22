@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">Mostra tastierino numerico</string>
     <string name="ui_show_keyboard">Mostra tastiera</string>
     <string name="ui_settings_system_block_list">Mittenti bloccati dal sistema</string>
-    <string name="ui_settings_system_block_list_body">Numeri bloccati per tutte le app su questo telefono. Anche uMessage li nasconde.</string>
     <string name="ui_settings_blocked_words">Parole bloccate</string>
     <string name="ui_settings_character_counter">Mostra contatore caratteri</string>
     <string name="ui_settings_send_on_enter">Invia con il tasto Invio</string>

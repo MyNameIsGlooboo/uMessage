@@ -41,8 +41,8 @@
     </plurals>
     <string name="blocknum_import_failed">خواندن فایل نشد</string>
     <plurals name="blocknum_exported" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$d شماره صادر شد</item>
-        <item quantity="other">%1$d شماره صادر شد</item>
+        <item quantity="one">از %1$d شماره خروجی گرفته شد</item>
+        <item quantity="other">از %1$d شماره خروجی گرفته شد</item>
     </plurals>
     <string name="blocknum_export_empty">شماره‌ای برای خروجی گرفتن نیست</string>
     <string name="blocknum_export_failed">ذخیرهٔ فایل نشد</string>

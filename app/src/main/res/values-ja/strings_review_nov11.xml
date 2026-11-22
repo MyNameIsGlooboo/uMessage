@@ -13,7 +13,7 @@
     <plurals name="convlist_delete_confirm_message">
         <item quantity="other">会話とそのメッセージはすべて、このスマートフォンから削除されます。削除後の数秒間は元に戻せます。</item>
     </plurals>
-    <string name="convlist_block_contact_message">%1$sは連絡先に登録されています。この送信者をブロックしますか？新しいメッセージは受信トレイではなく「ブロック済み」に届きます。直後なら元に戻せます。</string>
+    <string name="convlist_block_contact_message">%1$sは連絡先に登録されています。この送信者をブロックしますか？会話はまるごと「迷惑メッセージ」に移動し、新しいメッセージは通知なしでそこに届きます。直後なら元に戻せます。</string>
     <string name="i29_color_red">赤</string>
     <string name="i29_color_orange">オレンジ</string>
     <string name="i29_color_yellow">黄</string>
@@ -34,10 +34,10 @@
     <string name="rule_preview_loading">最近のメッセージを確認中…</string>
     <string name="rule_preview_failed">最近のメッセージを確認できませんでした。もう一度お試しください。</string>
     <string name="rule_preview_nothing">確認できる最近のメッセージはまだありません。</string>
-    <string name="rule_preview_inbox">受信トレイ：直近%2$d件のうち%1$d件がこのルールに一致します</string>
-    <string name="rule_preview_inbox_empty">受信トレイ：確認するメッセージはありません</string>
-    <string name="rule_preview_blocked">ブロック済み：直近%2$d件のうち%1$d件がこのルールに一致します</string>
-    <string name="rule_preview_blocked_empty">ブロック済み：確認するメッセージはありません</string>
+    <string name="rule_preview_inbox">メッセージ：直近%2$d件のうち%1$d件がこのルールに一致します</string>
+    <string name="rule_preview_inbox_empty">メッセージ：確認するものはありません</string>
+    <string name="rule_preview_blocked">迷惑メッセージ：直近%2$d件のうち%1$d件がこのルールに一致します</string>
+    <string name="rule_preview_blocked_empty">迷惑メッセージ：確認するものはありません</string>
     <string name="rule_preview_examples">例：%1$s</string>
     <string name="n06_delete_confirm">この保存済みテキストを削除しますか？</string>
     <string name="screens_vcard_email_action">メール</string>

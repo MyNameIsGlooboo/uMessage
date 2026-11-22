@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">Kopia zapasowa ma %d zaplanowaną wiadomość</item>
+        <item quantity="few">Kopia zapasowa ma %d zaplanowane wiadomości</item>
+        <item quantity="many">Kopia zapasowa ma %d zaplanowanych wiadomości</item>
+        <item quantity="other">Kopia zapasowa ma %d zaplanowanej wiadomości</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">Zostanie wysłana na %d numer o ustalonej porze, tylko jeśli to włączysz. Nic nie zostanie wysłane, dopóki nie zdecydujesz.</item>
+        <item quantity="few">Zostaną wysłane na %d różne numery o ustalonych porach, tylko jeśli to włączysz. Nic nie zostanie wysłane, dopóki nie zdecydujesz.</item>
+        <item quantity="many">Zostaną wysłane na %d różnych numerów o ustalonych porach, tylko jeśli to włączysz. Nic nie zostanie wysłane, dopóki nie zdecydujesz.</item>
+        <item quantity="other">Zostaną wysłane na %d różnego numeru o ustalonych porach, tylko jeśli to włączysz. Nic nie zostanie wysłane, dopóki nie zdecydujesz.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">Włącz</string>
+    <string name="pt_restore_scheduled_discard">Odrzuć</string>
+    <string name="pt_older_spam_stuck">Niektórych z tych wiadomości nie udało się przenieść na sam telefon. Zostają tutaj i nadal możesz je czytać.</string>
+    <string name="pt_restore_scheduled_row_body">Przywracanie ich nie włączyło. Dotknij, aby je włączyć lub odrzucić.</string>
+    <string name="pt_older_spam_pictures_here">Niektóre z tych wiadomości są już na samym telefonie. Tutaj, w uMessage, są zapisane tylko ich zdjęcia.</string>
+</resources>

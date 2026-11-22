@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">将未知发件人归入“垃圾短信”</string>
+    <string name="pt_onb_filter_on_desc">联系人、你发过短信的人和发送验证码的发件人留在“消息”中。</string>
+    <string name="pt_onb_filter_off">全部留在“消息”中</string>
+    <string name="pt_onb_filter_off_desc">只有你屏蔽的发件人进入“垃圾短信”。</string>
+    <string name="pt_onb_filter_hint">你之后可以在设置中更改。</string>
+    <string name="pt_onb_demo_desc_off">所有短信都进入“消息”。只有你屏蔽的发件人进入“垃圾短信”。</string>
+    <string name="pt_filter_on_summary">开启：未知发件人进入“垃圾短信”</string>
+    <string name="pt_filter_off_summary">关闭：除你屏蔽的发件人外，所有短信都进入“消息”</string>
+    <string name="pt_filter_off_confirm_title">要关闭垃圾短信过滤吗？</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="other">%d个会话将从“垃圾短信”移至“消息”。你屏蔽的发件人的会话仍留在“垃圾短信”中。</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">要开启垃圾短信过滤吗？</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="other">来自未知发件人的%d个会话将移至“垃圾短信”。不会删除任何内容。</item>
+    </plurals>
+    <string name="pt_confirm_none_move">现在没有会话需要移动。</string>
+    <string name="pt_turn_off">关闭</string>
+    <string name="pt_purge_warn_title">要自动删除旧的垃圾短信吗？</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="other">进入“垃圾短信”超过%d天的短信会从手机本身删除，所有应用中都会消失，且无法恢复。你发送的、加了星标的或添加了备注的短信会保留。</item>
+    </plurals>
+    <string name="pt_group_code_title">发送验证码的发件人</string>
+    <string name="pt_group_wrote_title">你发过短信的人</string>
+    <plurals name="pt_group_count">
+        <item quantity="other">%d个发件人</item>
+    </plurals>
+    <string name="pt_group_code_body">给你发送验证码的发件人此后会被允许。你可以在这里移除，或在其会话中屏蔽。</string>
+    <string name="pt_group_wrote_body">你发过短信的号码此后会被允许。你可以在这里移除，或在其会话中屏蔽。</string>
+    <string name="pt_group_member_remove">移除</string>
+    <string name="pt_group_member_removed">已从列表中移除%1$s</string>
+    <string name="pt_group_member_history">从你的旧短信中找到</string>
+    <string name="pt_group_empty">这里还没有人</string>
+    <string name="pt_group_off_title">要关闭“%1$s”吗？</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="other">%d个会话将移至“垃圾短信”。发件人会保留在列表中，再次开启时会恢复。</item>
+    </plurals>
+    <string name="pt_group_off_code_note">之后，未知发件人发来的验证码也会进入“垃圾短信”。</string>
+    <string name="pt_verdict_group">将进入“消息”：发件人在“%1$s”中。</string>
+    <string name="pt_verdict_allowed_word">将进入“消息”：短信包含你允许的某个词。之后该发件人会被允许。</string>
+    <string name="pt_verdict_blocked_word">将进入“垃圾短信”：短信包含你屏蔽的某个词。之后该发件人会被屏蔽。</string>
+    <string name="pt_progress_title">正在整理你的会话</string>
+    <string name="pt_progress_body">此操作只进行一次。完成之前不会移动任何会话，也不会删除任何内容。</string>
+    <string name="pt_progress_step_rules">正在更新你的规则</string>
+    <string name="pt_progress_step_older">正在将旧的垃圾短信移至手机</string>
+    <string name="pt_progress_step_history">正在检查你的旧短信</string>
+    <string name="pt_progress_step_sort">正在整理会话</string>
+    <string name="pt_progress_background">在后台继续</string>
+    <string name="pt_changed_title">有哪些变化</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="other">%d个会话已移至“垃圾短信”</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="other">已自动允许%d个发件人</item>
+    </plurals>
+    <string name="pt_changed_switch">垃圾短信过滤现在只有一个开关：开启或关闭。</string>
+    <string name="pt_changed_sims">你的规则现在适用于两张SIM卡。</string>
+    <string name="pt_changed_store">旧的垃圾短信现在和其他短信一样，保存在手机本身。</string>
+    <string name="pt_changed_purge">自动删除旧的垃圾短信已关闭。你可以在设置中开启。</string>
+    <string name="pt_changed_open_spam">查看垃圾短信</string>
+    <string name="pt_filter_off_confirm_rest">你屏蔽的发件人的会话仍留在“垃圾短信”中。</string>
+    <string name="pt_filter_on_confirm_rest">不会删除任何内容。</string>
+    <string name="pt_group_off_rest">发件人会保留在列表中，再次开启时会恢复。</string>
+    <string name="pt_progress_step_running">进行中</string>
+    <string name="pt_progress_older_waiting">等待uMessage成为你的默认短信应用</string>
+</resources>

@@ -3,12 +3,12 @@
     <plurals name="decm_marked_all_read">
         <item quantity="other">%d件のチャットを既読にしました</item>
     </plurals>
-    <string name="decm_search_section_blocked">ブロックしたメッセージ</string>
-    <string name="decm_blocked_search">ブロックしたメッセージを検索</string>
+    <string name="decm_search_section_blocked">迷惑メッセージ</string>
+    <string name="decm_blocked_search">迷惑メッセージを検索</string>
     <string name="decm_blocked_search_hint">送信者または本文で検索</string>
     <string name="decm_blocked_search_close">検索を閉じる</string>
     <string name="decm_blocked_search_none_title">見つかりませんでした</string>
-    <string name="decm_blocked_search_none_body">入力した内容に一致するブロック済みの送信者やメッセージはありません。</string>
+    <string name="decm_blocked_search_none_body">入力した内容に一致する送信者やメッセージは「迷惑メッセージ」にありません。</string>
     <string name="decm_always_allow">常に許可</string>
     <string name="decisions_backup_keywords">追加するブロックワード：%1$d件。すでにあるワードはスキップされます。</string>
     <string name="thread_failed_reason_generic">端末から一般的なエラーが報告されました（コード%1$d）</string>

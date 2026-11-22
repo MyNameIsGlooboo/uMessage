@@ -26,17 +26,13 @@
     <string name="spam_reason_unknown_sender">未知发件人</string>
     <string name="spam_reason_other">已过滤</string>
     <string name="spam_sim_label">SIM%d</string>
-    <string name="spam_sim_generic">SIM</string>
     <string name="spam_sim_both">两张SIM</string>
-    <string name="spam_sim_missing">手机中未插入此SIM</string>
     <string name="spam_sim_named">SIM%1$d，%2$s</string>
     <string name="spam_rules_tab_allowed">已允许</string>
     <string name="spam_rules_tab_blocked">已屏蔽</string>
     <string name="spam_rules_add">添加规则</string>
     <string name="spam_rules_empty_allowed_title">暂无允许规则</string>
-    <string name="spam_rules_empty_allowed_body">符合允许规则的消息始终会进入收件箱，即使在严格模式下也是如此。可添加号码、发件人名称或关键词。</string>
     <string name="spam_rules_empty_blocked_title">暂无屏蔽规则</string>
-    <string name="spam_rules_empty_blocked_body">可按号码、号码前缀、发件人名称、关键词或正则表达式屏蔽消息。这些消息会进入“垃圾短信”文件夹。</string>
     <string name="spam_rules_delete_rule">删除规则%s</string>
     <string name="spam_rules_deleted">已删除规则</string>
     <plurals name="spam_rules_imported">
@@ -53,11 +49,10 @@
     <string name="spam_type_keyword">关键词</string>
     <string name="spam_type_regex">正则表达式</string>
     <string name="spam_type_keyword_help">所有包含此文本的消息，即使文本只是较长单词的一部分：“win”也会匹配“window”。不区分大小写。发送者也会被屏蔽，通讯录中的联系人除外。</string>
-    <string name="spam_type_keyword_allow_help">无论发件人是谁，包含此文本的消息都会跳过所有屏蔽规则。请使用较长且准确的短语。</string>
+    <string name="spam_type_keyword_allow_help">包含此文字的短信会允许其发件人：整个会话进入“消息”。你屏蔽的发件人仍保持屏蔽。请使用较长且准确的词句。</string>
     <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
     <string name="spam_type_keyword_hint">免费礼品</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
-    <string name="spam_sheet_sim_label">适用于</string>
     <string name="spam_sheet_note_label">备注（选填）</string>
     <string name="spam_sheet_add">添加规则</string>
     <string name="spam_sheet_clear_value">清空内容</string>
@@ -73,9 +68,9 @@
     <string name="spam_err_duplicate">此规则已存在</string>
     <string name="spam_err_regex_unsafe">此正则表达式对已重复的分组再次重复，可能导致消息过滤卡住。请简化表达式。</string>
     <string name="spam_err_regex_matches_all">此正则表达式会匹配所有消息。请缩小匹配范围。</string>
-    <string name="spam_err_allow_keyword_short">允许的关键词至少需要4个字符，因为包含这些关键词的消息会跳过所有屏蔽规则</string>
+    <string name="spam_err_allow_keyword_short">允许的词至少需要4个字符，因为包含该词的短信会允许其发件人</string>
     <string name="spam_sheet_save_failed">无法保存规则，请重试。</string>
-    <string name="spam_warn_allow_skips_blocks">包含此内容的消息会跳过所有屏蔽规则，无论发件人是谁，即使来自已屏蔽的号码也不例外。</string>
+    <string name="spam_warn_allow_skips_blocks">任何未知发件人只要短信包含此文字，此后都会被允许。你屏蔽的发件人仍保持屏蔽。</string>
     <string name="spam_warn_common_word">此词较短或较常见，垃圾短信很容易包含它。</string>
     <string name="spam_warn_broad">此规则会匹配大量常见文本，因此会屏蔽许多正常消息。</string>
     <string name="spam_warn_allowed_conflict">此项已在已允许列表中。允许规则始终优先，因此这条屏蔽规则不会生效。</string>
@@ -93,8 +88,8 @@
     <plurals name="spam_import_more">
         <item quantity="other">另有%d条</item>
     </plurals>
-    <string name="spam_settings_unknown_title">未知发件人的消息</string>
-    <string name="spam_settings_unknown_body">不在联系人中、你从未向其发过短信，且不在已允许列表中的发件人。</string>
+    <string name="spam_settings_unknown_title">垃圾短信过滤</string>
+    <string name="spam_settings_unknown_body">未知发件人是指不在你的联系人和已允许列表中的发件人。其整个会话会静默进入“垃圾短信”。你发过短信的人和发送验证码的发件人留在“消息”中。</string>
     <string name="spam_mode_strict">严格</string>
     <string name="spam_mode_strict_body">屏蔽所有未知发件人的消息，包括验证码</string>
     <string name="spam_mode_smart">智能</string>
@@ -105,8 +100,8 @@
     <string name="spam_strict_warning_body">银行、快递公司的消息和一次性验证码通常来自联系人以外的发件人。在严格模式下，这些消息都会进入“垃圾短信”文件夹，包括验证码。选择智能模式可允许验证码通过，也可将这些发件人设为允许。</string>
     <string name="spam_strict_warning_action">查看垃圾短信</string>
     <string name="spam_settings_cleanup_title">清理</string>
-    <string name="spam_purge_body">超过保留时间的垃圾短信会自动删除。</string>
+    <string name="spam_purge_body">选择天数之前保持关闭</string>
     <string name="spam_purge_days">%d天</string>
     <string name="spam_purge_forever">永久保留</string>
-    <string name="spam_notify_title">屏蔽消息时通知</string>
+    <string name="spam_notify_title">收到未知发件人的短信时通知我</string>
 </resources>

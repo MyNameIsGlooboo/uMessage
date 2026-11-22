@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="pt_restore_scheduled_title">
+        <item quantity="one">बैकअप में %d शेड्यूल किया गया मैसेज है</item>
+        <item quantity="other">बैकअप में %d शेड्यूल किए गए मैसेज हैं</item>
+    </plurals>
+    <plurals name="pt_restore_scheduled_body">
+        <item quantity="one">तय समय पर %d नंबर पर भेजा जाएगा, सिर्फ़ तब जब आप इसे चालू करें. आपके चुनने तक कुछ नहीं भेजा जाता.</item>
+        <item quantity="other">तय समय पर %d अलग-अलग नंबरों पर भेजे जाएंगे, सिर्फ़ तब जब आप इसे चालू करें. आपके चुनने तक कुछ नहीं भेजा जाता.</item>
+    </plurals>
+    <string name="pt_restore_scheduled_arm">चालू करें</string>
+    <string name="pt_restore_scheduled_discard">हटाएं</string>
+    <string name="pt_older_spam_stuck">इनमें से कुछ मैसेज फ़ोन में नहीं ले जाए जा सके. वे यहीं रहेंगे, और आप उन्हें पढ़ते रह सकते हैं.</string>
+    <string name="pt_restore_scheduled_row_body">बैकअप वापस लाते समय इन्हें चालू नहीं किया गया. इन्हें चालू करने या हटाने के लिए टैप करें.</string>
+    <string name="pt_older_spam_pictures_here">इनमें से कुछ मैसेज पहले से फ़ोन में हैं. सिर्फ़ उनकी तस्वीरें यहां, uMessage में रखी गई हैं.</string>
+</resources>

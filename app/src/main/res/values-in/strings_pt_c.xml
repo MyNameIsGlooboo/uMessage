@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">Chat dari pengirim tidak dikenal dan pengirim yang Anda blokir muncul di sini.</string>
+    <string name="pt_spam_filter_off_strip">Filter spam nonaktif</string>
+    <string name="pt_spam_filter_off_body">Di sini hanya ada pengirim yang Anda blokir.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">Hapus %d chat dari ponsel ini?</item>
+    </plurals>
+    <string name="pt_spam_delete_body">Pesan dihapus untuk semua aplikasi, bukan hanya di uMessage. Anda bisa mengurungkannya tepat setelahnya, tetapi tidak nanti.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">Blokir %d pengirim dibuka. Chat mereka kembali ke Pesan.</item>
+    </plurals>
+    <string name="pt_older_spam_title">Spam lama yang hanya disimpan di uMessage</string>
+    <string name="pt_older_spam_hint">Pesan-pesan ini belum ada di ponsel itu sendiri. Sebagian besar akan dipindahkan ke sana saat uMessage menjadi aplikasi SMS default Anda. Sampai saat itu, Anda bisa membacanya di sini.</string>
+    <string name="pt_block_still_allowed">Tidak dipindahkan ke Spam: salah satu aturan izinkan Anda masih meloloskan pengirim ini.</string>
+    <string name="pt_unblock_refused_prefix">Blokir tidak dibuka: ada aturan yang memblokir nomor berawalan %1$s</string>
+    <string name="pt_line_code">Diizinkan karena pengirim ini mengirim kode verifikasi.</string>
+    <string name="pt_line_wrote">Diizinkan karena Anda pernah mengirim pesan ke nomor ini.</string>
+    <string name="pt_line_word">Diizinkan otomatis karena ada pesan yang berisi kata yang Anda izinkan.</string>
+    <string name="pt_line_blocked">Anda memblokir pengirim ini. Pesan baru masuk ke Spam tanpa suara.</string>
+    <string name="pt_line_blocked_word">Diblokir otomatis karena ada pesan yang berisi kata yang Anda blokir.</string>
+    <string name="pt_line_unknown">Pengirim tidak dikenal. Pesan masuk ke Spam.</string>
+    <string name="pt_line_keep">Biarkan</string>
+    <string name="pt_reply_allows_confirm">Ini akan mengizinkan pengirim. Kirim?</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">%d chat kini ada di Spam</item>
+    </plurals>
+    <string name="pt_card_moved_body">Pengirim tidak dikenal dan yang diblokir disortir ke sana. Tidak ada yang dihapus.</string>
+</resources>

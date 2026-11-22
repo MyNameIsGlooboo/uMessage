@@ -5,7 +5,7 @@
     <string name="settings_search_none">Nie znaleziono ustawienia. Spróbuj innego słowa.</string>
     <string name="settings_search_start">Wpisz słowo, np. motyw, kopia zapasowa lub spam.</string>
     <string name="sks_spam">spam zablokuj zablokowane śmieci filtr ochrona oszustwo niechciane</string>
-    <string name="sks_unknown_sender">nieznany obcy nadawcy tryb filtr spam zablokuj</string>
+    <string name="sks_unknown_sender">nieznany obcy nadawcy filtr spam zablokuj przełącznik włącz wyłącz tryb</string>
     <string name="sks_strict">ścisły surowy zablokuj wszystko kody</string>
     <string name="sks_smart">inteligentny zalecany automatyczny domyślny filtr</string>
     <string name="sks_spam_off">wyłączony wyłącz zatrzymaj filtr zezwól wszystko</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">powiadomienie powiadomienia alert dźwięk dzwonek wibracje wibruj ton cichy wycisz</string>
     <string name="sks_android_notifications">Android system kanał dźwięk dzwonek wibracje ważność wyskakujące</string>
     <string name="sks_code_alert">kod OTP weryfikacyjny kanał dźwięk wyskakujące alert</string>
-    <string name="sks_block_alert">zablokowane wiadomość alert powiadom spam powiadomienie</string>
+    <string name="sks_block_alert">zablokowane wiadomość alert powiadom spam powiadomienie nieznani nadawcy</string>
     <string name="sks_digest">tygodniowe podsumowanie raport zestawienie tydzień</string>
     <string name="sks_wake">wybudź ekran włącz podświetlenie wyświetlacz</string>
     <string name="sks_bubbles">dymki pływające rozmowa okienka wyskakujące</string>

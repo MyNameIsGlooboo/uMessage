@@ -3,7 +3,7 @@
 
     <!-- Message details: decision and type rows -->
     <string name="thread_review_details_decision">Decision</string>
-    <string name="thread_review_details_decision_allowed">Allowed: delivered to your inbox</string>
+    <string name="thread_review_details_decision_allowed">Allowed: arrived in Messages</string>
     <string name="thread_review_details_type">Type</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

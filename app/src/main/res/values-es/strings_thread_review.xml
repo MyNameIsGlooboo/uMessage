@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">Decisión</string>
-    <string name="thread_review_details_decision_allowed">Permitido: entregado en tu bandeja de entrada</string>
+    <string name="thread_review_details_decision_allowed">Permitido: llegó a Mensajes</string>
     <string name="thread_review_details_type">Tipo</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

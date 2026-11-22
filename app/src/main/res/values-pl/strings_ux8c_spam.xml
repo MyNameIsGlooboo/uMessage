@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Wstrzymano przez filtr</string>
     <string name="ux8c_not_spam">To nie spam</string>
     <string name="ux8c_delete">Usuń</string>
-    <string name="ux8c_tip">Przesuń nadawcę, aby przenieść jego wiadomości do odebranych. Dotknij i przytrzymaj, aby zaznaczyć.</string>
+    <string name="ux8c_tip">Przesuń czat, aby przenieść go z powrotem do folderu Wiadomości. Dotknij i przytrzymaj, aby zaznaczyć.</string>
     <string name="ux8c_tip_dismiss">Rozumiem</string>
     <string name="ux8c_sender_title">Ten nadawca</string>
     <string name="ux8c_sender_normal">Standardowo</string>

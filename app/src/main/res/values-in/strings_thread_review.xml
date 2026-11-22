@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">Keputusan</string>
-    <string name="thread_review_details_decision_allowed">Diizinkan: dikirim ke kotak masuk</string>
+    <string name="thread_review_details_decision_allowed">Diizinkan: masuk ke Pesan</string>
     <string name="thread_review_details_type">Jenis</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

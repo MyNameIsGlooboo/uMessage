@@ -94,7 +94,8 @@ class RuleFormNoSimTest {
         compose.setContent { UMessageTheme { AddRuleSheet(form, RulesActions()) } }
         compose.onNodeWithText(res.getString(R.string.ux8d_more_options)).performClick()
         compose.onNodeWithText(res.getString(R.string.spam_sheet_note_label)).assertExists()
-        compose.onNodeWithText(res.getString(R.string.spam_sheet_sim_label)).assertDoesNotExist()
+        // The SIM chooser's label ("Applies to", key spam_sheet_sim_label) was retired with the chooser.
+        compose.onNodeWithText("Applies to").assertDoesNotExist()
         compose.onNodeWithText(res.getString(R.string.spam_sim_both)).assertDoesNotExist()
     }
 

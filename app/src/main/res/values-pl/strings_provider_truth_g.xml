@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Przenoś nieznanych nadawców do folderu Spam</string>
+    <string name="pt_onb_filter_on_desc">Kontakty, osoby, do których wysłano wiadomość, i nadawcy kodów weryfikacyjnych zostają w folderze Wiadomości.</string>
+    <string name="pt_onb_filter_off">Zostaw wszystko w folderze Wiadomości</string>
+    <string name="pt_onb_filter_off_desc">Do folderu Spam trafiają tylko nadawcy, których zablokujesz.</string>
+    <string name="pt_onb_filter_hint">Możesz to później zmienić w ustawieniach.</string>
+    <string name="pt_onb_demo_desc_off">Każda wiadomość trafia do folderu Wiadomości. Do folderu Spam trafiają tylko nadawcy, których zablokujesz.</string>
+    <string name="pt_filter_on_summary">Wł.: nieznani nadawcy trafiają do folderu Spam</string>
+    <string name="pt_filter_off_summary">Wył.: wszystko trafia do folderu Wiadomości, oprócz nadawców zablokowanych przez ciebie</string>
+    <string name="pt_filter_off_confirm_title">Wyłączyć filtr spamu?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d czat przejdzie z folderu Spam do folderu Wiadomości. Czaty nadawców zablokowanych przez ciebie zostaną w folderze Spam.</item>
+        <item quantity="few">%d czaty przejdą z folderu Spam do folderu Wiadomości. Czaty nadawców zablokowanych przez ciebie zostaną w folderze Spam.</item>
+        <item quantity="many">%d czatów przejdzie z folderu Spam do folderu Wiadomości. Czaty nadawców zablokowanych przez ciebie zostaną w folderze Spam.</item>
+        <item quantity="other">%d czatu przejdzie z folderu Spam do folderu Wiadomości. Czaty nadawców zablokowanych przez ciebie zostaną w folderze Spam.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Włączyć filtr spamu?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d czat od nieznanego nadawcy trafi do folderu Spam. Nic nie zostanie usunięte.</item>
+        <item quantity="few">%d czaty od nieznanych nadawców trafią do folderu Spam. Nic nie zostanie usunięte.</item>
+        <item quantity="many">%d czatów od nieznanych nadawców trafi do folderu Spam. Nic nie zostanie usunięte.</item>
+        <item quantity="other">%d czatu od nieznanych nadawców trafi do folderu Spam. Nic nie zostanie usunięte.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Teraz żaden czat się nie przeniesie.</string>
+    <string name="pt_turn_off">Wyłącz</string>
+    <string name="pt_purge_warn_title">Usuwać stary spam automatycznie?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Wiadomości, które trafiły do folderu Spam ponad %d dzień temu, są usuwane z samego telefonu, dla każdej aplikacji. Nie da się ich odzyskać. Wiadomości wysłane przez ciebie, oznaczone gwiazdką lub z notatką zostają.</item>
+        <item quantity="few">Wiadomości, które trafiły do folderu Spam ponad %d dni temu, są usuwane z samego telefonu, dla każdej aplikacji. Nie da się ich odzyskać. Wiadomości wysłane przez ciebie, oznaczone gwiazdką lub z notatką zostają.</item>
+        <item quantity="many">Wiadomości, które trafiły do folderu Spam ponad %d dni temu, są usuwane z samego telefonu, dla każdej aplikacji. Nie da się ich odzyskać. Wiadomości wysłane przez ciebie, oznaczone gwiazdką lub z notatką zostają.</item>
+        <item quantity="other">Wiadomości, które trafiły do folderu Spam ponad %d dnia temu, są usuwane z samego telefonu, dla każdej aplikacji. Nie da się ich odzyskać. Wiadomości wysłane przez ciebie, oznaczone gwiazdką lub z notatką zostają.</item>
+    </plurals>
+    <string name="pt_group_code_title">Nadawcy kodu weryfikacyjnego</string>
+    <string name="pt_group_wrote_title">Osoby, do których wysłano wiadomość</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d nadawca</item>
+        <item quantity="few">%d nadawców</item>
+        <item quantity="many">%d nadawców</item>
+        <item quantity="other">%d nadawcy</item>
+    </plurals>
+    <string name="pt_group_code_body">Nadawca, który wyśle ci kod weryfikacyjny, jest od tej chwili dozwolony. Usuń go tutaj albo zablokuj w jego czacie.</string>
+    <string name="pt_group_wrote_body">Numer, do którego wyślesz wiadomość, jest od tej chwili dozwolony. Usuń go tutaj albo zablokuj w jego czacie.</string>
+    <string name="pt_group_member_remove">Usuń</string>
+    <string name="pt_group_member_removed">Usunięto z listy: %1$s</string>
+    <string name="pt_group_member_history">Znaleziono w twoich starych wiadomościach</string>
+    <string name="pt_group_empty">Nikogo tu jeszcze nie ma</string>
+    <string name="pt_group_off_title">Wyłączyć „%1$s”?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d czat trafi do folderu Spam. Nadawcy zostaną na liście i wrócą, gdy włączysz to ponownie.</item>
+        <item quantity="few">%d czaty trafią do folderu Spam. Nadawcy zostaną na liście i wrócą, gdy włączysz to ponownie.</item>
+        <item quantity="many">%d czatów trafi do folderu Spam. Nadawcy zostaną na liście i wrócą, gdy włączysz to ponownie.</item>
+        <item quantity="other">%d czatu trafi do folderu Spam. Nadawcy zostaną na liście i wrócą, gdy włączysz to ponownie.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">Potem kod weryfikacyjny od nieznanego nadawcy też trafi do folderu Spam.</string>
+    <string name="pt_verdict_group">Trafiłaby do folderu Wiadomości: nadawca jest w grupie „%1$s”.</string>
+    <string name="pt_verdict_allowed_word">Trafiłaby do folderu Wiadomości: tekst zawiera jedno z twoich dozwolonych słów. Potem nadawca jest dozwolony.</string>
+    <string name="pt_verdict_blocked_word">Trafiłaby do folderu Spam: tekst zawiera jedno z twoich zablokowanych słów. Potem nadawca jest zablokowany.</string>
+    <string name="pt_progress_title">Porządkowanie czatów</string>
+    <string name="pt_progress_body">To dzieje się tylko raz. Żaden czat się nie przeniesie, zanim to się skończy, i nic nie zostanie usunięte.</string>
+    <string name="pt_progress_step_rules">Aktualizowanie twoich reguł</string>
+    <string name="pt_progress_step_older">Przenoszenie starego spamu na telefon</string>
+    <string name="pt_progress_step_history">Sprawdzanie twoich starych wiadomości</string>
+    <string name="pt_progress_step_sort">Porządkowanie czatów</string>
+    <string name="pt_progress_background">Kontynuuj w tle</string>
+    <string name="pt_changed_title">Co się zmieniło</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d czat przeniesiono do folderu Spam</item>
+        <item quantity="few">%d czaty przeniesiono do folderu Spam</item>
+        <item quantity="many">%d czatów przeniesiono do folderu Spam</item>
+        <item quantity="other">%d czatu przeniesiono do folderu Spam</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d nadawca dozwolony automatycznie</item>
+        <item quantity="few">%d nadawców dozwolonych automatycznie</item>
+        <item quantity="many">%d nadawców dozwolonych automatycznie</item>
+        <item quantity="other">%d nadawcy dozwolonych automatycznie</item>
+    </plurals>
+    <string name="pt_changed_switch">Filtr spamu to teraz jeden przełącznik: wł. lub wył.</string>
+    <string name="pt_changed_sims">Twoje reguły działają teraz dla obu kart SIM.</string>
+    <string name="pt_changed_store">Stary spam jest teraz zapisany na samym telefonie, jak każda inna wiadomość.</string>
+    <string name="pt_changed_purge">Automatyczne usuwanie starego spamu jest wyłączone. Możesz je włączyć w ustawieniach.</string>
+    <string name="pt_changed_open_spam">Przejrzyj Spam</string>
+    <string name="pt_filter_off_confirm_rest">Czaty nadawców zablokowanych przez ciebie zostaną w folderze Spam.</string>
+    <string name="pt_filter_on_confirm_rest">Nic nie zostanie usunięte.</string>
+    <string name="pt_group_off_rest">Nadawcy zostaną na liście i wrócą, gdy włączysz to ponownie.</string>
+    <string name="pt_progress_step_running">W toku</string>
+    <string name="pt_progress_older_waiting">Czeka, aż uMessage będzie twoją domyślną aplikacją do SMS-ów</string>
+</resources>

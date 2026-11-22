@@ -5,6 +5,6 @@
         <item quantity="one">%d پیام جدید</item>
         <item quantity="other">%d پیام جدید</item>
     </plurals>
-    <string name="thread_messages_deleted">به سطل بازیافت رفت</string>
+    <string name="thread_messages_deleted">به سطل زباله رفت</string>
     <string name="thread_messages_deleted_undo">برگردون</string>
 </resources>

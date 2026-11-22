@@ -6,11 +6,11 @@
     <string name="rules2_menu_export">Exporter les règles dans un fichier</string>
     <string name="rules2_meta">%1$s · %2$s</string>
     <string name="rules2_empty_allowed_title">Aucun expéditeur toujours autorisé</string>
-    <string name="rules2_empty_allowed_body">Ajoutez un numéro, un nom d\'expéditeur ou un mot dont les messages doivent toujours arriver dans votre boîte de réception. Appuyez sur Ajouter une règle ci-dessous.</string>
+    <string name="rules2_empty_allowed_body">Ajoutez un numéro, un nom d\'expéditeur ou un mot qui doit toujours arriver dans Messages.</string>
     <string name="rules2_empty_blocked_title">Aucun expéditeur toujours bloqué</string>
     <string name="rules2_empty_blocked_body">Ajoutez un numéro, un nom d\'expéditeur, un mot ou une expression régulière pour envoyer les messages correspondants dans Spam. Appuyez sur Ajouter une règle ci-dessous.</string>
     <string name="rules2_migrate_title">Convertir en règles uMessage</string>
-    <string name="rules2_migrate_point_blocked">Les SMS arrivent alors dans Spam, où vous pouvez les restaurer.</string>
+    <string name="rules2_migrate_point_blocked">Leurs discussions vont alors dans Spam, d\'où vous pourrez les remettre dans Messages.</string>
     <string name="rules2_migrate_remove_needs_first">Cochez d\'abord l\'option ci-dessus.</string>
     <string name="rules2_migrate_nothing_selected">Aucune sélection</string>
     <plurals name="rules2_migrate_confirm_count" tools:ignore="ImpliedQuantity">
@@ -22,7 +22,6 @@
     <string name="rules2_sheet_delete">Supprimer la règle</string>
     <string name="rules2_sheet_hint_empty">Saisissez une valeur pour continuer</string>
     <string name="rules2_sheet_hint_fix">Corrigez la valeur ci-dessus pour continuer</string>
-    <string name="rules2_sheet_sim_help">Les règles propres à une SIM s\'appliquent uniquement aux messages reçus sur cette SIM.</string>
     <string name="rules2_type_number_help">Un numéro de téléphone exact, par exemple +15550001234 ou 05550001234. Les numéros courts comme 3000 fonctionnent aussi. Les chiffres persans sont acceptés.</string>
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Tous les numéros commençant par ces chiffres, par exemple +1555 ou 0555.</string>
@@ -42,7 +41,7 @@
         <item quantity="one">Convertir %1$d numéro en règle</item>
         <item quantity="other">Convertir %1$d numéros en règles</item>
     </plurals>
-    <string name="forward2_intro_reassure">Seuls les messages qui arrivent dans votre boîte de réception sont transférés. Le spam ne l\'est jamais.</string>
+    <string name="forward2_intro_reassure">Seuls les messages qui arrivent dans Messages sont transférés. Le spam ne l\'est jamais.</string>
     <string name="forward2_empty_title">Aucune règle de transfert pour le moment</string>
     <string name="forward2_empty_body">Envoyez une copie des messages correspondants, comme les alertes bancaires, vers un autre téléphone. Commencez par l\'un de ces modèles.</string>
     <string name="forward2_template_bank">Transférer les alertes bancaires</string>

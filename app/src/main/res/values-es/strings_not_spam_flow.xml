@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nsf_snack_moved">Movido a la bandeja de entrada</string>
-    <string name="nsf_snack_moved_allowed">Movido a la bandeja de entrada. Los próximos mensajes de %1$s también llegarán.</string>
+    <string name="nsf_snack_moved">Movido a Mensajes</string>
+    <string name="nsf_snack_moved_allowed">Movido a Mensajes. %1$s ahora está siempre permitido.</string>
     <plurals name="nsf_snack_moved_allowed_many">
-        <item quantity="one">Se movió a la bandeja de entrada. Los futuros mensajes de %d remitente también llegarán.</item>
-        <item quantity="other">Se movió a la bandeja de entrada. Los futuros mensajes de %d remitentes también llegarán.</item>
+        <item quantity="one">Movido a Mensajes. %d remitente ahora está siempre permitido.</item>
+        <item quantity="other">Movidos a Mensajes. %d remitentes ahora están siempre permitidos.</item>
     </plurals>
     <string name="nsf_moving">Moviendo a la bandeja de entrada</string>
     <string name="move_progress">Moviendo mensajes: %1$s de %2$s</string>

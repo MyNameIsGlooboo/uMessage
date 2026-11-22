@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">未知寄件者和你封鎖的寄件者的對話會顯示在這裡。</string>
+    <string name="pt_spam_filter_off_strip">垃圾訊息篩選已關閉</string>
+    <string name="pt_spam_filter_off_body">這裡只會列出你封鎖的寄件者。</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">要從這支手機刪除%d個對話嗎？</item>
+    </plurals>
+    <string name="pt_spam_delete_body">簡訊會從所有應用程式中刪除，而不只是uMessage。刪除後可以立即復原，之後就不行了。</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">已解除封鎖%d個寄件者。對話已回到「訊息」。</item>
+    </plurals>
+    <string name="pt_older_spam_title">只保存在uMessage中的舊垃圾訊息</string>
+    <string name="pt_older_spam_hint">這些簡訊還不在手機本身中。uMessage成為你的預設簡訊應用程式後，大部分簡訊會移過去。在那之前，你可以在這裡閱讀。</string>
+    <string name="pt_block_still_allowed">未移至「垃圾訊息」：你的某條允許規則仍允許這個寄件者。</string>
+    <string name="pt_unblock_refused_prefix">未解除封鎖：有規則封鎖以%1$s開頭的號碼</string>
+    <string name="pt_line_code">已允許，因為這個寄件者傳送過驗證碼。</string>
+    <string name="pt_line_wrote">已允許，因為你傳過簡訊給這個號碼。</string>
+    <string name="pt_line_word">已自動允許，因為某則簡訊含有你允許的字詞。</string>
+    <string name="pt_line_blocked">你已封鎖這個寄件者。新簡訊會靜默移至「垃圾訊息」。</string>
+    <string name="pt_line_blocked_word">已自動封鎖，因為某則簡訊含有你封鎖的字詞。</string>
+    <string name="pt_line_unknown">未知寄件者。簡訊會移至「垃圾訊息」。</string>
+    <string name="pt_line_keep">保留</string>
+    <string name="pt_reply_allows_confirm">傳送後就會允許這個寄件者。要傳送嗎？</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">%d個對話現在在「垃圾訊息」中</item>
+    </plurals>
+    <string name="pt_card_moved_body">未知寄件者和已封鎖的寄件者會歸到那裡。沒有刪除任何內容。</string>
+</resources>

@@ -7,7 +7,7 @@
     <string name="ux8c_held_other">Trattenuto dal filtro</string>
     <string name="ux8c_not_spam">Non è spam</string>
     <string name="ux8c_delete">Elimina</string>
-    <string name="ux8c_tip">Scorri su un mittente per spostarlo in In arrivo. Tocca e tieni premuto per selezionarlo.</string>
+    <string name="ux8c_tip">Scorri una chat per riportarla in Messaggi. Tocca e tieni premuto per selezionare.</string>
     <string name="ux8c_tip_dismiss">Ho capito</string>
     <string name="ux8c_sender_title">Questo mittente</string>
     <string name="ux8c_sender_normal">Normale</string>

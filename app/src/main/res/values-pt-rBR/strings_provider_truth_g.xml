@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">Separar remetentes desconhecidos em Spam</string>
+    <string name="pt_onb_filter_on_desc">Contatos, pessoas para quem você escreveu e remetentes de um código de verificação ficam em Mensagens.</string>
+    <string name="pt_onb_filter_off">Manter tudo em Mensagens</string>
+    <string name="pt_onb_filter_off_desc">Só os remetentes que você bloquear vão para Spam.</string>
+    <string name="pt_onb_filter_hint">Você pode mudar isso depois nas Configurações.</string>
+    <string name="pt_onb_demo_desc_off">Todas as mensagens vão para Mensagens. Só os remetentes que você bloquear vão para Spam.</string>
+    <string name="pt_filter_on_summary">Ativado: remetentes desconhecidos vão para Spam</string>
+    <string name="pt_filter_off_summary">Desativado: tudo chega em Mensagens, exceto remetentes que você bloqueou</string>
+    <string name="pt_filter_off_confirm_title">Desativar o filtro de spam?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d conversa passa de Spam para Mensagens. Conversas de remetentes que você bloqueou ficam em Spam.</item>
+        <item quantity="other">%d conversas passam de Spam para Mensagens. Conversas de remetentes que você bloqueou ficam em Spam.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">Ativar o filtro de spam?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">%d conversa de um remetente desconhecido vai para Spam. Nada é excluído.</item>
+        <item quantity="other">%d conversas de remetentes desconhecidos vão para Spam. Nada é excluído.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">Nenhuma conversa muda de lugar agora.</string>
+    <string name="pt_turn_off">Desativar</string>
+    <string name="pt_purge_warn_title">Excluir spam antigo automaticamente?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">Mensagens que chegaram em Spam há mais de %d dia são excluídas do próprio celular, para todos os apps. Elas não podem ser recuperadas. Mensagens que você enviou, marcou com estrela ou às quais adicionou uma nota ficam.</item>
+        <item quantity="other">Mensagens que chegaram em Spam há mais de %d dias são excluídas do próprio celular, para todos os apps. Elas não podem ser recuperadas. Mensagens que você enviou, marcou com estrela ou às quais adicionou uma nota ficam.</item>
+    </plurals>
+    <string name="pt_group_code_title">Remetentes de um código de verificação</string>
+    <string name="pt_group_wrote_title">Pessoas para quem você escreveu</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d remetente</item>
+        <item quantity="other">%d remetentes</item>
+    </plurals>
+    <string name="pt_group_code_body">Um remetente que envia um código de verificação para você passa a ser permitido. Remova-o aqui ou bloqueie-o na conversa dele.</string>
+    <string name="pt_group_wrote_body">Um número para o qual você envia uma mensagem passa a ser permitido. Remova-o aqui ou bloqueie-o na conversa dele.</string>
+    <string name="pt_group_member_remove">Remover</string>
+    <string name="pt_group_member_removed">%1$s removido da lista</string>
+    <string name="pt_group_member_history">Encontrado nas suas mensagens antigas</string>
+    <string name="pt_group_empty">Ninguém aqui ainda</string>
+    <string name="pt_group_off_title">Desativar “%1$s”?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d conversa vai para Spam. Os remetentes ficam na lista e voltam quando você ativar de novo.</item>
+        <item quantity="other">%d conversas vão para Spam. Os remetentes ficam na lista e voltam quando você ativar de novo.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">Depois disso, um código de verificação de um remetente desconhecido também vai para Spam.</string>
+    <string name="pt_verdict_group">Iria para Mensagens: o remetente está em “%1$s”.</string>
+    <string name="pt_verdict_allowed_word">Iria para Mensagens: a mensagem tem uma das suas palavras permitidas. Depois disso, o remetente fica permitido.</string>
+    <string name="pt_verdict_blocked_word">Iria para Spam: a mensagem tem uma das suas palavras bloqueadas. Depois disso, o remetente fica bloqueado.</string>
+    <string name="pt_progress_title">Organizando suas conversas</string>
+    <string name="pt_progress_body">Isso acontece só uma vez. Nenhuma conversa muda de lugar antes de terminar, e nada é excluído.</string>
+    <string name="pt_progress_step_rules">Atualizando suas regras</string>
+    <string name="pt_progress_step_older">Levando o spam antigo para o celular</string>
+    <string name="pt_progress_step_history">Verificando suas mensagens antigas</string>
+    <string name="pt_progress_step_sort">Organizando conversas</string>
+    <string name="pt_progress_background">Continuar em segundo plano</string>
+    <string name="pt_changed_title">O que mudou</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d conversa foi para Spam</item>
+        <item quantity="other">%d conversas foram para Spam</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d remetente permitido automaticamente</item>
+        <item quantity="other">%d remetentes permitidos automaticamente</item>
+    </plurals>
+    <string name="pt_changed_switch">O filtro de spam agora é uma única chave: ativado ou desativado.</string>
+    <string name="pt_changed_sims">Suas regras agora valem para os dois chips.</string>
+    <string name="pt_changed_store">O spam antigo agora fica no próprio celular, como qualquer outra mensagem.</string>
+    <string name="pt_changed_purge">A exclusão automática de spam antigo está desativada. Você pode ativá-la nas Configurações.</string>
+    <string name="pt_changed_open_spam">Revisar Spam</string>
+    <string name="pt_filter_off_confirm_rest">Conversas de remetentes que você bloqueou ficam em Spam.</string>
+    <string name="pt_filter_on_confirm_rest">Nada é excluído.</string>
+    <string name="pt_group_off_rest">Os remetentes ficam na lista e voltam quando você ativar de novo.</string>
+    <string name="pt_progress_step_running">Em andamento</string>
+    <string name="pt_progress_older_waiting">Aguardando o uMessage ser seu app de SMS padrão</string>
+</resources>

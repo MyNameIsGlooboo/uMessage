@@ -7,4 +7,6 @@
     <string name="notifications_off_title">Notifikasi nonaktif</string>
     <string name="notifications_off_body">Anda tidak akan mendapat notifikasi pesan baru.</string>
     <string name="notifications_off_fix">Aktifkan</string>
+    <string name="notifications_quiet_title">Notifikasi tanpa suara</string>
+    <string name="notifications_quiet_body">“%1$s” tidak punya suara, jadi pesan baru tidak berbunyi. Aktifkan suara di setelan Android.</string>
 </resources>

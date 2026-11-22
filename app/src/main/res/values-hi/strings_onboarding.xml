@@ -7,7 +7,7 @@
     <string name="onb_finish">मैसेज भेजना शुरू करें</string>
     <string name="onb_welcome_title">uMessage में आपका स्वागत है</string>
     <string name="onb_welcome_intro">बेहतर मैसेजिंग, कम स्पैम.</string>
-    <string name="onb_welcome_demo_desc">आपके परिचितों के मैसेज, मैसेज में जाते हैं और अनजान लोगों के मैसेज, स्पैम में. पुष्टि करने के कोड भी मैसेज में पहुंचते हैं.</string>
+    <string name="onb_welcome_demo_desc">आपके संपर्क मैसेज टैब में जाते हैं. अनजान भेजने वाले स्पैम में जाते हैं. जो भेजने वाला आपको पुष्टि करने का कोड भेजता है, वह मैसेज टैब में जाता है.</string>
     <string name="onb_welcome_spam">स्पैम बाहर ही रहे</string>
     <string name="onb_welcome_spam_desc">अनजान भेजने वालों के मैसेज स्पैम में रहते हैं, खोते नहीं.</string>
     <string name="onb_welcome_codes">एक टैप में कोड</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">न खाता, न विज्ञापन, न क्लाउड. सब कुछ आपके फ़ोन पर रहता है.</string>
     <string name="onb_welcome_start">शुरू करें</string>
     <string name="onb_default_title">uMessage को अपना SMS ऐप बनाएं</string>
-    <string name="onb_default_body">Android सिर्फ़ डिफ़ॉल्ट एसएमएस ऐप को मैसेज पाने और फ़िल्टर करने देता है. इसके बिना uMessage आपके इनबॉक्स की सुरक्षा नहीं कर सकता.</string>
+    <string name="onb_default_body">Android सिर्फ़ डिफ़ॉल्ट एसएमएस ऐप को मैसेज पाने और फ़िल्टर करने देता है. इसके बिना uMessage आपके लिए स्पैम फ़िल्टर नहीं कर सकता.</string>
     <string name="onb_default_action">डिफ़ॉल्ट बनाएं</string>
     <string name="onb_default_denied">अनुरोध अस्वीकार कर दिया गया. आप फिर कोशिश कर सकते हैं या आगे बढ़कर बाद में Android की सेटिंग में इसे चुन सकते हैं.</string>
     <string name="onb_default_unavailable">आपके फ़ोन पर डिफ़ॉल्ट ऐप चुनने की विंडो नहीं खुल सकी. Android की सेटिंग खोलें, ऐप &gt; डिफ़ॉल्ट ऐप &gt; SMS ऐप पर जाएं और uMessage चुनें.</string>

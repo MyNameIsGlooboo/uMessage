@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_onb_filter_on">अनजान भेजने वालों को स्पैम में रखें</string>
+    <string name="pt_onb_filter_on_desc">संपर्क, जिन्हें आपने मैसेज भेजा है और पुष्टि करने का कोड भेजने वाले मैसेज टैब में ही रहते हैं.</string>
+    <string name="pt_onb_filter_off">सब कुछ मैसेज टैब में रखें</string>
+    <string name="pt_onb_filter_off_desc">सिर्फ़ आपके ब्लॉक किए गए भेजने वाले स्पैम में जाते हैं.</string>
+    <string name="pt_onb_filter_hint">आप इसे बाद में सेटिंग में बदल सकते हैं.</string>
+    <string name="pt_onb_demo_desc_off">हर मैसेज मैसेज टैब में जाता है. सिर्फ़ आपके ब्लॉक किए गए भेजने वाले स्पैम में जाते हैं.</string>
+    <string name="pt_filter_on_summary">चालू: अनजान भेजने वाले स्पैम में जाते हैं</string>
+    <string name="pt_filter_off_summary">बंद: आपके ब्लॉक किए गए भेजने वालों को छोड़कर सब कुछ मैसेज टैब में आता है</string>
+    <string name="pt_filter_off_confirm_title">स्पैम फ़िल्टर बंद करें?</string>
+    <plurals name="pt_filter_off_confirm_body">
+        <item quantity="one">%d चैट स्पैम से मैसेज टैब में जाएगी. आपके ब्लॉक किए गए भेजने वालों की चैट स्पैम में ही रहेंगी.</item>
+        <item quantity="other">%d चैट स्पैम से मैसेज टैब में जाएंगी. आपके ब्लॉक किए गए भेजने वालों की चैट स्पैम में ही रहेंगी.</item>
+    </plurals>
+    <string name="pt_filter_on_confirm_title">स्पैम फ़िल्टर चालू करें?</string>
+    <plurals name="pt_filter_on_confirm_body">
+        <item quantity="one">अनजान भेजने वालों की %d चैट स्पैम में जाएगी. कुछ भी नहीं मिटाया जाता.</item>
+        <item quantity="other">अनजान भेजने वालों की %d चैट स्पैम में जाएंगी. कुछ भी नहीं मिटाया जाता.</item>
+    </plurals>
+    <string name="pt_confirm_none_move">अभी कोई चैट जगह नहीं बदलेगी.</string>
+    <string name="pt_turn_off">बंद करें</string>
+    <string name="pt_purge_warn_title">पुराना स्पैम अपने-आप मिटाएं?</string>
+    <plurals name="pt_purge_warn_body">
+        <item quantity="one">जो मैसेज %d दिन से ज़्यादा पहले स्पैम में आए थे, वे फ़ोन से ही मिटा दिए जाते हैं, हर ऐप के लिए. उन्हें वापस नहीं लाया जा सकता. आपके भेजे गए, स्टार लगाए गए या नोट जोड़े गए मैसेज बने रहते हैं.</item>
+        <item quantity="other">जो मैसेज %d दिन से ज़्यादा पहले स्पैम में आए थे, वे फ़ोन से ही मिटा दिए जाते हैं, हर ऐप के लिए. उन्हें वापस नहीं लाया जा सकता. आपके भेजे गए, स्टार लगाए गए या नोट जोड़े गए मैसेज बने रहते हैं.</item>
+    </plurals>
+    <string name="pt_group_code_title">पुष्टि करने का कोड भेजने वाले</string>
+    <string name="pt_group_wrote_title">जिन्हें आपने मैसेज भेजा</string>
+    <plurals name="pt_group_count">
+        <item quantity="one">%d भेजने वाला</item>
+        <item quantity="other">%d भेजने वाले</item>
+    </plurals>
+    <string name="pt_group_code_body">जो भेजने वाला आपको पुष्टि करने का कोड भेजता है, उसे तब से अनुमति मिल जाती है. उसे यहां से हटाएं, या उसकी चैट में ब्लॉक करें.</string>
+    <string name="pt_group_wrote_body">जिस नंबर पर आप मैसेज भेजते हैं, उसे तब से अनुमति मिल जाती है. उसे यहां से हटाएं, या उसकी चैट में ब्लॉक करें.</string>
+    <string name="pt_group_member_remove">हटाएं</string>
+    <string name="pt_group_member_removed">%1$s को सूची से हटाया गया</string>
+    <string name="pt_group_member_history">आपके पुराने मैसेज में मिला</string>
+    <string name="pt_group_empty">यहां अभी कोई नहीं है</string>
+    <string name="pt_group_off_title">“%1$s” बंद करें?</string>
+    <plurals name="pt_group_off_body">
+        <item quantity="one">%d चैट स्पैम में जाएगी. भेजने वाले सूची में बने रहेंगे और इसे फिर से चालू करने पर वापस आ जाएंगे.</item>
+        <item quantity="other">%d चैट स्पैम में जाएंगी. भेजने वाले सूची में बने रहेंगे और इसे फिर से चालू करने पर वापस आ जाएंगे.</item>
+    </plurals>
+    <string name="pt_group_off_code_note">इसके बाद, अनजान भेजने वाले का पुष्टि करने का कोड भी स्पैम में जाएगा.</string>
+    <string name="pt_verdict_group">मैसेज टैब में जाएगा: भेजने वाला “%1$s” में है.</string>
+    <string name="pt_verdict_allowed_word">मैसेज टैब में जाएगा: टेक्स्ट में आपका अनुमति वाला कोई शब्द है. इसके बाद भेजने वाले को अनुमति मिल जाएगी.</string>
+    <string name="pt_verdict_blocked_word">स्पैम में जाएगा: टेक्स्ट में आपका ब्लॉक किया गया कोई शब्द है. इसके बाद भेजने वाला ब्लॉक हो जाएगा.</string>
+    <string name="pt_progress_title">आपकी चैट छांटी जा रही हैं</string>
+    <string name="pt_progress_body">यह सिर्फ़ एक बार होता है. पूरा होने से पहले कोई चैट जगह नहीं बदलेगी, और कुछ भी नहीं मिटाया जाता.</string>
+    <string name="pt_progress_step_rules">आपके नियम अपडेट हो रहे हैं</string>
+    <string name="pt_progress_step_older">पुराना स्पैम फ़ोन में ले जाया जा रहा है</string>
+    <string name="pt_progress_step_history">आपके पुराने मैसेज जांचे जा रहे हैं</string>
+    <string name="pt_progress_step_sort">चैट छांटी जा रही हैं</string>
+    <string name="pt_progress_background">बैकग्राउंड में जारी रखें</string>
+    <string name="pt_changed_title">क्या बदला</string>
+    <plurals name="pt_changed_moved">
+        <item quantity="one">%d चैट स्पैम में गई</item>
+        <item quantity="other">%d चैट स्पैम में गईं</item>
+    </plurals>
+    <plurals name="pt_changed_allowed">
+        <item quantity="one">%d भेजने वाले को अपने-आप अनुमति मिली</item>
+        <item quantity="other">%d भेजने वालों को अपने-आप अनुमति मिली</item>
+    </plurals>
+    <string name="pt_changed_switch">स्पैम फ़िल्टर अब एक ही स्विच है: चालू या बंद.</string>
+    <string name="pt_changed_sims">आपके नियम अब दोनों सिम पर लागू होते हैं.</string>
+    <string name="pt_changed_store">पुराना स्पैम अब बाकी सभी मैसेज की तरह फ़ोन में ही रखा जाता है.</string>
+    <string name="pt_changed_purge">पुराने स्पैम को अपने-आप मिटाना बंद है. आप इसे सेटिंग में चालू कर सकते हैं.</string>
+    <string name="pt_changed_open_spam">स्पैम देखें</string>
+    <string name="pt_filter_off_confirm_rest">आपके ब्लॉक किए गए भेजने वालों की चैट स्पैम में ही रहेंगी.</string>
+    <string name="pt_filter_on_confirm_rest">कुछ भी नहीं मिटाया जाता.</string>
+    <string name="pt_group_off_rest">भेजने वाले सूची में बने रहेंगे और इसे फिर से चालू करने पर वापस आ जाएंगे.</string>
+    <string name="pt_progress_step_running">जारी है</string>
+    <string name="pt_progress_older_waiting">uMessage के आपका डिफ़ॉल्ट एसएमएस ऐप बनने का इंतज़ार है</string>
+</resources>

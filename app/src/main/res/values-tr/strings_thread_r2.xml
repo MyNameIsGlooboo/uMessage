@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Neden</string>
     <string name="thread_r2_details_rule">Kural</string>
     <string name="thread_r2_details_forwarded">İletildi</string>
-    <string name="thread_r2_details_decision_restored">Engellendi, ardından gelen kutunuza geri yüklendi</string>
+    <string name="thread_r2_details_decision_restored">Engellendi, sonra Mesajlar\'a taşındı</string>
     <string name="thread_r2_details_copy">%1$s kopyalayın</string>
     <string name="thread_r2_menu_search">Görüşmede arayın</string>
     <string name="thread_r2_menu_always_forward">Bu gönderenden gelenleri her zaman iletin</string>

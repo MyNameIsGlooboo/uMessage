@@ -7,7 +7,7 @@
     <string name="onb_finish">Bắt đầu nhắn tin</string>
     <string name="onb_welcome_title">Chào mừng bạn đến với uMessage</string>
     <string name="onb_welcome_intro">Nhắn tin tốt hơn, ít tin nhắn rác hơn.</string>
-    <string name="onb_welcome_demo_desc">Tin nhắn từ người quen vào mục Tin nhắn, tin nhắn từ người lạ vào mục Tin rác, còn mã xác minh vẫn vào mục Tin nhắn.</string>
+    <string name="onb_welcome_demo_desc">Người liên hệ của bạn vào mục Tin nhắn. Người gửi không xác định vào mục Tin rác. Người gửi đã gửi mã xác minh cho bạn vào mục Tin nhắn.</string>
     <string name="onb_welcome_spam">Ngăn tin nhắn rác</string>
     <string name="onb_welcome_spam_desc">Tin nhắn từ người gửi không xác định được giữ trong mục Tin rác, không bị mất.</string>
     <string name="onb_welcome_codes">Sao chép mã bằng một lần nhấn</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Không tài khoản, không quảng cáo, không đám mây. Mọi thứ đều nằm trên điện thoại của bạn.</string>
     <string name="onb_welcome_start">Bắt đầu</string>
     <string name="onb_default_title">Đặt uMessage làm ứng dụng SMS của bạn</string>
-    <string name="onb_default_body">Android chỉ cho ứng dụng SMS mặc định nhận và lọc tin nhắn. Nếu chưa đặt làm mặc định, uMessage không thể bảo vệ hộp thư đến của bạn.</string>
+    <string name="onb_default_body">Android chỉ cho ứng dụng SMS mặc định nhận và lọc tin nhắn. Nếu chưa đặt làm mặc định, uMessage không thể lọc tin rác cho bạn.</string>
     <string name="onb_default_action">Đặt làm mặc định</string>
     <string name="onb_default_denied">Yêu cầu đã bị từ chối. Bạn có thể thử lại hoặc tiếp tục và đặt sau trong cài đặt Android.</string>
     <string name="onb_default_unavailable">Điện thoại không mở được hộp thoại chọn ứng dụng mặc định. Mở cài đặt Android, chọn Ứng dụng, Ứng dụng mặc định, Ứng dụng SMS rồi chọn uMessage.</string>

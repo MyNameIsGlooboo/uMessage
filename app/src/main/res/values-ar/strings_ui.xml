@@ -20,7 +20,6 @@
     <string name="ui_show_dialpad">أظهر لوحة الاتصال</string>
     <string name="ui_show_keyboard">أظهر لوحة المفاتيح</string>
     <string name="ui_settings_system_block_list">قائمة الحظر في النظام</string>
-    <string name="ui_settings_system_block_list_body">أرقام محظورة في كل تطبيق على هذا الهاتف. يخفيها uMessage أيضًا.</string>
     <string name="ui_settings_blocked_words">الكلمات المحظورة</string>
     <string name="ui_settings_character_counter">أظهر عدّاد الأحرف</string>
     <string name="ui_settings_send_on_enter">أرسل بمفتاح Enter</string>

@@ -46,8 +46,8 @@
         <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Spam bölümüne gider. Görüşmeler arşivlendi.</item>
     </plurals>
     <plurals name="convlist_reported_spam">
-        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Spam bölümüne gider.</item>
-        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Spam bölümüne gider.</item>
+        <item quantity="one">Bildirildi. Sohbet Spam\'e taşındı.</item>
+        <item quantity="other">%d sohbet bildirildi. Spam\'e taşındılar.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
     <string name="blocked_snack_mode">Bilinmeyen gönderenler için seçilen mod: %1$s</string>

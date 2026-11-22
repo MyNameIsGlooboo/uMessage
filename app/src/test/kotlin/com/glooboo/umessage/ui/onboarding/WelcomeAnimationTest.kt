@@ -49,7 +49,9 @@ class WelcomeAnimationTest {
     @get:Rule
     val compose = createComposeRule()
 
-    private val description = "Texts from people you know"
+    /** The sentence TalkBack reads for the card in its default (filter on) state. */
+    private val description: String
+        get() = ApplicationProvider.getApplicationContext<Context>().getString(R.string.onb_welcome_demo_desc)
     private val total = WelcomeTimeline.TOTAL_MS.toLong()
 
     @Composable

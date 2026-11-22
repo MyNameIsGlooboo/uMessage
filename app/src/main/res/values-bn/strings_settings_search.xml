@@ -5,7 +5,7 @@
     <string name="settings_search_none">কোনো সেটিংস পাওয়া যায়নি। অন্য শব্দ দিয়ে খুঁজুন।</string>
     <string name="settings_search_start">থিম, ব্যাকআপ বা স্প্যাম এর মতো কোনো শব্দ লিখুন।</string>
     <string name="sks_spam">স্প্যাম ব্লক করুন ব্লক করা আবর্জনা ফিল্টার সুরক্ষা প্রতারণা অবাঞ্ছিত</string>
-    <string name="sks_unknown_sender">অচেনা অপরিচিত প্রেরক মোড ফিল্টার স্প্যাম ব্লক করুন</string>
+    <string name="sks_unknown_sender">অচেনা অপরিচিত প্রেরক ফিল্টার স্প্যাম ব্লক করুন সুইচ চালু বন্ধ মোড</string>
     <string name="sks_strict">কঠোর কড়া ব্লক করুন সবকিছু কোড</string>
     <string name="sks_smart">স্মার্ট প্রস্তাবিত স্বয়ংক্রিয় ডিফল্ট ফিল্টার</string>
     <string name="sks_spam_off">বন্ধ নিষ্ক্রিয় থামান ফিল্টার অনুমতি দিন সবকিছু</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">বিজ্ঞপ্তি বিজ্ঞপ্তি সতর্কতা শব্দ রিংটোন কম্পন কম্পন টোন নীরব নিঃশব্দ</string>
     <string name="sks_android_notifications">Android সিস্টেম চ্যানেল শব্দ রিংটোন কম্পন গুরুত্ব পপআপ</string>
     <string name="sks_code_alert">কোড OTP যাচাইকরণ চ্যানেল শব্দ পপআপ সতর্কতা</string>
-    <string name="sks_block_alert">ব্লক করা বার্তা সতর্কতা জানান স্প্যাম বিজ্ঞপ্তি</string>
+    <string name="sks_block_alert">ব্লক করা বার্তা সতর্কতা জানান স্প্যাম বিজ্ঞপ্তি অচেনা প্রেরক</string>
     <string name="sks_digest">সাপ্তাহিক সারাংশ রিপোর্ট সংক্ষিপ্তসার সপ্তাহ</string>
     <string name="sks_wake">জাগান স্ক্রিন চালু আলো ডিসপ্লে</string>
     <string name="sks_bubbles">বাবল ভাসমান চ্যাট হেড পপআপ</string>

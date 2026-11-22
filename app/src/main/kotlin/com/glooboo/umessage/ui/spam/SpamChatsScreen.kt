@@ -20,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -57,12 +58,14 @@ private var spamCardPlayed = false
  * Provider truth, the Spam tab (4.2): the chats in Spam on the shared folder screen, with "Not spam", "Unblock", Block,
  * Delete and Mark as read; the first-time tip; the strip while the filter is off; the sorting card while it is empty;
  * and, while the message migration waits, the entry to the older spam kept only in uMessage (U20). [reloadKey]
- * changes whenever the Messages list was published, so a new spam text shows here too.
+ * changes whenever the Messages list was published, so a new spam text shows here too. [onViewRule] is the "View rule"
+ * of a refused Unblock: the rules screen on its block list (D-6).
  */
 @Composable
 fun SpamChatsRoute(
     onOpen: (ConversationRow) -> Unit,
     onOpenRules: () -> Unit,
+    onViewRule: () -> Unit,
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
     reloadKey: Any? = null,
@@ -77,11 +80,14 @@ fun SpamChatsRoute(
         onPauseOrDispose { }
     }
     LaunchedEffect(reloadKey) { viewModel.load() }
+    val viewRule by rememberUpdatedState(onViewRule)
     LaunchedEffect(viewModel) {
         // No snackbar of an earlier screen is on show: its open windows close (C-1, C-2).
         viewModel.onRouteStarted()
         // Each event in its own job: a new snackbar dismisses the one before, which then commits its action.
-        viewModel.events.collect { event -> launch { showSpamEvent(event, snackbar, viewModel, resources) } }
+        viewModel.events.collect { event ->
+            launch { showSpamEvent(event, snackbar, viewModel, resources, onViewRule = { viewRule() }) }
+        }
     }
     state.nameConfirm?.let { ask ->
         NameAllowDialog(
@@ -248,6 +254,7 @@ internal suspend fun showSpamEvent(
     snackbar: SnackbarHostState,
     viewModel: SpamChatsViewModel,
     resources: Resources,
+    onViewRule: () -> Unit,
 ) {
     val offer = SnackbarOffer(snackbar, resources.getString(R.string.spam_undo))
     when (event) {
@@ -258,12 +265,32 @@ internal suspend fun showSpamEvent(
         is SpamChatsEvent.MarkedAllRead -> snackbar.showSnackbar(
             resources.getQuantityString(R.plurals.decm_marked_all_read, event.count, event.count),
         )
-        is SpamChatsEvent.Message -> snackbar.showSnackbar(
-            if (event.arg != null) resources.getString(event.res, event.arg) else resources.getString(event.res),
-        )
+        is SpamChatsEvent.Message -> showMessage(event, snackbar, resources, onViewRule)
         SpamChatsEvent.Failed ->
             snackbar.showSnackbar(resources.getString(org.fossify.commons.R.string.unknown_error_occurred))
     }
+}
+
+/** A plain message; with [SpamChatsEvent.Message.viewRule] its "View rule" action calls [onViewRule] (D-6). */
+private suspend fun showMessage(
+    event: SpamChatsEvent.Message,
+    snackbar: SnackbarHostState,
+    resources: Resources,
+    onViewRule: () -> Unit,
+) {
+    val text = if (event.arg != null) resources.getString(event.res, event.arg) else resources.getString(event.res)
+    if (!event.viewRule) {
+        snackbar.showSnackbar(text)
+        return
+    }
+    // L-7: the reason shows at once, not after an Undo window that is still open.
+    snackbar.currentSnackbarData?.dismiss()
+    val result = snackbar.showSnackbar(
+        text,
+        actionLabel = resources.getString(R.string.e_view_rule),
+        duration = SnackbarDuration.Long,
+    )
+    if (result == SnackbarResult.ActionPerformed) onViewRule()
 }
 
 /** A snackbar with one action (Undo by default) that replaces the one shown; true when the action was tapped. */

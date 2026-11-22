@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Grund</string>
     <string name="thread_r2_details_rule">Regel</string>
     <string name="thread_r2_details_forwarded">Weitergeleitet</string>
-    <string name="thread_r2_details_decision_restored">Blockiert, dann in deinem Posteingang wiederhergestellt</string>
+    <string name="thread_r2_details_decision_restored">Blockiert, dann nach „Nachrichten“ verschoben</string>
     <string name="thread_r2_details_copy">%1$s kopieren</string>
     <string name="thread_r2_menu_search">In Unterhaltung suchen</string>
     <string name="thread_r2_menu_always_forward">Nachrichten dieses Absenders immer weiterleiten</string>

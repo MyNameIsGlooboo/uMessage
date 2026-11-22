@@ -7,4 +7,6 @@
     <string name="notifications_off_title">الإشعارات متوقفة</string>
     <string name="notifications_off_body">لن تتلقى إشعارات بالرسائل الجديدة.</string>
     <string name="notifications_off_fix">فعّل</string>
+    <string name="notifications_quiet_title">الإشعارات صامتة</string>
+    <string name="notifications_quiet_body">«%1$s» بلا صوت، لذا لا ترن الرسائل الجديدة. شغّل الصوت من إعدادات Android.</string>
 </resources>

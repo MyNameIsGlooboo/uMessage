@@ -16,7 +16,6 @@
     <string name="ui_show_dialpad">Ziffernblock anzeigen</string>
     <string name="ui_show_keyboard">Tastatur anzeigen</string>
     <string name="ui_settings_system_block_list">Blockierliste des Systems</string>
-    <string name="ui_settings_system_block_list_body">Nummern, die für alle Apps auf diesem Smartphone blockiert sind. uMessage blendet sie ebenfalls aus.</string>
     <string name="ui_settings_blocked_words">Blockierte Wörter</string>
     <string name="ui_settings_character_counter">Zeichenanzahl anzeigen</string>
     <string name="ui_settings_send_on_enter">Mit Eingabetaste senden</string>

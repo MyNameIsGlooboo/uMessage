@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">تظهر هنا محادثات المرسلين غير المعروفين والمرسلين الذين تحظرهم.</string>
+    <string name="pt_spam_filter_off_strip">فلتر الرسائل غير المرغوب فيها متوقف</string>
+    <string name="pt_spam_filter_off_body">تظهر هنا فقط محادثات المرسلين الذين حظرتهم.</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="zero">هل تريد حذف %d محادثة من هذا الهاتف؟</item>
+        <item quantity="one">هل تريد حذف محادثة واحدة من هذا الهاتف؟</item>
+        <item quantity="two">هل تريد حذف محادثتين من هذا الهاتف؟</item>
+        <item quantity="few">هل تريد حذف %d محادثات من هذا الهاتف؟</item>
+        <item quantity="many">هل تريد حذف %d محادثة من هذا الهاتف؟</item>
+        <item quantity="other">هل تريد حذف %d محادثة من هذا الهاتف؟</item>
+    </plurals>
+    <string name="pt_spam_delete_body">تُحذف الرسائل لكل التطبيقات، وليس في uMessage فقط. يمكنك التراجع بعد ذلك مباشرة، ولكن ليس لاحقًا.</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="zero">أُلغي حظر %d مرسل. عادت محادثاتهم إلى «الرسائل».</item>
+        <item quantity="one">تم إلغاء الحظر. عادت المحادثة إلى «الرسائل».</item>
+        <item quantity="two">أُلغي حظر مرسلَين. عادت محادثتاهما إلى «الرسائل».</item>
+        <item quantity="few">أُلغي حظر %d مرسلين. عادت محادثاتهم إلى «الرسائل».</item>
+        <item quantity="many">أُلغي حظر %d مرسلًا. عادت محادثاتهم إلى «الرسائل».</item>
+        <item quantity="other">أُلغي حظر %d مرسل. عادت محادثاتهم إلى «الرسائل».</item>
+    </plurals>
+    <string name="pt_older_spam_title">رسائل غير مرغوب فيها قديمة محفوظة في uMessage فقط</string>
+    <string name="pt_older_spam_hint">هذه الرسائل ليست على الهاتف نفسه بعد. سينتقل معظمها إلى هناك عندما يصبح uMessage تطبيق الرسائل النصية الافتراضي لديك. وحتى ذلك الحين يمكنك قراءتها هنا.</string>
+    <string name="pt_block_still_allowed">لم تنتقل إلى «غير المرغوب فيها»: ما زالت إحدى قواعد السماح لديك تسمح لهذا المرسل.</string>
+    <string name="pt_unblock_refused_prefix">لم يُلغَ الحظر: هناك قاعدة تحظر الأرقام التي تبدأ بـ %1$s</string>
+    <string name="pt_line_code">مسموح به لأن هذا المرسل أرسل رمز تحقق.</string>
+    <string name="pt_line_wrote">مسموح به لأنك راسلت هذا الرقم.</string>
+    <string name="pt_line_word">مسموح به تلقائيًا لأن رسالة احتوت على إحدى كلماتك المسموح بها.</string>
+    <string name="pt_line_blocked">لقد حظرت هذا المرسل. تصل الرسائل الجديدة إلى «غير المرغوب فيها» دون تنبيه.</string>
+    <string name="pt_line_blocked_word">محظور تلقائيًا لأن رسالة احتوت على إحدى كلماتك المحظورة.</string>
+    <string name="pt_line_unknown">مرسل غير معروف. تصل رسائله إلى «غير المرغوب فيها».</string>
+    <string name="pt_line_keep">إبقاء</string>
+    <string name="pt_reply_allows_confirm">سيسمح هذا للمرسل. هل تريد الإرسال؟</string>
+    <plurals name="pt_card_moved">
+        <item quantity="zero">أصبحت %d محادثة في «غير المرغوب فيها»</item>
+        <item quantity="one">أصبحت محادثة واحدة في «غير المرغوب فيها»</item>
+        <item quantity="two">أصبحت محادثتان في «غير المرغوب فيها»</item>
+        <item quantity="few">أصبحت %d محادثات في «غير المرغوب فيها»</item>
+        <item quantity="many">أصبحت %d محادثة في «غير المرغوب فيها»</item>
+        <item quantity="other">أصبحت %d محادثة في «غير المرغوب فيها»</item>
+    </plurals>
+    <string name="pt_card_moved_body">يُفرز المرسلون غير المعروفين والمحظورون إلى هناك. لم يُحذف أي شيء.</string>
+</resources>

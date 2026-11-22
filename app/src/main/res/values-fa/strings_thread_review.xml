@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">تصمیم</string>
-    <string name="thread_review_details_decision_allowed">مجاز: به صندوق ورودی شما تحویل داده شد</string>
+    <string name="thread_review_details_decision_allowed">مجاز: به پیام‌ها رسید</string>
     <string name="thread_review_details_type">نوع</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

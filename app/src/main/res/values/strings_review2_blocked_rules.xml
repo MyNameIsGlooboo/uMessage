@@ -17,16 +17,6 @@
     <string name="e_restored_empty">Messages you move to the inbox from now on are listed here for 30 days.</string>
     <string name="e_restored_when">Moved to the inbox %1$s</string>
     <string name="e_restored_open">Open the conversation with %1$s</string>
-    <string name="e_snack_allowed_one">%1$s is now always allowed, on both SIMs</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d sender is now always allowed, on both SIMs</item>
-        <item quantity="other">%d senders are now always allowed, on both SIMs</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s is now always allowed</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d sender is now always allowed</item>
-        <item quantity="other">%d senders are now always allowed</item>
-    </plurals>
     <string name="e_view_rule">View rule</string>
 
 
@@ -75,7 +65,7 @@
         <item quantity="one">Move %d number to uMessage rules</item>
         <item quantity="other">Move %d numbers to uMessage rules</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Their texts will go to Spam, where you can read and restore them.</string>
+    <string name="e_migrate_point_blocked">• Their chats will go to Spam, where you can read them and move them back.</string>
     <string name="e_migrate_point_android">• Android still throws their texts away until they leave its list.</string>
     <string name="e_migrate_calls_note">Android\'s list also blocks calls. Numbers you remove from it can call you again.</string>
 
@@ -85,7 +75,7 @@
     <string name="e_bn_move_one">Move to uMessage rules</string>
     <string name="e_bn_moved">%1$s is now a uMessage rule. Its texts go to Spam, and its calls are no longer blocked.</string>
     <string name="e_bn_field_help">For example +15550001234, or +1555* for every number that starts with +1555</string>
-    <string name="e_bn_short_code_warning">This looks like a short code. Android throws its texts away before uMessage sees them, so you could never restore one, such as a code or a bank notice.</string>
+    <string name="e_bn_short_code_warning">This looks like a short code. Android throws its texts away before uMessage sees them, so you would never see one, such as a code or a bank notice.</string>
     <string name="e_bn_add_as_rule">Add as a uMessage rule instead</string>
     <string name="e_bn_added_as_rule">%1$s added as a uMessage rule. Its texts go to Spam.</string>
 </resources>

@@ -11,16 +11,6 @@
     <string name="e_restored_empty">Nachrichten, die du ab jetzt in den Posteingang verschiebst, werden hier 30 Tage lang angezeigt.</string>
     <string name="e_restored_when">In den Posteingang verschoben: %1$s</string>
     <string name="e_restored_open">Unterhaltung mit %1$s öffnen</string>
-    <string name="e_snack_allowed_one">%1$s ist jetzt auf beiden SIMs immer erlaubt</string>
-    <plurals name="e_snack_allowed_many">
-        <item quantity="one">%d Absender ist jetzt auf beiden SIMs immer erlaubt</item>
-        <item quantity="other">%d Absender sind jetzt auf beiden SIMs immer erlaubt</item>
-    </plurals>
-    <string name="e_snack_allowed_one_single_sim">%1$s ist jetzt immer erlaubt</string>
-    <plurals name="e_snack_allowed_many_single_sim">
-        <item quantity="one">%d Absender ist jetzt immer erlaubt</item>
-        <item quantity="other">%d Absender sind jetzt immer erlaubt</item>
-    </plurals>
     <string name="e_view_rule">Regel ansehen</string>
     <string name="e_rules_title">Regeln</string>
     <string name="e_rules_menu_backup">Sichern und wiederherstellen</string>
@@ -56,7 +46,7 @@
         <item quantity="one">%d Nummer in uMessage-Regeln übernehmen</item>
         <item quantity="other">%d Nummern in uMessage-Regeln übernehmen</item>
     </plurals>
-    <string name="e_migrate_point_blocked">• Ihre Nachrichten landen unter „Spam“. Dort kannst du sie lesen und wiederherstellen.</string>
+    <string name="e_migrate_point_blocked">• Ihre Chats landen in „Spam“. Dort kannst du sie lesen und zurückholen.</string>
     <string name="e_migrate_point_android">• Android verwirft ihre Nachrichten weiterhin, bis die Nummern aus seiner Liste entfernt werden.</string>
     <string name="e_migrate_calls_note">Die Android-Liste blockiert auch Anrufe. Nummern, die du daraus entfernst, können dich wieder anrufen.</string>
     <string name="e_bn_row_calls_texts">Blockiert Anrufe und Nachrichten</string>
@@ -64,7 +54,7 @@
     <string name="e_bn_move_one">In uMessage-Regeln übernehmen</string>
     <string name="e_bn_moved">%1$s ist jetzt eine uMessage-Regel. Nachrichten dieser Nummer landen unter „Spam“, Anrufe werden nicht mehr blockiert.</string>
     <string name="e_bn_field_help">Zum Beispiel +15550001234 oder +1555* für alle Nummern, die mit +1555 beginnen</string>
-    <string name="e_bn_short_code_warning">Das sieht nach einer Kurzwahl aus. Android verwirft ihre Nachrichten, bevor sie uMessage erreichen. Du könntest sie also nie wiederherstellen, etwa einen Code oder eine Bankmitteilung.</string>
+    <string name="e_bn_short_code_warning">Das sieht nach einer Kurzwahl aus. Android verwirft ihre Nachrichten, bevor uMessage sie sieht. Du würdest also nie eine davon sehen, etwa einen Code oder eine Bankmitteilung.</string>
     <string name="e_bn_add_as_rule">Stattdessen als uMessage-Regel hinzufügen</string>
     <string name="e_bn_added_as_rule">%1$s als uMessage-Regel hinzugefügt. Nachrichten dieser Nummer landen unter „Spam“.</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Причина</string>
     <string name="thread_r2_details_rule">Правило</string>
     <string name="thread_r2_details_forwarded">Переслано</string>
-    <string name="thread_r2_details_decision_restored">Заблокировано, затем восстановлено во входящих</string>
+    <string name="thread_r2_details_decision_restored">Заблокировано, затем перемещено в «Сообщения»</string>
     <string name="thread_r2_details_copy">Копировать %1$s</string>
     <string name="thread_r2_menu_search">Поиск в чате</string>
     <string name="thread_r2_menu_always_forward">Всегда пересылать от этого отправителя</string>

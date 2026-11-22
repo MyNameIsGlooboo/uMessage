@@ -7,7 +7,7 @@
     <string name="thread_edit_scheduled_replaces_draft">با ویرایش پیام زمان‌بندی‌شده، متن در حال نوشتن جایگزین می‌شود. ادامه می‌دهید؟</string>
     <string name="thread_menu_report_spam">علامت‌گذاری به‌عنوان اسپم</string>
     <string name="thread_report_spam_title">به‌عنوان اسپم علامت‌گذاری شود؟</string>
-    <string name="thread_report_spam_message">پیام‌های جدید %1$s به‌جای صندوق ورودی به اسپم می‌روند. پیام‌های فعلی این گفتگو حفظ می‌شوند.</string>
+    <string name="thread_report_spam_message">کل گفتگو با %1$s به اسپم می‌رود و پیام‌های جدید بی‌صدا به آنجا می‌آیند. هیچ پیامی حذف نمی‌شود.</string>
     <string name="thread_report_spam_confirm">علامت‌گذاری به‌عنوان اسپم</string>
     <string name="thread_report_spam_cancel">لغو</string>
     <string name="thread_report_spam_done">به‌عنوان اسپم علامت‌گذاری شد</string>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">نامعلوم بھیجنے والوں اور آپ کے بلاک کیے گئے بھیجنے والوں کی چیٹس یہاں نظر آتی ہیں۔</string>
+    <string name="pt_spam_filter_off_strip">اسپیم فلٹر بند ہے</string>
+    <string name="pt_spam_filter_off_body">یہاں صرف آپ کے بلاک کیے گئے بھیجنے والے ہیں۔</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="one">اس فون سے %d چیٹ حذف کریں؟</item>
+        <item quantity="other">اس فون سے %d چیٹس حذف کریں؟</item>
+    </plurals>
+    <string name="pt_spam_delete_body">پیغامات ہر ایپ کے لیے حذف ہوتے ہیں، صرف uMessage میں نہیں۔ فوراً بعد آپ اسے واپس کر سکتے ہیں، بعد میں نہیں۔</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="one">ان بلاک ہو گیا۔ چیٹ پیغامات میں واپس آ گئی۔</item>
+        <item quantity="other">%d بھیجنے والے ان بلاک ہو گئے۔ ان کی چیٹس پیغامات میں واپس آ گئیں۔</item>
+    </plurals>
+    <string name="pt_older_spam_title">پرانا اسپیم جو صرف uMessage میں ہے</string>
+    <string name="pt_older_spam_hint">یہ پیغامات ابھی فون میں نہیں ہیں۔ جب uMessage آپ کی ڈیفالٹ SMS ایپ بنے گی تو ان میں سے زیادہ تر وہاں چلے جائیں گے۔ تب تک آپ انہیں یہاں پڑھ سکتے ہیں۔</string>
+    <string name="pt_block_still_allowed">اسپیم میں نہیں گیا: آپ کی اجازت کا ایک اصول اب بھی اس بھیجنے والے کو آنے دیتا ہے۔</string>
+    <string name="pt_unblock_refused_prefix">ان بلاک نہیں ہوا: ایک اصول %1$s سے شروع ہونے والے نمبر بلاک کرتا ہے</string>
+    <string name="pt_line_code">اجازت دی گئی کیونکہ اس بھیجنے والے نے تصدیقی کوڈ بھیجا۔</string>
+    <string name="pt_line_wrote">اجازت دی گئی کیونکہ آپ نے اس نمبر کو پیغام بھیجا۔</string>
+    <string name="pt_line_word">خود بخود اجازت دی گئی کیونکہ ایک پیغام میں آپ کا اجازت یافتہ لفظ تھا۔</string>
+    <string name="pt_line_blocked">آپ نے اس بھیجنے والے کو بلاک کیا ہے۔ نئے پیغامات خاموشی سے اسپیم میں آتے ہیں۔</string>
+    <string name="pt_line_blocked_word">خود بخود بلاک کیا گیا کیونکہ ایک پیغام میں آپ کا بلاک کیا گیا لفظ تھا۔</string>
+    <string name="pt_line_unknown">نامعلوم بھیجنے والا۔ پیغامات اسپیم میں آتے ہیں۔</string>
+    <string name="pt_line_keep">رہنے دیں</string>
+    <string name="pt_reply_allows_confirm">اس سے بھیجنے والے کو اجازت مل جائے گی۔ بھیجیں؟</string>
+    <plurals name="pt_card_moved">
+        <item quantity="one">%d چیٹ اب اسپیم میں ہے</item>
+        <item quantity="other">%d چیٹس اب اسپیم میں ہیں</item>
+    </plurals>
+    <string name="pt_card_moved_body">نامعلوم اور بلاک کیے گئے بھیجنے والے وہاں رکھے جاتے ہیں۔ کچھ بھی حذف نہیں ہوا۔</string>
+</resources>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">Permitir sempre este nome?</string>
-    <string name="nameallow_body">Novas mensagens de %1$s irão para sua caixa de entrada. Qualquer pessoa pode enviar mensagens usando qualquer nome, então mensagens falsas com esse nome também passarão. Suas regras de bloqueio para esse nome serão removidas.</string>
-    <string name="nameallow_body_many">Novas mensagens de %1$s irão para sua caixa de entrada. Qualquer pessoa pode enviar mensagens usando qualquer nome, então mensagens falsas com esses nomes também passarão. Suas regras de bloqueio para esses nomes serão removidas.</string>
+    <string name="nameallow_title">Permitir este nome?</string>
+    <string name="nameallow_body">Qualquer pessoa pode enviar mensagens com o nome %1$s. Permitir e mover a conversa para Mensagens?</string>
+    <string name="nameallow_body_many">Qualquer pessoa pode enviar mensagens com estes nomes: %1$s. Permitir e mover as conversas para Mensagens?</string>
     <string name="nameallow_more">%1$s e mais %2$d</string>
     <string name="nameallow_allow">Permita sempre</string>
     <string name="nameallow_not_now">Agora não</string>

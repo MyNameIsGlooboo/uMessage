@@ -5,7 +5,7 @@
     <string name="settings_search_none">Setelan tidak ditemukan. Coba kata lain.</string>
     <string name="settings_search_start">Ketik kata, seperti tema, cadangkan, atau spam.</string>
     <string name="sks_spam">spam blokir diblokir sampah filter perlindungan penipuan tidak diinginkan</string>
-    <string name="sks_unknown_sender">pengirim tidak dikenal orang asing mode filter spam blokir</string>
+    <string name="sks_unknown_sender">pengirim tidak dikenal orang asing filter spam blokir tombol aktif nonaktif mode</string>
     <string name="sks_strict">ketat tegas blokir semua kode</string>
     <string name="sks_smart">cerdas disarankan otomatis default filter</string>
     <string name="sks_spam_off">nonaktif nonaktifkan hentikan filter izinkan semua</string>
@@ -26,7 +26,7 @@
     <string name="sks_notifications">notifikasi notifikasi peringatan suara nada dering getaran bergetar nada senyap bisukan</string>
     <string name="sks_android_notifications">Android sistem saluran suara nada dering getaran prioritas pop-up</string>
     <string name="sks_code_alert">kode OTP verifikasi saluran suara pop-up peringatan</string>
-    <string name="sks_block_alert">diblokir pesan peringatan beri tahu spam notifikasi</string>
+    <string name="sks_block_alert">diblokir pesan peringatan beri tahu spam notifikasi pengirim tidak dikenal</string>
     <string name="sks_digest">mingguan ringkasan laporan rangkuman minggu</string>
     <string name="sks_wake">bangunkan layar nyalakan cahaya tampilan</string>
     <string name="sks_bubbles">balon mengambang ikon chat pop-up</string>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">未知发件人和你屏蔽的发件人的会话会显示在这里。</string>
+    <string name="pt_spam_filter_off_strip">垃圾短信过滤已关闭</string>
+    <string name="pt_spam_filter_off_body">这里只列出你屏蔽的发件人。</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">要从这部手机删除%d个会话吗？</item>
+    </plurals>
+    <string name="pt_spam_delete_body">短信会从所有应用中删除，而不只是uMessage。删除后可立即撤销，之后就不能了。</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">已取消屏蔽%d个发件人。会话已回到“消息”。</item>
+    </plurals>
+    <string name="pt_older_spam_title">只保存在uMessage中的旧垃圾短信</string>
+    <string name="pt_older_spam_hint">这些短信还不在手机本身中。uMessage成为你的默认短信应用后，大部分短信会移过去。在此之前，你可以在这里阅读。</string>
+    <string name="pt_block_still_allowed">未移至“垃圾短信”：你的某条允许规则仍允许此发件人。</string>
+    <string name="pt_unblock_refused_prefix">未取消屏蔽：有规则屏蔽以%1$s开头的号码</string>
+    <string name="pt_line_code">已允许，因为此发件人发送过验证码。</string>
+    <string name="pt_line_wrote">已允许，因为你给这个号码发过短信。</string>
+    <string name="pt_line_word">已自动允许，因为某条短信包含你允许的词。</string>
+    <string name="pt_line_blocked">你已屏蔽此发件人。新短信会静默进入“垃圾短信”。</string>
+    <string name="pt_line_blocked_word">已自动屏蔽，因为某条短信包含你屏蔽的词。</string>
+    <string name="pt_line_unknown">未知发件人。短信会进入“垃圾短信”。</string>
+    <string name="pt_line_keep">保留</string>
+    <string name="pt_reply_allows_confirm">发送后将允许此发件人。要发送吗？</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">%d个会话现在在“垃圾短信”中</item>
+    </plurals>
+    <string name="pt_card_moved_body">未知发件人和已屏蔽的发件人会归到那里。没有删除任何内容。</string>
+</resources>

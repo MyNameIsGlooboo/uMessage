@@ -3,7 +3,7 @@
     <string name="thread_r2_details_reason">Alasan</string>
     <string name="thread_r2_details_rule">Aturan</string>
     <string name="thread_r2_details_forwarded">Diteruskan</string>
-    <string name="thread_r2_details_decision_restored">Diblokir, lalu dipulihkan ke kotak masuk</string>
+    <string name="thread_r2_details_decision_restored">Diblokir, lalu dipindahkan ke Pesan</string>
     <string name="thread_r2_details_copy">Salin %1$s</string>
     <string name="thread_r2_menu_search">Cari dalam percakapan</string>
     <string name="thread_r2_menu_always_forward">Selalu teruskan pesan dari pengirim ini</string>

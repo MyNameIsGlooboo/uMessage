@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pt_spam_empty_body">不明な送信者と、ブロックした送信者の会話がここに表示されます。</string>
+    <string name="pt_spam_filter_off_strip">迷惑メッセージフィルタはオフです</string>
+    <string name="pt_spam_filter_off_body">ここにはブロックした送信者だけが表示されます。</string>
+    <plurals name="pt_spam_delete_title">
+        <item quantity="other">%d件の会話をこのスマートフォンから削除しますか？</item>
+    </plurals>
+    <string name="pt_spam_delete_body">メッセージはuMessageだけでなく、すべてのアプリから削除されます。直後なら元に戻せますが、あとからは戻せません。</string>
+    <plurals name="pt_snack_unblocked">
+        <item quantity="other">%d件の送信者のブロックを解除しました。会話は「メッセージ」に戻りました。</item>
+    </plurals>
+    <string name="pt_older_spam_title">uMessageだけにある古い迷惑メッセージ</string>
+    <string name="pt_older_spam_hint">これらのメッセージはまだスマートフォン本体にありません。ほとんどは、uMessageがデフォルトのSMSアプリになると本体に移動します。それまではここで読めます。</string>
+    <string name="pt_block_still_allowed">「迷惑メッセージ」に移動していません。設定した許可ルールで、この送信者はまだ許可されています。</string>
+    <string name="pt_unblock_refused_prefix">ブロックを解除できません。%1$sで始まる番号をブロックするルールがあります</string>
+    <string name="pt_line_code">この送信者が認証コードを送ってきたため、許可されました。</string>
+    <string name="pt_line_wrote">この番号にメッセージを送ったため、許可されました。</string>
+    <string name="pt_line_word">メッセージに許可語句が含まれていたため、自動で許可されました。</string>
+    <string name="pt_line_blocked">この送信者はブロック済みです。新しいメッセージは通知なしで「迷惑メッセージ」に届きます。</string>
+    <string name="pt_line_blocked_word">メッセージにブロック語句が含まれていたため、自動でブロックされました。</string>
+    <string name="pt_line_unknown">不明な送信者です。メッセージは「迷惑メッセージ」に届きます。</string>
+    <string name="pt_line_keep">このままにする</string>
+    <string name="pt_reply_allows_confirm">送信すると、この送信者は許可されます。送信しますか？</string>
+    <plurals name="pt_card_moved">
+        <item quantity="other">%d件の会話が「迷惑メッセージ」に移動しました</item>
+    </plurals>
+    <string name="pt_card_moved_body">不明な送信者とブロックした送信者はそこに振り分けられます。何も削除されていません。</string>
+</resources>

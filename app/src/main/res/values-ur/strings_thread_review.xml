@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="thread_review_details_decision">فیصلہ</string>
-    <string name="thread_review_details_decision_allowed">اجازت یافتہ: آپ کے ان باکس میں پہنچا</string>
+    <string name="thread_review_details_decision_allowed">اجازت یافتہ: پیغامات میں پہنچا</string>
     <string name="thread_review_details_type">قسم</string>
     <string name="thread_review_details_type_sms">SMS</string>
     <string name="thread_review_details_type_mms">MMS</string>

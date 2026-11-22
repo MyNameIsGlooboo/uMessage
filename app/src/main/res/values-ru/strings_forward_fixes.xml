@@ -13,13 +13,13 @@
         <item quantity="other">%1$s сообщения не отправлено: пересылка приостановлена.</item>
     </plurals>
     <plurals name="fwdfix_retry_not_sent_rule" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$s сообщение не отправлено: его правило выключено или удалено.</item>
+        <item quantity="one">%1$s сообщение не отправлено: правило выключено или удалено.</item>
         <item quantity="few">%1$s сообщения не отправлены: их правила выключены или удалены.</item>
         <item quantity="many">%1$s сообщений не отправлено: их правила выключены или удалены.</item>
         <item quantity="other">%1$s сообщения не отправлено: их правила выключены или удалены.</item>
     </plurals>
     <plurals name="fwdfix_retry_not_sent_limit" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$s сообщение не отправлено: достигнут дневной лимит или часовой лимит его правила.</item>
+        <item quantity="one">%1$s сообщение не отправлено: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="few">%1$s сообщения не отправлены: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="many">%1$s сообщений не отправлено: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="other">%1$s сообщения не отправлено: достигнут дневной лимит или часовой лимит правила.</item>
@@ -61,13 +61,13 @@
         <item quantity="other">%1$s сообщения не будет отправлено: пересылка приостановлена.</item>
     </plurals>
     <plurals name="fwdfix_retry_blocked_rule" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$s сообщение не будет отправлено: его правило выключено или удалено.</item>
+        <item quantity="one">%1$s сообщение не будет отправлено: правило выключено или удалено.</item>
         <item quantity="few">%1$s сообщения не будут отправлены: их правила выключены или удалены.</item>
         <item quantity="many">%1$s сообщений не будут отправлены: их правила выключены или удалены.</item>
         <item quantity="other">%1$s сообщения не будет отправлено: их правила выключены или удалены.</item>
     </plurals>
     <plurals name="fwdfix_retry_blocked_limit" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$s сообщение не будет отправлено: достигнут дневной лимит или часовой лимит его правила.</item>
+        <item quantity="one">%1$s сообщение не будет отправлено: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="few">%1$s сообщения не будут отправлены: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="many">%1$s сообщений не будут отправлены: достигнут дневной лимит или часовой лимит правила.</item>
         <item quantity="other">%1$s сообщения не будет отправлено: достигнут дневной лимит или часовой лимит правила.</item>

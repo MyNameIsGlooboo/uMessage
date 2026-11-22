@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nameallow_title">اس نام کو ہمیشہ اجازت دیں؟</string>
-    <string name="nameallow_body">%1$s سے آنے والے نئے پیغامات آپ کے ان باکس میں جائیں گے۔ کوئی بھی کسی بھی نام سے پیغامات بھیج سکتا ہے، اس لیے اس نام سے آنے والے جعلی پیغامات بھی پہنچ جائیں گے۔ اس نام کو بلاک کرنے کے آپ کے اپنے اصول ہٹا دیے جائیں گے۔</string>
-    <string name="nameallow_body_many">%1$s سے آنے والے نئے پیغامات آپ کے ان باکس میں جائیں گے۔ کوئی بھی کسی بھی نام سے پیغامات بھیج سکتا ہے، اس لیے ان ناموں سے آنے والے جعلی پیغامات بھی پہنچ جائیں گے۔ ان ناموں کو بلاک کرنے کے آپ کے اپنے اصول ہٹا دیے جائیں گے۔</string>
+    <string name="nameallow_title">اس نام کو اجازت دیں؟</string>
+    <string name="nameallow_body">%1$s نام سے کوئی بھی پیغام بھیج سکتا ہے۔ اسے اجازت دے کر چیٹ کو پیغامات میں منتقل کریں؟</string>
+    <string name="nameallow_body_many">ان ناموں سے کوئی بھی پیغام بھیج سکتا ہے: %1$s۔ انہیں اجازت دے کر چیٹس کو پیغامات میں منتقل کریں؟</string>
     <string name="nameallow_more">%1$s اور مزید %2$d</string>
     <string name="nameallow_allow">ہمیشہ اجازت دیں</string>
     <string name="nameallow_not_now">ابھی نہیں</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="nsf_snack_moved">به صندوق ورودی رفت</string>
-    <string name="nsf_snack_moved_allowed">به صندوق ورودی رفت. پیام‌های بعدی %1$s هم می‌رسند.</string>
+    <string name="nsf_snack_moved">به پیام‌ها رفت</string>
+    <string name="nsf_snack_moved_allowed">به پیام‌ها رفت. %1$s از این به بعد همیشه مجاز است.</string>
     <plurals name="nsf_snack_moved_allowed_many" tools:ignore="ImpliedQuantity">
-        <item quantity="one">به صندوق ورودی رفت. پیام‌های بعدی %d فرستنده هم می‌رسند.</item>
-        <item quantity="other">به صندوق ورودی رفت. پیام‌های بعدی %d فرستنده هم می‌رسند.</item>
+        <item quantity="one">به پیام‌ها رفت. %d فرستنده از این به بعد همیشه مجاز است.</item>
+        <item quantity="other">به پیام‌ها رفتند. %d فرستنده از این به بعد همیشه مجازند.</item>
     </plurals>
     <string name="nsf_moving">در حال بردن به صندوق ورودی</string>
     <string name="move_progress">در حال بردن پیام‌ها: %1$s از %2$s</string>

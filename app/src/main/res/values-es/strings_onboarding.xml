@@ -7,7 +7,7 @@
     <string name="onb_finish">Empezar a enviar mensajes</string>
     <string name="onb_welcome_title">Te damos la bienvenida a uMessage</string>
     <string name="onb_welcome_intro">Mejores mensajes, menos spam.</string>
-    <string name="onb_welcome_demo_desc">Los mensajes de personas que conoces van a Mensajes, los de desconocidos van a Spam y los códigos de verificación siguen llegando a Mensajes.</string>
+    <string name="onb_welcome_demo_desc">Tus contactos van a Mensajes. Los remitentes desconocidos van a Spam. Un remitente que te envía un código de verificación va a Mensajes.</string>
     <string name="onb_welcome_spam">El spam queda fuera</string>
     <string name="onb_welcome_spam_desc">Los remitentes desconocidos esperan en Spam y no se pierden.</string>
     <string name="onb_welcome_codes">Códigos con un toque</string>
@@ -26,7 +26,7 @@
     <string name="onb_welcome_private_desc">Sin cuenta, sin anuncios, sin nube. Todo queda en tu teléfono.</string>
     <string name="onb_welcome_start">Comenzar</string>
     <string name="onb_default_title">Usa uMessage como tu aplicación de SMS</string>
-    <string name="onb_default_body">Android solo permite que la aplicación de SMS predeterminada reciba y filtre mensajes. Sin esto, uMessage no puede proteger tu bandeja de entrada.</string>
+    <string name="onb_default_body">Android solo permite que la aplicación de SMS predeterminada reciba y filtre mensajes. Sin esto, uMessage no puede filtrar el spam por ti.</string>
     <string name="onb_default_action">Establecer como predeterminada</string>
     <string name="onb_default_denied">Se rechazó la solicitud. Puedes volver a intentarlo o continuar y establecerla después en la configuración de Android.</string>
     <string name="onb_default_unavailable">Tu teléfono no pudo abrir el diálogo de aplicación predeterminada. Abre Configuración de Android, Aplicaciones, Aplicaciones predeterminadas, Aplicación de SMS y elige uMessage.</string>
