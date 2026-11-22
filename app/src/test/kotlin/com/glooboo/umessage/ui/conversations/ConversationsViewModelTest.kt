@@ -9,6 +9,9 @@ import android.os.Looper
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.config
+import com.glooboo.umessage.extensions.draftsDB
+import com.glooboo.umessage.models.Draft
+import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.MessageCategory
@@ -279,6 +282,19 @@ class ConversationsViewModelTest {
 
         runBlocking { app.messageNotesDB.delete(note.key) }
         awaitUntil { vm.state.value.rows.none { it.hasNotes } }
+    }
+
+    /** J2: a draft saved in the chat reaches the list from the drafts table itself, not from a read on every resume. */
+    @Test
+    fun aSavedDraftShowsWithoutAResume() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        awaitUntil { rowIds().size == 2 }
+        assertThat(vm.state.value.rows.none { it.hasDraft }).isTrue()
+
+        offMainThread { app.draftsDB.insertOrUpdate(Draft(threadId = mom.threadId, body = "See you at six", date = 1)) }
+
+        awaitUntil { vm.state.value.rows.single { it.threadId == mom.threadId }.hasDraft }
+        assertThat(vm.state.value.rows.single { it.threadId == dad.threadId }.hasDraft).isFalse()
     }
 
     private fun rowIds() = vm.state.value.rows.map { it.threadId }

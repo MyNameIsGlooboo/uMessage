@@ -29,12 +29,12 @@ import org.fossify.commons.extensions.notificationManager
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.extensions.markThreadMessagesUnread
 import com.glooboo.umessage.extensions.renameConversation
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
 import com.glooboo.umessage.helpers.ConversationListSync
+import com.glooboo.umessage.helpers.ListTiming
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.refreshConversations
 import java.util.Collections
@@ -48,7 +48,6 @@ import com.glooboo.umessage.helpers.messageNotes
 import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
-import com.glooboo.umessage.ui.spam.SimDirectory
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SimInfo
@@ -65,8 +64,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     // Main-thread owned inputs. Every change calls requestRebuild(), which is conflated.
     private var source: List<Conversation> = emptyList()
-    private var drafts: Map<Long, String> = emptyMap()
-    private var sims: List<SimInfo> = emptyList()
+
+    /** Drafts and SIM chips (J2: read again only when their source changed). */
+    private val extras = DraftsAndSims(app, viewModelScope) { requestRebuild() }
+
     private var selected: Set<Long> = emptySet()
     private var newBlockedCount = 0
 
@@ -75,6 +76,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     @Volatile
     private var noteThreads: Set<Long> = emptySet()
+
+    private var firstRowsLogged = false
     private val blockedSeenAt = MutableStateFlow(0L)
     private var archiveAvailable = true
     private var hasData = false
@@ -121,20 +124,29 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             for (ignored in rebuild) {
                 val snapshot = Snapshot(
-                    source, drafts, sims, selected, hidden.toSet(),
+                    source, extras.drafts, extras.sims, selected, hidden.toSet(),
                     Status(newBlockedCount, archiveAvailable, hasData, importing, confirmDeleteIds.size),
                 )
                 _state.value = withContext(Dispatchers.Default) { build(snapshot) }
+                logFirstRows()
             }
         }
         observeBlockedCount()
         observeNoteThreads()
-        refreshSims()
-        refreshDrafts()
+        extras.start()
     }
 
     private fun requestRebuild() {
         rebuild.trySend(Unit)
+    }
+
+    /** J2: one timing line when the list first has rows to draw (counts and milliseconds only). */
+    private fun logFirstRows() {
+        val rows = _state.value.rows.size
+        ListTiming.rowsBuilt(app, rows)
+        if (firstRowsLogged || rows == 0) return
+        firstRowsLogged = true
+        ListTiming.line(app) { "first rows ready: $rows rows, process up ${ListTiming.sinceProcessStart()} ms" }
     }
 
     /** The Blocked tab is on screen: everything blocked so far has been seen, so its badge clears. */
@@ -180,9 +192,13 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    /** Stops watching the notes table: when the model is cleared, and in tests before they close the database. */
+    /**
+     * Stops watching the notes and drafts tables: when the model is cleared, and in tests before they close the
+     * database.
+     */
     internal fun stopObservingNotes() {
         notesJob?.cancel()
+        extras.stop()
     }
 
     // ---- Inputs from the host --------------------------------------------------------------------------
@@ -196,7 +212,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         hasData = true
         importing = cached && firstRun && conversations.isEmpty()
         archiveAvailable = app.config.isArchiveAvailable
-        refreshSims()
+        extras.afterPublish()
         requestRebuild()
         _published.value++
         spamMoves.refreshCount(blockedSeenAt.value)
@@ -204,53 +220,23 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /** Re-reads everything derived from preferences, drafts and SIMs; called when the screen resumes. */
     fun refresh() {
-        refreshDrafts()
-        refreshSims()
+        extras.refresh()
         requestRebuild()
-    }
-
-    /** Reloads drafts; called on resume because the thread screen edits them. */
-    fun refreshDrafts() {
-        viewModelScope.launch {
-            val fresh = withContext(Dispatchers.IO) {
-                runCatching { app.getAllDrafts().toMap() }.getOrDefault(emptyMap())
-            }
-            if (fresh != drafts) {
-                drafts = fresh
-                requestRebuild()
-            }
-        }
-    }
-
-    /** SIM of each thread's newest message (sent or received), so chips show for every conversation. */
-    @Volatile private var threadSims: Map<Long, Int> = emptyMap()
-
-    /** MC-18: the thread SIMs are read only with two SIMs, and then only messages newer than the last read. */
-    private fun refreshSims() {
-        viewModelScope.launch {
-            val (freshSims, freshThreadSims) = withContext(Dispatchers.IO) {
-                val loaded = runCatching { SimDirectory.load(app) }.getOrDefault(emptyList())
-                val live = runCatching { liveChatIds(app) }.getOrNull()
-                loaded to runCatching { ThreadSimCache.get(app).load(app, loaded.size, live) }.getOrDefault(emptyMap())
-            }
-            if (freshSims != sims || freshThreadSims != threadSims) {
-                sims = freshSims
-                threadSims = freshThreadSims
-                requestRebuild()
-            }
-        }
     }
 
     // ---- Sync with the phone's message store -----------------------------------------------------------
 
     private val syncExecutor = Executors.newSingleThreadExecutor()
 
+    /** J2-2: the sync's one quick lane, shut down with [syncExecutor]. */
+    private val quickExecutor = Executors.newSingleThreadExecutor { Thread(it, "conversation-list-quick") }
+
     /** Lives as long as this view model, so a rotated screen keeps it and does not read every thread again. */
     private val sync = ConversationListSync(app, syncExecutor, publish = { conversations, cached ->
         viewModelScope.launch(Dispatchers.Main) {
             submit(conversations, cached, firstRun = app.config.appRunCount == 1)
         }
-    })
+    }).also { it.quickExecutor = quickExecutor }
 
     /** Refresh events from the rest of the app, heard from [startSync] until the view model is cleared. */
     private val refreshEvents = ConversationRefreshEvents(onRefresh = ::syncChanged)
@@ -264,15 +250,30 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         refreshEvents.register()
     }
 
-    /** A refresh event: one chat when [threadId] is given, else every thread. */
+    /**
+     * A refresh event: one chat when [threadId] is given (never a full pass), else every thread. J2: while the list is
+     * away ([syncLeft]) a full pass waits until it is shown again, and many become one.
+     */
     fun syncChanged(threadId: Long?) = if (threadId != null) sync.requestThread(threadId) else sync.requestFull()
 
     /** The screen came back: chats with newer saved messages move up. */
     fun syncResumed() {
-        sync.requestBump()
-        // The chat marked itself read while this list was away; its rows may have been published before that.
-        sync.requestRepublish()
+        // The chat marked itself read while this list was away; its rows may have been published before that. J2: they
+        // show first, and a full pass asked for while the list was away runs after them.
+        sync.requestReturn()
     }
+
+    /** J2: the first resume of a screen (a new one, or one recreated while the list was away). */
+    fun syncShown() = sync.requestShown()
+
+    /** J2: the list went out of sight (another screen or app in front, not a rotation). */
+    fun syncLeft() = sync.requestAway()
+
+    /** For tests of the screen's wiring: the list counts as out of sight. */
+    internal val syncIsAway: Boolean get() = sync.isAway
+
+    /** For tests of the screen's wiring: full passes asked for so far. */
+    internal val syncFullRequests: Int get() = sync.fullRequestCount
 
     // ---- Selection -------------------------------------------------------------------------------------
 
@@ -680,6 +681,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         stopObservingNotes()
         refreshEvents.unregister()
         syncExecutor.shutdown()
+        quickExecutor.shutdown()
         // Finish deletions whose undo window was still open; the scope is gone, so run them detached.
         val leftovers = pendingDeletes.values.flatten()
         pendingDeletes.clear()
@@ -747,7 +749,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         val rows = sorted.map { c ->
             val draft = s.drafts[c.threadId]
             val simSlot = if (showSim && !c.isGroupConversation) {
-                val subscription = threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
+                val subscription = extras.threadSims[c.threadId] ?: config.getUseSIMIdAtNumber(c.phoneNumber)
                 SimBadge.slotToShow(subscription, s.sims)
             } else {
                 null

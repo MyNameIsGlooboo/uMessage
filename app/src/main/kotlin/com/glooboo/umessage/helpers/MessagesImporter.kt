@@ -93,7 +93,8 @@ class MessagesImporter(
             if (summary.changedAnything) {
                 // The restored messages went to the provider only; cache them for search (DL-10).
                 MessageCacheImport.restart(context)
-                refreshConversations()
+                // J2: the main list reads the restored chats at once, also while it is out of sight.
+                ConversationListSync.refreshNow()
                 // Provider truth (3.5): restored rules, members and sent texts change who is known; nothing with the
                 // flag off.
                 FirstRun.request(context, FirstRunTrigger.RESTORE)

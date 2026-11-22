@@ -83,29 +83,39 @@ class App : FossifyApp() {
         // M-D3: plain export files an earlier run left behind go; a run started from now on keeps its file.
         val startedAt = System.currentTimeMillis()
 
-        ensureBackgroundThread {
-            PendingSmsQueue.replay(this)
-            CacheCleanup.run(this)
-            runCatching { ExportTempFolder.wipe(this, before = startedAt) }
-            tidyScheduledAttachments()
-            rescheduleAllScheduledMessages()
-            rearmReminders()
-            DailyChecks.arm(this)
-            // B-15: retention and the other daily clean-ups wait for the first run (3.5).
-            if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) DailyChecks.runIfDue(this)
-            failStaleOutboxMessages()
-            // Step E (E-20), flag on only: MMS notices whose download was lost get their chat.
-            MmsDownloadFailure.atAppStart(this)
-            // Provider truth (3.5): auto-delete only after the first run; until then the runner's last step does it.
-            if (!ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort) SpamEngine.purgeExpired(this)
-            // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
-            runBlocking { BlockingMigration.runOnce(this@App) }
-            startSorting()
-            // Step F: held messages still waiting are moved here, off the broadcasts (F-19), and the history check owed
-            // for moved senders is asked for (F-14). Nothing with the flag off; nothing before the first sort.
-            SpamProviderMigration.runPending(this)
-        }
+        val steps = startupSteps(startedAt)
+        ensureBackgroundThread { steps.forEach { (_, run) -> run() } }
     }
+
+    /** The start-up work of [onCreate], in the order it runs on one background thread, each with a name for tests. */
+    @VisibleForTesting
+    internal fun startupSteps(startedAt: Long): List<Pair<String, () -> Unit>> = listOf(
+        step("replay queued texts") { PendingSmsQueue.replay(this) },
+        step("cache clean-up") { CacheCleanup.run(this) },
+        step("export files") { runCatching { ExportTempFolder.wipe(this, before = startedAt) } },
+        step("scheduled attachments") { tidyScheduledAttachments() },
+        step("scheduled messages") { rescheduleAllScheduledMessages() },
+        step("reminders") { rearmReminders() },
+        step("daily alarm") { DailyChecks.arm(this) },
+        // B-15: retention and the other daily clean-ups wait for the first run (3.5).
+        step("daily checks") { if (allowsFullSort()) DailyChecks.runIfDue(this) },
+        step("stale outbox") { failStaleOutboxMessages() },
+        // Provider truth (3.5): auto-delete only after the first run; until then the runner's last step does it.
+        step("spam auto-delete") { if (allowsFullSort()) SpamEngine.purgeExpired(this) },
+        // Two block lists only: old blocked words become rules, the old unknown-numbers switch becomes a mode.
+        step(BLOCKING_MIGRATION) { runBlocking { BlockingMigration.runOnce(this@App) } },
+        // Step E (E-20), flag on only: MMS notices whose download was lost get their chat. E-26: after the blocking
+        // migration, so the filter that judges them already has the old blocked words and the old switch.
+        step(MMS_SWEEP) { MmsDownloadFailure.atAppStart(this) },
+        step("sorting") { startSorting() },
+        // Step F: held messages still waiting are moved here, off the broadcasts (F-19), and the history check owed
+        // for moved senders is asked for (F-14). Nothing with the flag off; nothing before the first sort.
+        step("held messages") { SpamProviderMigration.runPending(this) },
+    )
+
+    private fun step(name: String, run: () -> Unit) = name to run
+
+    private fun allowsFullSort() = !ProviderTruthFlag.enabled || FirstRun.state(this).value.allowsFullSort
 
     /**
      * Provider truth (step B), flag on only: the sorting triggers, the first run (resumed after a kill, or started
@@ -184,6 +194,12 @@ class App : FossifyApp() {
             // 3.2: contacts changed; the chats are sorted again a few seconds later (S11).
             SpamSorting.requestFull(this@App, SpamSorting.CONTACTS_DELAY_MS)
         }
+    }
+
+    internal companion object {
+        /** Names of two [startupSteps] whose order matters (E-26). */
+        const val BLOCKING_MIGRATION = "blocking migration"
+        const val MMS_SWEEP = "mms sweep"
     }
 }
 

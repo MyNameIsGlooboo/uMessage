@@ -19,11 +19,12 @@ class ThreadSimCache(private val file: File) {
     private val sims = HashMap<Long, Int>()
 
     /**
-     * Thread id to subscription id; empty without a second SIM. Call off the main thread. [liveThreads], when given
-     * and not empty, are the threads that still exist: entries of deleted threads are dropped from the kept map.
+     * Thread id to subscription id; empty without a second SIM. Call off the main thread. [liveThreads], when it gives
+     * a set that is not empty, are the threads that still exist: entries of deleted threads are dropped from the kept
+     * map. J2: it is called only with two SIMs, so a phone with one SIM never reads the saved chats for it.
      */
     @Synchronized
-    fun load(context: Context, simCount: Int, liveThreads: Set<Long>? = null): Map<Long, Int> {
+    fun load(context: Context, simCount: Int, liveThreads: () -> Set<Long>? = { null }): Map<Long, Int> {
         if (simCount < 2) return emptyMap()
         if (!loaded) {
             readFile()
@@ -46,7 +47,8 @@ class ThreadSimCache(private val file: File) {
             Log.w(TAG, "Could not read message SIMs", e)
             return HashMap(sims)
         }
-        val pruned = !liveThreads.isNullOrEmpty() && sims.keys.retainAll(liveThreads + fresh.keys)
+        val live = runCatching { liveThreads() }.getOrNull()
+        val pruned = !live.isNullOrEmpty() && sims.keys.retainAll(live + fresh.keys)
         val changed = pruned || newest != newestMs || fresh.any { (thread, sub) -> sims[thread] != sub }
         if (changed) {
             sims.putAll(fresh)

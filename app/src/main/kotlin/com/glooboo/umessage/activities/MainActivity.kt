@@ -61,7 +61,7 @@ class MainActivity : ComposeSimpleActivity() {
 
     private val MAKE_DEFAULT_APP_REQUEST = 1
 
-    private var resumedBefore = false
+    private var startedBefore = false
     private var reviewJob: Job? = null
 
     /** A tab another screen asked for (Settings rows), consumed by the main screen. */
@@ -99,10 +99,21 @@ class MainActivity : ComposeSimpleActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        // MC-19: chats with newer saved messages move up, from the saved list only (no thread is read in full).
+        // J2-7: from onStart on the list is in sight (also behind a translucent screen), so held full passes run now.
+        // The first start of a screen only counts as shown again (it may be new after a rotation while away).
+        if (startedBefore) {
+            conversationsViewModel.syncResumed()
+        } else {
+            startedBefore = true
+            conversationsViewModel.syncShown()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        // MC-19: chats with newer saved messages move up, from the saved list only (no thread is read in full).
-        if (resumedBefore) conversationsViewModel.syncResumed() else resumedBefore = true
         recheckPermissionFlow()
 
         conversationsViewModel.refresh()
@@ -125,6 +136,8 @@ class MainActivity : ComposeSimpleActivity() {
         // view model survives it and the new screen offers the Undo again.
         if (!isChangingConfigurations) {
             conversationsViewModel.flushPendingDeletes()
+            // J2: full passes asked for while the list is away wait until it shows again.
+            conversationsViewModel.syncLeft()
             // Provider truth (C-1): a Spam delete waiting for its Undo window happens now, as in Messages.
             // Only a model that exists: a Spam tab never opened has nothing waiting, and none is made here (D-7).
             if (ProviderTruthFlag.enabled) SpamChatsViewModel.flushOpen()
@@ -182,15 +195,22 @@ class MainActivity : ComposeSimpleActivity() {
             handlePermission(PERMISSION_SEND_SMS) { sendSms ->
                 if (!sendSms) return@handlePermission permissionFlow.onSmsPermissionDenied()
                 permissionFlow.onSmsPermissionsGranted()
-                handlePermission(PERMISSION_READ_CONTACTS) { contacts ->
-                    com.glooboo.umessage.helpers.W3cPrefs.get(this).markContactsAsked()
-                    if (contacts) (application as? com.glooboo.umessage.App)?.registerContactsObserver()
-                    handleNotificationPermission(permissionFlow::onNotificationPermission)
-                    // MC-02: once per view model, which then also listens for refresh events. A rotated screen keeps
-                    // its list.
-                    if (permissionFlow.startListOnce()) conversationsViewModel.startSync()
-                }
+                // MC-02: once per view model, which then also listens for refresh events. A rotated screen keeps its
+                // list. J2: started here, so the contacts and notification dialogs below do not hold the list back.
+                if (permissionFlow.startListOnce()) conversationsViewModel.startSync()
+                askContactsAndNotifications()
             }
+        }
+    }
+
+    private fun askContactsAndNotifications() {
+        val hadContacts = hasPermission(PERMISSION_READ_CONTACTS)
+        handlePermission(PERMISSION_READ_CONTACTS) { contacts ->
+            com.glooboo.umessage.helpers.W3cPrefs.get(this).markContactsAsked()
+            if (contacts) (application as? com.glooboo.umessage.App)?.registerContactsObserver()
+            // J2: the list may have been read before this grant, with numbers only; the names need one more read.
+            if (contacts && !hadContacts) conversationsViewModel.syncChanged(null)
+            handleNotificationPermission(permissionFlow::onNotificationPermission)
         }
     }
 
