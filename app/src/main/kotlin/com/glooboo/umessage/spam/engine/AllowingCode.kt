@@ -83,25 +83,32 @@ object AllowingCode {
         "order id", "order code", "ref no", "ref number", "reference no", "reference number", "booking ref",
         "booking reference", "referral", "branch", "queue", "stock", "zip", "postal code", "postcode", "error",
         "checkout", "toll[- ]?free", "changed",
-        // Lead, R6-6: a physical access code (a door, a gate, a car park, a locker) allows nobody, however it is
-        // named ("Entrance PIN 4829", "Your building access code"). Not the harmless uses: "at your (front) door" and
-        // "to the door" are where a parcel arrives (written with "." for the spaces, as words() would turn a space
-        // into an unbounded run, which a look-behind must not hold); an entrance exam, a parking payment, a gate
-        // number and Gate.io are no access codes.
-        "(?<!(?:at|to).(?:your|the).(?:(?:front|main|back).)?)door(?! delivery)", "entrance(?! exam)",
-        "parking(?! (?:payment|fee|fine|ticket|permit|verification|login|app|account|booking))",
-        "building(?! society)", "gate(?!\\.io)(?! (?:number|no\\.?)(?![\\p{L}]))",
-        "gate code", "garage", "locker",
+        // Lead, R6-6 and 22 Nov (R7-1): a physical access code (a door, a gate, a car park, a locker) allows nobody,
+        // but only a compound names one ("door code", "Entrance PIN", "building access code", "code for the main
+        // entrance", "کد ورود ساختمان"). The bare words are also names ("【Gate】", "Digi Locker", "Example
+        // Parking"), so alone they veto nothing.
+        "$ACCESS_NOUN(?: (?:access|entry|lock))? (?:code|pin|passcode|password)",
+        "(?:code|pin|passcode|password) (?:for|to|of|at) (?:the |your |our )?" +
+            "(?:(?:main|front|back|side|parcel|car) )?$ACCESS_NOUN",
         // Persian
         "پیگیری", "رهگیری", "مرسوله", "کد سفارش", "شماره سفارش", "کد معرف", "کد معرفی", "کد شعبه", "کد نوبت",
         "شماره نوبت", "کد بورسی", "کد پستی", "کد مشتری", "شماره مشتری", "کد اشتراک", "کد ملی", "کد رزرو", "کد خطا",
-        "شناسه پرداخت", "تغییر کرد", "تغییر یافت", "درب", "در ورودی", "پارکینگ", "ساختمان", "آسانسور",
+        "شناسه پرداخت", "تغییر کرد", "تغییر یافت", "درب ورودی", "در ورودی", "درب پارکینگ",
+        "(?:کد|رمز)(?: (?:ورود|عبور))?(?: به)? (?:درب|پارکینگ|ساختمان|آسانسور)",
         // Arabic; "تم تغییر" (has been changed) and "المنتهیه" (ending in). The words of a card, an account, a blocked
         // or expired password are [noticeWords]. The bare "تغییر" is left out: it is also the Persian word in "کد تایید
         // تغییر شماره: 482913"; so is "حسابک", as in "رمز التحقق الخاص بحسابك هو 482913".
         "الخصم", "التتبع", "تتبع", "الشحنه", "شحنه", "الطلب", "طلبک", "مرجع", "المرجع", "الحجز", "رقم العملیه",
         "تم تغییر", "المنتهیه", "المنتهی",
     )
+
+    /**
+     * The access words of [vetoWords], each only in a compound. An entrance exam, a parking payment, a building
+     * society, a door delivery, a gate number and Gate.io are no access codes.
+     */
+    private const val ACCESS_NOUN = "(?:door(?! delivery)|entrance(?! exam)|" +
+        "parking(?! (?:payment|fee|fine|ticket|permit|verification|login|app|account|booking))|" +
+        "building(?! society)|gate(?!\\.io)(?! (?:number|no\\.?)(?![\\p{L}]))|garage|locker)"
 
     /**
      * Words of a notice (review 3, R3-4): a card, an account, a blocked or expired password, a wi-fi or modem password.
@@ -262,16 +269,38 @@ object AllowingCode {
     private const val NEGATION_COMMA = "(?:(?<![\\p{L}])(?:never|no one)|" +
         "(?<![\\p{L}])(?<!(?:if|or|whether) )(?<!if (?:you |we )?do )not|" +
         "(?<![\\p{L}])(?<!if (?:you |we )?)do not|(?<!if (?:you |we )?\\p{L}{1,6})n't)"
+
+    /** "If you do not", "unless we have not": a condition, no warning (R7-4). */
+    private const val IF_CLAUSE = "(?:if|unless|until) (?:you |we )?"
+    private const val NOT_IF = "(?<!$IF_CLAUSE(?:do |did |does |have |has |are |is |can |could |will )?)"
+
+    /** "Do not delay", "Don't wait": an urge, no warning (R7-4). */
+    private const val NOT_URGE = "(?! (?:delay|wait|hesitate|forget)(?![\\p{L}]))"
+
+    /** R7-3: also "nobody", "under no", "neither", "fraudsters", "unsafe", and a longer clause after "never". */
     private const val WARNING_EN = "(?:$NEGATION_COMMA(?:,$CLAUSE{0,30},|,)|" +
-        "(?<![\\p{L}])(?:not|never|dont|do not|no one|nobody)|n't)$CLAUSE{0,32}"
-    private const val WARNING_FA = "(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|نمی\\s?خواه\\p{L}{0,4})$CLAUSE{0,40}"
-    private const val ASK_EN = "(?:share|give|tell|read|send|provide|forward|confirm)" +
-        "(?: it| this| the| your)?(?: otp| code| verification code| pin)? (?:with|to) (?:the |our |your )?"
-    private const val ASK_FA_VERB = "(?:\\p{L}{1,12}\\s?){0,2}(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|" +
-        "ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
+        "(?<![\\p{L}])(?:$NOT_IF(?:not|dont)$NOT_URGE|nobody|under no|at no time|neither|nor|anyone|someone|" +
+        "fraudsters?|scammers?|beware|unsafe)|(?<!$IF_CLAUSE\\p{L}{1,6})n't$NOT_URGE)$CLAUSE{0,32}|" +
+        "(?<![\\p{L}])(?:never|no one)$CLAUSE{0,60}"
+    private const val WARNING_FA = "(?<![\\p{L}])(?:هرگز|هیچ ?وقت|هیچ ?کس|هیچ ?گاه|هیچ ?وجه|هیچ ?عنوان|هیچ ?یک|" +
+        "نباید|نمی\\s?خواه\\p{L}{0,4}|نخواه\\p{L}{0,6}|نمی\\s?کن\\p{L}{0,3}|کلاهبردار\\p{L}{0,3})$CLAUSE{0,40}"
+    private const val ASK_VERB = "(?:share|give|tell|read|send|provide|forward|confirm)"
+    private const val ASK_CODE = "(?: otp| code| verification code| pin)"
+    private const val ASK_EN = "$ASK_VERB(?: it| this| the| your)?$ASK_CODE? (?:with|to) (?:the |our |your )?"
+
+    /**
+     * R7-8: support, a team or staff are a receiver only when the code is named and they are not the reader's own
+     * ("share it with our support team"; not "forward to our support team" or "Share it with your team").
+     */
+    private const val ASK_EN_NAMED =
+        "$ASK_VERB(?: it| this$ASK_CODE?| (?:the|your)$ASK_CODE) (?:with|to) (?:the |our )?"
+
+    /** R7-2: only a word of the receiver may stand between it and the verb ("به کارشناس ما اعلام کنید"). */
+    private const val ASK_FA_VERB = "(?:(?:ما|مان|خود|شما|بانک|شرکت|تلفنی|مربوطه|محترم|پشتیبانی)\\s?){0,2}" +
+        "(?:اعلام کنید|اعلام نمایید|بگویید|بدهید|بفرستید|ارسال کنید|ارائه دهید|ارائه کنید|بخوانید)"
 
     /** How far before a request a warning is looked for: longer than the longest warning above. */
-    private const val WARNING_WINDOW = 80
+    private const val WARNING_WINDOW = 110
 
     /** A warning that ends right where a request begins. */
     private val warningBefore = Regex("(?:$WARNING_EN|$WARNING_FA)$", RegexOption.IGNORE_CASE)
@@ -279,10 +308,11 @@ object AllowingCode {
     /** To an agent, a caller, an officer or support: never from the service whose code it is. */
     private val handOverOfficial = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
-            "(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|مامور(?!\\s?تحویل))" +
-            "(?:\\s|$)$ASK_FA_VERB|" +
-            "$ASK_EN(?:agent|caller|representative|executive|officer|staff|support team|support|" +
-            "customer care|team)|tell (?:the |our |your )agent|reply with the (?:verification code|code|otp)" +
+            "(?:به|برای)\\s?(?:کارشناس|اپراتور|نماینده|پشتیبان|پشتیبانی|همکار|همکاران|" +
+            "مامور(?!\\s?(?:تحویل|پست)))(?:ان|\\s?ها)?(?:\\s|$)$ASK_FA_VERB|" +
+            "$ASK_EN(?:(?:agent|caller|representative|executive|officer)s?|customer care)|" +
+            "$ASK_EN_NAMED(?:staff|support team|support|team)s?|" +
+            "tell (?:the |our |your )agent|reply with the (?:verification code|code|otp)" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
@@ -294,7 +324,7 @@ object AllowingCode {
      */
     private val handOverDelivery = Regex(
         "(?<![\\p{L}\\p{N}])(?:" +
-            "(?:به|برای)\\s?(?:پیک|راننده|سفیر|مامور\\s?تحویل)(?:\\s|$)$ASK_FA_VERB|" +
+            "(?:به|برای)\\s?(?:پیک|راننده|سفیر|مامور\\s?(?:تحویل|پست))(?:\\s|$)$ASK_FA_VERB|" +
             "$ASK_EN(?:rider|courier|driver|captain|delivery (?:agent|executive|partner|boy|person))" +
             ")(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
@@ -305,10 +335,13 @@ object AllowingCode {
         RegexOption.IGNORE_CASE,
     )
 
-    /** Betting and lotteries (R5-5, R6-4); "Bet365" stays a name, as "bet" needs a word edge. */
+    /**
+     * Betting and lotteries (R5-5, R6-4); "Bet365" stays a name, as "bet" needs a word edge. A betting site is
+     * "سایت پیش بینی"; the bare "پیش بینی" is also a weather forecast (R7-7).
+     */
     private val betting = Regex(
         "(?<![\\p{L}\\p{N}])(?:bet|betting|casino|poker|sorteo|gewinnspiel|lucky draw|raffle|sweepstakes?|apostas?|" +
-            "apuestas?|bahis|казино|شرط ?بندی|پیش ?بینی|کازینو|رهان|مراهنات|السحب علی الجوائز)(?![\\p{L}\\p{N}])",
+            "apuestas?|bahis|казино|شرط ?بندی|سایت ?پیش ?بینی|کازینو|رهان|مراهنات|السحب علی الجوائز)(?![\\p{L}\\p{N}])",
         RegexOption.IGNORE_CASE,
     )
 

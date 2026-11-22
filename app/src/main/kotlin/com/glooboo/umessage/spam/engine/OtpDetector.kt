@@ -316,9 +316,13 @@ object OtpDetector {
      */
     private const val DOT = "(?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
     private const val URL_LABEL = "[a-z0-9][a-z0-9\\-]*"
-    /** Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. */
-    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@.\\-])" +
-        "(?<!\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\))"
+    /**
+     * Not glued to a Latin letter or digit; a Persian or other non-Latin letter before a domain does not hide it. A
+     * label right after a dot starts no match only when a label stands before that dot (one start per run, so matching
+     * stays linear), so "[.]example.com" and "تست[.]example.com" are links (R7-5).
+     */
+    private const val URL_START = "(?<![a-z0-9\\u00C0-\\u024F@\\-])" +
+        "(?<![a-z0-9\\-](?:\\.|\\[\\.\\]|\\(\\.\\)|\\{\\.\\}|\\[dot\\]|\\(dot\\)))"
 
     private val url = Regex(
         "h[xt]{2}ps?://|www$DOT" +
