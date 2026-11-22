@@ -10,6 +10,7 @@ import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.data.UncachedChats
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -30,6 +31,7 @@ import com.klinker.android.send_message.MmsReceivedReceiver
 import org.fossify.commons.models.PhoneNumber
 import org.fossify.commons.models.SimpleContact
 import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,9 +56,18 @@ class MmsArrivalTest {
     private val updated = mutableListOf<Boolean>()
     private var judged = 0
 
+    private val realUncachedLane = UncachedChats.lane
+
+    /** R3-1: no background caching thread in these tests; the chat step is recorded ([updated]). */
+    @Before
+    fun setUp() {
+        UncachedChats.lane = { _, _ -> }
+    }
+
     @After
     fun tearDown() {
         joinAppBackgroundThreads()
+        UncachedChats.lane = realUncachedLane
     }
 
     private class Check(val answer: FilterDecision?, val judgement: Judgement?, val onJudge: () -> Unit) :

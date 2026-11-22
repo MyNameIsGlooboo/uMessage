@@ -14,11 +14,9 @@ import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.helpers.ensureBackgroundThread
 import com.glooboo.umessage.R
-import com.glooboo.umessage.extensions.getConversations
 import com.glooboo.umessage.extensions.getMMS
 import com.glooboo.umessage.extensions.getLatestMMS
 import com.glooboo.umessage.extensions.getNameFromAddress
-import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.isImageMimeType
 import com.glooboo.umessage.extensions.isVideoMimeType
 import com.glooboo.umessage.extensions.shouldUnarchive
@@ -470,11 +468,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 
     /** The cached chat of [mms] and the open screens; [unarchive]: as the setting says (not for a silent MMS). */
     private fun updateChat(context: Context, mms: Message, unarchive: Boolean) {
-        val cached = runCatching {
-            context.getConversations(mms.threadId).firstOrNull()?.let { context.insertOrUpdateConversation(it) } != null
-        }.getOrDefault(false)
         // R3-1: as for a text, a chat that could not be cached is cached again at once.
-        if (!cached && ProviderTruthFlag.enabled) UncachedChats.request(context, mms.threadId)
+        UncachedChats.cacheOrRequest(context, mms.threadId)
         runCatching {
             if (unarchive && context.shouldUnarchive()) {
                 context.updateConversationArchivedStatus(mms.threadId, false)

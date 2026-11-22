@@ -2,12 +2,9 @@ package com.glooboo.umessage.receivers
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.spam.data.ProviderTruthSmsFixture
-import com.glooboo.umessage.spam.data.UncachedChats
 import com.glooboo.umessage.testing.SmsPdus
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -24,21 +21,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
-
-    private val realLane = UncachedChats.lane
-
-    /** R3-1: the threads whose chat the app asked to cache, recorded instead of read from the store. */
-    private val askedToCache = mutableListOf<Long>()
-
-    @Before
-    fun recordUncachedChats() {
-        UncachedChats.lane = { _, threadId -> synchronized(askedToCache) { askedToCache += threadId } }
-    }
-
-    @After
-    fun restoreUncachedChats() {
-        UncachedChats.lane = realLane
-    }
 
     @Test
     fun aSpamTextWhoseQueueWriteFails_isStoredOnceInItsSpamChat_silent_andNotForwarded() {
@@ -75,7 +57,7 @@ class SmsReceiverSpamLossTest : ProviderTruthSmsFixture() {
         assertThat(spamRow()?.sender).isEqualTo(STRANGER)
         assertThat(spamList()).doesNotContain(thread)
         // R3-1: the app asked for that chat at once, instead of waiting for the next full pass.
-        assertThat(synchronized(askedToCache) { askedToCache.toList() }).contains(thread)
+        assertThat(askedToCache.toList()).contains(thread)
         assertThat(posted).isEmpty()
         assertThat(forwards()).isEmpty()
 
