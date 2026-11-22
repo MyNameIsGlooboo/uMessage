@@ -1,8 +1,12 @@
 package com.glooboo.umessage.ui.main
 
 import android.app.Application
+import android.os.Looper
 import android.provider.Telephony
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.extensions.conversationsDB
@@ -21,6 +25,7 @@ import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.models.StarredMessage
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ProcessReturn
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.ui.lock.LockScope
@@ -35,6 +40,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Shadows.shadowOf
+import java.time.Duration
 
 /**
  * Provider truth, step H (section 5, U9): no chat in Spam is seen outside Spam. Search (messages, titles, numbers and
@@ -236,6 +243,99 @@ class SpamReadersTest {
         assertThat(search.state.shownBlockedHits(typed = true, spamLocked = true)).isEmpty()
     }
 
+    /** The Spam hits for "pizza", found while Spam is open, put on [search]'s page. */
+    private fun showSpamHits(search: MainSearchViewModel) {
+        val hits = runBlocking(Dispatchers.IO) { search.searchSpamChats("pizza") }
+        search.state.query = "pizza"
+        search.state.blockedHits = hits.map { it.row }
+        search.state.spamTargets = hits.associate { it.row.address to it.open }
+    }
+
+    private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
+
+    private fun awaitUntil(condition: () -> Boolean) {
+        val deadline = System.currentTimeMillis() + WAIT_MS
+        while (true) {
+            idleMain()
+            if (condition()) return
+            check(System.currentTimeMillis() < deadline) { "condition not met" }
+            Thread.sleep(POLL_MS)
+        }
+    }
+
+    @Test
+    fun theSpamSectionComesBackOnceSpamIsUnlocked() {
+        // H-20: it went when the app came back locked; once Spam is unlocked it is found again, without retyping.
+        val search = search()
+        showSpamHits(search)
+        lockSpam()
+        search.onAppReturned()
+        assertThat(search.state.blockedHits).isEmpty()
+
+        app.appLockManager.unlock()
+        search.state.spamUnlocked()
+        awaitUntil { search.state.blockedHits.isNotEmpty() }
+
+        assertThat(search.state.spamTargets.values.map { it.threadId }).containsExactly(SPAM)
+        assertThat(search.state.spamHidden).isFalse()
+    }
+
+    @Test
+    fun aSearchRunWhileSpamWasLockedFindsSpamOnceUnlocked() {
+        // H-20: the query was typed while the lock covered Spam, so its Spam section was left out.
+        lockSpam()
+        val search = search()
+        search.onQueryChange("pizza")
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(SEARCH_DEBOUNCE_MS))
+        awaitUntil { search.state.spamHidden }
+        assertThat(search.state.blockedHits).isEmpty()
+
+        app.appLockManager.unlock()
+        search.state.spamUnlocked()
+        awaitUntil { search.state.blockedHits.isNotEmpty() }
+
+        assertThat(search.state.spamTargets.values.map { it.threadId }).containsExactly(SPAM)
+    }
+
+    @Test
+    fun theAppReturnWatchOfTheModelHidesTheSpamSection() {
+        // H-21: the model's watch is on the process lifecycle; a real return to the front runs onAppReturned.
+        val store = ViewModelStore()
+        val factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                MainSearchViewModel(app, SavedStateHandle()) as T
+        }
+        try {
+            val search = ViewModelProvider(store, factory)[MainSearchViewModel::class.java]
+            showSpamHits(search)
+            ProcessReturn.comeBack()
+            assertThat(search.state.blockedHits).isNotEmpty()
+
+            lockSpam()
+            ProcessReturn.comeBack()
+
+            assertThat(search.state.blockedHits).isEmpty()
+            assertThat(search.state.spamTargets).isEmpty()
+        } finally {
+            store.clear()
+            idleMain()
+        }
+    }
+
+    @Test
+    fun aFoldedNotesSearchKeepsItsPlace() = runBlocking<Unit>(Dispatchers.IO) {
+        // H-21: Arabic letter forms typed, Persian ones in the notes (MC-15); the place is kept in the folded SQL.
+        val notes = app.messageNotes
+        notes.setNote(message(1, SPAM, "pizza at nine https://deals.example/a"), "سلام علی")
+        notes.setNote(message(2, SHOWN, "pizza at ten https://friend.example/b"), "سلام علی")
+        notes.relink()
+
+        assertThat(notes.search("علي", SearchPlace.OUTSIDE_SPAM).map { it.threadId }).containsExactly(SHOWN)
+        assertThat(notes.search("علي", SearchPlace.SPAM).map { it.threadId }).containsExactly(SPAM)
+        assertThat(notes.search("علي", SearchPlace.ALL).map { it.threadId }).containsExactly(SPAM, SHOWN)
+    }
+
     @Test
     fun aSpamRowOfAnotherSenderHidesNothing() = runBlocking<Unit>(Dispatchers.IO) {
         // S9: after a rebuilt store the row no longer names this chat's sender, so it counts for nothing.
@@ -255,5 +355,7 @@ class SpamReadersTest {
     private companion object {
         const val SPAM = 51L
         const val SHOWN = 52L
+        const val WAIT_MS = 5_000L
+        const val POLL_MS = 10L
     }
 }

@@ -13,6 +13,7 @@ import com.glooboo.umessage.helpers.CleanupPrefs
 import com.glooboo.umessage.helpers.MainTabLinks
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.cleanupPrefs
+import com.glooboo.umessage.interfaces.SpamDigestRow
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.ui.spam.BlockedMessagesActivity
 
@@ -30,6 +31,12 @@ object DigestNotifier {
     private const val REQUEST_OPEN_BLOCKED = 0x5B11
     private const val MILLIS = 1000L
     private const val NOT_DUE_PAUSE_MS = 60L * 60 * 1000
+
+    /**
+     * H-20: an MMS is dated by its own date, and its download can come long after it (no data, roaming) and only
+     * then put its chat in Spam; so an MMS counts when it is dated up to this long before its chat entered Spam.
+     */
+    internal const val MMS_DOWNLOAD_GRACE_MS = 24L * 60 * 60 * 1000
 
     /**
      * H-9: until when the Spam count is not read again after a check found the week not up yet; the daily checks run
@@ -92,8 +99,12 @@ object DigestNotifier {
     internal fun spamTexts(context: Context, now: Long): List<WeeklyDigest.SpamText> {
         val from = ((now - WeeklyDigest.WEEK_MS) / MILLIS).toInt()
         return MessagesDatabase.getInstance(context.applicationContext).MessagesDao().getSpamDigestRows(from)
-            .map { WeeklyDigest.SpamText(it.sender, it.body, it.date * MILLIS, it.spamSince) }
+            .map { WeeklyDigest.SpamText(it.sender, it.body, it.date * MILLIS, sinceFor(it)) }
     }
+
+    /** When [row] counts from: its chat's spam_since, for an MMS moved back by [MMS_DOWNLOAD_GRACE_MS] (H-20). */
+    private fun sinceFor(row: SpamDigestRow): Long =
+        if (row.isMms) (row.spamSince - MMS_DOWNLOAD_GRACE_MS).coerceAtLeast(0L) else row.spamSince
 
     fun show(context: Context, digest: WeeklyDigest) {
         val manager = context.getSystemService(NotificationManager::class.java) ?: return

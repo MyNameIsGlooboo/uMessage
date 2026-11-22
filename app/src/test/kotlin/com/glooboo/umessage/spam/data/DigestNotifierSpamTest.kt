@@ -164,6 +164,20 @@ class DigestNotifierSpamTest {
     }
 
     @Test
+    fun anMmsDownloadedLongAfterItsDateCounts() {
+        // H-20: dated by its own date, downloaded hours later, and that download put the chat in Spam. One dated
+        // more than a day before the chat went to Spam was there before and does not count.
+        offMainThread {
+            context.messagesDB.insertOrUpdate(text(6, since - 3 * 60 * 60_000L).copy(isMMS = true))
+            context.messagesDB.insertOrUpdate(text(7, since - 2 * DAY_MS).copy(isMMS = true))
+        }
+
+        val texts = offMainThread { DigestNotifier.spamTexts(context, now) }
+
+        assertThat(WeeklyDigest.computeTexts(texts, now).held).isEqualTo(3)
+    }
+
+    @Test
     fun theCountIsPureAndKeepsOnlyTextsThatArrivedInSpam() {
         val texts = listOf(
             WeeklyDigest.SpamText(SENDER, "Your verification code is 482913", now - DAY_MS, since),

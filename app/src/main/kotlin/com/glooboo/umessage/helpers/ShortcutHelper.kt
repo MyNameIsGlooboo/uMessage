@@ -159,12 +159,15 @@ class ShortcutHelper(private val context: Context) {
     private fun spamState(threadId: Long): Boolean? = when {
         !ProviderTruthFlag.enabled -> false
         isOnMainThread() -> null
-        else -> runCatching { context.conversationsDB.isInSpam(threadId) }.getOrNull()
+        else -> runCatching { inSpamRead(context, threadId) }.getOrNull()
     }
 
-    /** A chat that is in Spam loses the shortcut it had from before (also the cached long-lived one). */
+    /**
+     * A chat that is in Spam loses the shortcut it had from before (also the cached long-lived one). H-20: so does one
+     * whose Spam read failed, as it may be in Spam; on the main thread nothing is read, so nothing goes.
+     */
     private fun dropIfSpam(threadId: Long) {
-        if (spamState(threadId) == true) removeSpamShortcuts(listOf(threadId.toString()))
+        if (!isOnMainThread() && spamState(threadId) != false) removeSpamShortcuts(listOf(threadId.toString()))
     }
 
     private fun removeSpamShortcuts(ids: List<String>) {
@@ -267,6 +270,12 @@ class ShortcutHelper(private val context: Context) {
         @Volatile
         internal var updateShortcutsCall: (Context, List<ShortcutInfoCompat>) -> Boolean =
             { context, shortcuts -> ShortcutManagerCompat.updateShortcuts(context, shortcuts) }
+
+        /** Test seam: the one read of whether a chat is in Spam ([spamState]); a test makes it fail. */
+        @VisibleForTesting
+        @Volatile
+        internal var inSpamRead: (Context, Long) -> Boolean =
+            { context, threadId -> context.conversationsDB.isInSpam(threadId) }
 
         private var watchJob: Job? = null
 

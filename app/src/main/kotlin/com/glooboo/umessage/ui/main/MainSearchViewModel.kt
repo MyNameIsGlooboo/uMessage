@@ -67,6 +67,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
     init {
         appReturn.start()
         state.onClose = { searchJob?.cancel() }
+        state.onSpamUnlocked = ::searchSpamAgain
         handle.get<Bundle>(KEY_SAVED)?.let { saved ->
             state.filter = InboxFilter.entries.firstOrNull { it.name == saved.getString(KEY_FILTER) } ?: InboxFilter.All
             state.labelId = saved.getLong(KEY_LABEL, NO_LABEL)
@@ -91,6 +92,7 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             state.results = emptyList()
             state.noteHits = emptyList()
             state.blockedHits = emptyList()
+            state.spamHidden = false
             return
         }
         searchJob = viewModelScope.launch {
@@ -100,12 +102,32 @@ class MainSearchViewModel(application: Application, handle: SavedStateHandle) : 
             state.results = runSearch(text.trim())
             state.noteHits = runNoteSearch(text.trim())
             if (ProviderTruthFlag.enabled) {
-                val spam = runSpamSearch(text.trim())
-                state.spamTargets = spam.associate { it.row.address to it.open }
-                state.blockedHits = spam.map { it.row }
+                searchSpam(app, text.trim())
             } else {
                 state.blockedHits = runBlockedSearch(text.trim())
             }
+        }
+    }
+
+    /** Provider truth (U9): the Spam section for [text]; H-20: noted as left out when the lock covers Spam. */
+    private suspend fun searchSpam(app: Application, text: String) {
+        val spam = runSpamSearch(text)
+        state.spamTargets = spam.associate { it.row.address to it.open }
+        state.blockedHits = spam.map { it.row }
+        state.spamHidden = spam.isEmpty() && SpamReaders.lockedNow(app)
+    }
+
+    /**
+     * H-20: Spam was unlocked after its section went (or a search ran while it was locked): the query in the field
+     * searches Spam again, without retyping. A search still running fills the section itself.
+     */
+    private fun searchSpamAgain() {
+        if (!ProviderTruthFlag.enabled || !isSearchable(state.query) || searchJob?.isActive == true) return
+        val text = state.query.trim()
+        searchJob = viewModelScope.launch {
+            val app = getApplication<Application>()
+            querySpam = lazy { SpamReaders.threadIds(app) }
+            searchSpam(app, text)
         }
     }
 

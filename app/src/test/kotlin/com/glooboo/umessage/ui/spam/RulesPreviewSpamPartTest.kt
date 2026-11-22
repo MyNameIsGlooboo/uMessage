@@ -11,6 +11,7 @@ import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.engine.NumberNormalizer
 import com.glooboo.umessage.spam.engine.RuleMatcher
+import com.glooboo.umessage.testing.ProcessReturn
 import com.glooboo.umessage.testing.ProviderTruthFlagRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.CoroutineScope
@@ -42,9 +43,17 @@ class RulesPreviewSpamPartTest {
     private object Source : RulePreviewSource {
         override fun matcher() = RuleMatcher(NumberNormalizer { "US" })
         override fun inbox(limit: Int): List<DryRunMessage> = emptyList()
-        override fun spam(limit: Int) = listOf(DryRunMessage("+15550001234", "Win a prize now", 0))
+        override fun spam(limit: Int): List<DryRunMessage> {
+            // H-19: the app comes back locked while the scan runs, after the senders were found visible.
+            if (lockDuringScan) visible = false
+            return listOf(DryRunMessage("+15550001234", "Win a prize now", 0))
+        }
+
         @Volatile
         var visible = true
+
+        @Volatile
+        var lockDuringScan = false
 
         override fun blockedSendersVisible() = visible
     }
@@ -57,6 +66,7 @@ class RulesPreviewSpamPartTest {
     @After
     fun tearDown() {
         Source.visible = true
+        Source.lockDuringScan = false
         scope.cancel()
     }
 
@@ -106,6 +116,29 @@ class RulesPreviewSpamPartTest {
         val shown = (vm.state.value.preview as RulePreviewState.Done).result
         assertThat(shown.blocked.senders).isEmpty()
         assertThat(shown.blocked.matched).isEqualTo(1)
+    }
+
+    @Test
+    fun aPreviewThatFinishesAfterALockedReturnShowsNoSpamSenders() {
+        // H-19: the return came while the preview was Loading, so only its finish can drop the senders.
+        Source.lockDuringScan = true
+
+        val result = previewOf("prize")
+
+        assertThat(result.blocked.senders).isEmpty()
+        assertThat(result.blocked.matched).isEqualTo(1)
+    }
+
+    @Test
+    fun theAppReturnWatchOfTheModelDropsTheSpamSenders() {
+        // H-21: the model's watch is on the process lifecycle, so a real return to the front runs onAppReturned.
+        assertThat(previewOf("prize").blocked.senders).isNotEmpty()
+
+        Source.visible = false
+        ProcessReturn.comeBack()
+        awaitUntil { (vm.state.value.preview as? RulePreviewState.Done)?.result?.blocked?.senders?.isEmpty() == true }
+
+        assertThat((vm.state.value.preview as RulePreviewState.Done).result.blocked.matched).isEqualTo(1)
     }
 
     @Test
