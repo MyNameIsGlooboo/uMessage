@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.WindowManager
 import androidx.annotation.VisibleForTesting
 import org.fossify.commons.FossifyApp
@@ -83,7 +84,7 @@ class App : FossifyApp() {
         val startedAt = System.currentTimeMillis()
 
         val steps = startupSteps(startedAt)
-        ensureBackgroundThread { steps.forEach { (_, run) -> run() } }
+        ensureBackgroundThread { runStartupSteps(steps) }
     }
 
     /** The start-up work of [onCreate], in the order it runs on one background thread, each with a name for tests. */
@@ -197,6 +198,19 @@ class App : FossifyApp() {
         /** Names of two [startupSteps] whose order matters (E-26). */
         const val BLOCKING_MIGRATION = "blocking migration"
         const val MMS_SWEEP = "mms sweep"
+
+        /** Log tag of the start-up work. */
+        private const val TAG = "uMessageStart"
+
+        /**
+         * Runs [steps] in their order. A step that throws is logged (its name and the exception class only) and the
+         * next one still runs, so one failure cannot skip a migration or a clean-up until the next start.
+         */
+        internal fun runStartupSteps(steps: List<Pair<String, () -> Unit>>) {
+            for ((name, run) in steps) {
+                runCatching(run).onFailure { Log.w(TAG, "Start-up step $name failed: ${it.javaClass.simpleName}") }
+            }
+        }
     }
 }
 
