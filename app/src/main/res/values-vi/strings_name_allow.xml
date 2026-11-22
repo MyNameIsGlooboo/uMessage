@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Ai cũng có thể gửi tin nhắn dưới các tên này: %1$s. Cho phép các tên này và chuyển các cuộc trò chuyện vào mục Tin nhắn?</string>
     <string name="nameallow_more">%1$s và %2$d tên khác</string>
     <string name="nameallow_allow">Luôn cho phép</string>
-    <string name="nameallow_not_now">Để sau</string>
 </resources>

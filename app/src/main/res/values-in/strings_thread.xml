@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">Blokir dibuka. Chat kembali ke Pesan</string>
     <string name="thread_unblock_done_system">Blokir dibuka di uMessage. Nomor ini juga ada di daftar blokir ponsel, jadi Android masih memblokir pesannya</string>
     <string name="thread_unblock_done_filtered">Blokir dibuka. Tetap di Spam karena pengirim tidak dikenal.</string>
-    <string name="thread_unblock_always_allow">Selalu izinkan</string>
     <string name="thread_always_allow_done">Selalu diizinkan. Chat ada di Pesan</string>
     <string name="thread_always_allow_failed">Tidak dapat mengizinkan nomor ini</string>
     <string name="thread_unblock_failed">Tidak dapat membuka blokir nomor ini</string>

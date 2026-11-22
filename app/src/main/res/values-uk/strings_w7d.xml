@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
-        <item quantity="one">Заблоковано %1$s повідомлення за тиждень</item>
-        <item quantity="few">Заблоковано %1$s повідомлення за тиждень</item>
-        <item quantity="many">Заблоковано %1$s повідомлень за тиждень</item>
-        <item quantity="other">Заблоковано %1$s повідомлення за тиждень</item>
-    </plurals>
-    <string name="w7d_banner_none">Цього тижня нічого не заблоковано</string>
     <string name="w7d_fwd_master_switch">Пересилання</string>
     <string name="w7d_help_menu">Як працює блокування за словами</string>
     <string name="w7d_help_title">Як працює блокування за словами</string>

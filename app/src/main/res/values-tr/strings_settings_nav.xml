@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (telif hakkı Google Sans Flex Projesi Yazarlarına aittir) ve Vazirmatn (telif hakkı Vazirmatn Projesi Yazarlarına aittir), SIL Açık Yazı Tipi Lisansı 1.1 sürümü kapsamında lisanslanmıştır: ticari ürünler dahil bunları kullanabilir, inceleyebilir, kopyalayabilir, gömebilir ve yeniden dağıtabilirsiniz; ancak tek başlarına satamazsınız ve değiştirilmiş sürümlerde ayrılmış yazı tipi adları kullanılamaz. Roboto (telif hakkı Google LLC\'ye aittir), Apache Lisansı 2.0 sürümü kapsamında lisanslanmıştır. Yazı tipleri olduğu gibi, garantisiz sunulur.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (telif hakkı Google LLC\'ye aittir), Apache Lisansı 2.0 sürümü kapsamında lisanslanmıştır. Simgeler olduğu gibi, garantisiz sunulur.</string>
     <string name="settings_nav_recommended">Önerilen</string>
-    <string name="settings_nav_strict_confirm_title">Doğrulama kodları da engellensin mi?</string>
-    <string name="settings_nav_strict_confirm_body">Sıkı modda, kişilerinizde olmayan gönderenlerden gelen kodlar da diğer mesajlarla birlikte Spam\'e gider. Bankaların ve kargo şirketlerinin mesajları da bekletilir.</string>
-    <string name="settings_nav_strict_confirm_action">Sıkı modu kullanın</string>
-    <string name="settings_nav_strict_confirm_cancel">Mevcut modu koruyun</string>
     <string name="settings_nav_purge_row">Eski spam\'i otomatik sil</string>
     <string name="settings_nav_group_alerts">Uyarılar</string>
     <string name="settings_nav_notify_body">Spam\'i açan tek bir sessiz bildirim. Engellediğiniz bir gönderen için asla.</string>

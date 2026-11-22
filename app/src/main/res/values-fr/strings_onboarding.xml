@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Vous avertit des nouveaux messages, avec des boutons pour répondre et copier les codes.</string>
     <string name="onb_perm_allow_all">Tout autoriser</string>
     <string name="onb_perm_open_settings">Ouvrir les paramètres</string>
-    <string name="onb_mode_title">Choisissez comment traiter les expéditeurs inconnus</string>
-    <string name="onb_mode_strict">Strict</string>
-    <string name="onb_mode_smart">Intelligent</string>
-    <string name="onb_mode_off">Désactivé</string>
-    <string name="onb_mode_warning_title">Attention aux messages bancaires et aux codes</string>
-    <string name="onb_mode_warning_body">En mode strict, les alertes bancaires, les suivis de livraison et les codes à usage unique provenant d\'expéditeurs inconnus restent dans Spam, codes compris. Vous ne recevrez pas de notification : consultez Spam si vous en attendez un.</string>
     <string name="onb_oem_title">Gardez uMessage actif</string>
     <string name="onb_oem_manual_hint">Si un écran ne s\'ouvre pas, recherchez le nom indiqué dans vos paramètres.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi ou Poco</string>

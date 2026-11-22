@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">पूरा हुआ</string>
     <string name="w3c_checklist_action_set">सेट करें</string>
     <string name="w3c_checklist_action_open">खोलें</string>
-    <string name="w3c_receipt_title">स्पैम रोका गया: देखने के लिए टैप करें</string>
-    <string name="w3c_receipt_body">अनजान भेजने वाले का एक मैसेज स्पैम में रोका गया है. वह खोया नहीं है: आप उसे कभी भी देख सकते हैं और वापस ला सकते हैं.</string>
     <string name="w3c_receipt_review">देखें</string>
-    <string name="w3c_receipt_got_it">समझ गए</string>
     <string name="w3c_new_paste">नंबर पेस्ट करें</string>
     <string name="w3c_new_paste_none">क्लिपबोर्ड पर कोई फ़ोन नंबर नहीं है</string>
     <string name="w3c_details_allow_spoof_hint">इस नाम से कोई भी मैसेज भेज सकता है, इसलिए उन मैसेज को भी अनुमति दी जाती है</string>

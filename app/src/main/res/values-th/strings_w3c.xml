@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">เสร็จแล้ว</string>
     <string name="w3c_checklist_action_set">ตั้งค่า</string>
     <string name="w3c_checklist_action_open">เปิด</string>
-    <string name="w3c_receipt_title">พักสแปมไว้แล้ว: แตะเพื่อตรวจดู</string>
-    <string name="w3c_receipt_body">ข้อความจากผู้ส่งที่ไม่รู้จักถูกพักไว้ในสแปม ข้อความยังอยู่ สามารถตรวจดูและกู้คืนได้ทุกเมื่อ</string>
     <string name="w3c_receipt_review">ตรวจดู</string>
-    <string name="w3c_receipt_got_it">เข้าใจแล้ว</string>
     <string name="w3c_new_paste">วางหมายเลข</string>
     <string name="w3c_new_paste_none">ไม่มีหมายเลขโทรศัพท์ในคลิปบอร์ด</string>
     <string name="w3c_details_allow_spoof_hint">ใครก็ส่งข้อความในชื่อนี้ได้ ข้อความเหล่านั้นจึงได้รับอนุญาตด้วย</string>

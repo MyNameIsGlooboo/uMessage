@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Tidak ada pesan ditahan yang cocok</string>
     <string name="w3b_filter_none_body">Tidak ada pesan ditahan yang sesuai filter ini. Pilih filter lain, atau tampilkan semua.</string>
     <string name="w3b_filter_show_all">Tampilkan semua</string>
-    <string name="w3b_empty_body">uMessage memantau dalam mode %1$s. Pesan yang ditahan akan muncul di sini.</string>
     <string name="w3b_why_link">Ditahan karena pengirim tidak dikenal dan teks berisi tautan.</string>
     <string name="w3b_why_unknown">Ditahan karena pengirim tidak dikenal.</string>
     <string name="w3b_why_rule">Ditahan karena cocok dengan salah satu aturan blokir Anda.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Akan masuk ke Spam: pengirim tidak dikenal.</string>
     <string name="w3b_verdict_allowed_rule">Akan masuk ke Pesan: cocok dengan salah satu aturan izinkan Anda.</string>
     <string name="w3b_verdict_allowed_contact">Akan masuk ke Pesan: pengirim ada di kontak Anda.</string>
-    <string name="w3b_verdict_allowed_known">Akan masuk: Anda pernah mengirim pesan ke nomor ini.</string>
     <string name="w3b_verdict_allowed_code">Akan masuk ke Pesan: kode verifikasi. Setelah itu pengirim diizinkan.</string>
     <string name="w3b_verdict_allowed_off">Akan masuk ke Pesan: filter spam nonaktif.</string>
     <string name="w3b_verdict_allowed_unsure">Akan masuk ke Pesan: kontak tidak bisa dibaca, jadi pengirim tidak bisa dinilai.</string>

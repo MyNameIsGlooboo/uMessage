@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">হয়েছে</string>
     <string name="w3c_checklist_action_set">সেট করুন</string>
     <string name="w3c_checklist_action_open">খুলুন</string>
-    <string name="w3c_receipt_title">স্প্যাম আটকানো হয়েছে: দেখতে ট্যাপ করুন</string>
-    <string name="w3c_receipt_body">অচেনা প্রেরকের একটি বার্তা স্প্যামে আটকানো হয়েছে। এটি হারিয়ে যায়নি: আপনি যেকোনো সময় দেখে ফিরিয়ে আনতে পারবেন।</string>
     <string name="w3c_receipt_review">দেখুন</string>
-    <string name="w3c_receipt_got_it">বুঝেছি</string>
     <string name="w3c_new_paste">নম্বর পেস্ট করুন</string>
     <string name="w3c_new_paste_none">ক্লিপবোর্ডে কোনো ফোন নম্বর নেই</string>
     <string name="w3c_details_allow_spoof_hint">যে কেউ এই নামে বার্তা পাঠাতে পারেন, তাই সেগুলোকেও অনুমতি দেওয়া হবে</string>

@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (bản quyền thuộc về các tác giả dự án Google Sans Flex) và Vazirmatn (bản quyền thuộc về các tác giả dự án Vazirmatn) được cấp phép theo Giấy phép Phông chữ Mở SIL, phiên bản 1.1: bạn có thể sử dụng, nghiên cứu, sao chép, nhúng và phân phối lại, kể cả trong sản phẩm thương mại, nhưng không được bán riêng các phông chữ này, và các bản sửa đổi không được dùng tên phông chữ dành riêng. Roboto (bản quyền thuộc về Google LLC) được cấp phép theo Giấy phép Apache, phiên bản 2.0. Các phông chữ được cung cấp nguyên trạng, không kèm bảo hành.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (bản quyền thuộc về Google LLC) được cấp phép theo Giấy phép Apache, phiên bản 2.0. Các biểu tượng được cung cấp nguyên trạng, không kèm bảo hành.</string>
     <string name="settings_nav_recommended">Nên dùng</string>
-    <string name="settings_nav_strict_confirm_title">Chặn cả mã xác minh?</string>
-    <string name="settings_nav_strict_confirm_body">Ở chế độ lọc nghiêm ngặt, mã từ người gửi không có trong danh sách người liên hệ của bạn sẽ vào mục Tin rác cùng mọi tin nhắn khác. Tin nhắn từ ngân hàng và công ty giao hàng cũng bị chặn.</string>
-    <string name="settings_nav_strict_confirm_action">Dùng chế độ lọc nghiêm ngặt</string>
-    <string name="settings_nav_strict_confirm_cancel">Giữ chế độ hiện tại</string>
     <string name="settings_nav_purge_row">Tự động xóa tin rác cũ</string>
     <string name="settings_nav_group_alerts">Cảnh báo</string>
     <string name="settings_nav_notify_body">Một thông báo im lặng mở mục Tin rác. Không bao giờ thông báo cho người gửi bạn đã chặn.</string>

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="w7d_banner_stopped" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$s mensagem bloqueada esta semana</item>
-        <item quantity="other">%1$s mensagens bloqueadas esta semana</item>
-    </plurals>
-    <string name="w7d_banner_none">Nenhuma mensagem bloqueada esta semana</string>
     <string name="w7d_fwd_master_switch">Encaminhamento</string>
     <string name="w7d_help_menu">Como funciona o bloqueio por palavras</string>
     <string name="w7d_help_title">Como funciona o bloqueio por palavras</string>

@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (авторські права належать авторам проєкту Google Sans Flex) і Vazirmatn (авторські права належать авторам проєкту Vazirmatn) ліцензовано за SIL Open Font License версії 1.1: їх можна використовувати, вивчати, копіювати, вбудовувати й поширювати, зокрема в комерційних продуктах, але не продавати окремо, а змінені версії не мають використовувати зарезервовані назви шрифтів. Roboto (авторські права належать Google LLC) ліцензовано за Apache License версії 2.0. Шрифти надаються «як є», без гарантій.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (авторські права належать Google LLC) ліцензовано за Apache License версії 2.0. Значки надаються «як є», без гарантій.</string>
     <string name="settings_nav_recommended">Рекомендовано</string>
-    <string name="settings_nav_strict_confirm_title">Блокувати й коди підтвердження?</string>
-    <string name="settings_nav_strict_confirm_body">У суворому режимі коди від відправників, яких немає у ваших контактах, разом з усіма іншими повідомленнями потрапляють до вкладки «Спам». Повідомлення від банків і служб доставки теж затримуються.</string>
-    <string name="settings_nav_strict_confirm_action">Увімкнути суворий режим</string>
-    <string name="settings_nav_strict_confirm_cancel">Залишити поточний режим</string>
     <string name="settings_nav_purge_row">Автовидалення старого спаму</string>
     <string name="settings_nav_group_alerts">Сповіщення</string>
     <string name="settings_nav_notify_body">Одне тихе сповіщення, яке відкриває «Спам». Ніколи для відправника, якого ви заблокували.</string>

@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Siapa pun bisa mengirim pesan dengan nama-nama ini: %1$s. Izinkan dan pindahkan chat ke Pesan?</string>
     <string name="nameallow_more">%1$s dan %2$d lainnya</string>
     <string name="nameallow_allow">Selalu izinkan</string>
-    <string name="nameallow_not_now">Jangan sekarang</string>
 </resources>

@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">تنتقل المحادثة كلها مع %1$s إلى «غير المرغوب فيها» وتصل الرسائل الجديدة إلى هناك دون تنبيه. لا تُحذف أي رسالة.</string>
     <string name="thread_report_spam_confirm">صنّف كرسالة غير مرغوب فيها</string>
     <string name="thread_report_spam_cancel">إلغاء</string>
-    <string name="thread_report_spam_done">صُنّفت كرسالة غير مرغوب فيها</string>
     <string name="thread_report_spam_rule_note">أُبلغ عنها كرسالة غير مرغوب فيها</string>
-    <string name="thread_report_spam_already">مصنّفة بالفعل كرسالة غير مرغوب فيها</string>
-    <string name="thread_report_spam_failed">تعذّر تصنيفها كرسالة غير مرغوب فيها</string>
     <string name="thread_report_spam_undo">تراجع</string>
 </resources>

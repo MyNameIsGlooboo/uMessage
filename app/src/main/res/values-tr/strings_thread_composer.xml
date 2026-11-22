@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">%1$s ile tüm sohbet Spam\'e taşınır ve yeni mesajlar oraya sessizce gelir. Hiçbir mesaj silinmez.</string>
     <string name="thread_report_spam_confirm">Spam olarak bildirin</string>
     <string name="thread_report_spam_cancel">İptal edin</string>
-    <string name="thread_report_spam_done">Spam olarak bildirildi</string>
     <string name="thread_report_spam_rule_note">Spam olarak bildirildi</string>
-    <string name="thread_report_spam_already">Zaten spam olarak bildirildi</string>
-    <string name="thread_report_spam_failed">Spam olarak bildirilemedi</string>
     <string name="thread_report_spam_undo">Geri alın</string>
 </resources>

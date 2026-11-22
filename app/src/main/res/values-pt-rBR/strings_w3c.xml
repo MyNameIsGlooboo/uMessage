@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Concluído</string>
     <string name="w3c_checklist_action_set">Defina</string>
     <string name="w3c_checklist_action_open">Abra</string>
-    <string name="w3c_receipt_title">Spam retido: toque para revisar</string>
-    <string name="w3c_receipt_body">Uma mensagem de um remetente desconhecido foi retida em Spam. Ela não se perdeu: você pode revisá-la e restaurá-la a qualquer momento.</string>
     <string name="w3c_receipt_review">Revise</string>
-    <string name="w3c_receipt_got_it">Entendi</string>
     <string name="w3c_new_paste">Cole o número</string>
     <string name="w3c_new_paste_none">Nenhum número de telefone na área de transferência</string>
     <string name="w3c_details_allow_spoof_hint">Qualquer pessoa pode enviar mensagens com este nome, e elas também serão permitidas</string>

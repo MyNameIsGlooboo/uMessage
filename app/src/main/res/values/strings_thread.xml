@@ -30,7 +30,6 @@
     <string name="thread_unblock_done">Unblocked. The chat is back in Messages</string>
     <string name="thread_unblock_done_system">Unblocked in uMessage. This number is also on your phone\'s block list, so Android still blocks its messages</string>
     <string name="thread_unblock_done_filtered">Unblocked. Still in Spam because the sender is unknown.</string>
-    <string name="thread_unblock_always_allow">Always allow</string>
     <string name="thread_always_allow_done">Always allowed. The chat is in Messages</string>
     <string name="thread_always_allow_failed">Couldn\'t allow this number</string>
     <string name="thread_unblock_failed">Couldn\'t unblock this number</string>

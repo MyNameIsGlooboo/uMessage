@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Filtro de spam</string>
     <string name="spam_settings_unknown_body">Um remetente desconhecido não está nos seus contatos nem na sua lista de permitidos. A conversa inteira dele vai para Spam, em silêncio. Pessoas para quem você escreveu e remetentes de um código de verificação ficam em Mensagens.</string>
-    <string name="spam_mode_strict">Rigoroso</string>
-    <string name="spam_mode_strict_body">Bloqueia todos os remetentes desconhecidos, inclusive códigos</string>
-    <string name="spam_mode_smart">Inteligente</string>
-    <string name="spam_mode_smart_body">Bloqueia remetentes desconhecidos e permite códigos de verificação</string>
-    <string name="spam_mode_off">Desativado</string>
-    <string name="spam_mode_off_body">Sem bloqueio de remetentes desconhecidos</string>
-    <string name="spam_strict_warning_title">O modo rigoroso pode ocultar mensagens importantes</string>
-    <string name="spam_strict_warning_body">Mensagens de bancos, transportadoras e códigos de uso único geralmente vêm de remetentes que não estão nos seus contatos. No modo rigoroso, vão para Spam, inclusive os códigos. Escolha o modo inteligente para permitir códigos ou permita esses remetentes uma vez.</string>
-    <string name="spam_strict_warning_action">Revise o Spam</string>
     <string name="spam_settings_cleanup_title">Limpeza</string>
     <string name="spam_purge_body">Desativado até você escolher um número de dias</string>
     <string name="spam_purge_days">%d dias</string>

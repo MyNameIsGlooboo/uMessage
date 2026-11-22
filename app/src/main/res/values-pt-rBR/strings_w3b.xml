@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Nenhuma mensagem retida corresponde</string>
     <string name="w3b_filter_none_body">Nenhuma mensagem retida corresponde a este filtro. Escolha outro ou mostre todas.</string>
     <string name="w3b_filter_show_all">Mostre todas</string>
-    <string name="w3b_empty_body">O uMessage está monitorando no modo %1$s. As mensagens retidas aparecerão aqui.</string>
     <string name="w3b_why_link">Retida porque o remetente é desconhecido e o texto contém um link.</string>
     <string name="w3b_why_unknown">Retida porque o remetente é desconhecido.</string>
     <string name="w3b_why_rule">Retida porque corresponde a uma das suas regras de bloqueio.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Iria para Spam: remetente desconhecido.</string>
     <string name="w3b_verdict_allowed_rule">Iria para Mensagens: uma das suas regras de permissão corresponde.</string>
     <string name="w3b_verdict_allowed_contact">Iria para Mensagens: o remetente está nos seus contatos.</string>
-    <string name="w3b_verdict_allowed_known">Seria entregue: você já enviou mensagens para este número.</string>
     <string name="w3b_verdict_allowed_code">Iria para Mensagens: um código de verificação. Depois disso, o remetente fica permitido.</string>
     <string name="w3b_verdict_allowed_off">Iria para Mensagens: o filtro de spam está desativado.</string>
     <string name="w3b_verdict_allowed_unsure">Iria para Mensagens: não é possível ler os contatos, então o remetente não pode ser avaliado.</string>

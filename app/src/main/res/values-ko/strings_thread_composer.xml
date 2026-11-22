@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">%1$s와(과)의 대화 전체가 스팸함으로 이동하고 새 문자는 알림 없이 그곳에 와요. 삭제되는 문자는 없어요.</string>
     <string name="thread_report_spam_confirm">스팸으로 표시</string>
     <string name="thread_report_spam_cancel">취소</string>
-    <string name="thread_report_spam_done">스팸으로 표시했어요.</string>
     <string name="thread_report_spam_rule_note">스팸 신고됨</string>
-    <string name="thread_report_spam_already">이미 스팸으로 표시했어요.</string>
-    <string name="thread_report_spam_failed">스팸으로 표시하지 못했어요.</string>
     <string name="thread_report_spam_undo">실행 취소</string>
 </resources>

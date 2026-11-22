@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (कॉपीराइट Google Sans Flex प्रोजेक्ट के लेखकों का) और Vazirmatn (कॉपीराइट Vazirmatn प्रोजेक्ट के लेखकों का) SIL Open Font License, वर्शन 1.1 के तहत लाइसेंस प्राप्त हैं: आप इन्हें इस्तेमाल कर सकते हैं, इनका अध्ययन कर सकते हैं, इन्हें कॉपी कर सकते हैं, एम्बेड कर सकते हैं और दोबारा बांट सकते हैं, व्यावसायिक उत्पादों में भी. लेकिन इन्हें अलग से नहीं बेच सकते और बदले हुए वर्शन में आरक्षित फ़ॉन्ट नामों का इस्तेमाल नहीं कर सकते. Roboto (कॉपीराइट Google LLC) Apache License, वर्शन 2.0 के तहत लाइसेंस प्राप्त है. ये फ़ॉन्ट बिना किसी वारंटी के, जैसे हैं वैसे ही दिए गए हैं.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (कॉपीराइट Google LLC) Apache License, वर्शन 2.0 के तहत लाइसेंस प्राप्त हैं. ये आइकॉन बिना किसी वारंटी के, जैसे हैं वैसे ही दिए गए हैं.</string>
     <string name="settings_nav_recommended">सुझाया गया</string>
-    <string name="settings_nav_strict_confirm_title">पुष्टि करने के कोड भी ब्लॉक करें?</string>
-    <string name="settings_nav_strict_confirm_body">सख़्त मोड में, आपके संपर्कों में शामिल न होने वाले भेजने वालों के कोड बाकी मैसेज के साथ स्पैम में चले जाते हैं. बैंकों और डिलीवरी कंपनियों के मैसेज भी रोक दिए जाते हैं.</string>
-    <string name="settings_nav_strict_confirm_action">सख़्त मोड चुनें</string>
-    <string name="settings_nav_strict_confirm_cancel">मौजूदा मोड रखें</string>
     <string name="settings_nav_purge_row">पुराना स्पैम अपने-आप मिटाएं</string>
     <string name="settings_nav_group_alerts">अलर्ट</string>
     <string name="settings_nav_notify_body">एक बिना आवाज़ वाली सूचना, जो स्पैम खोलती है. आपके ब्लॉक किए गए भेजने वाले के लिए कभी नहीं.</string>

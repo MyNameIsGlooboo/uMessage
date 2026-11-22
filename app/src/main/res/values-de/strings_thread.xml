@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">Blockierung aufgehoben. Der Chat ist wieder in „Nachrichten“</string>
     <string name="thread_unblock_done_system">Blockierung in uMessage aufgehoben. Diese Nummer steht auch auf der Blockierliste deines Smartphones. Android blockiert ihre Nachrichten daher weiterhin</string>
     <string name="thread_unblock_done_filtered">Blockierung aufgehoben. Bleibt in „Spam“, weil der Absender unbekannt ist.</string>
-    <string name="thread_unblock_always_allow">Immer erlauben</string>
     <string name="thread_always_allow_done">Immer erlaubt. Der Chat ist in „Nachrichten“</string>
     <string name="thread_always_allow_failed">Diese Nummer konnte nicht erlaubt werden</string>
     <string name="thread_unblock_failed">Blockierung dieser Nummer konnte nicht aufgehoben werden</string>

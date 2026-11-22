@@ -44,12 +44,6 @@
     <string name="declog_fixed_blocked">Ви заблокували цього відправника через журнал</string>
     <string name="declog_fixed_restored">Ви відновили це повідомлення через журнал</string>
     <string name="declog_restored">Відновлено</string>
-    <string name="declog_blocked_message">Повідомлення досі в розділі «Спам»</string>
-    <string name="declog_restore">Відновити повідомлення</string>
-    <string name="declog_restore_done">Повідомлення відновлено у вхідних</string>
-    <string name="declog_restore_text_only">Текст відновлено у вхідних. Не вдалося відновити зображення.</string>
-    <string name="declog_restore_nothing">Немає що відновлювати: це повідомлення із зображенням не збережено</string>
-    <string name="declog_restore_failed">Не вдалося відновити повідомлення</string>
     <string name="declog_separator">" · "</string>
     <string name="ui_separator">" · "</string>
 </resources>

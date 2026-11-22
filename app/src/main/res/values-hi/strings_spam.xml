@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">स्पैम फ़िल्टर</string>
     <string name="spam_settings_unknown_body">अनजान भेजने वाला वह है जो न आपके संपर्कों में है और न आपकी अनुमति दी गई सूची में. उसकी पूरी चैट बिना आवाज़ के स्पैम में चली जाती है. जिन्हें आपने मैसेज भेजा है और पुष्टि करने का कोड भेजने वाले मैसेज टैब में ही रहते हैं.</string>
-    <string name="spam_mode_strict">सख़्त</string>
-    <string name="spam_mode_strict_body">सभी अनजान भेजने वालों के मैसेज ब्लॉक करता है, कोड भी</string>
-    <string name="spam_mode_smart">स्मार्ट</string>
-    <string name="spam_mode_smart_body">अनजान भेजने वालों के मैसेज ब्लॉक करता है, सिर्फ़ कोड वाले आने देता है</string>
-    <string name="spam_mode_off">बंद</string>
-    <string name="spam_mode_off_body">अनजान भेजने वालों के मैसेज ब्लॉक नहीं होते</string>
-    <string name="spam_strict_warning_title">सख़्त मोड ज़रूरी मैसेज छिपा सकता है</string>
-    <string name="spam_strict_warning_body">बैंकों, डिलीवरी कंपनियों के मैसेज और ओटीपी आम तौर पर ऐसे भेजने वालों से आते हैं जो आपके संपर्कों में नहीं हैं. सख़्त मोड में ये स्पैम में जाते हैं, कोड भी. कोड आने देने के लिए स्मार्ट चुनें या उन भेजने वालों को एक बार अनुमति दें.</string>
-    <string name="spam_strict_warning_action">स्पैम देखें</string>
     <string name="spam_settings_cleanup_title">सफ़ाई</string>
     <string name="spam_purge_body">जब तक आप दिनों की संख्या नहीं चुनते, यह बंद रहता है</string>
     <string name="spam_purge_days">%d दिन</string>

@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Aucun message bloqué correspondant</string>
     <string name="w3b_filter_none_body">Aucun message bloqué ne correspond à ce filtre. Choisissez-en un autre ou affichez tout.</string>
     <string name="w3b_filter_show_all">Tout afficher</string>
-    <string name="w3b_empty_body">uMessage veille en mode %1$s. Les messages bloqués apparaîtront ici.</string>
     <string name="w3b_why_link">Bloqué car l\'expéditeur est inconnu et le texte contient un lien.</string>
     <string name="w3b_why_unknown">Bloqué car l\'expéditeur est inconnu.</string>
     <string name="w3b_why_rule">Bloqué car il correspond à l\'une de vos règles de blocage.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Irait dans Spam : expéditeur inconnu.</string>
     <string name="w3b_verdict_allowed_rule">Irait dans Messages : une de vos règles d\'autorisation correspond.</string>
     <string name="w3b_verdict_allowed_contact">Irait dans Messages : l\'expéditeur est dans vos contacts.</string>
-    <string name="w3b_verdict_allowed_known">Serait reçu : vous avez déjà envoyé un message à ce numéro.</string>
     <string name="w3b_verdict_allowed_code">Irait dans Messages : un code de validation. L\'expéditeur est ensuite autorisé.</string>
     <string name="w3b_verdict_allowed_off">Irait dans Messages : le filtre anti-spam est désactivé.</string>
     <string name="w3b_verdict_allowed_unsure">Irait dans Messages : les contacts ne peuvent pas être lus, donc l\'expéditeur ne peut pas être évalué.</string>

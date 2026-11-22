@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">هر کسی می‌تواند با این اسم‌ها پیام بفرستد: %1$s. مجاز شوند و گفتگوها به پیام‌ها بروند؟</string>
     <string name="nameallow_more">%1$s و %2$d مورد دیگر</string>
     <string name="nameallow_allow">همیشه مجاز</string>
-    <string name="nameallow_not_now">الان نه</string>
 </resources>

@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">任何人都能用這些名稱傳送簡訊：%1$s。要允許它們並將對話移至「訊息」嗎？</string>
     <string name="nameallow_more">%1$s及其他%2$d個名稱</string>
     <string name="nameallow_allow">一律允許</string>
-    <string name="nameallow_not_now">暫時不要</string>
 </resources>

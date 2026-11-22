@@ -34,14 +34,10 @@
         <item quantity="other">Dihapus dalam %d hari</item>
     </plurals>
     <string name="spam_purge_left_today">Dihapus hari ini</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="other">%d percakapan dilaporkan. Pesan baru dari pengirimnya masuk ke Spam, dan percakapan diarsipkan.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="other">%d chat dilaporkan. Chat dipindahkan ke Spam.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Mode pengirim tidak dikenal diatur ke %1$s</string>
     <string name="blocked_stats_restored">%1$d dipulihkan oleh Anda</string>
     <string name="blocked_reason_unknown_link">Pengirim tidak dikenal, berisi tautan</string>
     <string name="blocked_may_be_important">Mungkin penting</string>

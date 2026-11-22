@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Tamamlandı</string>
     <string name="w3c_checklist_action_set">Ayarlayın</string>
     <string name="w3c_checklist_action_open">Açın</string>
-    <string name="w3c_receipt_title">Spam bekletildi: incelemek için dokunun</string>
-    <string name="w3c_receipt_body">Bilinmeyen bir gönderenden gelen mesaj Spam bölümünde bekletildi. Kaybolmadı: istediğiniz zaman inceleyebilir ve geri yükleyebilirsiniz.</string>
     <string name="w3c_receipt_review">İnceleyin</string>
-    <string name="w3c_receipt_got_it">Anlaşıldı</string>
     <string name="w3c_new_paste">Numara yapıştırın</string>
     <string name="w3c_new_paste_none">Panoda telefon numarası yok</string>
     <string name="w3c_details_allow_spoof_hint">Herkes bu adla mesaj gönderebilir; bu mesajlara da izin verilir</string>

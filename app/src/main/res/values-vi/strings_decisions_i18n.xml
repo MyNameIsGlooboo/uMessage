@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">Số từ bị chặn sẽ thêm: %1$d. Những từ bạn đã có sẽ được bỏ qua.</string>
     <string name="spam_reason_rule_domain">Quy tắc: liên kết đến %1$s</string>
-    <string name="decm_search_section_blocked">Tin rác</string>
     <string name="decm_blocked_search">Tìm trong mục Tin rác</string>
     <string name="decm_blocked_search_hint">Tìm theo người gửi hoặc nội dung</string>
     <string name="decm_blocked_search_close">Đóng tìm kiếm</string>

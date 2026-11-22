@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">فیلتر اسپم</string>
     <string name="spam_settings_unknown_body">فرستنده ناشناس کسی است که در مخاطب‌ها و لیست مجاز شما نیست. کل گفتگویش بی‌صدا به اسپم می‌رود. کسانی که به آن‌ها پیام داده‌اید و فرستنده‌های کد تأیید در پیام‌ها می‌مانند.</string>
-    <string name="spam_mode_strict">سخت‌گیرانه</string>
-    <string name="spam_mode_strict_body">همهٔ فرستنده‌های ناشناس را بلاک می‌کند، حتی کدها را</string>
-    <string name="spam_mode_smart">هوشمند</string>
-    <string name="spam_mode_smart_body">فرستنده‌های ناشناس را بلاک می‌کند، ولی کدهای تأیید را به صندوق ورودی می‌رساند</string>
-    <string name="spam_mode_off">خاموش</string>
-    <string name="spam_mode_off_body">فرستنده‌های ناشناس بلاک نمی‌شوند</string>
-    <string name="spam_strict_warning_title">حالت سخت‌گیرانه ممکن است پیام‌های مهم را پنهان کند</string>
-    <string name="spam_strict_warning_body">پیام‌های بانک‌ها و شرکت‌های ارسال مرسوله و کدهای یک‌بارمصرف معمولاً از فرستنده‌هایی می‌آیند که در مخاطب‌های شما نیستند. در حالت سخت‌گیرانه، این پیام‌ها، حتی کدها، به پوشهٔ اسپم می‌روند. برای عبور کدها حالت هوشمند را انتخاب کنید، یا یک بار به آن فرستنده‌ها اجازه بدهید.</string>
-    <string name="spam_strict_warning_action">بررسی اسپم</string>
     <string name="spam_settings_cleanup_title">پاک کردن</string>
     <string name="spam_purge_body">تا وقتی تعداد روز انتخاب نکنید خاموش است</string>
     <string name="spam_purge_days">%d روز</string>

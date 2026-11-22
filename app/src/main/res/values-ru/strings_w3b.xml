@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Нет подходящих заблокированных сообщений</string>
     <string name="w3b_filter_none_body">Нет заблокированных сообщений с этим фильтром. Выберите другой или покажите все.</string>
     <string name="w3b_filter_show_all">Показать все</string>
-    <string name="w3b_empty_body">uMessage проверяет сообщения в режиме «%1$s». Заблокированные сообщения появятся здесь.</string>
     <string name="w3b_why_link">Заблокировано: неизвестный отправитель и ссылка в тексте.</string>
     <string name="w3b_why_unknown">Заблокировано: неизвестный отправитель.</string>
     <string name="w3b_why_rule">Заблокировано по одному из ваших правил блокировки.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Попадет в «Спам»: неизвестный отправитель.</string>
     <string name="w3b_verdict_allowed_rule">Попадет в «Сообщения»: подходит одно из ваших правил разрешения.</string>
     <string name="w3b_verdict_allowed_contact">Попадет в «Сообщения»: отправитель есть в ваших контактах.</string>
-    <string name="w3b_verdict_allowed_known">Будет доставлено: вы уже писали на этот номер.</string>
     <string name="w3b_verdict_allowed_code">Попадет в «Сообщения»: код подтверждения. После этого отправитель разрешен.</string>
     <string name="w3b_verdict_allowed_off">Попадет в «Сообщения»: спам-фильтр выключен.</string>
     <string name="w3b_verdict_allowed_unsure">Попадет в «Сообщения»: контакты прочитать нельзя, поэтому отправителя не оценить.</string>

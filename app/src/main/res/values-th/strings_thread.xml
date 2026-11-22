@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">เลิกบล็อกแล้ว แชตกลับมาที่ \"ข้อความ\" แล้ว</string>
     <string name="thread_unblock_done_system">เลิกบล็อกใน uMessage แล้ว หมายเลขนี้ยังอยู่ในรายการบล็อกของโทรศัพท์ Android จึงยังบล็อกข้อความจากหมายเลขนี้</string>
     <string name="thread_unblock_done_filtered">เลิกบล็อกแล้ว แต่ยังอยู่ใน \"สแปม\" เพราะเป็นผู้ส่งที่ไม่รู้จัก</string>
-    <string name="thread_unblock_always_allow">อนุญาตเสมอ</string>
     <string name="thread_always_allow_done">อนุญาตเสมอแล้ว แชตอยู่ใน \"ข้อความ\"</string>
     <string name="thread_always_allow_failed">อนุญาตหมายเลขนี้ไม่ได้</string>
     <string name="thread_unblock_failed">เลิกบล็อกหมายเลขนี้ไม่ได้</string>

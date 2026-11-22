@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">شامل کرنے کے لیے بلاک کیے گئے الفاظ: %1$d۔ جو الفاظ پہلے سے موجود ہیں انہیں چھوڑ دیا جائے گا۔</string>
     <string name="spam_reason_rule_domain">اصول: %1$s کے لنکس</string>
-    <string name="decm_search_section_blocked">اسپیم</string>
     <string name="decm_blocked_search">اسپیم میں تلاش کریں</string>
     <string name="decm_blocked_search_hint">بھیجنے والے یا متن سے تلاش کریں</string>
     <string name="decm_blocked_search_close">تلاش بند کریں</string>

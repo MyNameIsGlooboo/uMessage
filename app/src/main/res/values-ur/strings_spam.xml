@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">اسپیم فلٹر</string>
     <string name="spam_settings_unknown_body">نامعلوم بھیجنے والا وہ ہے جو نہ آپ کے رابطوں میں ہے اور نہ اجازت یافتہ فہرست میں۔ اس کی پوری چیٹ خاموشی سے اسپیم میں چلی جاتی ہے۔ جنہیں آپ نے پیغام بھیجا ہے اور تصدیقی کوڈ بھیجنے والے پیغامات میں ہی رہتے ہیں۔</string>
-    <string name="spam_mode_strict">سخت</string>
-    <string name="spam_mode_strict_body">تمام نامعلوم بھیجنے والے بلاک، کوڈ بھی</string>
-    <string name="spam_mode_smart">اسمارٹ</string>
-    <string name="spam_mode_smart_body">نامعلوم بھیجنے والے بلاک، تصدیقی کوڈ آنے دیتا ہے</string>
-    <string name="spam_mode_off">بند</string>
-    <string name="spam_mode_off_body">نامعلوم بھیجنے والوں پر کوئی بلاک نہیں</string>
-    <string name="spam_strict_warning_title">سخت موڈ اہم پیغامات چھپا سکتا ہے</string>
-    <string name="spam_strict_warning_body">بینک، ڈیلیوری کمپنیاں اور ایک بار کے کوڈ عموماً ایسے بھیجنے والوں سے آتے ہیں جو آپ کے رابطوں میں نہیں۔ سخت موڈ میں یہ اسپیم میں چلے جاتے ہیں، کوڈ بھی۔ کوڈ آنے دینے کے لیے اسمارٹ منتخب کریں، یا ان بھیجنے والوں کو ایک بار اجازت دے دیں۔</string>
-    <string name="spam_strict_warning_action">اسپیم دیکھیں</string>
     <string name="spam_settings_cleanup_title">صفائی</string>
     <string name="spam_purge_body">جب تک آپ دنوں کی تعداد نہ چنیں، بند رہتا ہے</string>
     <string name="spam_purge_days">%d دن</string>

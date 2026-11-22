@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">नए मैसेज की सूचना देता है, जिसमें जवाब देने और कोड कॉपी करने के बटन होते हैं.</string>
     <string name="onb_perm_allow_all">सभी को अनुमति दें</string>
     <string name="onb_perm_open_settings">सेटिंग खोलें</string>
-    <string name="onb_mode_title">अनजान भेजने वालों के लिए तरीका चुनें</string>
-    <string name="onb_mode_strict">सख़्त</string>
-    <string name="onb_mode_smart">स्मार्ट</string>
-    <string name="onb_mode_off">बंद</string>
-    <string name="onb_mode_warning_title">बैंक और कोड वाले मैसेज का ध्यान रखें</string>
-    <string name="onb_mode_warning_body">सख़्त मोड में अनजान भेजने वालों के बैंक अलर्ट, डिलीवरी की जानकारी और ओटीपी स्पैम में रखे जाते हैं, कोड भी. आपको सूचना नहीं मिलेगी, इसलिए ऐसे मैसेज का इंतज़ार हो तो स्पैम देखें.</string>
     <string name="onb_oem_title">uMessage को चलते रहने दें</string>
     <string name="onb_oem_manual_hint">अगर कोई स्क्रीन न खुले, तो दिखाया गया नाम अपनी सेटिंग में खोजें.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi या Poco</string>

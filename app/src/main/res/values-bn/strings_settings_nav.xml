@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (কপিরাইট Google Sans Flex প্রকল্পের লেখকদের) ও Vazirmatn (কপিরাইট Vazirmatn প্রকল্পের লেখকদের) SIL Open Font License, সংস্করণ 1.1-এর অধীনে লাইসেন্সপ্রাপ্ত: আপনি এগুলো ব্যবহার, অধ্যয়ন, কপি, এমবেড ও পুনর্বিতরণ করতে পারেন, বাণিজ্যিক পণ্যেও ব্যবহার করতে পারেন। তবে এগুলো আলাদাভাবে বিক্রি করা যাবে না এবং পরিবর্তিত সংস্করণে সংরক্ষিত ফন্টের নাম ব্যবহার করা যাবে না। Roboto (কপিরাইট Google LLC) Apache License, সংস্করণ 2.0-এর অধীনে লাইসেন্সপ্রাপ্ত। ফন্টগুলো যেমন আছে তেমনই দেওয়া হয়েছে, কোনো ওয়ারেন্টি ছাড়া।</string>
     <string name="settings_nav_license_icons_body">Material Symbols (কপিরাইট Google LLC) Apache License, সংস্করণ 2.0-এর অধীনে লাইসেন্সপ্রাপ্ত। আইকনগুলো যেমন আছে তেমনই দেওয়া হয়েছে, কোনো ওয়ারেন্টি ছাড়া।</string>
     <string name="settings_nav_recommended">প্রস্তাবিত</string>
-    <string name="settings_nav_strict_confirm_title">যাচাইকরণ কোডও ব্লক করবেন?</string>
-    <string name="settings_nav_strict_confirm_body">কঠোর মোডে, আপনার পরিচিতিতে নেই এমন প্রেরকদের কোড অন্য সব বার্তার সঙ্গে স্প্যামে যায়। ব্যাংক ও ডেলিভারি সংস্থার বার্তাও আটকে রাখা হয়।</string>
-    <string name="settings_nav_strict_confirm_action">কঠোর মোড ব্যবহার করুন</string>
-    <string name="settings_nav_strict_confirm_cancel">বর্তমান মোড রাখুন</string>
     <string name="settings_nav_purge_row">পুরোনো স্প্যাম নিজে থেকে মুছুন</string>
     <string name="settings_nav_group_alerts">সতর্কতা</string>
     <string name="settings_nav_notify_body">একটি নিঃশব্দ বিজ্ঞপ্তি, যা স্প্যাম খোলে। আপনার ব্লক করা প্রেরকের জন্য কখনো নয়।</string>

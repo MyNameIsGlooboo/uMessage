@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Herkes şu adlarla mesaj gönderebilir: %1$s. Bu adlara izin verilip sohbetler Mesajlar\'a taşınsın mı?</string>
     <string name="nameallow_more">%1$s ve %2$d ad daha</string>
     <string name="nameallow_allow">Her zaman izin verin</string>
-    <string name="nameallow_not_now">Şimdi değil</string>
 </resources>

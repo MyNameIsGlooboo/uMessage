@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Toute la discussion avec %1$s passe dans Spam et les nouveaux messages y arrivent sans bruit. Aucun message n\'est supprimé.</string>
     <string name="thread_report_spam_confirm">Signaler comme spam</string>
     <string name="thread_report_spam_cancel">Annuler</string>
-    <string name="thread_report_spam_done">Signalé comme spam</string>
     <string name="thread_report_spam_rule_note">Signalé comme spam</string>
-    <string name="thread_report_spam_already">Déjà signalé comme spam</string>
-    <string name="thread_report_spam_failed">Impossible de signaler comme spam</string>
     <string name="thread_report_spam_undo">Annuler</string>
 </resources>

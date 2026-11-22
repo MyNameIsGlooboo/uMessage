@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">%1$s-এর সঙ্গে পুরো চ্যাট স্প্যামে চলে যাবে এবং নতুন বার্তা নিঃশব্দে সেখানে আসবে। কোনো বার্তা মোছা হয় না।</string>
     <string name="thread_report_spam_confirm">স্প্যাম হিসেবে চিহ্নিত করুন</string>
     <string name="thread_report_spam_cancel">বাতিল করুন</string>
-    <string name="thread_report_spam_done">স্প্যাম হিসেবে চিহ্নিত করা হয়েছে</string>
     <string name="thread_report_spam_rule_note">স্প্যাম রিপোর্ট করা হয়েছে</string>
-    <string name="thread_report_spam_already">আগেই স্প্যাম হিসেবে চিহ্নিত করা হয়েছে</string>
-    <string name="thread_report_spam_failed">স্প্যাম হিসেবে চিহ্নিত করা যায়নি</string>
     <string name="thread_report_spam_undo">আগের অবস্থায় ফিরুন</string>
 </resources>

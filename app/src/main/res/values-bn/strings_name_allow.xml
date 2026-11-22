@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">এই নামগুলোতে যে কেউ বার্তা পাঠাতে পারেন: %1$s। এগুলোকে অনুমতি দিয়ে চ্যাটগুলো বার্তা ট্যাবে সরাবেন?</string>
     <string name="nameallow_more">%1$s এবং আরও %2$d</string>
     <string name="nameallow_allow">সবসময় অনুমতি দিন</string>
-    <string name="nameallow_not_now">এখন নয়</string>
 </resources>

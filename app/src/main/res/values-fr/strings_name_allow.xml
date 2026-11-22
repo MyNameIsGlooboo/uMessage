@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">N\'importe qui peut envoyer des messages sous ces noms : %1$s. Les autoriser et déplacer les discussions dans Messages ?</string>
     <string name="nameallow_more">%1$s et %2$d autres</string>
     <string name="nameallow_allow">Toujours autoriser</string>
-    <string name="nameallow_not_now">Pas maintenant</string>
 </resources>

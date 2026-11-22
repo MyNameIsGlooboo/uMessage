@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="decisions_backup_keywords">要添加的屏蔽词：%1$d 个。已有的词会被跳过。</string>
     <string name="spam_reason_rule_domain">规则：指向 %1$s 的链接</string>
-    <string name="decm_search_section_blocked">垃圾短信</string>
     <string name="decm_blocked_search">搜索垃圾短信</string>
     <string name="decm_blocked_search_hint">按发件人或内容搜索</string>
     <string name="decm_blocked_search_close">关闭搜索</string>

@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">ブロックを解除しました。会話は「メッセージ」に戻りました</string>
     <string name="thread_unblock_done_system">uMessageでブロック解除しました。この番号はスマートフォンのブロックリストにも登録されているため、Androidによるメッセージのブロックは続きます。</string>
     <string name="thread_unblock_done_filtered">ブロックを解除しました。送信者が不明なため、「迷惑メッセージ」に残ります。</string>
-    <string name="thread_unblock_always_allow">常に許可</string>
     <string name="thread_always_allow_done">常に許可しました。会話は「メッセージ」にあります</string>
     <string name="thread_always_allow_failed">この番号を許可できませんでした。</string>
     <string name="thread_unblock_failed">この番号のブロック解除ができませんでした。</string>

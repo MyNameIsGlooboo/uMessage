@@ -125,15 +125,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">فلتر الرسائل غير المرغوب فيها</string>
     <string name="spam_settings_unknown_body">المرسل غير المعروف هو من ليس ضمن جهات اتصالك ولا في قائمة المسموح بها. تنتقل محادثته كلها إلى «غير المرغوب فيها» دون تنبيه. أما من راسلتهم ومرسلو رموز التحقق فيبقون في «الرسائل».</string>
-    <string name="spam_mode_strict">صارم</string>
-    <string name="spam_mode_strict_body">يحظر كل المرسلين غير المعروفين، بما في ذلك الرموز</string>
-    <string name="spam_mode_smart">ذكي</string>
-    <string name="spam_mode_smart_body">يحظر المرسلين غير المعروفين، ويسمح بالرموز فقط</string>
-    <string name="spam_mode_off">متوقف</string>
-    <string name="spam_mode_off_body">لا حظر للمرسلين غير المعروفين</string>
-    <string name="spam_strict_warning_title">الوضع الصارم قد يخفي رسائل مهمة</string>
-    <string name="spam_strict_warning_body">عادةً ما تأتي رسائل البنوك وشركات التوصيل والرموز لمرة واحدة من مرسلين ليسوا ضمن جهات اتصالك. في وضع التصفية الصارم، تنتقل إلى مجلد «غير المرغوب فيها»، بما فيها الرموز. اختر الوضع الذكي للسماح بمرور الرموز، أو اسمح لهؤلاء المرسلين مرة واحدة.</string>
-    <string name="spam_strict_warning_action">راجع الرسائل غير المرغوب فيها</string>
     <string name="spam_settings_cleanup_title">تنظيف</string>
     <string name="spam_purge_body">متوقف إلى أن تختار عدد الأيام</string>
     <string name="spam_purge_days">%d يومًا</string>

@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">الخطّان Google Sans Flex (حقوق النشر لمؤلفي مشروع Google Sans Flex) وVazirmatn (حقوق النشر لمؤلفي مشروع Vazirmatn) مرخّصان بموجب رخصة SIL للخطوط المفتوحة، الإصدار 1.1: يمكنك استخدامهما ودراستهما ونسخهما وتضمينهما وإعادة توزيعهما، بما في ذلك في المنتجات التجارية، لكن لا يجوز بيعهما منفردين، ويجب ألا تستخدم النسخ المعدّلة أسماء الخطوط المحجوزة. خط Roboto (حقوق النشر لشركة Google LLC) مرخّص بموجب رخصة Apache، الإصدار 2.0. تُقدَّم الخطوط كما هي، دون ضمان.</string>
     <string name="settings_nav_license_icons_body">أيقونات Material Symbols (حقوق النشر لشركة Google LLC) مرخّصة بموجب رخصة Apache، الإصدار 2.0. تُقدَّم الأيقونات كما هي، دون ضمان.</string>
     <string name="settings_nav_recommended">موصى به</string>
-    <string name="settings_nav_strict_confirm_title">هل تريد حظر رموز التحقق أيضًا؟</string>
-    <string name="settings_nav_strict_confirm_body">في وضع التصفية الصارم، تنتقل الرموز من مرسلين غير مسجّلين في جهات اتصالك إلى «غير المرغوب فيها» مع بقية الرسائل. تُحتجز رسائل البنوك وشركات التوصيل أيضًا.</string>
-    <string name="settings_nav_strict_confirm_action">استخدم وضع التصفية الصارم</string>
-    <string name="settings_nav_strict_confirm_cancel">أبقِ الوضع الحالي</string>
     <string name="settings_nav_purge_row">حذف الرسائل غير المرغوب فيها القديمة تلقائيًا</string>
     <string name="settings_nav_group_alerts">التنبيهات</string>
     <string name="settings_nav_notify_body">إشعار واحد صامت يفتح «غير المرغوب فيها». لا يظهر أبدًا لمرسل حظرته.</string>

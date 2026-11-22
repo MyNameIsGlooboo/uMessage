@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">Không có tin nhắn bị giữ lại phù hợp</string>
     <string name="w3b_filter_none_body">Không có tin nhắn bị giữ lại nào khớp bộ lọc này. Chọn bộ lọc khác hoặc hiển thị tất cả.</string>
     <string name="w3b_filter_show_all">Hiển thị tất cả</string>
-    <string name="w3b_empty_body">uMessage đang theo dõi ở chế độ %1$s. Tin nhắn bị giữ lại sẽ xuất hiện ở đây.</string>
     <string name="w3b_why_link">Bị giữ lại vì người gửi không xác định và tin nhắn có liên kết.</string>
     <string name="w3b_why_unknown">Bị giữ lại vì người gửi không xác định.</string>
     <string name="w3b_why_rule">Bị giữ lại vì khớp một quy tắc chặn của bạn.</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">Sẽ vào mục Tin rác: người gửi không xác định.</string>
     <string name="w3b_verdict_allowed_rule">Sẽ vào mục Tin nhắn: khớp một quy tắc cho phép của bạn.</string>
     <string name="w3b_verdict_allowed_contact">Sẽ vào mục Tin nhắn: người gửi có trong danh bạ của bạn.</string>
-    <string name="w3b_verdict_allowed_known">Sẽ được nhận: bạn đã từng nhắn tin cho số này.</string>
     <string name="w3b_verdict_allowed_code">Sẽ vào mục Tin nhắn: đây là mã xác minh. Sau đó người gửi được cho phép.</string>
     <string name="w3b_verdict_allowed_off">Sẽ vào mục Tin nhắn: bộ lọc tin rác đang tắt.</string>
     <string name="w3b_verdict_allowed_unsure">Sẽ vào mục Tin nhắn: không đọc được danh bạ nên không thể đánh giá người gửi.</string>

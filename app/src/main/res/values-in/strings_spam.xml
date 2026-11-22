@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Filter spam</string>
     <string name="spam_settings_unknown_body">Pengirim tidak dikenal adalah pengirim yang tidak ada di kontak dan tidak ada di daftar diizinkan. Seluruh chat-nya masuk ke Spam tanpa suara. Orang yang pernah Anda kirimi pesan dan pengirim kode verifikasi tetap di Pesan.</string>
-    <string name="spam_mode_strict">Mode filter ketat</string>
-    <string name="spam_mode_strict_body">Blokir semua pengirim tidak dikenal, termasuk kode</string>
-    <string name="spam_mode_smart">Cerdas</string>
-    <string name="spam_mode_smart_body">Blokir pengirim tidak dikenal, izinkan pesan berisi kode saja</string>
-    <string name="spam_mode_off">Nonaktif</string>
-    <string name="spam_mode_off_body">Pengirim tidak dikenal tidak diblokir</string>
-    <string name="spam_strict_warning_title">Mode filter ketat bisa menyembunyikan pesan penting</string>
-    <string name="spam_strict_warning_body">Pesan bank, jasa pengiriman, dan kode sekali pakai biasanya berasal dari pengirim yang tidak ada di kontak. Dalam mode filter ketat, semuanya masuk ke Spam, termasuk kode. Pilih Cerdas agar kode tetap masuk, atau cukup izinkan pengirim tersebut sekali.</string>
-    <string name="spam_strict_warning_action">Tinjau Spam</string>
     <string name="spam_settings_cleanup_title">Bersihkan</string>
     <string name="spam_purge_body">Nonaktif sampai Anda memilih jumlah hari</string>
     <string name="spam_purge_days">%d hari</string>

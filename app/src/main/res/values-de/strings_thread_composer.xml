@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Der ganze Chat mit %1$s wandert nach „Spam“, und neue Nachrichten kommen dort still an. Keine Nachricht wird gelöscht.</string>
     <string name="thread_report_spam_confirm">Als Spam markieren</string>
     <string name="thread_report_spam_cancel">Abbrechen</string>
-    <string name="thread_report_spam_done">Als Spam markiert</string>
     <string name="thread_report_spam_rule_note">Als Spam gemeldet</string>
-    <string name="thread_report_spam_already">Bereits als Spam markiert</string>
-    <string name="thread_report_spam_failed">Konnte nicht als Spam markiert werden</string>
     <string name="thread_report_spam_undo">Rückgängig</string>
 </resources>

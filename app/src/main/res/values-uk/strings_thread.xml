@@ -28,7 +28,6 @@
     <string name="thread_unblock_done">Розблоковано. Чат знову в «Повідомленнях»</string>
     <string name="thread_unblock_done_system">Розблоковано в uMessage. Цей номер також є в списку заблокованих на телефоні, тому Android і далі блокує його повідомлення</string>
     <string name="thread_unblock_done_filtered">Розблоковано. Чат залишається в «Спамі», бо відправник невідомий.</string>
-    <string name="thread_unblock_always_allow">Завжди дозволяти</string>
     <string name="thread_always_allow_done">Завжди дозволено. Чат у «Повідомленнях»</string>
     <string name="thread_always_allow_failed">Не вдалося дозволити цей номер</string>
     <string name="thread_unblock_failed">Не вдалося розблокувати цей номер</string>

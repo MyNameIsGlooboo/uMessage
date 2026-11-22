@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">Sbloccato. La chat è tornata in Messaggi</string>
     <string name="thread_unblock_done_system">Sbloccato in uMessage. Questo numero è anche tra i mittenti bloccati del telefono, quindi Android continua a bloccarne i messaggi</string>
     <string name="thread_unblock_done_filtered">Sbloccato. Resta in Spam perché il mittente è sconosciuto.</string>
-    <string name="thread_unblock_always_allow">Consenti sempre</string>
     <string name="thread_always_allow_done">Sempre consentito. La chat è in Messaggi</string>
     <string name="thread_always_allow_failed">Impossibile consentire questo numero</string>
     <string name="thread_unblock_failed">Impossibile sbloccare questo numero</string>

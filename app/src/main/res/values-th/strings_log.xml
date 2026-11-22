@@ -32,12 +32,6 @@
     <string name="declog_fixed_blocked">คุณบล็อกผู้ส่งนี้จากบันทึก</string>
     <string name="declog_fixed_restored">คุณกู้คืนข้อความนี้จากบันทึก</string>
     <string name="declog_restored">กู้คืนแล้ว</string>
-    <string name="declog_blocked_message">ข้อความที่ยังอยู่ในสแปม</string>
-    <string name="declog_restore">กู้คืนข้อความ</string>
-    <string name="declog_restore_done">กู้คืนข้อความไปยังกล่องข้อความเข้าแล้ว</string>
-    <string name="declog_restore_text_only">กู้คืนเนื้อหาข้อความไปยังกล่องข้อความเข้าแล้ว แต่กู้คืนรูปภาพไม่ได้</string>
-    <string name="declog_restore_nothing">ไม่มีสิ่งที่กู้คืนได้: ไม่ได้เก็บข้อความรูปภาพนี้ไว้</string>
-    <string name="declog_restore_failed">กู้คืนข้อความไม่ได้</string>
     <string name="declog_separator">" · "</string>
     <string name="ui_separator">" · "</string>
 </resources>

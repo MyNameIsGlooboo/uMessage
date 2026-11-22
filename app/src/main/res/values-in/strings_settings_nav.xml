@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (hak cipta milik Google Sans Flex Project Authors) dan Vazirmatn (hak cipta milik Vazirmatn Project Authors) dilisensikan berdasarkan SIL Open Font License versi 1.1: Anda boleh menggunakan, mempelajari, menyalin, menyematkan, dan mendistribusikannya kembali, termasuk dalam produk komersial, tetapi tidak boleh menjual font secara terpisah, dan versi modifikasi tidak boleh menggunakan nama font yang dicadangkan. Roboto (hak cipta milik Google LLC) dilisensikan berdasarkan Apache License versi 2.0. Font disediakan apa adanya, tanpa jaminan.</string>
     <string name="settings_nav_license_icons_body">Material Symbols (hak cipta milik Google LLC) dilisensikan berdasarkan Apache License versi 2.0. Ikon disediakan apa adanya, tanpa jaminan.</string>
     <string name="settings_nav_recommended">Direkomendasikan</string>
-    <string name="settings_nav_strict_confirm_title">Blokir kode verifikasi juga?</string>
-    <string name="settings_nav_strict_confirm_body">Dalam mode filter ketat, kode dari pengirim yang tidak ada di kontak Anda masuk ke Spam bersama pesan lainnya. Pesan dari bank dan perusahaan pengiriman juga ditahan.</string>
-    <string name="settings_nav_strict_confirm_action">Gunakan mode filter ketat</string>
-    <string name="settings_nav_strict_confirm_cancel">Tetap gunakan mode saat ini</string>
     <string name="settings_nav_purge_row">Hapus spam lama otomatis</string>
     <string name="settings_nav_group_alerts">Peringatan</string>
     <string name="settings_nav_notify_body">Satu notifikasi senyap yang membuka Spam. Tidak pernah untuk pengirim yang Anda blokir.</string>

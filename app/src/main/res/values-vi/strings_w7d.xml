@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="w7d_banner_stopped">
-        <item quantity="other">Đã chặn %1$s tin nhắn tuần này</item>
-    </plurals>
-    <string name="w7d_banner_none">Chưa chặn tin nhắn nào tuần này</string>
     <string name="w7d_fwd_master_switch">Chuyển tiếp</string>
     <string name="w7d_help_menu">Cách chặn theo từ</string>
     <string name="w7d_help_title">Cách chặn theo từ</string>

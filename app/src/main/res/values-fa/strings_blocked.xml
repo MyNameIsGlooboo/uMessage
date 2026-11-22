@@ -41,16 +41,11 @@
         <item quantity="other">%d روز دیگر حذف می‌شود</item>
     </plurals>
     <string name="spam_purge_left_today">امروز حذف می‌شود</string>
-    <plurals name="convlist_reported_spam_archived" tools:ignore="ImpliedQuantity">
-        <item quantity="one">گزارش شد. پیام‌های جدید این فرستنده به «اسپم» می‌روند و گفتگو آرشیو شد.</item>
-        <item quantity="other">%d گفتگو گزارش شد. پیام‌های جدید آن‌ها به «اسپم» می‌روند و گفتگوها آرشیو شدند.</item>
-    </plurals>
     <plurals name="convlist_reported_spam" tools:ignore="ImpliedQuantity">
         <item quantity="one">گزارش شد. گفتگو به اسپم رفت.</item>
         <item quantity="other">%d گفتگو گزارش شد و به اسپم رفت.</item>
     </plurals>
     <string name="blocked_title">اسپم</string>
-    <string name="blocked_snack_mode">حالت فرستنده‌های ناشناس روی %1$s تنظیم شد</string>
     <string name="blocked_stats_restored">%1$d مورد را بازیابی کرده‌اید</string>
     <string name="blocked_reason_unknown_link">فرستندهٔ ناشناس، لینک‌دار</string>
     <string name="blocked_may_be_important">شاید مهم باشد</string>

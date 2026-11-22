@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">完了</string>
     <string name="w3c_checklist_action_set">設定</string>
     <string name="w3c_checklist_action_open">開く</string>
-    <string name="w3c_receipt_title">迷惑メッセージを保留：タップして確認</string>
-    <string name="w3c_receipt_body">不明な送信者からのメッセージを「迷惑メッセージ」に保留しました。削除はされず、いつでも確認して復元できます。</string>
     <string name="w3c_receipt_review">確認</string>
-    <string name="w3c_receipt_got_it">了解</string>
     <string name="w3c_new_paste">番号を貼り付け</string>
     <string name="w3c_new_paste_none">クリップボードに電話番号がありません。</string>
     <string name="w3c_details_allow_spoof_hint">誰でもこの名前でメッセージを送信でき、それらも許可されます。</string>

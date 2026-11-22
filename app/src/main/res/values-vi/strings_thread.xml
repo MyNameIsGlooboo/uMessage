@@ -25,7 +25,6 @@
     <string name="thread_unblock_done">Đã bỏ chặn. Cuộc trò chuyện đã trở lại mục Tin nhắn</string>
     <string name="thread_unblock_done_system">Đã bỏ chặn trong uMessage. Số này cũng nằm trong danh sách chặn trên điện thoại của bạn nên Android vẫn chặn tin nhắn từ số này</string>
     <string name="thread_unblock_done_filtered">Đã bỏ chặn. Vẫn ở mục Tin rác vì người gửi không xác định.</string>
-    <string name="thread_unblock_always_allow">Luôn cho phép</string>
     <string name="thread_always_allow_done">Đã luôn cho phép. Cuộc trò chuyện ở mục Tin nhắn</string>
     <string name="thread_always_allow_failed">Không thể cho phép số này</string>
     <string name="thread_unblock_failed">Không thể bỏ chặn số này</string>

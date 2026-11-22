@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Toàn bộ cuộc trò chuyện với %1$s sẽ chuyển vào mục Tin rác và tin nhắn mới sẽ lặng lẽ đến đó. Không tin nhắn nào bị xóa.</string>
     <string name="thread_report_spam_confirm">Đánh dấu là tin nhắn rác</string>
     <string name="thread_report_spam_cancel">Hủy</string>
-    <string name="thread_report_spam_done">Đã đánh dấu là tin nhắn rác</string>
     <string name="thread_report_spam_rule_note">Đã báo cáo tin nhắn rác</string>
-    <string name="thread_report_spam_already">Đã được đánh dấu là tin nhắn rác</string>
-    <string name="thread_report_spam_failed">Không thể đánh dấu là tin nhắn rác</string>
     <string name="thread_report_spam_undo">Hoàn tác</string>
 </resources>

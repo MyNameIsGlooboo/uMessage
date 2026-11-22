@@ -14,10 +14,7 @@
     <string name="thread_report_spam_message">The whole chat with %1$s moves to Spam and new texts arrive there silently. No text is deleted.</string>
     <string name="thread_report_spam_confirm">Mark as spam</string>
     <string name="thread_report_spam_cancel">Cancel</string>
-    <string name="thread_report_spam_done">Marked as spam</string>
     <!-- Note on the block rule "Report spam" adds -->
     <string name="thread_report_spam_rule_note">Reported as spam</string>
-    <string name="thread_report_spam_already">Already marked as spam</string>
-    <string name="thread_report_spam_failed">Couldn\'t mark as spam</string>
     <string name="thread_report_spam_undo">Undo</string>
 </resources>

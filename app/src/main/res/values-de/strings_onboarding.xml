@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">Informiert dich über neue Nachrichten, mit Tasten zum Antworten und Kopieren von Codes.</string>
     <string name="onb_perm_allow_all">Alle erlauben</string>
     <string name="onb_perm_open_settings">Einstellungen öffnen</string>
-    <string name="onb_mode_title">Wähle den Umgang mit unbekannten Absendern</string>
-    <string name="onb_mode_strict">Streng</string>
-    <string name="onb_mode_smart">Intelligent</string>
-    <string name="onb_mode_off">Aus</string>
-    <string name="onb_mode_warning_title">Hinweis zu Banknachrichten und Codes</string>
-    <string name="onb_mode_warning_body">Im Modus „Streng“ bleiben Bankmitteilungen, Lieferupdates und Einmalcodes unbekannter Absender unter „Spam“, auch die Codes. Du erhältst keine Benachrichtigung. Schau daher unter „Spam“ nach, wenn du eine solche Nachricht erwartest.</string>
     <string name="onb_oem_title">Lass uMessage weiterlaufen</string>
     <string name="onb_oem_manual_hint">Falls sich eine Seite nicht öffnet, suche in deinen Einstellungen nach dem angezeigten Namen.</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi oder Poco</string>

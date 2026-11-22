@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">一致する保留中のメッセージなし</string>
     <string name="w3b_filter_none_body">この条件に合う保留中のメッセージはありません。別の条件を選ぶか、すべて表示してください。</string>
     <string name="w3b_filter_show_all">すべて表示</string>
-    <string name="w3b_empty_body">uMessageは%1$sモードで確認しています。保留されたメッセージはここに表示されます。</string>
     <string name="w3b_why_link">不明な送信者からのメッセージにリンクが含まれているため、保留しました。</string>
     <string name="w3b_why_unknown">不明な送信者のため、保留しました。</string>
     <string name="w3b_why_rule">設定したブロックルールに一致したため、保留しました。</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">「迷惑メッセージ」に届きます。不明な送信者です。</string>
     <string name="w3b_verdict_allowed_rule">「メッセージ」に届きます。設定した許可ルールに一致します。</string>
     <string name="w3b_verdict_allowed_contact">「メッセージ」に届きます。送信者は連絡先に登録されています。</string>
-    <string name="w3b_verdict_allowed_known">受信できます。この番号にメッセージを送信したことがあります。</string>
     <string name="w3b_verdict_allowed_code">「メッセージ」に届きます。認証コードです。以降、この送信者は許可されます。</string>
     <string name="w3b_verdict_allowed_off">「メッセージ」に届きます。迷惑メッセージフィルタはオフです。</string>
     <string name="w3b_verdict_allowed_unsure">「メッセージ」に届きます。連絡先を読み取れないため、送信者を判定できません。</string>

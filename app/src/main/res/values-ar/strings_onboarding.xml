@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">ينبّهك بالرسائل الجديدة، مع زرّي الرد ونسخ الرمز.</string>
     <string name="onb_perm_allow_all">اسمح بالكل</string>
     <string name="onb_perm_open_settings">افتح الإعدادات</string>
-    <string name="onb_mode_title">اختر كيفية التعامل مع المرسلين غير المعروفين</string>
-    <string name="onb_mode_strict">صارم</string>
-    <string name="onb_mode_smart">ذكي</string>
-    <string name="onb_mode_off">متوقف</string>
-    <string name="onb_mode_warning_title">تنبيه بشأن رسائل البنوك والرموز</string>
-    <string name="onb_mode_warning_body">في وضع التصفية الصارم، تبقى تنبيهات البنوك وتحديثات التوصيل والرموز لمرة واحدة من المرسلين غير المعروفين في «غير المرغوب فيها»، بما فيها الرموز. لن يصلك إشعار، لذا راجع «غير المرغوب فيها» عندما تتوقع وصول رسالة.</string>
     <string name="onb_oem_title">أبقِ uMessage قيد التشغيل</string>
     <string name="onb_oem_manual_hint">إذا لم تفتح شاشة، فابحث في الإعدادات عن الاسم المعروض.</string>
     <string name="onb_oem_xiaomi">Xiaomi أو Redmi أو Poco</string>

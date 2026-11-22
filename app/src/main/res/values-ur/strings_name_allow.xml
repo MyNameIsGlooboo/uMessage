@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">ان ناموں سے کوئی بھی پیغام بھیج سکتا ہے: %1$s۔ انہیں اجازت دے کر چیٹس کو پیغامات میں منتقل کریں؟</string>
     <string name="nameallow_more">%1$s اور مزید %2$d</string>
     <string name="nameallow_allow">ہمیشہ اجازت دیں</string>
-    <string name="nameallow_not_now">ابھی نہیں</string>
 </resources>

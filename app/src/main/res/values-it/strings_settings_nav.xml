@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Google Sans Flex (copyright degli autori del progetto Google Sans Flex) e Vazirmatn (copyright degli autori del progetto Vazirmatn) sono distribuiti con licenza SIL Open Font License, versione 1.1: puoi usarli, studiarli, copiarli, incorporarli e ridistribuirli, anche in prodotti commerciali, ma non venderli separatamente. Le versioni modificate non devono usare i nomi riservati dei caratteri. Roboto (copyright Google LLC) è distribuito con licenza Apache License, versione 2.0. I caratteri sono forniti così come sono, senza garanzie.</string>
     <string name="settings_nav_license_icons_body">Le icone Material Symbols (copyright Google LLC) sono distribuite con licenza Apache License, versione 2.0. Le icone sono fornite così come sono, senza garanzie.</string>
     <string name="settings_nav_recommended">Consigliato</string>
-    <string name="settings_nav_strict_confirm_title">Bloccare anche i codici di verifica?</string>
-    <string name="settings_nav_strict_confirm_body">Con la modalità filtro rigorosa, i codici dei mittenti che non sono nei tuoi contatti finiscono in Spam insieme a tutto il resto. Vengono trattenuti anche i messaggi di banche e corrieri.</string>
-    <string name="settings_nav_strict_confirm_action">Usa modalità rigorosa</string>
-    <string name="settings_nav_strict_confirm_cancel">Mantieni modalità attuale</string>
     <string name="settings_nav_purge_row">Elimina automaticamente lo spam vecchio</string>
     <string name="settings_nav_group_alerts">Avvisi</string>
     <string name="settings_nav_notify_body">Una notifica silenziosa che apre Spam. Mai per un mittente che hai bloccato.</string>

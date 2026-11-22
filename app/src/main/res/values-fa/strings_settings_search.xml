@@ -8,14 +8,10 @@
     <!-- کلمه‌هایی که ممکن است برای یک تنظیم تایپ شوند، جدا از عنوان و توضیح آن. با فاصله جدا شوند. -->
     <string name="sks_spam">اسپم بلاک کردن فیلتر محافظت مزاحم تبلیغ کلاهبرداری ناخواسته spam block هرزنامه مسدود مسدودسازی</string>
     <string name="sks_unknown_sender">فرستنده ناشناس غریبه فیلتر اسپم بلاک کلید روشن خاموش هرزنامه مسدود</string>
-    <string name="sks_strict">سخت‌گیرانه سخت همه بلاک کد کدها مسدود</string>
-    <string name="sks_smart">هوشمند پیشنهادی خودکار پیش‌فرض فیلتر</string>
-    <string name="sks_spam_off">خاموش غیرفعال توقف فیلتر اجازه همه</string>
     <string name="sks_rules">قانون قوانین مجاز بلاک لیست کلمهٔ کلیدی الگو فرستنده شماره سفید سیاه مسدود فهرست کلیدواژه</string>
     <string name="sks_blocked_numbers">شماره بلاک شماره‌های لیست تلفن مخاطب‌ها اندروید سیاه مسدود فهرست مسدودی مخاطبین</string>
     <string name="sks_decision_log">گزارش تاریخچه چرا بلاک فعالیت اخیر سابقه مسدود</string>
     <string name="sks_purge">حذف اسپم بلاک مسدود قدیمی پاک تمیز خودکار روز پاکسازی نگهداری</string>
-    <string name="sks_region">کشور منطقه خارج خارجی بین‌المللی از بلاک مسدود</string>
     <string name="sks_links">لینک نشانی خطرناک فیشینگ امنیت قفل وب پیوند</string>
     <string name="sks_carrier_report">گزارش اپراتور ۷۷۲۶ اسپم ارسال هرزنامه</string>
     <string name="sks_unknown_notify">صندوق ناشناس اعلان صدا بی‌صدا هشدار غریبه</string>

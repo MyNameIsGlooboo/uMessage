@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">Увесь чат із %1$s переміститься в «Спам», а нові повідомлення надходитимуть туди без звуку. Жодне повідомлення не видаляється.</string>
     <string name="thread_report_spam_confirm">Позначити як спам</string>
     <string name="thread_report_spam_cancel">Скасувати</string>
-    <string name="thread_report_spam_done">Позначено як спам</string>
     <string name="thread_report_spam_rule_note">Повідомлено про спам</string>
-    <string name="thread_report_spam_already">Уже позначено як спам</string>
-    <string name="thread_report_spam_failed">Не вдалося позначити як спам</string>
     <string name="thread_report_spam_undo">Скасувати</string>
 </resources>

@@ -36,12 +36,6 @@
     <string name="declog_fixed_blocked">این فرستنده را از روی گزارش بلاک کردید</string>
     <string name="declog_fixed_restored">این پیام را از روی گزارش بازیابی کردید</string>
     <string name="declog_restored">بازیابی‌شده</string>
-    <string name="declog_blocked_message">پیام، هنوز در اسپم</string>
-    <string name="declog_restore">بازیابی پیام</string>
-    <string name="declog_restore_done">پیام در صندوق ورودی بازیابی شد</string>
-    <string name="declog_restore_text_only">متن در صندوق ورودی بازیابی شد. عکس‌ها بازیابی نشدند.</string>
-    <string name="declog_restore_nothing">چیزی برای بازیابی نیست: این پیام تصویری نگه داشته نشده</string>
-    <string name="declog_restore_failed">بازیابی پیام انجام نشد</string>
     <string name="declog_separator">"، "</string>
     <string name="ui_separator">"، "</string>
 </resources>

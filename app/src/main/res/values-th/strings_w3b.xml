@@ -9,7 +9,6 @@
     <string name="w3b_filter_none_title">ไม่พบข้อความที่พักไว้ที่ตรงกัน</string>
     <string name="w3b_filter_none_body">ไม่มีข้อความที่พักไว้ตรงกับตัวกรองนี้ เลือกตัวกรองอื่น หรือแสดงทั้งหมด</string>
     <string name="w3b_filter_show_all">แสดงทั้งหมด</string>
-    <string name="w3b_empty_body">uMessage กำลังตรวจสอบในโหมด %1$s ข้อความที่พักไว้จะปรากฏที่นี่</string>
     <string name="w3b_why_link">พักไว้เพราะเป็นผู้ส่งที่ไม่รู้จักและข้อความมีลิงก์</string>
     <string name="w3b_why_unknown">พักไว้เพราะเป็นผู้ส่งที่ไม่รู้จัก</string>
     <string name="w3b_why_rule">พักไว้เพราะตรงกับกฎบล็อกข้อหนึ่งของคุณ</string>
@@ -39,7 +38,6 @@
     <string name="w3b_verdict_held_unknown">จะไปที่ \"สแปม\": ผู้ส่งที่ไม่รู้จัก</string>
     <string name="w3b_verdict_allowed_rule">จะไปที่ \"ข้อความ\": ตรงกับกฎอนุญาตข้อหนึ่งของคุณ</string>
     <string name="w3b_verdict_allowed_contact">จะไปที่ \"ข้อความ\": ผู้ส่งอยู่ในรายชื่อติดต่อของคุณ</string>
-    <string name="w3b_verdict_allowed_known">จะส่งถึงกล่องข้อความเข้า: เคยส่งข้อความไปยังหมายเลขนี้แล้ว</string>
     <string name="w3b_verdict_allowed_code">จะไปที่ \"ข้อความ\": เป็นรหัสยืนยัน หลังจากนั้นผู้ส่งจะได้รับอนุญาต</string>
     <string name="w3b_verdict_allowed_off">จะไปที่ \"ข้อความ\": ตัวกรองสแปมปิดอยู่</string>
     <string name="w3b_verdict_allowed_unsure">จะไปที่ \"ข้อความ\": อ่านรายชื่อติดต่อไม่ได้ จึงตัดสินผู้ส่งไม่ได้</string>

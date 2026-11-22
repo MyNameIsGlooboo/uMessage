@@ -36,12 +36,6 @@
     <string name="declog_fixed_blocked">You blocked this sender from the log</string>
     <string name="declog_fixed_restored">You restored this message from the log</string>
     <string name="declog_restored">Restored</string>
-    <string name="declog_blocked_message">The message, still in Spam</string>
-    <string name="declog_restore">Restore message</string>
-    <string name="declog_restore_done">Message restored to the inbox</string>
-    <string name="declog_restore_text_only">Text restored to the inbox. The pictures could not be recovered.</string>
-    <string name="declog_restore_nothing">Nothing to restore: this picture message was not kept</string>
-    <string name="declog_restore_failed">Could not restore the message</string>
     <!-- Between the parts of a log row: "Blocked · 2 times · Unknown sender". -->
     <string name="declog_separator">" · "</string>
     <!-- Separator between short parts of one line (date and time, time and SIM). In Persian a middle dot next to digits reads like a zero. -->

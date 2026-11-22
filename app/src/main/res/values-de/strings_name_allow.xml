@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">Jeder kann Nachrichten unter diesen Namen senden: %1$s. Erlauben und die Chats nach „Nachrichten“ verschieben?</string>
     <string name="nameallow_more">%1$s und %2$d weitere</string>
     <string name="nameallow_allow">Immer erlauben</string>
-    <string name="nameallow_not_now">Jetzt nicht</string>
 </resources>

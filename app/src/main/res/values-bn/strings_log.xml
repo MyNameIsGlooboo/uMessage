@@ -36,12 +36,6 @@
     <string name="declog_fixed_blocked">আপনি লগ থেকে এই প্রেরককে ব্লক করেছেন</string>
     <string name="declog_fixed_restored">আপনি লগ থেকে এই বার্তাটি ফিরিয়ে এনেছেন</string>
     <string name="declog_restored">ফিরিয়ে আনা হয়েছে</string>
-    <string name="declog_blocked_message">বার্তাটি এখনও স্প্যামে আছে</string>
-    <string name="declog_restore">বার্তা ফিরিয়ে আনুন</string>
-    <string name="declog_restore_done">বার্তা ইনবক্সে ফিরিয়ে আনা হয়েছে</string>
-    <string name="declog_restore_text_only">লেখা ইনবক্সে ফিরিয়ে আনা হয়েছে। ছবিগুলি উদ্ধার করা যায়নি।</string>
-    <string name="declog_restore_nothing">ফিরিয়ে আনার কিছু নেই: এই ছবির বার্তাটি রাখা হয়নি</string>
-    <string name="declog_restore_failed">বার্তাটি ফিরিয়ে আনা যায়নি</string>
     <string name="declog_separator">" · "</string>
     <string name="ui_separator">" · "</string>
 </resources>

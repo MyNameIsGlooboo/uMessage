@@ -6,14 +6,10 @@
     <string name="settings_search_start">พิมพ์คำ เช่น ธีม สำรองข้อมูล หรือสแปม</string>
     <string name="sks_spam">สแปม บล็อก บล็อกแล้ว ขยะ กรอง การป้องกัน หลอกลวง ไม่ต้องการ</string>
     <string name="sks_unknown_sender">ไม่รู้จัก คนแปลกหน้า ผู้ส่ง กรอง ตัวกรอง สแปม บล็อก สวิตช์ เปิด ปิด โหมด</string>
-    <string name="sks_strict">เข้มงวด เข้มข้น บล็อก ทุกอย่าง รหัส</string>
-    <string name="sks_smart">อัจฉริยะ แนะนำ อัตโนมัติ เริ่มต้น กรอง</string>
-    <string name="sks_spam_off">ปิด ปิดใช้งาน หยุด กรอง อนุญาต ทุกอย่าง</string>
     <string name="sks_rules">กฎ อนุญาต บล็อก รายการ คำหลัก รูปแบบ (regex) regex ผู้ส่ง หมายเลข รายการอนุญาต รายการบล็อก</string>
     <string name="sks_blocked_numbers">บล็อกแล้ว หมายเลข รายการบล็อก โทรศัพท์ รายชื่อติดต่อ Android รายการบล็อก</string>
     <string name="sks_decision_log">บันทึก ประวัติ เหตุผล บล็อกแล้ว กิจกรรม ล่าสุด</string>
     <string name="sks_purge">ลบ สแปม บล็อกแล้ว เก่า เอาออก ล้าง อัตโนมัติ วัน ล้างข้อมูล ระยะเวลาเก็บ</string>
-    <string name="sks_region">ประเทศ ภูมิภาค ภายนอก ต่างประเทศ ระหว่างประเทศ นอกประเทศ บล็อก</string>
     <string name="sks_links">ลิงก์ URL เสี่ยง ฟิชชิง ความปลอดภัย ล็อก เว็บ</string>
     <string name="sks_carrier_report">ผู้ให้บริการเครือข่าย รายงาน ผู้ให้บริการเครือข่าย ส่งต่อ 7726 ผู้ให้บริการเครือข่าย สแปม</string>
     <string name="sks_unknown_notify">ไม่รู้จัก กล่องข้อความเข้า การแจ้งเตือน เสียง เงียบ เตือน คนแปลกหน้า</string>

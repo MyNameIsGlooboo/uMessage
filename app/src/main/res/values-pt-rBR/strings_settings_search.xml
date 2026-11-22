@@ -6,14 +6,10 @@
     <string name="settings_search_start">Digite uma palavra, como tema, backup ou spam.</string>
     <string name="sks_spam">spam bloqueie bloqueado lixo filtro proteção golpe indesejado</string>
     <string name="sks_unknown_sender">desconhecido estranhos remetentes filtro spam bloqueie chave ativar desativar modo</string>
-    <string name="sks_strict">rigoroso forte bloqueie tudo códigos</string>
-    <string name="sks_smart">inteligente recomendado automático padrão filtro</string>
-    <string name="sks_spam_off">desativado desative pare filtro permita tudo</string>
     <string name="sks_rules">regras permita bloqueie lista palavra-chave padrão expressão regular remetente número lista permitida lista de bloqueio</string>
     <string name="sks_blocked_numbers">bloqueados números lista de bloqueio telefone contatos Android lista de bloqueio</string>
     <string name="sks_decision_log">registro histórico motivo bloqueado atividade recente</string>
     <string name="sks_purge">exclua spam bloqueados antigos remova limpe automático dias limpeza retenção</string>
-    <string name="sks_region">país região fora estrangeiro internacional exterior bloqueie</string>
     <string name="sks_links">links URLs perigosos phishing segurança bloqueio web</string>
     <string name="sks_carrier_report">operadora denuncie operadora encaminhe 7726 provedor spam</string>
     <string name="sks_unknown_notify">desconhecido caixa de entrada notificação som silencioso alerta estranhos</string>

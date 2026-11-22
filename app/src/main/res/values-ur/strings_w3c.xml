@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">ہو گیا</string>
     <string name="w3c_checklist_action_set">سیٹ کریں</string>
     <string name="w3c_checklist_action_open">کھولیں</string>
-    <string name="w3c_receipt_title">اسپیم روکا گیا: دیکھنے کے لیے ٹیپ کریں</string>
-    <string name="w3c_receipt_body">نامعلوم بھیجنے والے کا ایک پیغام اسپیم میں روکا گیا۔ یہ ضائع نہیں ہوا: آپ اسے کسی بھی وقت دیکھ کر بحال کر سکتے ہیں۔</string>
     <string name="w3c_receipt_review">دیکھیں</string>
-    <string name="w3c_receipt_got_it">سمجھ گیا</string>
     <string name="w3c_new_paste">نمبر پیسٹ کریں</string>
     <string name="w3c_new_paste_none">کلپ بورڈ پر کوئی فون نمبر نہیں</string>
     <string name="w3c_details_allow_spoof_hint">کوئی بھی اس نام سے پیغامات بھیج سکتا ہے، اس لیے انہیں بھی اجازت ہوگی</string>

@@ -41,16 +41,11 @@
         <item quantity="other">%d gün sonra silinecek</item>
     </plurals>
     <string name="spam_purge_left_today">Bugün silinecek</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="one">Bildirildi. Bu gönderenden gelen yeni mesajlar Spam bölümüne gider. Görüşme arşivlendi.</item>
-        <item quantity="other">%d görüşme bildirildi. Bu gönderenlerden gelen yeni mesajlar Spam bölümüne gider. Görüşmeler arşivlendi.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="one">Bildirildi. Sohbet Spam\'e taşındı.</item>
         <item quantity="other">%d sohbet bildirildi. Spam\'e taşındılar.</item>
     </plurals>
     <string name="blocked_title">Spam</string>
-    <string name="blocked_snack_mode">Bilinmeyen gönderenler için seçilen mod: %1$s</string>
     <string name="blocked_stats_restored">%1$d tanesini geri yüklediniz</string>
     <string name="blocked_reason_unknown_link">Bilinmeyen gönderen, bağlantı içeriyor</string>
     <string name="blocked_may_be_important">Önemli olabilir</string>

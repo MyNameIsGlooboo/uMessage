@@ -42,12 +42,6 @@
     <string name="onb_perm_notifications_reason">แจ้งเมื่อมีข้อความใหม่ พร้อมปุ่มตอบกลับและคัดลอกรหัส</string>
     <string name="onb_perm_allow_all">อนุญาตทั้งหมด</string>
     <string name="onb_perm_open_settings">เปิดการตั้งค่า</string>
-    <string name="onb_mode_title">เลือกวิธีจัดการผู้ส่งที่ไม่รู้จัก</string>
-    <string name="onb_mode_strict">เข้มงวด</string>
-    <string name="onb_mode_smart">อัจฉริยะ</string>
-    <string name="onb_mode_off">ปิด</string>
-    <string name="onb_mode_warning_title">ข้อควรรู้เกี่ยวกับข้อความธนาคารและรหัส</string>
-    <string name="onb_mode_warning_body">ในโหมดกรองเข้มงวด การแจ้งเตือนจากธนาคาร สถานะการจัดส่ง และรหัสใช้ครั้งเดียวจากผู้ส่งที่ไม่รู้จักจะถูกเก็บไว้ในสแปม รวมถึงรหัสด้วย จะไม่มีการแจ้งเตือน จึงควรตรวจดูสแปมเมื่อรอข้อความเหล่านี้</string>
     <string name="onb_oem_title">ให้ uMessage ทำงานต่อเนื่อง</string>
     <string name="onb_oem_manual_hint">หากเปิดหน้าจอไม่ได้ ให้ค้นหาชื่อที่แสดงในการตั้งค่า</string>
     <string name="onb_oem_xiaomi">Xiaomi, Redmi หรือ Poco</string>

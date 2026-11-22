@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">완료</string>
     <string name="w3c_checklist_action_set">설정</string>
     <string name="w3c_checklist_action_open">열기</string>
-    <string name="w3c_receipt_title">스팸 보류됨: 눌러서 확인</string>
-    <string name="w3c_receipt_body">알 수 없는 발신자가 보낸 메시지를 스팸함에 보류했어요. 메시지는 사라지지 않아요. 언제든 확인하고 복원할 수 있어요.</string>
     <string name="w3c_receipt_review">확인</string>
-    <string name="w3c_receipt_got_it">알겠어요</string>
     <string name="w3c_new_paste">번호 붙여넣기</string>
     <string name="w3c_new_paste_none">클립보드에 전화번호가 없어요.</string>
     <string name="w3c_details_allow_spoof_hint">누구나 이 이름으로 문자를 보낼 수 있어 그런 문자도 허용돼요.</string>

@@ -97,15 +97,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Filtre anti-spam</string>
     <string name="spam_settings_unknown_body">Un expéditeur inconnu n\'est ni dans vos contacts ni dans votre liste des autorisés. Toute sa discussion va dans Spam, sans bruit. Les personnes à qui vous avez écrit et les expéditeurs d\'un code de validation restent dans Messages.</string>
-    <string name="spam_mode_strict">Strict</string>
-    <string name="spam_mode_strict_body">Bloque tous les expéditeurs inconnus, même les codes</string>
-    <string name="spam_mode_smart">Intelligent</string>
-    <string name="spam_mode_smart_body">Bloque les expéditeurs inconnus, laisse passer les codes seuls</string>
-    <string name="spam_mode_off">Désactivé</string>
-    <string name="spam_mode_off_body">Aucun blocage des expéditeurs inconnus</string>
-    <string name="spam_strict_warning_title">Le mode strict peut masquer des messages importants</string>
-    <string name="spam_strict_warning_body">Les messages des banques, des livreurs et les codes à usage unique proviennent souvent d\'expéditeurs absents de vos contacts. En mode strict, ils vont dans Spam, codes compris. Choisissez le mode intelligent pour laisser passer les codes, ou autorisez ces expéditeurs une fois pour toutes.</string>
-    <string name="spam_strict_warning_action">Consulter Spam</string>
     <string name="spam_settings_cleanup_title">Nettoyage</string>
     <string name="spam_purge_body">Désactivé tant que vous ne choisissez pas un nombre de jours</string>
     <string name="spam_purge_days">%d jours</string>

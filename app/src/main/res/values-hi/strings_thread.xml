@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">अनब्लॉक किया गया. चैट मैसेज टैब में वापस आ गई</string>
     <string name="thread_unblock_done_system">uMessage में अनब्लॉक किया गया. यह नंबर आपके फ़ोन की ब्लॉक सूची में भी है, इसलिए Android अब भी इसके मैसेज ब्लॉक करता है</string>
     <string name="thread_unblock_done_filtered">अनब्लॉक किया गया. भेजने वाला अनजान है, इसलिए चैट स्पैम में ही है.</string>
-    <string name="thread_unblock_always_allow">हमेशा अनुमति दें</string>
     <string name="thread_always_allow_done">हमेशा अनुमति दी गई. चैट मैसेज टैब में है</string>
     <string name="thread_always_allow_failed">इस नंबर को अनुमति नहीं दी जा सकी</string>
     <string name="thread_unblock_failed">इस नंबर को अनब्लॉक नहीं किया जा सका</string>

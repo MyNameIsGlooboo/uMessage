@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Done</string>
     <string name="w3c_checklist_action_set">Set</string>
     <string name="w3c_checklist_action_open">Open</string>
-    <string name="w3c_receipt_title">Spam held: tap to review</string>
-    <string name="w3c_receipt_body">A message from an unknown sender was held in Spam. It is not lost: you can review it and restore it any time.</string>
     <string name="w3c_receipt_review">Review</string>
-    <string name="w3c_receipt_got_it">Got it</string>
     <string name="w3c_new_paste">Paste number</string>
     <string name="w3c_new_paste_none">No phone number on the clipboard</string>
     <string name="w3c_details_allow_spoof_hint">Anyone can send texts under this name, so those are allowed too</string>

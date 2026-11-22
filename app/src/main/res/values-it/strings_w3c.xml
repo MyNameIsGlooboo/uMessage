@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Fatto</string>
     <string name="w3c_checklist_action_set">Imposta</string>
     <string name="w3c_checklist_action_open">Apri</string>
-    <string name="w3c_receipt_title">Spam trattenuto: tocca per controllare</string>
-    <string name="w3c_receipt_body">Un messaggio di un mittente sconosciuto è stato trattenuto in Spam. Non è perso: puoi controllarlo e ripristinarlo quando vuoi.</string>
     <string name="w3c_receipt_review">Controlla</string>
-    <string name="w3c_receipt_got_it">Capito</string>
     <string name="w3c_new_paste">Incolla numero</string>
     <string name="w3c_new_paste_none">Nessun numero di telefono negli appunti</string>
     <string name="w3c_details_allow_spoof_hint">Chiunque può inviare messaggi con questo nome, quindi anche quelli saranno consentiti</string>

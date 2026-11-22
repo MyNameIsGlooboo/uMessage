@@ -69,14 +69,6 @@
         <item quantity="other">تُحذف بعد %d يوم</item>
     </plurals>
     <string name="spam_purge_left_today">تُحذف اليوم</string>
-    <plurals name="convlist_reported_spam_archived">
-        <item quantity="zero">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثات.</item>
-        <item quantity="one">تم الإبلاغ. ستنتقل رسائل هذا المرسل الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثة.</item>
-        <item quantity="two">تم الإبلاغ عن محادثتين (%d). ستنتقل رسائل مرسليهما الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثتان.</item>
-        <item quantity="few">تم الإبلاغ عن %d محادثات. ستنتقل رسائل مرسليها الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثات.</item>
-        <item quantity="many">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثات.</item>
-        <item quantity="other">تم الإبلاغ عن %d محادثة. ستنتقل رسائل مرسليها الجديدة إلى «غير المرغوب فيها»، وأُرشفت المحادثات.</item>
-    </plurals>
     <plurals name="convlist_reported_spam">
         <item quantity="zero">أُبلغ عن %d محادثة. انتقلت إلى «غير المرغوب فيها».</item>
         <item quantity="one">أُبلغ عنها. انتقلت المحادثة إلى «غير المرغوب فيها».</item>
@@ -86,7 +78,6 @@
         <item quantity="other">أُبلغ عن %d محادثة. انتقلت إلى «غير المرغوب فيها».</item>
     </plurals>
     <string name="blocked_title">غير المرغوب فيها</string>
-    <string name="blocked_snack_mode">ضُبط وضع المرسلين غير المعروفين على %1$s</string>
     <string name="blocked_stats_restored">استعدت %1$d</string>
     <string name="blocked_reason_unknown_link">مرسل غير معروف، مع رابط</string>
     <string name="blocked_may_be_important">قد تكون مهمة</string>

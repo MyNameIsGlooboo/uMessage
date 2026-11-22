@@ -111,15 +111,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">Спам-фільтр</string>
     <string name="spam_settings_unknown_body">Невідомий відправник — це той, кого немає у ваших контактах і в списку дозволених. Увесь його чат без звуку потрапляє в «Спам». Ті, кому ви писали, і відправники кодів підтвердження залишаються в «Повідомленнях».</string>
-    <string name="spam_mode_strict">Суворий</string>
-    <string name="spam_mode_strict_body">Блокує всіх невідомих відправників, навіть повідомлення з кодами</string>
-    <string name="spam_mode_smart">Розумний</string>
-    <string name="spam_mode_smart_body">Блокує невідомих відправників, пропускає повідомлення лише з кодами</string>
-    <string name="spam_mode_off">Вимкнено</string>
-    <string name="spam_mode_off_body">Без блокування невідомих відправників</string>
-    <string name="spam_strict_warning_title">Суворий режим може приховати важливі повідомлення</string>
-    <string name="spam_strict_warning_body">Повідомлення від банків і служб доставки та одноразові коди зазвичай надходять від відправників, яких немає у ваших контактах. У суворому режимі вони потрапляють до папки «Спам», навіть коди. Виберіть розумний режим, щоб пропускати коди, або один раз дозвольте цих відправників.</string>
-    <string name="spam_strict_warning_action">Переглянути спам</string>
     <string name="spam_settings_cleanup_title">Очищення</string>
     <string name="spam_purge_body">Вимкнено, доки ви не виберете кількість днів</string>
     <string name="spam_purge_days">%d днів</string>

@@ -45,10 +45,6 @@
     <string name="settings_nav_license_fonts_body">Czcionki Google Sans Flex (prawa autorskie: autorzy projektu Google Sans Flex) i Vazirmatn (prawa autorskie: autorzy projektu Vazirmatn) są udostępniane na licencji SIL Open Font License w wersji 1.1: możesz ich używać, analizować je, kopiować, osadzać i rozpowszechniać, także w produktach komercyjnych, ale nie możesz sprzedawać ich samodzielnie, a zmodyfikowane wersje nie mogą używać zastrzeżonych nazw czcionek. Czcionka Roboto (prawa autorskie: Google LLC) jest udostępniana na licencji Apache License w wersji 2.0. Czcionki są udostępniane w stanie, w jakim są, bez gwarancji.</string>
     <string name="settings_nav_license_icons_body">Ikony Material Symbols (prawa autorskie: Google LLC) są udostępniane na licencji Apache License w wersji 2.0. Ikony są udostępniane w stanie, w jakim są, bez gwarancji.</string>
     <string name="settings_nav_recommended">Zalecane</string>
-    <string name="settings_nav_strict_confirm_title">Blokować też kody weryfikacyjne?</string>
-    <string name="settings_nav_strict_confirm_body">W ścisłym trybie filtrowania kody od nadawców spoza twoich kontaktów trafiają do Spamu wraz z resztą wiadomości. Wiadomości od banków i firm kurierskich też są zatrzymywane.</string>
-    <string name="settings_nav_strict_confirm_action">Włącz tryb ścisły</string>
-    <string name="settings_nav_strict_confirm_cancel">Zachowaj obecny tryb</string>
     <string name="settings_nav_purge_row">Automatyczne usuwanie starego spamu</string>
     <string name="settings_nav_group_alerts">Alerty</string>
     <string name="settings_nav_notify_body">Jedno ciche powiadomienie, które otwiera folder Spam. Nigdy dla nadawcy zablokowanego przez ciebie.</string>

@@ -6,14 +6,10 @@
     <string name="settings_search_start">テーマ、バックアップ、迷惑メッセージなどの言葉を入力してください。</string>
     <string name="sks_spam">迷惑メッセージ ブロック ブロック済み 不要 フィルター 保護 詐欺 受信拒否</string>
     <string name="sks_unknown_sender">不明 知らない人 送信者 フィルター フィルタ 迷惑メッセージ ブロック スイッチ オン オフ モード</string>
-    <string name="sks_strict">厳格 強力 ブロック すべて 認証コード</string>
-    <string name="sks_smart">スマート おすすめ 自動 デフォルト フィルター</string>
-    <string name="sks_spam_off">オフ 無効 停止 フィルター 許可 すべて</string>
     <string name="sks_rules">ルール 許可 ブロック リスト キーワード パターン（正規表現） 正規表現 送信者 番号 許可リスト ブロックリスト</string>
     <string name="sks_blocked_numbers">ブロック済み 番号 ブロックリスト 電話 連絡先 Android 拒否リスト</string>
     <string name="sks_decision_log">判定履歴 履歴 理由 ブロック済み アクティビティ 最近</string>
     <string name="sks_purge">削除 迷惑メッセージ ブロック済み 古い 消去 整理 自動 日数 クリーンアップ 保存期間</string>
-    <string name="sks_region">国 地域 域外 外国 国際 海外 ブロック</string>
     <string name="sks_links">リンク URL 危険 フィッシング 安全 ロック ウェブ</string>
     <string name="sks_carrier_report">通信事業者 報告 携帯電話会社 転送 7726 プロバイダー 迷惑メッセージ</string>
     <string name="sks_unknown_notify">不明 受信トレイ 通知 音 サイレント アラート 知らない人</string>

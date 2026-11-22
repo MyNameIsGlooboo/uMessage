@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">%1$sとの会話はまるごと「迷惑メッセージ」に移動し、新しいメッセージは通知なしでそこに届きます。メッセージは削除されません。</string>
     <string name="thread_report_spam_confirm">迷惑メッセージを報告</string>
     <string name="thread_report_spam_cancel">キャンセル</string>
-    <string name="thread_report_spam_done">迷惑メッセージを報告しました。</string>
     <string name="thread_report_spam_rule_note">迷惑メッセージとして報告済み</string>
-    <string name="thread_report_spam_already">すでに迷惑メッセージとして報告済みです。</string>
-    <string name="thread_report_spam_failed">迷惑メッセージを報告できませんでした。</string>
     <string name="thread_report_spam_undo">元に戻す</string>
 </resources>

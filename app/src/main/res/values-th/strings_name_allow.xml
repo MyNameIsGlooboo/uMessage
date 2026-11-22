@@ -5,5 +5,4 @@
     <string name="nameallow_body_many">ใครก็ส่งข้อความโดยใช้ชื่อเหล่านี้ได้: %1$s อนุญาตชื่อเหล่านี้และย้ายแชตไปที่ \"ข้อความ\" ไหม</string>
     <string name="nameallow_more">%1$s และอีก %2$d ชื่อ</string>
     <string name="nameallow_allow">อนุญาตเสมอ</string>
-    <string name="nameallow_not_now">ไว้ทีหลัง</string>
 </resources>

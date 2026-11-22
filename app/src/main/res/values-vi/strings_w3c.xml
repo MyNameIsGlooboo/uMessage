@@ -12,10 +12,7 @@
     <string name="w3c_checklist_step_done">Xong</string>
     <string name="w3c_checklist_action_set">Thiết lập</string>
     <string name="w3c_checklist_action_open">Mở</string>
-    <string name="w3c_receipt_title">Tin nhắn rác bị giữ lại: nhấn để xem lại</string>
-    <string name="w3c_receipt_body">Một tin nhắn từ người gửi không xác định đã bị giữ lại trong Tin rác. Tin nhắn không bị mất: bạn có thể xem lại và khôi phục bất cứ lúc nào.</string>
     <string name="w3c_receipt_review">Xem lại</string>
-    <string name="w3c_receipt_got_it">Đã hiểu</string>
     <string name="w3c_new_paste">Dán số</string>
     <string name="w3c_new_paste_none">Không có số điện thoại trong bảng nhớ tạm</string>
     <string name="w3c_details_allow_spoof_hint">Bất kỳ ai cũng có thể gửi tin nhắn dưới tên này, nên những tin nhắn đó cũng được cho phép</string>

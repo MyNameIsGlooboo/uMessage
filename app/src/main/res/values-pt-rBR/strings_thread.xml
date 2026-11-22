@@ -26,7 +26,6 @@
     <string name="thread_unblock_done">Desbloqueado. A conversa voltou para Mensagens</string>
     <string name="thread_unblock_done_system">Desbloqueado no uMessage. Este número também está na lista de bloqueio do celular, então o Android ainda bloqueia as mensagens dele</string>
     <string name="thread_unblock_done_filtered">Desbloqueado. Continua em Spam porque o remetente é desconhecido.</string>
-    <string name="thread_unblock_always_allow">Permita sempre</string>
     <string name="thread_always_allow_done">Sempre permitido. A conversa está em Mensagens</string>
     <string name="thread_always_allow_failed">Não foi possível permitir este número</string>
     <string name="thread_unblock_failed">Não foi possível desbloquear este número</string>

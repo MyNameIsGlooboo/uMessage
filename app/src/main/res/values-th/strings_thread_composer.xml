@@ -9,9 +9,6 @@
     <string name="thread_report_spam_message">แชตทั้งหมดกับ %1$s จะย้ายไปที่ \"สแปม\" และข้อความใหม่จะเข้ามาที่นั่นแบบเงียบๆ ไม่มีข้อความใดถูกลบ</string>
     <string name="thread_report_spam_confirm">ทำเครื่องหมายว่าเป็นสแปม</string>
     <string name="thread_report_spam_cancel">ยกเลิก</string>
-    <string name="thread_report_spam_done">ทำเครื่องหมายว่าเป็นสแปมแล้ว</string>
     <string name="thread_report_spam_rule_note">รายงานสแปมแล้ว</string>
-    <string name="thread_report_spam_already">ทำเครื่องหมายว่าเป็นสแปมไว้แล้ว</string>
-    <string name="thread_report_spam_failed">ทำเครื่องหมายว่าเป็นสแปมไม่ได้</string>
     <string name="thread_report_spam_undo">เลิกทำ</string>
 </resources>

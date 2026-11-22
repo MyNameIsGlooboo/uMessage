@@ -90,15 +90,6 @@
     </plurals>
     <string name="spam_settings_unknown_title">垃圾短信过滤</string>
     <string name="spam_settings_unknown_body">未知发件人是指不在你的联系人和已允许列表中的发件人。其整个会话会静默进入“垃圾短信”。你发过短信的人和发送验证码的发件人留在“消息”中。</string>
-    <string name="spam_mode_strict">严格</string>
-    <string name="spam_mode_strict_body">屏蔽所有未知发件人的消息，包括验证码</string>
-    <string name="spam_mode_smart">智能</string>
-    <string name="spam_mode_smart_body">屏蔽未知发件人的消息，允许仅含验证码的消息</string>
-    <string name="spam_mode_off">关闭</string>
-    <string name="spam_mode_off_body">不屏蔽未知发件人</string>
-    <string name="spam_strict_warning_title">严格模式可能隐藏重要消息</string>
-    <string name="spam_strict_warning_body">银行、快递公司的消息和一次性验证码通常来自联系人以外的发件人。在严格模式下，这些消息都会进入“垃圾短信”文件夹，包括验证码。选择智能模式可允许验证码通过，也可将这些发件人设为允许。</string>
-    <string name="spam_strict_warning_action">查看垃圾短信</string>
     <string name="spam_settings_cleanup_title">清理</string>
     <string name="spam_purge_body">选择天数之前保持关闭</string>
     <string name="spam_purge_days">%d天</string>
