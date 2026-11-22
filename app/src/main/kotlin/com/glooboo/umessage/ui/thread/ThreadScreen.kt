@@ -359,7 +359,7 @@ private fun ThreadTopBar(vm: ThreadViewModel, actions: ThreadActions, scrollBeha
                     Icon(Symbols.Call, contentDescription = stringResource(R.string.thread_call))
                 }
             }
-            ThreadOverflowMenu(menu, actions.onMenuAction)
+            ThreadOverflowMenu(menu, vm.windowsClosed, actions.onMenuAction)
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = colors.background,
@@ -446,8 +446,9 @@ private fun ThreadStatusChip(status: SenderStatus) {
 }
 
 @Composable
-private fun OverflowMenu(content: @Composable (close: () -> Unit) -> Unit) {
-    var open by remember { mutableStateOf(false) }
+private fun OverflowMenu(windowsClosed: Int, content: @Composable (close: () -> Unit) -> Unit) {
+    // K2-6, J5-3: a new [windowsClosed] closes the menu (ThreadViewModel.closeWindows).
+    var open by remember(windowsClosed) { mutableStateOf(false) }
     Box {
         IconButton(onClick = { open = true }) {
             Icon(Symbols.MoreVert, contentDescription = stringResource(R.string.thread_more_options))
@@ -527,7 +528,7 @@ private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions) {
             IconButton(onClick = { actions.onSelectionAction(SelectionAction.Delete) }) {
                 Icon(Symbols.Delete, contentDescription = stringResource(R.string.thread_action_delete))
             }
-            OverflowMenu { close ->
+            OverflowMenu(vm.windowsClosed) { close ->
                 // TH-11, TH-12: what uMessage does with this sender first, then the message itself.
                 val senderEntries = listOf(
                     Triple(menu.allowSender, R.string.w2b2_thread_menu_allow, ThreadMenuAction.AllowSender),

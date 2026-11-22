@@ -88,6 +88,45 @@ class ThreadMessagesRepositoryTest {
         assertThat(repository.current.map { it.id }).containsExactly(7L)
     }
 
+    /** K2-2 (6): an empty page that the old chat's paging asked for does not mark the new chat as fully loaded. */
+    @Test
+    fun anOldEmptyPageDoesNotEndTheNewChatsPaging() {
+        val source = FakeSource().apply { hasOlder = false }
+        val repository = ThreadMessagesRepository(source) { now }
+        val oldChat = repository.generation
+
+        repository.reset()
+        repository.fetchOlder(THREAD, cutoff = 10, expected = oldChat)
+
+        assertThat(repository.allFetched).isFalse()
+    }
+
+    /** J5-4: a message the old chat made (a scheduled one) is not shown in a chat loaded in place meanwhile. */
+    @Test
+    fun anUpsertForTheOldChatIsDropped() {
+        val repository = ThreadMessagesRepository(FakeSource()) { now }
+        val oldChat = repository.generation
+
+        repository.reset()
+
+        assertThat(repository.upsert(message(9, 90), oldChat)).isNull()
+        assertThat(repository.current).isEmpty()
+        assertThat(repository.upsert(message(9, 90))).isNotNull()
+    }
+
+    /** J5-4: the fields cleared with the reset are cleared before the new generation can be read. */
+    @Test
+    fun theResetClearsTheFieldsBeforeTheNewGenerationShows() {
+        val repository = ThreadMessagesRepository(FakeSource()) { now }
+        val before = repository.generation
+        var seenGeneration = -1
+
+        repository.reset { seenGeneration = repository.generation }
+
+        assertThat(seenGeneration).isEqualTo(before)
+        assertThat(repository.isStale(before)).isTrue()
+    }
+
     /** M-UI3: a screen field write for a chat that another one replaced in between is not done. */
     @Test
     fun aWriteAfterAnotherChatOpenedIsNotDone() {

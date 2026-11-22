@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.provider.Telephony
 import android.util.Log
@@ -36,6 +37,7 @@ import org.fossify.commons.extensions.normalizeString
 import org.fossify.commons.extensions.notificationManager
 import org.fossify.commons.extensions.showErrorToast
 import org.fossify.commons.extensions.toast
+import org.fossify.commons.helpers.AppLockManager
 import org.fossify.commons.helpers.MyContactsContentProvider
 import org.fossify.commons.helpers.PERMISSION_READ_PHONE_STATE
 import org.fossify.commons.helpers.ensureBackgroundThread
@@ -263,8 +265,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
     /** The stored draft is put back once each time a chat is opened; see [DraftText.restore]. */
     private var draftRestored = false
 
-    /** K2-6: the screen is being left for a picker or camera of its own ([launchForResult]); its sheets stay. */
-    private var leftForOwnScreen = false
+    /**
+     * K2-6, J5-2: when a picker or camera of the chat's own was opened ([launchForResult]), or [NO_TIME]. A pause
+     * soon after is that trip, and the sheets stay; a permission prompt that never opened does not excuse a later exit.
+     */
+    private var ownScreenAskedMs = NO_TIME
 
     /** K2-6: the message field had the focus when the chat was left under the app lock; it gets it back after. */
     private var refocusComposer = false
@@ -501,15 +506,20 @@ open class ThreadActivity : ComposeSimpleActivity() {
     private fun resetForNewConversation() {
         AudioPlayerManager.release()
         // M-UI3: first, so a load still running for the old chat stops before it writes into the fields below.
-        repository.reset()
-        conversation = null
-        recipients = ThreadRecipients()
+        // J5-4: the old chat's conversation and people are cleared before the new generation can be read.
+        repository.reset {
+            conversation = null
+            recipients = ThreadRecipients()
+        }
         privateContacts = ArrayList()
         lookups.clear()
         threadItems = emptyList()
         refreshedSinceSent = false
         isJumpingToMessage = false
         isGroupMessageConfirmationVisible = false
+        // J5-5: the old chat's sheets and dialogs go too; a delete question confirmed later would act on this chat.
+        vm.closeWindows()
+        LockedLeave.closeHostedDialogs(this)
         resend.clear()
         vm.clearSchedule()
         vm.clearSelection()
@@ -581,7 +591,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
     }
 
     override fun onResume() {
+        closeWindowsIfLocked()
         super.onResume()
+        ownScreenAskedMs = NO_TIME
         hiddenGate.check()
         spamGate.check()
         // A contact may have been added meanwhile: the chat line is worked out again.
@@ -678,9 +690,23 @@ open class ThreadActivity : ComposeSimpleActivity() {
      * hide their windows. Done on pause, while the screen still recomposes, so none is left to show on the way back.
      */
     private fun leaveUnderLock() {
-        val ownTrip = leftForOwnScreen
-        leftForOwnScreen = false
+        val asked = ownScreenAskedMs
+        ownScreenAskedMs = NO_TIME
+        val ownTrip = asked != NO_TIME && SystemClock.elapsedRealtime() - asked in 0..AppLockManager.OWN_TRIP_START_MS
         if (!LockedLeave.closesWindows(this, ownTrip)) return
+        closeWindows()
+    }
+
+    /**
+     * K2-6, J5-1: back under the lock, the windows are closed before anything draws. This catches what a trip of the
+     * chat's own left open (a permission prompt, then the screen went off; a camera trip past the lock's limit).
+     */
+    private fun closeWindowsIfLocked() {
+        if (LockScope.isLockedNow(this)) closeWindows()
+    }
+
+    /** Closes the chat's sheets, menus and dialogs; a focused message field is given its focus back after unlock. */
+    private fun closeWindows() {
         // Hiding the content under the lock takes the focus from the field: it is given back after the unlock.
         if (vm.composerFocused) refocusComposer = true
         vm.closeWindows()
@@ -981,8 +1007,12 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 if (numbers.isEmpty()) {
                     // No messages, no participants known to the phone and no number in the intent: nothing to write to.
                     Log.w("ThreadActivity", "Chat opened without a conversation, participants or number")
-                    toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
-                    finish()
+                    // J5-4: decided on the main thread, where another chat's reset runs, so the check is exact.
+                    runOnUiThread {
+                        if (stale()) return@runOnUiThread
+                        toast(R.string.new_conversation_invalid_number, length = Toast.LENGTH_LONG)
+                        finish()
+                    }
                     return@ensureBackgroundThread
                 }
                 val fromIntent = ThreadRecipients.fromNumbers(numbers, name)
@@ -1483,7 +1513,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // The picker or camera the user opened here is not leaving the app: coming back does not lock it again.
             appLockManager.allowOwnTrip()
             launcher.launch(input)
-            leftForOwnScreen = true
+            ownScreenAskedMs = SystemClock.elapsedRealtime()
         } catch (e: ActivityNotFoundException) {
             showErrorToast(getString(error))
         } catch (e: Exception) {
@@ -1631,10 +1661,11 @@ open class ThreadActivity : ComposeSimpleActivity() {
         ensureBackgroundThread {
             try {
                 val message = scheduleController.save(pickedMessage, startsTemporaryThread, savedConversation, repeat)
-                val current = repository.ifCurrent(generation) {
+                repository.ifCurrent(generation) {
                     if (startsTemporaryThread) threadId = message.threadId
                 }
-                if (current) insertOrUpdateMessage(message) else messagesDB.insertOrUpdate(message)
+                // Saved in any case; shown only in the chat it was scheduled in (J5-4).
+                insertOrUpdateMessage(message, generation)
 
                 runOnUiThread {
                     if (repository.isStale(generation)) return@runOnUiThread
@@ -1733,15 +1764,17 @@ open class ThreadActivity : ComposeSimpleActivity() {
         updateMessageType()
     }
 
-    private fun insertOrUpdateMessage(message: Message) {
-        repository.upsert(message)
-
-        val newItems = getThreadItems()
-        runOnUiThread {
-            publishItems(newItems)
-            vm.scrollToBottom()
-            if (!refreshedSinceSent) {
-                refreshMessages()
+    /** Saves [message] and shows it, unless another chat was loaded in place since [expected] (M-UI3, J5-4). */
+    private fun insertOrUpdateMessage(message: Message, expected: Int = repository.generation) {
+        if (repository.upsert(message, expected) != null) {
+            val newItems = getThreadItems()
+            runOnUiThread {
+                if (repository.isStale(expected)) return@runOnUiThread
+                publishItems(newItems)
+                vm.scrollToBottom()
+                if (!refreshedSinceSent) {
+                    refreshMessages()
+                }
             }
         }
         messagesDB.insertOrUpdate(message)
@@ -1968,6 +2001,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     companion object {
         private const val JUMP_RETRY_MS = 300L
+        private const val NO_TIME = -1L
         /** Boolean extra: open the "Search in conversation" bar (TH-20), for example from Conversation details. */
         const val EXTRA_OPEN_SEARCH = "com.glooboo.spamless.extra.OPEN_THREAD_SEARCH"
     }

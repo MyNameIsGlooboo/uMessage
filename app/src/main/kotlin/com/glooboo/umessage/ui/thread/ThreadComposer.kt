@@ -565,7 +565,8 @@ private fun EmojiPanel(onEmoji: (String) -> Unit) {
 @Composable
 private fun SendButton(vm: ThreadViewModel, actions: ThreadActions, scheduling: Boolean) {
     val colors = MaterialTheme.colorScheme
-    var simMenu by remember { mutableStateOf(false) }
+    // K2-6, J5-3: closed with the chat's other windows; the menu shows the SIM names.
+    var simMenu by remember(vm.windowsClosed) { mutableStateOf(false) }
     val dualSim = vm.sims.size > 1
     val simId = vm.sims.getOrNull(vm.simIndex)?.id
     val sendLabel = stringResource(if (scheduling) R.string.thread_send_scheduled else R.string.thread_send)

@@ -34,9 +34,10 @@ class ThreadMessageList {
     var generation = 0
         private set
 
-    /** Empties the list for another chat; changes begun before this are dropped. */
-    fun clear() {
+    /** Empties the list for another chat; changes begun before this are dropped. [beforeBump] runs first, locked. */
+    fun clear(beforeBump: () -> Unit = {}) {
         synchronized(lock) {
+            beforeBump()
             generation++
             current = emptyList()
         }

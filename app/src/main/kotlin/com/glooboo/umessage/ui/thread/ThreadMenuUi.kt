@@ -41,11 +41,12 @@ import com.glooboo.umessage.ui.icons.Symbols
  * entries in groups. Every pick goes to [onAction] once the menu or sheet is closed.
  */
 @Composable
-internal fun ThreadOverflowMenu(menu: ThreadMenuState, onAction: (ThreadMenuAction) -> Unit) {
+internal fun ThreadOverflowMenu(menu: ThreadMenuState, windowsClosed: Int, onAction: (ThreadMenuAction) -> Unit) {
     val layout = remember(menu) { layoutThreadMenu(menu) }
     val errorColor = MaterialTheme.colorScheme.error
-    var open by remember { mutableStateOf(false) }
-    var sheetOpen by remember { mutableStateOf(false) }
+    // K2-6, J5-3: a new [windowsClosed] closes the menu and the sheet (ThreadViewModel.closeWindows).
+    var open by remember(windowsClosed) { mutableStateOf(false) }
+    var sheetOpen by remember(windowsClosed) { mutableStateOf(false) }
     Box {
         IconButton(onClick = { open = true }) {
             Icon(Symbols.MoreVert, contentDescription = stringResource(R.string.thread_more_options))

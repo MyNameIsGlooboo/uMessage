@@ -78,7 +78,8 @@ private fun SmartReplyRow(vm: ThreadViewModel, modifier: Modifier = Modifier) {
         matcher?.let { suggestionFor(vm, it, language, inSpam) }
     }
     var hiddenFor by rememberSaveable { mutableStateOf<Long?>(null) }
-    var confirming by rememberSaveable { mutableStateOf<String?>(null) }
+    // K2-6, J5-3: closed with the chat's other windows (leaving under the app lock, another chat loaded in place).
+    var confirming by rememberSaveable(vm.windowsClosed) { mutableStateOf<String?>(null) }
     confirming?.let { reply ->
         ReplyAllowsConfirm(
             onSend = {
