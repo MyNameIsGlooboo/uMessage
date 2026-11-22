@@ -115,8 +115,9 @@ internal class MmsDownloadFailure(
         // A failed history check leaves only a block rule (history never allows a blocked sender, as E-11).
         val cause = if (historyChecked) probed else probed.takeIf { it == SpamCause.BLOCKED }
         val ruleId = (decision as? FilterDecision.Block)?.ruleId?.takeIf { cause != null }
-        val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId) ?: return null
-        return Kept(message, decision, inSpam)
+        return IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId)?.let { inSpam ->
+            Kept(message, decision, inSpam)
+        }
     }
 
     /** E-13: one row for the failed MMS, with the place it got: BLOCK in Spam, DELIVER in Messages. */
