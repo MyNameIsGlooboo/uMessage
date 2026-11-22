@@ -89,7 +89,7 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
             groupUri?.let { messageIdOf(it) }?.let { context.messagesDB.updateType(it, isMMS = false, type = type) }
         }
         refreshMessages()
-        refreshConversations()
+        refreshChats(context, intent.data, groupUri)
         // Once per message, however many of its parts failed.
         if (outcome == SentParts.Outcome.FAILED_FIRST) {
             runCatching { logFailedForward(context, intent) }
@@ -104,6 +104,22 @@ class SmsStatusSentReceiver : SendStatusReceiver() {
         this == SentParts.Outcome.FAILED_FIRST || this == SentParts.Outcome.FAILED_AGAIN
 
     private fun groupRowUri(intent: Intent): Uri? = intent.getStringExtra(EXTRA_GROUP_ROW_URI)?.toUri()
+
+    /**
+     * J2-4, J2-5: the chats of the sent row and of a group text's summary row only. A first text to a new number has
+     * no saved row yet; the list reads that one thread from the store, at once and also while the list is away. When
+     * neither thread can be read, a full pass as before.
+     */
+    private fun refreshChats(context: Context, messageUri: Uri?, groupUri: Uri?) {
+        val threads = listOfNotNull(messageUri, groupUri).mapNotNull { threadIdOf(context, it) }.distinct()
+        if (threads.isEmpty()) refreshConversations() else threads.forEach { refreshConversations(it) }
+    }
+
+    private fun threadIdOf(context: Context, uri: Uri): Long? = runCatching {
+        context.contentResolver.query(uri, arrayOf(Sms.THREAD_ID), null, null, null)?.use {
+            if (it.moveToFirst()) it.getLong(0) else null
+        }
+    }.getOrNull()?.takeIf { it > 0 }
 
     /** The chat the notification is about: a group text's own chat, else the chat of the recipient's copy. */
     private fun threadOf(context: Context, messageId: Long, groupUri: Uri?): Long? {

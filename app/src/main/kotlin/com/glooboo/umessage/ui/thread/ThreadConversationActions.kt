@@ -100,7 +100,8 @@ class ThreadConversationActions(
             activity.markThreadMessagesUnread(thread)
             activity.runOnUiThread {
                 activity.finish()
-                EventBus.getDefault().post(Events.RefreshConversations())
+                // J2-4: the saved row is marked unread already; only this chat is shown again.
+                EventBus.getDefault().post(Events.RefreshConversations(thread))
             }
         }
     }

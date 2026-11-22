@@ -14,6 +14,7 @@
     <string name="export_conv_preparing">Preparing the file…</string>
     <string name="export_conv_nothing">There are no messages in that range</string>
     <string name="export_conv_failed">The file could not be made</string>
+    <string name="export_conv_stopped">Export stopped</string>
     <string name="export_conv_subject">Conversation export</string>
     <string name="export_conv_share_text">Conversation with %1$s, %2$s. SHA-256 of the message text: %3$s</string>
     <string name="export_conv_attachment_label">[Attachment]</string>

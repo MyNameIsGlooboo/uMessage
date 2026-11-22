@@ -78,6 +78,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     private var noteThreads: Set<Long> = emptySet()
 
     private var firstRowsLogged = false
+
+    /** R2-1: the [ListTiming.marks] of the last list handed to [submit] by the sync; -1 for none. */
+    private var submittedAt = -1
+
     private val blockedSeenAt = MutableStateFlow(0L)
     private var archiveAvailable = true
     private var hasData = false
@@ -127,8 +131,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
                     source, extras.drafts, extras.sims, selected, hidden.toSet(),
                     Status(newBlockedCount, archiveAvailable, hasData, importing, confirmDeleteIds.size),
                 )
+                val publishedAt = submittedAt
                 _state.value = withContext(Dispatchers.Default) { build(snapshot) }
-                logFirstRows()
+                logFirstRows(publishedAt)
             }
         }
         observeBlockedCount()
@@ -141,9 +146,9 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     /** J2: one timing line when the list first has rows to draw (counts and milliseconds only). */
-    private fun logFirstRows() {
+    private fun logFirstRows(publishedAt: Int) {
         val rows = _state.value.rows.size
-        ListTiming.rowsBuilt(app, rows)
+        ListTiming.rowsBuilt(app, rows, publishedAt)
         if (firstRowsLogged || rows == 0) return
         firstRowsLogged = true
         ListTiming.line(app) { "first rows ready: $rows rows, process up ${ListTiming.sinceProcessStart()} ms" }
@@ -233,7 +238,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /** Lives as long as this view model, so a rotated screen keeps it and does not read every thread again. */
     private val sync = ConversationListSync(app, syncExecutor, publish = { conversations, cached ->
+        // R2-1: read when the list is handed on, so the rows-built line times only a list published after the mark.
+        val publishedAt = ListTiming.marks()
         viewModelScope.launch(Dispatchers.Main) {
+            submittedAt = publishedAt
             submit(conversations, cached, firstRun = app.config.appRunCount == 1)
         }
     }).also { it.quickExecutor = quickExecutor }
@@ -252,9 +260,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /**
      * A refresh event: one chat when [threadId] is given (never a full pass), else every thread. J2: while the list is
-     * away ([syncLeft]) a full pass waits until it is shown again, and many become one.
+     * away ([syncLeft]) a full pass waits until it is shown again, and many become one, unless the event is [urgent].
      */
-    fun syncChanged(threadId: Long?) = if (threadId != null) sync.requestThread(threadId) else sync.requestFull()
+    fun syncChanged(threadId: Long?, urgent: Boolean = false) =
+        if (threadId != null) sync.requestThread(threadId) else sync.requestFull(urgent)
 
     /** The screen came back: chats with newer saved messages move up. */
     fun syncResumed() {

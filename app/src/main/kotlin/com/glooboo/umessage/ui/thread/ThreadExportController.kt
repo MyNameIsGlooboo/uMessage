@@ -9,13 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.glooboo.umessage.R
 import com.glooboo.umessage.export.ConversationExportJob
 import com.glooboo.umessage.ui.components.showComposeDialog
@@ -35,37 +37,47 @@ class ThreadExportController(
     private val numbers: () -> List<String>,
     /** Shows a short note to the user (a snackbar). */
     private val showMessage: (String) -> Unit,
+    /** Builds the file; tests pass their own. */
+    private val runJob: (ExportRun, ThreadExportOptions) -> ConversationExportJob.Result = { run, options ->
+        ConversationExportJob(activity)
+            .run(run.threadId, run.title, run.numbers, options.format, options.range, run.cancelled::get)
+    },
 ) {
-    private var progressDone by mutableStateOf(false)
-
-    fun start() {
-        ThreadExportSheet(activity, ::export)
+    /**
+     * One export, from the tap to its end. J5-10: each has its own [done], so an export still winding down never
+     * closes the progress of a later one; [stoppedByLeave] when its dialog was closed by the chat, not by Cancel.
+     */
+    class ExportRun(val threadId: Long, val title: String, val numbers: List<String>) {
+        val cancelled = AtomicBoolean(false)
+        val stoppedByLeave = AtomicBoolean(false)
+        internal val done: MutableState<Boolean> = mutableStateOf(false)
     }
 
-    private fun export(options: ThreadExportOptions) {
-        val cancelled = AtomicBoolean(false)
-        progressDone = false
-        showProgress(cancelled)
-        val id = threadId()
-        val name = title()
-        val phoneNumbers = numbers()
+    fun start() {
+        ThreadExportSheet(activity) { export(it) }
+    }
+
+    internal fun export(options: ThreadExportOptions): ExportRun {
+        val run = ExportRun(threadId(), title(), numbers())
+        showProgress(run)
         ensureBackgroundThread {
             val result = try {
-                ConversationExportJob(activity)
-                    .run(id, name, phoneNumbers, options.format, options.range, cancelled::get)
+                runJob(run, options)
             } catch (_: Exception) {
                 null
             }
             activity.runOnUiThread {
-                progressDone = true
-                finish(result, cancelled.get())
+                run.done.value = true
+                finish(result, run)
             }
         }
+        return run
     }
 
-    private fun finish(result: ConversationExportJob.Result?, cancelled: Boolean) {
+    private fun finish(result: ConversationExportJob.Result?, run: ExportRun) {
         when {
-            cancelled || result is ConversationExportJob.Result.Cancelled -> Unit
+            run.stoppedByLeave.get() -> whenBack { showMessage(activity.getString(R.string.export_conv_stopped)) }
+            run.cancelled.get() || result is ConversationExportJob.Result.Cancelled -> Unit
             result == null -> showMessage(activity.getString(R.string.export_conv_failed))
             result is ConversationExportJob.Result.Empty ->
                 showMessage(activity.getString(R.string.export_conv_nothing))
@@ -92,12 +104,31 @@ class ThreadExportController(
         com.glooboo.umessage.helpers.CacheCleanup.deleteAfterShare(done.file)
     }
 
-    private fun showProgress(cancelled: AtomicBoolean) {
+    /** J5-10: a stopped export is told about once the chat is in front again, not while it is away. */
+    private fun whenBack(block: () -> Unit) {
+        val lifecycle = activity.lifecycle
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            block()
+            return
+        }
+        lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onResume(owner: LifecycleOwner) {
+                owner.lifecycle.removeObserver(this)
+                block()
+            }
+        })
+    }
+
+    private fun showProgress(run: ExportRun) {
+        val cancelled = run.cancelled
         activity.showComposeDialog { dismiss ->
-            LaunchedEffect(progressDone) { if (progressDone) dismiss() }
+            val done = run.done.value
+            LaunchedEffect(done) { if (done) dismiss() }
             // K2-6: closed before the export ended (the chat left under the app lock, or another chat loaded in
-            // place): the export stops, so no share sheet opens later on its own.
-            DisposableEffect(Unit) { onDispose { if (!progressDone) cancelled.set(true) } }
+            // place): the export stops, so no share sheet opens later on its own. Cancel set the mark first.
+            DisposableEffect(Unit) {
+                onDispose { if (!run.done.value && !cancelled.getAndSet(true)) run.stoppedByLeave.set(true) }
+            }
             AlertDialog(
                 onDismissRequest = {},
                 title = { Text(stringResource(R.string.export_conv_title)) },

@@ -98,6 +98,10 @@ class MessagesImporter(
                 // Provider truth (3.5): restored rules, members and sent texts change who is known; nothing with the
                 // flag off.
                 FirstRun.request(context, FirstRunTrigger.RESTORE)
+            } else if (summary.appDataRestored > 0) {
+                // Archived chats and recycle-bin names waiting for their rows (PendingArchive, PendingRecycled): the
+                // full pass that applies them is not held while the list is out of sight either.
+                ConversationListSync.refreshNow()
             }
         }
         return summary

@@ -27,9 +27,14 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
+import com.glooboo.umessage.export.ConversationExportJob.Result
+import com.glooboo.umessage.export.ConversationFileFormat
+import com.glooboo.umessage.export.ExportRange
+import com.glooboo.umessage.helpers.HiddenChats
 import com.glooboo.umessage.helpers.HiddenChatsSession
 import com.glooboo.umessage.helpers.THREAD_ID
 import com.glooboo.umessage.helpers.THREAD_NUMBER
+import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.FakeTelephonyProvider
@@ -39,11 +44,15 @@ import com.glooboo.umessage.ui.lock.LockScope
 import com.glooboo.umessage.ui.lock.LockTestApp
 import com.glooboo.umessage.ui.thread.AttachKind
 import com.glooboo.umessage.ui.thread.TapbackKind
+import com.glooboo.umessage.ui.thread.ThreadExportController
+import com.glooboo.umessage.ui.thread.ThreadExportOptions
 import com.glooboo.umessage.ui.thread.ThreadViewModel
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.appLockManager
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.helpers.AppLockManager
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -55,6 +64,10 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowDialog
 import org.robolectric.shadows.ShadowLooper
 import java.time.Duration
+import java.util.Collections
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /**
  * K2-6: the app lock hides the chat's content view while the lock screen is asked for (M-SEC1), but a sheet, menu or
@@ -93,6 +106,8 @@ class ThreadLockWindowsTest {
 
     @After
     fun tearDown() {
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
+        exportGates.values.forEach { it.countDown() }
         runCatching { scenario?.close() }
         app.baseConfig.isAppPasswordProtectionOn = false
         LockScope.set(app, LockScope.WholeApp)
@@ -281,6 +296,123 @@ class ThreadLockWindowsTest {
 
         assertThat(contentVisible()).isTrue()
         compose.onNode(hasSetTextAction()).assertIsFocused()
+    }
+
+    /** J5-9: a hidden chat locked again after a picker trip covers itself, and what the trip kept open closes too. */
+    @Test
+    fun aHiddenChatLockedAgainAfterAPickerTripClosesWhatItKeptOpen() {
+        HiddenChats.get(app).hide(THREAD)
+        HiddenChatsSession.unlock()
+        openChat()
+        vm().pendingLink = LINK
+        attach(AttachKind.File)
+        scenario!!.moveToState(Lifecycle.State.CREATED)
+        assertThat(vm().pendingLink).isEqualTo(LINK)
+
+        // "Lock immediately": the hidden chats lock again on every trip out, the chat's own ones too.
+        HiddenChatsSession.reset()
+        scenario!!.moveToState(Lifecycle.State.RESUMED)
+
+        assertThat(vm().pendingLink).isNull()
+        assertThat(contentVisible()).isFalse()
+    }
+
+    /** J2-4: leaving the chat asks the list for this chat only, never for a full pass. */
+    @Test
+    fun leavingTheChatRefreshesItsOwnRowOnly() {
+        app.baseConfig.isAppPasswordProtectionOn = false
+        openChat()
+        EventBus.getDefault().register(this)
+
+        scenario!!.moveToState(Lifecycle.State.STARTED)
+        ShadowLooper.idleMainLooper()
+
+        assertThat(listRefreshes).isNotEmpty()
+        assertThat(listRefreshes.toSet()).containsExactly(THREAD)
+    }
+
+    /** J5-10: an export whose dialog the leave closed stops, and says so once the chat is back. */
+    @Test
+    fun anExportStoppedByALeaveSaysSoOnTheWayBack() {
+        openChat()
+        val shown = Collections.synchronizedList(ArrayList<String>())
+        val export = exportController(shown)
+        val run = startExport(export, "first")
+        assertThat(dialogHosts()).isEqualTo(1)
+
+        scenario!!.moveToState(Lifecycle.State.STARTED)
+        assertThat(run.cancelled.get()).isTrue()
+        exportGates.getValue("first").countDown()
+        assertThat(idleUntil { run.done.value }).isTrue()
+        assertThat(shown).isEmpty()
+
+        scenario!!.moveToState(Lifecycle.State.RESUMED)
+        ShadowLooper.idleMainLooper()
+
+        assertThat(shown).containsExactly(app.getString(R.string.export_conv_stopped))
+    }
+
+    /** J5-10: an earlier export that ends late leaves the progress and the Cancel button of a later one alone. */
+    @Test
+    fun anEarlierExportEndingLateLeavesTheNextOneRunning() {
+        openChat()
+        val export = exportController(Collections.synchronizedList(ArrayList()))
+        val first = startExport(export, "first")
+        scenario!!.moveToState(Lifecycle.State.STARTED)
+        scenario!!.moveToState(Lifecycle.State.RESUMED)
+        val second = startExport(export, "second")
+
+        exportGates.getValue("first").countDown()
+        assertThat(idleUntil { first.done.value }).isTrue()
+        compose.waitForIdle()
+
+        assertThat(dialogHosts()).isEqualTo(1)
+        assertThat(second.cancelled.get()).isFalse()
+        exportGates.getValue("second").countDown()
+        assertThat(idleUntil { second.done.value }).isTrue()
+    }
+
+    private val listRefreshes = Collections.synchronizedList(ArrayList<Long?>())
+
+    /** Every conversation list refresh asked for; the bus calls it on the posting thread. */
+    @Subscribe
+    fun onRefreshConversations(event: Events.RefreshConversations) {
+        listRefreshes += event.threadId
+    }
+
+    /** Each export waits for its own gate, by the title it was started with. */
+    private val exportGates = ConcurrentHashMap<String, CountDownLatch>()
+
+    private var exportTitle = ""
+
+    private fun exportController(shown: MutableList<String>): ThreadExportController {
+        lateinit var controller: ThreadExportController
+        scenario!!.onActivity { screen ->
+            controller = ThreadExportController(
+                activity = screen,
+                threadId = { THREAD },
+                title = { exportTitle },
+                numbers = { listOf(SENDER) },
+                showMessage = { shown += it },
+                runJob = { run, _ ->
+                    exportGates.getValue(run.title).await(WAIT_MS, TimeUnit.MILLISECONDS)
+                    if (run.cancelled.get()) Result.Cancelled else Result.Empty
+                },
+            )
+        }
+        return controller
+    }
+
+    private fun startExport(export: ThreadExportController, title: String): ThreadExportController.ExportRun {
+        exportTitle = title
+        exportGates[title] = CountDownLatch(1)
+        lateinit var run: ThreadExportController.ExportRun
+        scenario!!.onActivity {
+            run = export.export(ThreadExportOptions(ConversationFileFormat.TEXT, ExportRange.All))
+        }
+        ShadowLooper.idleMainLooper()
+        compose.waitForIdle()
+        return run
     }
 
     private fun receive(thread: Long, address: String, body: String, ageMs: Long = 60_000L) {

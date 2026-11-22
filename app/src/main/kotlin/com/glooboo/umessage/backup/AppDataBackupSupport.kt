@@ -7,7 +7,6 @@ import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.getMessagesDB
 import com.glooboo.umessage.extensions.getThreadParticipants
 import com.glooboo.umessage.extensions.updateConversationArchivedStatus
-import com.glooboo.umessage.helpers.ConversationListSync
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.StarredMessages
 import com.glooboo.umessage.interfaces.ConversationsDao
@@ -186,8 +185,6 @@ class PendingArchive(context: Context) {
 
     fun add(threadId: Long) {
         prefs.edit { putStringSet(KEY, ids() + threadId.toString()) }
-        // J2: the full pass that applies this is not held while the main list is out of sight.
-        ConversationListSync.markUrgent()
     }
 
     /**

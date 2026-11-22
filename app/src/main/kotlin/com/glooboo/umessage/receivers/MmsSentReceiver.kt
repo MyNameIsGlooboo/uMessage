@@ -78,7 +78,10 @@ class MmsSentReceiver : SendStatusReceiver() {
 
     override fun updateAppDatabase(context: Context, intent: Intent, receiverResultCode: Int) {
         refreshMessages()
-        refreshConversations()
+        // J2-4, J2-5: this chat only. A first text to a new number has no saved row yet; the list reads that one
+        // thread from the store, at once and also while the list is away. Unknown thread: a full pass, as before.
+        val uri = intent.getStringExtra(EXTRA_CONTENT_URI)?.toUri()
+        refreshConversations(uri?.let { threadIdOf(context, it) }?.takeIf { it > 0 })
     }
 
     /** Like a failed SMS: the toast is easy to miss after leaving the app, so a notification says it too. */

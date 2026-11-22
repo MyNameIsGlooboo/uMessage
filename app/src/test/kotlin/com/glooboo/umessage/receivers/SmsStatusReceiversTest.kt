@@ -10,14 +10,18 @@ import android.telephony.SmsManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.messaging.SentParts
+import com.glooboo.umessage.models.Events
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.google.common.truth.Truth.assertThat
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.Collections
 
 @RunWith(AndroidJUnit4::class)
 class SmsStatusReceiversTest {
@@ -31,14 +35,29 @@ class SmsStatusReceiversTest {
     }
 
     @After
-    fun tearDown() = resetSharedMessagesDatabase()
+    fun tearDown() {
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
+        resetSharedMessagesDatabase()
+    }
 
-    private fun insertOutboxRow(): Uri = context.contentResolver.insert(Sms.CONTENT_URI, ContentValues().apply {
-        put(Sms.ADDRESS, "111")
-        put(Sms.BODY, "long Persian text")
-        put(Sms.DATE, System.currentTimeMillis())
-        put(Sms.TYPE, Sms.MESSAGE_TYPE_OUTBOX)
-    })!!
+    private val listRefreshes = Collections.synchronizedList(ArrayList<Long?>())
+
+    /** Every conversation list refresh asked for; the bus calls it on the posting thread. */
+    @Subscribe
+    fun onRefreshConversations(event: Events.RefreshConversations) {
+        listRefreshes += event.threadId
+    }
+
+    private fun insertOutboxRow(thread: Long? = null): Uri = context.contentResolver.insert(
+        Sms.CONTENT_URI,
+        ContentValues().apply {
+            thread?.let { put(Sms.THREAD_ID, it) }
+            put(Sms.ADDRESS, "111")
+            put(Sms.BODY, "long Persian text")
+            put(Sms.DATE, System.currentTimeMillis())
+            put(Sms.TYPE, Sms.MESSAGE_TYPE_OUTBOX)
+        },
+    )!!
 
     private fun sentIntent(uri: Uri, partCount: Int) =
         Intent(SendStatusReceiver.SMS_SENT_ACTION, uri).putExtra(SendStatusReceiver.EXTRA_PART_COUNT, partCount)
@@ -85,6 +104,17 @@ class SmsStatusReceiversTest {
 
         assertThat(typeOf(ok)).isEqualTo(Sms.MESSAGE_TYPE_SENT)
         assertThat(typeOf(bad)).isEqualTo(Sms.MESSAGE_TYPE_FAILED)
+    }
+
+    /** J2-4, J2-5: the sent report names its chat, so the list reads that one thread (a new one too), no full pass. */
+    @Test
+    fun aSentReportRefreshesItsOwnChatOnly() {
+        val uri = insertOutboxRow(thread = 42)
+        EventBus.getDefault().register(this)
+
+        report(uri, 1, Activity.RESULT_OK)
+
+        assertThat(listRefreshes).containsExactly(42L)
     }
 
     @Test
