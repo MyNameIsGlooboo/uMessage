@@ -32,8 +32,10 @@ object NotificationIds {
 
 /** Whether any "Message not sent" notification is showing, so a sent report only looks up its chat when it matters. */
 fun Context.hasFailedSendNotification(): Boolean =
-    runCatching { notificationManager.activeNotifications.any { NotificationIds.isFailedSend(it.id) } }
-        .getOrDefault(false)
+    runCatching {
+        // J1-8: untagged only, as the notice is posted.
+        notificationManager.activeNotifications.any { it.tag == null && NotificationIds.isFailedSend(it.id) }
+    }.getOrDefault(false)
 
 /** Removes the "Message not sent" notification of [threadId], once the chat is open or the message went out. */
 fun Context.cancelFailedSendNotification(threadId: Long) {

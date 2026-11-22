@@ -122,22 +122,29 @@ object BlockedNotifier {
 
     /** Removes the notice of Spam chat [threadId] (it was opened, blocked, moved to Messages or deleted). */
     fun cancelChat(context: Context, threadId: Long) {
-        runCatching { context.getSystemService(NotificationManager::class.java)?.cancel(CHAT_TAG, threadId.hashCode()) }
+        runCatching {
+            val manager = context.getSystemService(NotificationManager::class.java) ?: return
+            val active = manager.activeNotifications
+            manager.cancel(CHAT_TAG, threadId.hashCode())
+            dropLoneSummary(manager, active, setOf(CHAT_TAG to threadId.hashCode()))
+        }
     }
 
     /**
      * I5: one summary for a burst of blocked messages, so 15 spam texts are one stack in the shade, not 15 rows. The
-     * summary says nothing about the senders or the texts. The system removes it when its last notification goes.
+     * summary says nothing about the senders or the texts. It goes with its last notice: the user's swipe takes it
+     * along, and [dropLoneSummary] removes it after the app's own cancels.
      */
     private fun postSummary(context: Context, manager: NotificationManager, contentIntent: PendingIntent) {
         val active = manager.activeNotifications
-        val count = active.count { (it.tag == TAG || it.tag == CHAT_TAG) && !isSummary(it) }
+        val count = active.count { isNotice(it) }
         // J1: posted once. Posting it again for a new count lifts the whole bundle, every older notice with it.
         if (count < SUMMARY_FROM || active.any { isSummary(it) }) return
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_messenger)
             .setContentTitle(context.getString(R.string.spam_engine_blocked_channel))
-            .setNumber(count)
+            // J1: posted once, so a count or a time on it would only go stale; the shade counts the notices itself.
+            .setShowWhen(false)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .setContentIntent(contentIntent)
             .setGroup(GROUP)
@@ -148,6 +155,23 @@ object BlockedNotifier {
         manager.notify(SUMMARY_TAG, SUMMARY_ID, summary)
     }
 
+    /**
+     * J1-4: the app's own cancels leave the summary in place. Removes it when no notice is left but the [gone] ones
+     * (tag and id), which the system may still list right after their cancel.
+     */
+    private fun dropLoneSummary(
+        manager: NotificationManager,
+        active: Array<StatusBarNotification>,
+        gone: Set<Pair<String?, Int>>,
+    ) {
+        if (active.none { isNotice(it) && (it.tag to it.id) !in gone }) {
+            active.filter { isSummary(it) }.forEach { manager.cancel(it.tag, it.id) }
+        }
+    }
+
+    /** A held-message or Spam chat notice, not the summary. */
+    private fun isNotice(n: StatusBarNotification): Boolean = (n.tag == TAG || n.tag == CHAT_TAG) && !isSummary(n)
+
     /** Ours, or one an older version posted under [TAG] before the update. */
     private fun isSummary(n: StatusBarNotification): Boolean = (n.tag == SUMMARY_TAG || n.tag == TAG) &&
         n.id == SUMMARY_ID && n.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0
@@ -157,7 +181,12 @@ object BlockedNotifier {
         if (blockedIds.isEmpty()) return
         runCatching {
             val manager = context.getSystemService(NotificationManager::class.java) ?: return
-            blockedIds.forEach { manager.cancel(TAG, notificationId(it)) }
+            val active = manager.activeNotifications
+            // J1: a summary of the version before has held message 23313's key; cancelling it would clear the group.
+            val keys = blockedIds.map { TAG to notificationId(it) }
+                .filterNot { key -> active.any { isSummary(it) && it.tag == key.first && it.id == key.second } }
+            keys.forEach { manager.cancel(it.first, it.second) }
+            dropLoneSummary(manager, active, keys.toSet())
         }
     }
 

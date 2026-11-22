@@ -21,6 +21,9 @@ import org.junit.runner.RunWith
 /**
  * J1: one new spam text posts exactly one notification. The group summary is posted once; posting it again for every
  * new text lifted the whole bundle, with every older notice in it.
+ *
+ * These tests prove only which `notify` and `cancel` calls are made. Whether Android still lifts the bundle when a new
+ * notice joins it (it ranks a group by its newest member) only the emulator can show; they are no proof of that.
  */
 @RunWith(AndroidJUnit4::class)
 class BlockedNotifierSummaryTest {
@@ -40,6 +43,18 @@ class BlockedNotifierSummaryTest {
 
     private fun summaries() =
         manager.activeNotifications.filter { it.tag == "spamless_blocked_summary" && isSummary(it) }
+
+    /** Each notification object in the shade by its tag and id. */
+    private fun byKey(): Map<Pair<String?, Int>, Notification> =
+        manager.activeNotifications.associate { (it.tag to it.id) to it.notification }
+
+    /** A summary posted by the version before, under the held messages' tag. */
+    private fun oldSummary() {
+        val old = NotificationCompat.Builder(app, "spamless_blocked")
+            .setSmallIcon(R.drawable.ic_messenger)
+            .setGroup("spamless_blocked_group").setGroupSummary(true).build()
+        manager.notify("spamless_blocked", SUMMARY_NUMBER.toInt(), old)
+    }
 
     /** Every notification object in the shade; a post replaces the object, so an unchanged one was not posted. */
     private fun shown(): Set<Notification> = manager.activeNotifications.map { it.notification }.toSet()
@@ -71,6 +86,74 @@ class BlockedNotifierSummaryTest {
     }
 
     @Test
+    fun aSecondTextOfTheSameSpamChatReplacesOnlyItsOwnNotice() {
+        ProviderTruthFlag.enabled = true
+        for (chat in 1L..3L) BlockedNotifier.show(app, message(chat), chatId = chat)
+        val before = byKey()
+
+        BlockedNotifier.show(app, message(5L), chatId = 2L)
+
+        val after = byKey()
+        assertThat(after.keys).isEqualTo(before.keys)
+        val changed = after.keys.filter { after[it] !== before[it] }
+        assertThat(changed).containsExactly("spamless_blocked_chat" to 2L.hashCode())
+    }
+
+    @Test
+    fun heldAndChatNoticesAreCountedTogether() {
+        BlockedNotifier.show(app, message(1L))
+        BlockedNotifier.show(app, message(2L), chatId = 7L)
+
+        assertThat(summaries()).hasSize(1)
+    }
+
+    @Test
+    fun theSummaryShowsNoCountAndNoTime() {
+        // Posted once, so both would go stale; the shade counts the notices itself.
+        for (id in 1L..3L) BlockedNotifier.show(app, message(id))
+
+        val summary = summaries().single().notification
+        assertThat(summary.number).isEqualTo(0)
+        assertThat(summary.extras.getBoolean(Notification.EXTRA_SHOW_WHEN, true)).isFalse()
+    }
+
+    @Test
+    fun theSummaryGoesWithTheLastHeldNoticeTheAppCancels() {
+        // J1-4: the app's own cancels do not take the summary along.
+        for (id in 1L..2L) BlockedNotifier.show(app, message(id))
+
+        BlockedNotifier.cancel(app, listOf(1L))
+        assertThat(summaries()).hasSize(1)
+        BlockedNotifier.cancel(app, listOf(2L))
+
+        assertThat(manager.activeNotifications).isEmpty()
+    }
+
+    @Test
+    fun theSummaryGoesWithTheLastChatNoticeTheAppCancels() {
+        ProviderTruthFlag.enabled = true
+        for (chat in 1L..2L) BlockedNotifier.show(app, message(chat), chatId = chat)
+
+        BlockedNotifier.cancelChat(app, 1L)
+        assertThat(summaries()).hasSize(1)
+        BlockedNotifier.cancelChat(app, 2L)
+
+        assertThat(manager.activeNotifications).isEmpty()
+    }
+
+    @Test
+    fun cancellingHeldMessage23313LeavesAnOldSummaryAndItsGroup() {
+        // The version before put its summary under held message 23313's key; cancelling it would clear the group.
+        oldSummary()
+        for (id in 1L..2L) BlockedNotifier.show(app, message(id))
+
+        BlockedNotifier.cancel(app, listOf(SUMMARY_NUMBER))
+
+        assertThat(manager.activeNotifications.count { isSummary(it) }).isEqualTo(1)
+        assertThat(manager.activeNotifications.filter { !isSummary(it) }.map { it.id }).containsExactly(1, 2)
+    }
+
+    @Test
     fun heldMessage23313AndTheSummaryDoNotReplaceEachOther() {
         // J1: the summary had tag spamless_blocked and id 0x5B11 (23313), the key of held message 23313's notice.
         for (id in listOf(1L, 2L, SUMMARY_NUMBER)) BlockedNotifier.show(app, message(id))
@@ -81,12 +164,8 @@ class BlockedNotifierSummaryTest {
     }
 
     @Test
-    fun anOldSummaryLeftByTheUpdateIsNotCountedAndNotDoubled() {
-        // A summary posted by the version before, under the held messages' tag.
-        val old = NotificationCompat.Builder(app, "spamless_blocked")
-            .setSmallIcon(R.drawable.ic_messenger)
-            .setGroup("spamless_blocked_group").setGroupSummary(true).build()
-        manager.notify("spamless_blocked", SUMMARY_NUMBER.toInt(), old)
+    fun anOldSummaryLeftByTheUpdateIsNotDoubled() {
+        oldSummary()
 
         for (id in 1L..2L) BlockedNotifier.show(app, message(id))
 

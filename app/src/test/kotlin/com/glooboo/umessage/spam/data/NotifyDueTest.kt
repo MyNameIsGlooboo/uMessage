@@ -17,13 +17,16 @@ import androidx.core.app.NotificationCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.R
+import com.glooboo.umessage.databases.MessagesDatabase
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.helpers.NotifyContext
+import com.glooboo.umessage.helpers.NotifyLog
 import com.glooboo.umessage.helpers.NotifyMode
 import com.glooboo.umessage.helpers.NotifyResult
 import com.glooboo.umessage.helpers.NotifyStage
 import com.glooboo.umessage.helpers.ProviderTruthFlag
 import com.glooboo.umessage.helpers.notifyFault
+import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.receivers.PendingSmsRetry
 import com.glooboo.umessage.receivers.PendingSmsRetryReceiver
 import com.glooboo.umessage.spam.DecisionReason
@@ -43,6 +46,7 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowAlarmManager
+import org.robolectric.shadows.ShadowLog
 
 /** N6: a stored message whose notification was never posted is notified once by the replay, and only then. */
 @RunWith(AndroidJUnit4::class)
@@ -78,10 +82,15 @@ class NotifyDueTest {
             return true
         }
 
-        fun addSms(date: Long, read: Int = 0, type: Int = Telephony.Sms.MESSAGE_TYPE_INBOX): Long =
+        fun addSms(
+            date: Long,
+            read: Int = 0,
+            type: Int = Telephony.Sms.MESSAGE_TYPE_INBOX,
+            body: String = BODY,
+        ): Long =
             db.insert("sms", null, ContentValues().apply {
                 put("address", ADDRESS)
-                put("body", BODY)
+                put("body", body)
                 put("date", date)
                 put("read", read)
                 put("thread_id", THREAD)
@@ -173,9 +182,24 @@ class NotifyDueTest {
 
     private fun pending() = NotifyDue.pendingIds(app)
 
-    /** The chat [THREAD] is in Spam for [sender] (not cached yet, so its row names the sender). */
-    private fun spamRow(sender: String = ADDRESS) = offMainThread {
-        app.conversationsDB.insertSpamThread(SpamThread(THREAD, sender, SpamCause.UNKNOWN, spamSince = 1L))
+    /** The chat [THREAD] is in Spam for [sender] since [since] (not cached yet, so its row names the sender). */
+    private fun spamRow(since: Long, sender: String = ADDRESS) = offMainThread {
+        app.conversationsDB.insertSpamThread(SpamThread(THREAD, sender, SpamCause.UNKNOWN, spamSince = since))
+    }
+
+    /** The chat [THREAD] is cached with the number [number]. */
+    private fun cachedChat(number: String = ADDRESS) = offMainThread {
+        app.conversationsDB.insertOrUpdate(
+            Conversation(
+                threadId = THREAD, snippet = "", date = 0, read = false, title = number, photoUri = "",
+                isGroupConversation = false, phoneNumber = number,
+            ),
+        )
+    }
+
+    /** The results this test's replays logged under uMessageNotify. */
+    private fun loggedResults() = ShadowLog.getLogsForTag(NotifyLog.TAG).mapNotNull {
+        Regex(" r=([A-Z_]+)").find(it.msg)?.groupValues?.get(1)
     }
 
     @Test
@@ -402,22 +426,92 @@ class NotifyDueTest {
     }
 
     @Test
-    fun replaySkipsAChatThatIsInSpamNow() {
+    fun replaySkipsAChatThatEnteredSpamAfterTheText() {
         // J1, provider truth: the chat moved to Spam after the text came; a loud notification is not owed any more.
         ProviderTruthFlag.enabled = true
-        spamRow()
-        markDead(provider.addSms(now))
+        spamRow(since = now + 1)
+        markDead(provider.addSms(now), createdAt = now)
 
         replay()
 
         assertThat(posted).isEmpty()
         assertThat(pending()).isEmpty()
+        assertThat(loggedResults()).contains("SKIPPED_SPAM")
+    }
+
+    @Test
+    fun aCachedChatThatEnteredSpamAfterTheTextIsSkipped() {
+        // The isInSpam branch: the chat is cached and its row names the chat's number.
+        ProviderTruthFlag.enabled = true
+        cachedChat()
+        spamRow(since = now + 1)
+        markDead(provider.addSms(now), createdAt = now)
+
+        replay()
+
+        assertThat(posted).isEmpty()
+        assertThat(loggedResults()).contains("SKIPPED_SPAM")
+    }
+
+    @Test
+    fun aCachedChatWhoseRowNamesAnotherNumberIsStillReplayed() {
+        // The row does not count for the chat (S9), so the chat is in Messages.
+        ProviderTruthFlag.enabled = true
+        cachedChat()
+        spamRow(since = now + 1, sender = OTHER_ADDRESS)
+        markDead(provider.addSms(now), createdAt = now)
+
+        replay()
+
+        assertThat(posted).hasSize(1)
+    }
+
+    @Test
+    fun aTextAnnouncedInAChatAlreadyInSpamIsStillReplayed() {
+        // J1-1: an unknown sender's chat is in Spam, but its code goes to Messages, loud. The sorter removes the row
+        // only later, so a marker replayed before that (bare insert, app start) must still post.
+        ProviderTruthFlag.enabled = true
+        spamRow(since = now - 1)
+        markDead(provider.addSms(now, body = CODE_BODY), createdAt = now)
+
+        replay()
+
+        assertThat(posted).hasSize(1)
+        assertThat(pending()).isEmpty()
+    }
+
+    @Test
+    fun aChatThatEnteredSpamAtTheMarkersTimeIsStillReplayed() {
+        ProviderTruthFlag.enabled = true
+        spamRow(since = now)
+        markDead(provider.addSms(now), createdAt = now)
+
+        replay()
+
+        assertThat(posted).hasSize(1)
+    }
+
+    @Test
+    fun aSpamRowThatCannotBeReadStillPosts() {
+        // Fail open: a row the store cannot read back (here an unknown cause) is an error, and an error posts.
+        ProviderTruthFlag.enabled = true
+        offMainThread {
+            MessagesDatabase.getInstance(app).openHelper.writableDatabase.execSQL(
+                "INSERT INTO spam_threads (thread_id, sender, cause, unread, spam_since) VALUES (?, ?, 'BROKEN', 0, ?)",
+                arrayOf<Any>(THREAD, ADDRESS, now + 1),
+            )
+        }
+        markDead(provider.addSms(now), createdAt = now)
+
+        replay()
+
+        assertThat(posted).hasSize(1)
     }
 
     @Test
     fun withTheFlagOffASpamRowDoesNotStopTheReplay() {
-        spamRow()
-        markDead(provider.addSms(now))
+        spamRow(since = now + 1)
+        markDead(provider.addSms(now), createdAt = now)
 
         replay()
 
@@ -428,8 +522,8 @@ class NotifyDueTest {
     @Test
     fun aSpamRowOfAnotherSenderDoesNotStopTheReplay() {
         ProviderTruthFlag.enabled = true
-        spamRow(sender = OTHER_ADDRESS)
-        markDead(provider.addSms(now))
+        spamRow(since = now + 1, sender = OTHER_ADDRESS)
+        markDead(provider.addSms(now), createdAt = now)
 
         replay()
 
@@ -584,6 +678,7 @@ class NotifyDueTest {
         const val THREAD = 12L
         const val ADDRESS = "+15550001234"
         const val OTHER_ADDRESS = "PROMO"
+        const val CODE_BODY = "Your login code is 482913"
         const val BODY = "See you at noon"
         const val EARLIER = "Earlier post"
         const val MISSING_ID = 999L
