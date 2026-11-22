@@ -112,10 +112,11 @@ class ScheduledMessageReceiver : BroadcastReceiver() {
         try {
             // K1 hand-over: the row is read again after the claim. The start-up tidy may have swapped its attachments
             // to the app's own copies meanwhile, and the tracker must not write the picker uris back. A row that is
-            // gone (sent or deleted meanwhile) or held sends nothing. K2-5: a read that failed leaves the claimed row in
-            // the outbox, so it is held with Retry; a row that is gone or held already is left as it is.
+            // gone (sent or deleted meanwhile) or held sends nothing. K2-5: a read that failed leaves the claimed row
+            // in the outbox, so it is held with Retry; a row that is gone or held already is left as it is.
             val claimedMessage = dueMessage(context, messageId) ?: run {
                 context.holdDiedScheduledSend(message)
+                refreshMessages()
                 return
             }
             sendClaimed(context, claimedMessage)
