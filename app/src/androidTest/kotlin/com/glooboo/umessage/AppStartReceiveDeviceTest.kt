@@ -49,6 +49,9 @@ import java.util.TimeZone
  * On a fresh install the end of the onboarding makes the first run's pass due, and while it is due or runs the main
  * screen shows the full progress page instead of the lists (FirstRunPagePolicy: FRESH_INSTALL). So the test starts
  * that pass and waits until it is done before it launches the app; with the step F seed it takes about a minute.
+ * An install over existing data is an update instead: its pass ends with the "What changed" page, also in place of
+ * the lists, until the user closes it. The test closes it the way "Got it" does (the source's dismissWhatChanged,
+ * which stores the seen mark). That is app data of the test install, which the uninstall at the end removes.
  *
  * Instrumented tests run on the debug build (`connectedFossDebugAndroidTest`); the minified daily build cannot be the
  * instrumented target, so M-T5 on the daily build stays a manual check (plan 4.4). Needs the SMS role (taken for the
@@ -87,8 +90,9 @@ class AppStartReceiveDeviceTest {
     }
 
     /**
-     * The first run's pass is started as the end of the welcome flow starts it (App.checkFirstRun: the pages read the
-     * onboarding again, the runner checks), and waited for.
+     * The first run's pass (a fresh install's or an update's) is started as the end of the welcome flow starts it
+     * (App.checkFirstRun: the pages read the onboarding again, the runner checks) and waited for; then a "What
+     * changed" page it left is closed as its "Got it" button closes it.
      */
     private fun finishFirstRun() {
         (app as App).checkFirstRun()
@@ -96,13 +100,17 @@ class AppStartReceiveDeviceTest {
         assertTrue(
             "the first run's pass did not finish",
             DeviceTest.waitFor(timeoutMs = FIRST_RUN_TIMEOUT_MS) {
-                FirstRun.state(app).value.phase == FirstRunPhase.DONE && !firstRunPageUp()
+                FirstRun.state(app).value.phase == FirstRunPhase.DONE && !progress().running
             },
         )
+        if (progress().whatChanged != null) FirstRunPagesHost.source.value.dismissWhatChanged()
+        assertTrue("\"What changed\" still up", DeviceTest.waitFor { !firstRunPageUp() })
     }
 
-    /** Whether the main screen shows a first-run page (progress, or the pass is due) instead of the lists. */
-    private fun firstRunPageUp(): Boolean = FirstRunPagesHost.source.value.progress.value.running
+    private fun progress() = FirstRunPagesHost.source.value.progress.value
+
+    /** Whether the main screen shows a first-run page (progress, due, or "What changed") instead of the lists. */
+    private fun firstRunPageUp(): Boolean = progress().let { it.running || it.whatChanged != null }
 
     @After
     fun tearDown() {
@@ -134,13 +142,18 @@ class AppStartReceiveDeviceTest {
             val hello = "J10 hello $nonce"
             val advert = "J10 advert $nonce"
 
+            val receivedFrom = System.currentTimeMillis()
             SmsReceiver().handle(app, deliverIntent(ALLOWED, hello), housekeeping = false)
             SmsReceiver().handle(app, deliverIntent(BLOCKED, advert), housekeeping = false)
+            val receivedTo = System.currentTimeMillis()
 
             val dao = app.conversationsDB
             val helloRow = storedRow(ALLOWED, hello)
             threads += helloRow.thread
             assertEquals("allowed text: unread", 0, helloRow.read)
+            // The date is the arrival time (the PDU's service centre time goes to date_sent only), so the chat sorts
+            // as the newest whatever time the carrier stamped.
+            assertTrue("allowed text: dated on arrival", helloRow.date in receivedFrom..receivedTo)
             assertEquals("allowed text: own thread", Threads.getOrCreateThreadId(app, ALLOWED), helloRow.thread)
             assertTrue(
                 "allowed text: listed in Messages",
@@ -157,8 +170,9 @@ class AppStartReceiveDeviceTest {
                 scrolls++
                 shown = DeviceTest.waitFor(timeoutMs = 2_000L) { shows(hello) }
             }
-            val listed = dao.getMessagesList()
-            val where = "first-run page up: ${firstRunPageUp()}; list at top: $atTop; list position " +
+            // The DAO's list has no order; the screen shows it newest first (after pinned chats).
+            val listed = dao.getMessagesList().sortedByDescending { it.date }
+            val where = "first-run page up: ${firstRunPageUp()}; list at top: $atTop; newest-first position " +
                 "${listed.indexOfFirst { it.threadId == helloRow.thread }} of ${listed.size}; scrolled $scrolls pages"
             if (scrolls > 0 || !shown) {
                 // One line per node: logcat cuts a single long entry at about 4 KB.
@@ -193,16 +207,18 @@ class AppStartReceiveDeviceTest {
     private fun storedRow(address: String, body: String): Stored {
         val rows = app.contentResolver.query(
             Sms.CONTENT_URI,
-            arrayOf(Sms.READ, Sms.SEEN, Sms.THREAD_ID),
+            arrayOf(Sms.READ, Sms.SEEN, Sms.THREAD_ID, Sms.DATE),
             "${Sms.ADDRESS} = ? AND ${Sms.BODY} = ? AND ${Sms.TYPE} = ?",
             arrayOf(address, body, "${Sms.MESSAGE_TYPE_INBOX}"),
             null,
-        )!!.use { c -> buildList { while (c.moveToNext()) add(Stored(c.getInt(0), c.getInt(1), c.getLong(2))) } }
+        )!!.use { c ->
+            buildList { while (c.moveToNext()) add(Stored(c.getInt(0), c.getInt(1), c.getLong(2), c.getLong(3))) }
+        }
         assertEquals("stored once", 1, rows.size)
         return rows.single()
     }
 
-    private data class Stored(val read: Int, val seen: Int, val thread: Long)
+    private data class Stored(val read: Int, val seen: Int, val thread: Long, val date: Long)
 
     /** Whether a window of the app (not the shade, not a heads-up) shows [text]. */
     private fun shows(text: String): Boolean = appRoots().any { contains(it, text) }
