@@ -125,7 +125,14 @@ fun unblockOutcome(verdict: SenderVerdict?): UnblockOutcome = when {
 }
 
 /** The rows of the Spam list are built from these; a row is built again only when one of them changed (C-7). */
-private data class RowKey(val chat: SpamChat, val draft: String?, val pinned: Boolean, val code: String?)
+private data class RowKey(
+    val chat: SpamChat,
+    val draft: String?,
+    val pinned: Boolean,
+    val code: String?,
+    /** A language change builds the rows again: their words and digits are fixed when a row is built. */
+    val language: String,
+)
 
 /**
  * Feeds the Spam tab (4.2): the chats with a valid Spam row (S9), each with its cause line, its unread count from both
@@ -296,7 +303,7 @@ class SpamChatsViewModel internal constructor(
         val rows = shown.sortedByDescending { it.conversation.date }.map { chat ->
             val key = RowKey(
                 chat, drafts[chat.threadId], pinned.contains(chat.threadId.toString()),
-                SpamChatsPolicy.code(chat.received, now),
+                SpamChatsPolicy.code(chat.received, now), locale.toLanguageTag(),
             )
             rowCache[chat.threadId]?.takeIf { it.first == key }?.second ?: buildRow(chat, key, drafts, pinned, locale)
                 .also { rowCache[chat.threadId] = key to it }
