@@ -6,7 +6,7 @@ uMessage is a messaging app for SMS and MMS that keeps spam out of your Messages
 
 The first-run setup has up to three steps:
 
-1. **Welcome.** A language chip sits at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Below it, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. The card above the choice shows how chats are sorted. You can change this later in Settings. Tap **Get started**.
+1. **Welcome.** A language chip sits at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Below it, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. The card above the choice shows how chats are sorted. Two switches follow: **Quiet notification for texts that go to Spam** (off) and a **weekly Spam summary** (on for new installs). The page also says: Spam sorting is not always right, look at Spam once a week. You can change all of this later in Settings. Tap **Get started**.
 2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and silence messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not move unknown phone numbers to Spam at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
 3. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
 
@@ -93,7 +93,7 @@ Block a sender from Messages with a left swipe, the selection bar, the chat menu
 
 ### Alerts and auto-delete
 
-By default spam makes no notification. Settings > Spam protection > **Auto-delete and alerts** has **Notify me for texts from unknown senders**: it posts one quiet notification that opens Spam and hides the sender and text on the lock screen. It is never posted for a sender you blocked.
+There is no notification for each spam text by default. A new install gets one quiet summary a week that says how many texts arrived in Spam; turn it off in Settings > Notifications. Settings > Spam protection > **Auto-delete and alerts** has **Notify me for texts from unknown senders**: it posts one quiet notification that opens Spam and hides the sender and text on the lock screen. It is never posted for a sender you blocked.
 
 Spam is kept until you delete it. **Auto-delete old spam** (same page) is off until you choose a number of days. It then deletes texts that arrived in Spam more than that many days ago, from the phone itself, for every app, and they cannot be brought back. Texts you sent, starred or added a note to stay.
 
