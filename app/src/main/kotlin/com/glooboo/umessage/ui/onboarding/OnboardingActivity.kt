@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.provider.Settings
 import android.provider.Telephony
 import android.widget.Toast
@@ -18,6 +19,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -155,6 +157,10 @@ class OnboardingViewModel @JvmOverloads constructor(
     /** Built once, off the main thread by the init read (or by the first tap, whichever comes first). */
     private val cleanup: CleanupPrefs by lazy(cleanupPrefs)
 
+    /** One lane for the summary read and writes, so two quick taps are stored in the order they were made. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val prefsLane = Dispatchers.IO.limitedParallelism(1)
+
     // Off until the stored value is read in init, so an update never shows a summary it had turned off as on.
     // A new install's read gives on (the install defaults are applied first).
     private val _digestOn = MutableStateFlow(false)
@@ -191,7 +197,7 @@ class OnboardingViewModel @JvmOverloads constructor(
             }
         }
         viewModelScope.launch {
-            val stored = withContext(Dispatchers.IO) { runCatching { cleanup.digestOn }.getOrNull() }
+            val stored = withContext(prefsLane) { runCatching { cleanup.digestOn }.getOrNull() }
             if (stored != null && !digestChosen) _digestOn.value = stored
             _digestLoaded.value = true
         }
@@ -211,7 +217,9 @@ class OnboardingViewModel @JvmOverloads constructor(
     fun setDigestOn(on: Boolean) {
         digestChosen = true
         _digestOn.value = on
-        viewModelScope.launch(Dispatchers.IO) { cleanup.digestOn = on }
+        viewModelScope.launch(prefsLane) {
+            runCatching { cleanup.digestOn = on }.onFailure { Log.w("OnboardingViewModel", "Summary not saved", it) }
+        }
     }
 
     /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */

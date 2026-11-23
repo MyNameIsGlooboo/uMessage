@@ -174,6 +174,20 @@ class WelcomeSpamNoticesTest {
     }
 
     @Test
+    fun twoQuickSummaryTapsAreStoredInOrder() {
+        val vm = OnboardingViewModel(app) { repo }
+        awaitUntil { vm.digestLoaded.value }
+
+        vm.setDigestOn(true)
+        vm.setDigestOn(false)
+        Thread.sleep(300)
+        idleMain()
+
+        assertThat(vm.digestOn.value).isFalse()
+        assertThat(CleanupPrefs.get(app).digestOn).isFalse()
+    }
+
+    @Test
     fun aFailedNotificationSaveIsSaidUnderThatSwitch() {
         val broken = object : SpamRepository by repo {
             override suspend fun updateSettings(transform: (SpamSettings) -> SpamSettings) = error("disk full")
