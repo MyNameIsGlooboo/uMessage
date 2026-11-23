@@ -170,6 +170,8 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
         if (!keepsOwnData && storeIsEmpty(threadId)) {
             // B3-2: a chat the delete emptied is forgotten here, so the mass-disappearance guard keeps nothing of it.
             app.forgetThread(threadId, vanished = true)
+            // The chat is gone, so its quiet notice in the shade goes with it.
+            BlockedNotifier.cancelChat(app, threadId)
         } else {
             app.updateLastConversationMessage(threadId)
         }

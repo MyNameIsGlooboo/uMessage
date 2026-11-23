@@ -12,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
+import com.glooboo.umessage.testing.ChatNotices
 import com.glooboo.umessage.testing.MmsPduFixtures
 import com.google.android.mms.pdu_alt.CharacterSets
 import com.google.android.mms.pdu_alt.EncodedStringValue
@@ -172,6 +173,20 @@ class AndroidMigrationStoreMmsTest {
         assertThat(source.storeMatches(cached(same, "Advert", date = 5_001), thread)).isFalse()
         assertThat(source.storeMatches(cached(sent, "Reply"), thread)).isFalse()
         assertThat(source.storeMatches(cached(same + 99, "Advert"), thread)).isFalse()
+    }
+
+    @Test
+    fun aSpamChatAutoDeleteEmptiedLosesItsNoticeInTheShade() {
+        SpamProviderMigrationTest.SmsStore.install()
+        MmsStore.install()
+        ChatNotices.post(context, 7)
+
+        // The real run is off the main thread (the database refuses the main one).
+        val worker = Thread { AndroidAutoDeleteSource(context).afterThread(7) }
+        worker.start()
+        worker.join()
+
+        assertThat(ChatNotices.isShown(context, 7)).isFalse()
     }
 
     private fun cached(id: Long, body: String, threadId: Long = 7, date: Int = 5_000) = Message(
