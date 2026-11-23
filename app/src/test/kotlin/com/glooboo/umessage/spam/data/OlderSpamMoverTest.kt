@@ -380,6 +380,22 @@ class OlderSpamMoverTest {
     }
 
     @Test
+    fun aFailedRepairIsNotForgottenWhenALaterBatchMovesAnotherChat() {
+        val world = OlderSpamWorld()
+        val other = "+15550005678"
+        repeat(50) { world.sms(body = "Advert $it", at = NOW - 10 * HOUR - it * HOUR) }
+        world.sms(address = other, body = "Later", at = NOW - HOUR)
+        world.failingRepairs = 1
+
+        world.mover().run()
+
+        // The second batch repairs its own chat and the one the failed repair left in the journal.
+        assertThat(world.repaired.flatten())
+            .containsExactly(OlderSpamWorld.threadOf(SENDER), OlderSpamWorld.threadOf(other))
+        assertThat(world.journalPendingRepairs()).isEmpty()
+    }
+
+    @Test
     fun rowsAreMovedOldestFirstInBatchesOf50() {
         val world = OlderSpamWorld()
         repeat(120) { world.sms(body = "Advert $it", at = NOW - it * HOUR) }

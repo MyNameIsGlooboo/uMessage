@@ -6,7 +6,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.databases.DatabaseBackups
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.ForwardSim
 import com.glooboo.umessage.spam.MemberSource
+import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
@@ -89,7 +91,48 @@ class SpamRecoveryTripTest {
         }
     }
 
+    private fun forward(sender: String, target: String, enabled: Boolean = true) = ForwardRuleEntity(
+        senderType = RuleType.NUMBER, senderPattern = sender, bodyType = null, bodyPattern = "", windowStart = null,
+        windowEnd = null, subscriptionId = null, targets = target, sendFrom = ForwardSim.SAME, includeCodes = true,
+        enabled = enabled, note = "", createdAt = 1L,
+    )
+
+    private fun withForwards(name: String, block: (ForwardDao) -> Unit) {
+        val db = SpamDatabase.build(context, name)
+        try {
+            offMainThread { block(db.forwardDao()) }
+        } finally {
+            db.close()
+        }
+    }
+
+    /** J27 (L2-1): 0.4.14 edits forward rules, so its kept file never brings one back. */
+    @Test
+    fun aForwardRuleDeletedDisabledOrRetargetedOnTheOlderBuildStaysThatWay() {
+        withForwards(KEPT_DB) { dao ->
+            dao.insert(forward("+15550000001", OLD_TARGET))
+            dao.insert(forward("+15550000002", OLD_TARGET))
+            dao.insert(forward("+15550000003", OLD_TARGET))
+        }
+        // The first rule was deleted there, the second switched off, the third sent to another number.
+        withForwards(TEST_DB) { dao ->
+            dao.insert(forward("+15550000002", OLD_TARGET, enabled = false))
+            dao.insert(forward("+15550000003", NEW_TARGET))
+        }
+        val imported = File(context.getDatabasePath(TEST_DB).path + ".v${SpamDatabase.VERSION}-imported")
+        DatabaseBackups.copyWithCompanions(context.getDatabasePath(KEPT_DB), imported)
+
+        withForwards(TEST_DB) { dao ->
+            val rules = dao.getAll()
+            assertThat(rules.map { it.senderPattern }).containsExactly("+15550000002", "+15550000003")
+            assertThat(rules.filter { it.enabled }.map { it.targets }).containsExactly(NEW_TARGET)
+        }
+        assertThat(imported.exists()).isFalse()
+    }
+
     private companion object {
+        const val OLD_TARGET = "+15550000009"
+        const val NEW_TARGET = "+15550000008"
         const val TEST_DB = "spam-trip-test.db"
         val KEPT_DB = "$TEST_DB-kept"
         const val SENDER = "+15550001234"
