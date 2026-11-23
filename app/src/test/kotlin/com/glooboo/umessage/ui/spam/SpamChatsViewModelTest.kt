@@ -534,6 +534,40 @@ class SpamChatsViewModelTest {
         assertThat(model.rowBuilds).isEqualTo(5_000)
     }
 
+    @Test
+    fun aLanguageChangeBuildsTheRowsAgainInTheNewLanguage() {
+        val before = vm.state.value.rows.first { it.threadId == 1L }.causeLine
+        val old = app.resources.configuration.locales[0]
+        try {
+            val config = android.content.res.Configuration(app.resources.configuration)
+            config.setLocale(java.util.Locale.forLanguageTag("fa"))
+            @Suppress("DEPRECATION")
+            app.resources.updateConfiguration(config, app.resources.displayMetrics)
+            vm.load()
+            awaitUntil { vm.state.value.rows.firstOrNull { it.threadId == 1L }?.causeLine != before }
+            assertThat(vm.state.value.rows.first { it.threadId == 1L }.causeLine)
+                .isEqualTo(app.getString(R.string.spam_reason_unknown_sender))
+        } finally {
+            val config = android.content.res.Configuration(app.resources.configuration)
+            config.setLocale(old)
+            @Suppress("DEPRECATION")
+            app.resources.updateConfiguration(config, app.resources.displayMetrics)
+        }
+    }
+
+    @Test
+    fun theTimeBucketMovesEachMinuteForAYoungChatAndEachDayForAnOldOne() {
+        val noon = 1_700_000_000_000L
+        val young = (noon / 1000L).toInt() - 600
+        assertThat(spamTimeBucket(young, noon + 30_000L, 0L)).isEqualTo(spamTimeBucket(young, noon, 0L))
+        assertThat(spamTimeBucket(young, noon + 60_000L, 0L)).isNotEqualTo(spamTimeBucket(young, noon, 0L))
+        val old = (noon / 1000L).toInt() - 5 * 3_600
+        assertThat(spamTimeBucket(old, noon + 60_000L, 0L)).isEqualTo(spamTimeBucket(old, noon, 0L))
+        assertThat(spamTimeBucket(old, noon + 24 * 3_600_000L, 0L)).isNotEqualTo(spamTimeBucket(old, noon, 0L))
+        // A young chat turning an hour old does not share a bucket with the minute it was in.
+        assertThat(spamTimeBucket(young, noon + 3_600_000L, 0L)).isNotEqualTo(spamTimeBucket(young, noon, 0L))
+    }
+
     private companion object {
         const val LONG_TIMEOUT_MS = 20_000L
         const val UNKNOWN = "+15550001250"

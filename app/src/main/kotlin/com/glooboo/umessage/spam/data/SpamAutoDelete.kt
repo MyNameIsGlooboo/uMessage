@@ -167,12 +167,16 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
         // F-12: the chat's scheduled messages and draft are the app's only copy; a chat that has one is not forgotten.
         val keepsOwnData = app.messagesDB.getScheduledThreadMessages(threadId).isNotEmpty() ||
             app.draftsDB.getDraftById(threadId) != null
-        if (!keepsOwnData && storeIsEmpty(threadId)) {
+        val storeEmpty = storeIsEmpty(threadId)
+        if (!keepsOwnData && storeEmpty) {
             // B3-2: a chat the delete emptied is forgotten here, so the mass-disappearance guard keeps nothing of it.
             app.forgetThread(threadId, vanished = true)
         } else {
             app.updateLastConversationMessage(threadId)
         }
+        // No Spam text is left to announce (the chat is gone, or keeps only its own draft or scheduled text): the quiet
+        // notice in the shade goes. A chat that still has texts keeps it.
+        if (storeEmpty) BlockedNotifier.cancelChat(app, threadId)
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
     }

@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">จะลบผลการกรองที่บันทึกไว้ทั้งหมด สแปมและกฎจะยังอยู่เหมือนเดิม</string>
     <string name="declog_ui_clear_action">ล้าง</string>
     <string name="ui_log_reason_contacts_unavailable">อ่านรายชื่อติดต่อไม่ได้</string>
+    <string name="ui_log_reason_group_member">อยู่ในกลุ่มที่อนุญาต</string>
+    <string name="ui_log_reason_unreadable_sender">อ่านผู้ส่งไม่ได้</string>
+    <string name="ui_log_reason_fact_failed">บันทึกรายละเอียดผู้ส่งไม่ได้</string>
+    <string name="ui_log_reason_chat_other_number">แชทอยู่ภายใต้หมายเลขอื่น</string>
+    <string name="ui_log_reason_chat_is_group">แชทเป็นกลุ่ม</string>
     <string name="blocknum_title">หมายเลขที่บล็อก</string>
     <string name="blocknum_add">เพิ่มหมายเลข</string>
     <string name="blocknum_add_title">บล็อกหมายเลข</string>

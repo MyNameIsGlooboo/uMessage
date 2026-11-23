@@ -10,6 +10,11 @@
     <string name="declog_ui_clear_message">Kaydedilen tüm kararlar kaldırılır. Spam ve kurallar olduğu gibi kalır.</string>
     <string name="declog_ui_clear_action">Temizleyin</string>
     <string name="ui_log_reason_contacts_unavailable">Kişiler okunamıyor</string>
+    <string name="ui_log_reason_group_member">İzin verilen bir grupta</string>
+    <string name="ui_log_reason_unreadable_sender">Gönderen okunamıyor</string>
+    <string name="ui_log_reason_fact_failed">Gönderen ayrıntıları kaydedilemedi</string>
+    <string name="ui_log_reason_chat_other_number">Sohbet başka bir numaraya ait</string>
+    <string name="ui_log_reason_chat_is_group">Sohbet bir grup</string>
     <string name="blocknum_title">Engellenen numaralar</string>
     <string name="blocknum_add">Numara ekleyin</string>
     <string name="blocknum_add_title">Bir numarayı engelleyin</string>

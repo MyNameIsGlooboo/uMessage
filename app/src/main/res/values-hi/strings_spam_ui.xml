@@ -10,6 +10,11 @@
     <string name="declog_ui_clear_message">दर्ज किए गए सभी फ़ैसले हटा दिए जाएंगे. स्पैम और नियम वैसे ही रहेंगे.</string>
     <string name="declog_ui_clear_action">साफ़ करें</string>
     <string name="ui_log_reason_contacts_unavailable">संपर्क पढ़े नहीं जा सकते</string>
+    <string name="ui_log_reason_group_member">अनुमत समूह में</string>
+    <string name="ui_log_reason_unreadable_sender">प्रेषक पढ़ा नहीं जा सका</string>
+    <string name="ui_log_reason_fact_failed">प्रेषक का विवरण सहेजा नहीं जा सका</string>
+    <string name="ui_log_reason_chat_other_number">चैट किसी दूसरे नंबर के अंतर्गत है</string>
+    <string name="ui_log_reason_chat_is_group">चैट एक समूह है</string>
     <string name="blocknum_title">ब्लॉक किए गए नंबर</string>
     <string name="blocknum_add">नंबर जोड़ें</string>
     <string name="blocknum_add_title">नंबर ब्लॉक करें</string>

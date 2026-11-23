@@ -12,6 +12,11 @@
     <string name="declog_ui_clear_message">Усі записані рішення буде видалено. Спам і правила залишаться без змін.</string>
     <string name="declog_ui_clear_action">Очистити</string>
     <string name="ui_log_reason_contacts_unavailable">Не вдалося прочитати контакти</string>
+    <string name="ui_log_reason_group_member">У дозволеній групі</string>
+    <string name="ui_log_reason_unreadable_sender">Відправник не читається</string>
+    <string name="ui_log_reason_fact_failed">Не вдалося зберегти дані відправника</string>
+    <string name="ui_log_reason_chat_other_number">Чат належить до іншого номера</string>
+    <string name="ui_log_reason_chat_is_group">Чат — група</string>
     <string name="blocknum_title">Заблоковані номери</string>
     <string name="blocknum_add">Додати номер</string>
     <string name="blocknum_add_title">Заблокувати номер</string>

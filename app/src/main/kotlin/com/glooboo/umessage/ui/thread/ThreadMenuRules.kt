@@ -24,6 +24,8 @@ data class ThreadMenuInput(
     val muted: Boolean = false,
     /** B06: the conversation was hidden behind the app lock. */
     val hiddenChat: Boolean = false,
+    /** The chat is in Spam: it is already held there, and a Spam chat gets no home screen shortcut. */
+    val inSpam: Boolean = false,
 )
 
 private const val SHORT_CODE_MIN_DIGITS = 5
@@ -70,12 +72,12 @@ fun buildThreadMenu(input: ThreadMenuInput): ThreadMenuState = with(input) {
             !isRecycleBin,
         whyDecided = single && !address.isNullOrEmpty() && (address == allowedSender || address == blockedSender) &&
             !isRecycleBin,
-        reportSpam = single && !address.isNullOrEmpty() && address != reportedSender && !isRecycleBin,
+        reportSpam = single && !address.isNullOrEmpty() && address != reportedSender && !isRecycleBin && !inSpam,
         search = hasItems && !isRecycleBin,
         alwaysForward = forwardingAvailable && single && !address.isNullOrEmpty() && !isRecycleBin,
         shareAsText = hasItems && !isRecycleBin,
         exportConversation = hasItems && !isRecycleBin,
-        addToHomeScreen = pinShortcutSupported && hasConversation && !isRecycleBin,
+        addToHomeScreen = pinShortcutSupported && hasConversation && !isRecycleBin && !inSpam,
         labels = hasConversation && !isRecycleBin,
         mute = hasConversation && !isRecycleBin && !muted,
         unmute = hasConversation && !isRecycleBin && muted,

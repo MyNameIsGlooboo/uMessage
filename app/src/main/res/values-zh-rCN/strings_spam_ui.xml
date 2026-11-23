@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">将删除所有判定记录。垃圾短信和规则会保留。</string>
     <string name="declog_ui_clear_action">清空</string>
     <string name="ui_log_reason_contacts_unavailable">无法读取联系人</string>
+    <string name="ui_log_reason_group_member">在允许的群组中</string>
+    <string name="ui_log_reason_unreadable_sender">无法读取发件人</string>
+    <string name="ui_log_reason_fact_failed">无法保存发件人详情</string>
+    <string name="ui_log_reason_chat_other_number">会话属于另一个号码</string>
+    <string name="ui_log_reason_chat_is_group">会话是群组</string>
     <string name="blocknum_title">已屏蔽号码</string>
     <string name="blocknum_add">添加号码</string>
     <string name="blocknum_add_title">屏蔽号码</string>

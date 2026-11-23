@@ -38,20 +38,27 @@ object MessageDecisions {
         return isSameSender(a, b, type)
     }
 
+    private val REASON_LABELS = mapOf(
+        "ALLOW_RULE" to R.string.ui_log_reason_allow_rule,
+        "BLOCK_RULE" to R.string.ui_log_reason_block_rule,
+        "CONTACT" to R.string.ui_log_reason_contact,
+        "OTP_EXEMPTION" to R.string.ui_log_reason_otp,
+        "UNKNOWN_SENDER" to R.string.ui_log_reason_unknown_sender,
+        "MODE_OFF" to R.string.ui_log_reason_mode_off,
+        "NO_MATCH" to R.string.ui_log_reason_no_match,
+        "CONTACTS_UNAVAILABLE" to R.string.ui_log_reason_contacts_unavailable,
+        "KNOWN_CONVERSATION" to R.string.ui_log_reason_known_conversation,
+        "FOREIGN_NUMBER" to R.string.region_reason_foreign,
+        "GROUP_MEMBER" to R.string.ui_log_reason_group_member,
+        "UNREADABLE_SENDER" to R.string.ui_log_reason_unreadable_sender,
+        "FACT_FAILED" to R.string.ui_log_reason_fact_failed,
+        // Written by the Spam placement when the text goes to Messages instead (an ALLOW row, not an error).
+        "CHAT_OTHER_NUMBER" to R.string.ui_log_reason_chat_other_number,
+        "CHAT_IS_GROUP" to R.string.ui_log_reason_chat_is_group,
+    )
+
     /** The label of the reason the engine logged, or null for a reason without one (an error's class name). */
-    fun reasonLabel(reason: String): Int? = when (reason) {
-        "ALLOW_RULE" -> R.string.ui_log_reason_allow_rule
-        "BLOCK_RULE" -> R.string.ui_log_reason_block_rule
-        "CONTACT" -> R.string.ui_log_reason_contact
-        "OTP_EXEMPTION" -> R.string.ui_log_reason_otp
-        "UNKNOWN_SENDER" -> R.string.ui_log_reason_unknown_sender
-        "MODE_OFF" -> R.string.ui_log_reason_mode_off
-        "NO_MATCH" -> R.string.ui_log_reason_no_match
-        "CONTACTS_UNAVAILABLE" -> R.string.ui_log_reason_contacts_unavailable
-        "KNOWN_CONVERSATION" -> R.string.ui_log_reason_known_conversation
-        "FOREIGN_NUMBER" -> R.string.region_reason_foreign
-        else -> null
-    }
+    fun reasonLabel(reason: String): Int? = REASON_LABELS[reason]
 
     /**
      * The rule behind [entry]: the block rule the log names, or for an allow-rule decision the allow rule that names

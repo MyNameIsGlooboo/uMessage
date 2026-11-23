@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">Mọi quyết định đã ghi sẽ bị xóa. Tin nhắn rác và quy tắc vẫn được giữ nguyên.</string>
     <string name="declog_ui_clear_action">Xóa</string>
     <string name="ui_log_reason_contacts_unavailable">Không đọc được người liên hệ</string>
+    <string name="ui_log_reason_group_member">Trong nhóm được phép</string>
+    <string name="ui_log_reason_unreadable_sender">Không đọc được người gửi</string>
+    <string name="ui_log_reason_fact_failed">Không thể lưu thông tin người gửi</string>
+    <string name="ui_log_reason_chat_other_number">Cuộc trò chuyện thuộc số khác</string>
+    <string name="ui_log_reason_chat_is_group">Cuộc trò chuyện là nhóm</string>
     <string name="blocknum_title">Số đã chặn</string>
     <string name="blocknum_add">Thêm số</string>
     <string name="blocknum_add_title">Chặn số điện thoại</string>

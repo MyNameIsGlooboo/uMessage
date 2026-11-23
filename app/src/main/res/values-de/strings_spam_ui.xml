@@ -10,6 +10,11 @@
     <string name="declog_ui_clear_message">Alle protokollierten Entscheidungen werden entfernt. Spam und Regeln bleiben unverändert.</string>
     <string name="declog_ui_clear_action">Leeren</string>
     <string name="ui_log_reason_contacts_unavailable">Kontakte nicht lesbar</string>
+    <string name="ui_log_reason_group_member">In einer erlaubten Gruppe</string>
+    <string name="ui_log_reason_unreadable_sender">Absender nicht lesbar</string>
+    <string name="ui_log_reason_fact_failed">Absenderdaten konnten nicht gespeichert werden</string>
+    <string name="ui_log_reason_chat_other_number">Chat gehört zu einer anderen Nummer</string>
+    <string name="ui_log_reason_chat_is_group">Chat ist eine Gruppe</string>
     <string name="blocknum_title">Blockierte Nummern</string>
     <string name="blocknum_add">Nummer hinzufügen</string>
     <string name="blocknum_add_title">Nummer blockieren</string>

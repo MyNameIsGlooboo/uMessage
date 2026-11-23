@@ -13,12 +13,14 @@ class ThreadMenuShareShortcutTest {
         hasItems: Boolean = true,
         recycleBin: Boolean = false,
         conversation: Boolean = true,
+        inSpam: Boolean = false,
     ) =
         buildThreadMenu(
             ThreadMenuInput(
                 recipients = ThreadRecipients.fromNumbers(listOf("111")), hasItems = hasItems,
                 hasConversation = conversation, isArchived = false, isRecycleBin = recycleBin, archiveAvailable = true,
                 singleNumberIsSaved = false, reportedSender = null, blockedSender = null, pinShortcutSupported = pin,
+                inSpam = inSpam,
             )
         )
 
@@ -32,6 +34,13 @@ class ThreadMenuShareShortcutTest {
     fun addToHomeScreenNeedsTheConversationAndNotTheRecycleBin() {
         assertThat(menu(conversation = false).addToHomeScreen).isFalse()
         assertThat(menu(recycleBin = true).addToHomeScreen).isFalse()
+    }
+
+    @Test
+    fun aSpamChatOffersNeitherAHomeScreenShortcutNorMarkAsSpam() {
+        assertThat(menu().reportSpam).isTrue()
+        assertThat(menu(inSpam = true).addToHomeScreen).isFalse()
+        assertThat(menu(inSpam = true).reportSpam).isFalse()
     }
 
     @Test
