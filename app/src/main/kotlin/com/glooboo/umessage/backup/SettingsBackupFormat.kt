@@ -132,6 +132,12 @@ data class BackupSettings(
 
     /** The JSON keys of the settings, also the names [SettingsBackupFormat.changedSettings] returns. */
     companion object {
+        /**
+         * Keys a restore never applies (I4/Q38): they start the automatic move to the bin or the purge, which the
+         * owner must choose on this phone. They are read, but never counted as a change.
+         */
+        val NOT_APPLIED: Set<String> = setOf("purgeAfterDays", "codeCleanupDays", "oldMessageDays")
+
         const val SPAM_MODE = "spamMode"
         /**
          * The old "codes from unknown senders" setting. Files written before 0.4.5 carry it; it is no longer written,
@@ -373,14 +379,14 @@ object SettingsBackupFormat {
     fun newRules(incoming: List<SpamRule>, existing: List<SpamRule>): Pair<List<SpamRule>, Int> {
         val onPhone = existing.map(::ruleKey).toSet()
         val seen = mutableSetOf<String>()
-        var present = 0
+        val matched = mutableSetOf<String>()
         val fresh = mutableListOf<SpamRule>()
         for (rule in incoming) {
             val key = ruleKey(rule)
-            // J17: a rule repeated inside the file is merged, not "already on this phone".
-            if (key in onPhone) present++ else if (seen.add(key)) fresh += rule
+            // J17: a rule repeated in the file is merged; one on the phone counts once.
+            if (key in onPhone) matched += key else if (seen.add(key)) fresh += rule
         }
-        return fresh to present
+        return fresh to matched.size
     }
 
     /**
@@ -418,7 +424,7 @@ object SettingsBackupFormat {
     fun changedSettings(current: BackupSettings, incoming: BackupSettings): List<String> {
         val now = current.values()
         return incoming.values().filter { (key, value) ->
-            value != null && !(key == BackupSettings.PURGE_DAYS) &&
+            value != null && key !in BackupSettings.NOT_APPLIED &&
                 !(key == BackupSettings.FORWARD_PAUSED && value == false) &&
                 if (key == BackupSettings.SPAM_MODE) {
                     modeOn(value) != modeOn(now[key])
@@ -435,7 +441,8 @@ object SettingsBackupFormat {
      * [region], or when it is not valid there, it stays as written). A rule with no target left is dropped. Every
      * rule comes in switched off and without a SIM scope, so nothing is forwarded until the owner turns it on in the
      * forward editor, which asks for the app lock. Rules already on the phone ([existing]) or twice in the file are
-     * skipped.
+     * skipped; both are counted in [ForwardImport.duplicates] (accepted: a forward rule repeated inside the file
+     * still reads "skipped" in the preview).
      */
     fun prepareForwardImport(
         incoming: List<ForwardRule>,

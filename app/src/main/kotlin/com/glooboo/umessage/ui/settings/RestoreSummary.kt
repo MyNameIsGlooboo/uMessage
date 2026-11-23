@@ -22,6 +22,7 @@ object RestoreSummary {
         BackupSettings.DAILY_LIMIT to R.string.w3d_daily_limit,
         BackupSettings.TEXT_SIZE to R.string.w3c_text_size,
         BackupSettings.THEME to R.string.settings_f_appearance,
+        BackupSettings.APP_FONT to R.string.font_title,
         BackupSettings.SEND_ON_ENTER to R.string.ui_settings_send_on_enter,
         BackupSettings.LOCK_SCREEN to R.string.settings_nav_lock_screen,
         BackupSettings.FORWARD_PAUSED to R.string.settings_nav_forward_pause,
@@ -83,14 +84,17 @@ object RestoreSummary {
         }
     }
 
-    /** The text for [after], or null when there is nothing to do. */
-    fun afterText(context: Context, after: After): String? = when (after) {
-        After.NONE -> null
-        After.DEFAULT_APP -> context.getString(R.string.n09_restore_after_default)
-        After.LOCK -> context.getString(R.string.n09_restore_after_lock)
-        After.BOTH -> context.getString(R.string.n09_restore_after_default) + "\n\n" +
-            context.getString(R.string.n09_restore_after_lock)
+    /** The string resources of [after], one per paragraph; empty when there is nothing to do. */
+    fun afterParts(after: After): List<Int> = when (after) {
+        After.NONE -> emptyList()
+        After.DEFAULT_APP -> listOf(R.string.n09_restore_after_default)
+        After.LOCK -> listOf(R.string.n09_restore_after_lock)
+        After.BOTH -> listOf(R.string.n09_restore_after_default, R.string.n09_restore_after_lock)
     }
+
+    /** The text for [after], or null when there is nothing to do. */
+    fun afterText(context: Context, after: After): String? =
+        afterParts(after).takeIf { it.isNotEmpty() }?.joinToString("\n\n") { context.getString(it) }
 
     /** One paragraph per part: rules, forward rules (always switched off) and the settings that change. */
     fun lines(context: Context, preview: SettingsBackup.Preview): String {

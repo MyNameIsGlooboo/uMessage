@@ -12,6 +12,7 @@ import com.glooboo.umessage.helpers.TextSize
 import com.glooboo.umessage.helpers.ThreadPrefs
 import com.glooboo.umessage.helpers.W3aPrefs
 import com.glooboo.umessage.helpers.W3cPrefs
+import com.glooboo.umessage.messaging.LongTextMms
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.FirstRunTrigger
 import com.glooboo.umessage.spam.ForwardingAvailability
@@ -74,7 +75,7 @@ object SettingsBackup {
         val changedSettings: List<String>,
         /** The rules of the file that are not on the phone yet; the summary counts these. */
         val newRules: List<SpamRule> = content.rules,
-        /** Rules of the file already on the phone (or repeated in the file). */
+        /** Rules of the file already on the phone, each counted once; a rule repeated in the file is merged. */
         val rulesPresent: Int = 0,
         /** The blocked words of the file that are not on the phone yet. */
         val newKeywords: List<String> = emptyList(),
@@ -309,7 +310,7 @@ object SettingsBackup {
         return if (fileCountsSwitch) mode else BlockingMigration.modeAfterSwitch(mode, phoneSwitchWasOn)
     }
 
-    /** The settings of a file as a restore would apply them: only the mode is mapped (see [restoredMode]). */
+    /** The settings of a file as a restore would apply them: the mode (see [restoredMode]) and old MMS switch map. */
     internal fun restoredSettings(
         s: BackupSettings,
         current: UnknownSenderMode,
@@ -317,7 +318,14 @@ object SettingsBackup {
         phoneSwitchWasOn: Boolean,
     ): BackupSettings {
         val mode = s.spamMode?.let { restoredMode(it, current, fileCountsSwitch, phoneSwitchWasOn) }
-        return s.copy(spamMode = mode, filterOn = s.filterOn ?: mode?.let { it != UnknownSenderMode.OFF })
+        // The old long-message switch is applied as the threshold it maps to, so the preview compares what is written.
+        val after = s.sendLongAsMmsAfter
+            ?: s.sendLongAsMms?.let { if (it) LongTextMms.THRESHOLDS.first() else LongTextMms.NEVER }
+        return s.copy(
+            spamMode = mode,
+            filterOn = s.filterOn ?: mode?.let { it != UnknownSenderMode.OFF },
+            sendLongAsMmsAfter = after,
+        )
     }
 
     /**
