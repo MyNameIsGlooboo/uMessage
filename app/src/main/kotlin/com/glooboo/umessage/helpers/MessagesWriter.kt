@@ -377,7 +377,7 @@ class MessagesWriter(
         return key.isNotEmpty() && key == runCatching { numbers.comparableKey(b) }.getOrDefault("")
     }
 
-    /** [addresses]: when given, a candidate must have the same usable addresses both ways (a message without sender). */
+    /** [addresses]: when given, a candidate must have the same usable addresses both ways (no sender). */
     private fun findMms(backup: MmsBackup, threadId: Long, addresses: List<AddressKey>? = null): Long? {
         val candidates = mutableListOf<Pair<Long, String?>>()
         contentResolver.query(
