@@ -5,8 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Spam is now a list of chats: a sender's whole chat is in Messages or in Spam, never split
+- Welcome page: choose to sort unknown senders into Spam or keep everything in Messages, with a switch for a quiet notification for Spam texts (off), a weekly Spam summary (on by default) and a reminder to look at Spam once a week
+- Blocking a sender moves the whole chat to Spam, with Undo
+- People you wrote to and senders of a verification code stay in Messages; each has its own switch
 ### Changed
+- Spam texts are stored in Android's own SMS store, marked read and silent, so other SMS apps can see them; older spam moves there and the old copies are deleted 30 days later
+- One spam filter switch replaces Smart, Strict and Off
+- Auto-delete of spam is off by default ("Keep forever")
+- Only allow rules you made beat a block
+- Rules cover both SIMs: one rule per number
+- A picture message in Spam downloads when it is at most 1 MiB and the phone is not roaming
+- The "hold numbers from other countries" option is removed
 - Updated the phone number library (libphonenumber 9.0.44), so newer mobile ranges are recognised
+### Fixed
+- Some texts in Messages arrived with no notification or sound
 
 ## [0.4.14] - 2026-11-18
 ### Fixed

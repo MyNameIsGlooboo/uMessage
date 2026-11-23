@@ -37,7 +37,7 @@ bash scripts/check-release-version.sh vX.Y.Z           # tag = VERSION_NAME, VER
 bash scripts/check-no-internet.sh app/build/outputs/apk/foss/release/*.apk
 ```
 
-Install the release (or `assembleFossDaily`) build on a real phone and go through [DEVICE_TEST_CHECKLIST.md](DEVICE_TEST_CHECKLIST.md): receive from a contact, from an unknown number, a verification code in Smart and Strict, "Not spam", and an upgrade over the previous version with data kept.
+Install the release (or `assembleFossDaily`) build on a real phone and go through [DEVICE_TEST_CHECKLIST.md](DEVICE_TEST_CHECKLIST.md): receive from a contact, from an unknown number, a verification code from an unknown sender with Senders of a verification code on, then with it off, "Not spam", and an upgrade over the previous version with data kept.
 
 Commit the version bump and changelogs as `release: version X.Y.Z (CODE)`, open a pull request to `main`, and merge it once CI is green.
 
@@ -87,7 +87,7 @@ Play takes an Android App Bundle of the `gplay` flavor:
 ./gradlew bundleGplayRelease   # app/build/outputs/bundle/gplayRelease/*.aab
 ```
 
-Upload it to the internal testing track first, then promote to production. The listing text comes from `fastlane/metadata/android/` (upload by hand, or with `fastlane supply` and a service-account key in `fastlane/fastlane.json`, which is git-ignored). `fastlane/Fastfile` uses plain fastlane actions: `fastlane android deploy` builds the gplay AAB and uploads it to the internal track, `fastlane android metadata` uploads only the listing. Before the first Play release, work through [PLAY_STORE.md](PLAY_STORE.md).
+Upload it to the closed testing track (Alpha) first, then promote to production. (The lane in `fastlane/Fastfile` still names the internal track; the release is practised on Alpha.) The listing text comes from `fastlane/metadata/android/` (upload by hand, or with `fastlane supply` and a service-account key in `fastlane/fastlane.json`, which is git-ignored). `fastlane/Fastfile` uses plain fastlane actions: `fastlane android deploy` builds the gplay AAB and uploads it to the internal track, `fastlane android metadata` uploads only the listing. Before the first Play release, work through [PLAY_STORE.md](PLAY_STORE.md).
 
 ## After the release
 

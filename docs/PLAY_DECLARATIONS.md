@@ -1,13 +1,13 @@
 # Google Play declarations (owner to-do)
 
-Owner decisions (final): keep the recent photos strip and declare the photo permission; keep exact alarms and file the
-exact alarm declaration; keep tap-to-call (`CALL_PHONE`); keep Location. The Google Play build therefore declares the
-same permissions as the foss build. Each sensitive permission below needs a declaration in Play Console, App content.
+Owner decisions (final): keep scheduled messages with exact alarms; keep tap-to-call (`CALL_PHONE`); keep Location. The Google Play build removes the three photo permissions (`READ_MEDIA_IMAGES`,
+`READ_MEDIA_VISUAL_USER_SELECTED`, `READ_EXTERNAL_STORAGE`) that the foss build keeps for its recent photos strip, so the Play build
+needs no Photo and video form; see section 2. Each sensitive permission below that has a form needs a declaration in
+Play Console, App content.
 Fill them in before the release goes to review. The texts are honest and short; edit the wording, not the facts.
 
 Sensitive permissions in the manifest: `READ_SMS`, `WRITE_SMS`, `SEND_SMS`, `RECEIVE_SMS`, `RECEIVE_MMS` (SMS and Call
-Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and video form); `SCHEDULE_EXACT_ALARM`
-(Exact alarms form); `FOREGROUND_SERVICE_DATA_SYNC` (Foreground service form); `ACCESS_COARSE_LOCATION`,
+Log form); `SCHEDULE_EXACT_ALARM` (no form expected, see section 3); `FOREGROUND_SERVICE_DATA_SYNC` (Foreground service form); `ACCESS_COARSE_LOCATION`,
 `ACCESS_FINE_LOCATION` (Location); `CALL_PHONE` (no form, but a core-feature check).
 
 ## 1. SMS and Call Log (App content > Sensitive app permissions)
@@ -23,7 +23,7 @@ Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and vid
   like any other (up to 1 MiB, not while roaming), because a group MMS cannot be told apart before the download.
 - Risk: low. A complete default SMS app is the listed core use. Fallback: none needed.
 
-## 2. Photo and video permissions (`READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED`)
+## 2. Photo and video permissions (`READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED`; foss build only, no form for Google Play)
 
 - Form answers: be honest that this is a convenience, not the core function: select the closest use ("Other") and
   describe the recent photos strip. Do not claim gallery or file-manager status.
@@ -53,8 +53,9 @@ Log form); `READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED` (Photo and vid
   (`ACTION_REQUEST_SCHEDULE_EXACT_ALARM`). Without the permission the code already uses `setAndAllowWhileIdle`.
 - Google may ask for: a video of scheduling a message for a given time, the exact-alarm setting, the message sending at
   that time.
-- Risk: **real**. On Play `SCHEDULE_EXACT_ALARM` is meant for alarm, timer and calendar apps; a messaging app can be
-  told its use does not qualify.
+- Risk: low. Only `SCHEDULE_EXACT_ALARM` is declared (not `USE_EXACT_ALARM`); the user grants it and Android 14 and
+  newer deny it by default. No exact-alarm form is expected: verify in Play Console that none is asked, and keep the
+  text above in case a reviewer asks.
 - Fallback: remove `SCHEDULE_EXACT_ALARM` from the Play build; scheduled messages and reminders then go out a few
   minutes late (inexact alarms). The code supports this: it checks `canScheduleExactAlarms` everywhere.
 
@@ -109,13 +110,13 @@ included, is stored in the phone's own SMS database, so the user loses nothing w
 SMS permissions are used only for these functions. Nothing is sent to any server. The app does not request call log
 permissions.
 
-=== Photo and video permissions (READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED) ===
+=== Photo and video permissions: foss build only, NOT used for Google Play (the Play build has none) ===
 In a conversation, the attach menu shows a row of the user's most recent pictures so a picture can be attached with
 one tap. The app asks for the permission only when the user taps the Allow button in that row. A picture is read only
 when the user taps it; by default location and camera details are removed from the copy that is sent. The system
 photo picker is always available without this permission. Nothing leaves the phone except the message the user sends.
 
-=== Exact alarms (SCHEDULE_EXACT_ALARM) ===
+=== Exact alarms (SCHEDULE_EXACT_ALARM; only if Play Console asks) ===
 The user can schedule a text message to be sent at a time they choose, and set a reminder on a message. These are
 user-scheduled events: a message sent late (for example a birthday wish at midnight, or a meeting reminder) fails its
 purpose. The app asks the user to allow "Alarms & reminders" only when they schedule something. If it is not allowed,
