@@ -122,4 +122,50 @@ class OnboardingAllowPageTest {
     fun `a missing required permission still counts`() {
         assertEquals(false, requiredGranted(items, items.associateWith { it.optional }))
     }
+
+    @Test
+    fun `J23 Allow all without the role leaves the SMS permissions out`() {
+        val asked = askablePermissions(items, isDefault = false) { false }
+        assertEquals(false, asked.any { it == android.Manifest.permission.READ_SMS })
+        assertEquals(false, asked.any { it == android.Manifest.permission.SEND_SMS })
+        assertEquals(false, asked.any { it == android.Manifest.permission.RECEIVE_SMS })
+        assertEquals(true, asked.contains(android.Manifest.permission.READ_CONTACTS))
+    }
+
+    @Test
+    fun `J23 Allow all with the role still asks for the SMS permissions`() {
+        val asked = askablePermissions(items, isDefault = true) { false }
+        assertEquals(true, asked.containsAll(items.first { it.isSms() }.permissions))
+    }
+
+    @Test
+    fun `J23 the SMS row without the role starts the role request, not a permission request`() {
+        var asked: PermissionItem? = null
+        var roleRequests = 0
+        compose.setContent {
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                AllowPage(
+                    modifier = Modifier.fillMaxSize(),
+                    items = items,
+                    granted = items.associateWith { false },
+                    permanentlyDenied = emptySet(),
+                    defaultSms = DefaultSmsState(false, denied = false, unavailable = false, { roleRequests++ }, {}),
+                    onRequest = { asked = it },
+                    onAllowAll = {},
+                    onOpenSettings = {},
+                )
+            }
+        }
+        compose.onNodeWithText("Messages").performClick()
+        assertEquals(1, roleRequests)
+        assertEquals(null, asked)
+    }
+
+    @Test
+    fun `J23 the SMS row with the role asks for the permissions as before`() {
+        var asked: PermissionItem? = null
+        page(isDefault = true, grantedAll = false, onRequest = { asked = it })
+        compose.onNodeWithText("Messages").performClick()
+        assertEquals(true, asked?.isSms())
+    }
 }

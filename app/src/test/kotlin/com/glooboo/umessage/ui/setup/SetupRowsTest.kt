@@ -8,6 +8,7 @@ import com.glooboo.umessage.helpers.ChannelIssue
 import com.glooboo.umessage.helpers.ChannelProblem
 import com.glooboo.umessage.helpers.NOTIFICATION_CHANNEL_ID
 import com.glooboo.umessage.ui.main.NotificationsBlock
+import com.glooboo.umessage.ui.onboarding.permissionItems
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,6 +41,51 @@ class SetupRowsTest {
     @Test
     fun aBlockedChannelHasNoNote() {
         assertThat(notificationsNote(ChannelIssue.BLOCKED)).isNull()
+    }
+
+    @Test
+    fun `J23 the SMS row without the role starts the role request`() {
+        var role = 0
+        var perms = 0
+        val live = SetupLive(
+            items = permissionItems(),
+            isDefault = false,
+            roleDenied = false,
+            block = null,
+            denied = emptySet(),
+            channelProblem = null,
+        )
+        val rows = buildSetupRows(
+            app,
+            live,
+            SetupActions(requestPermissions = { perms++ }, requestDefaultSms = { role++ }, openNotifications = {}),
+        )
+        val sms = rows.first { it.title == app.getString(R.string.onb_perm_sms) }
+        sms.onAction()
+        assertThat(role).isEqualTo(1)
+        assertThat(perms).isEqualTo(0)
+    }
+
+    @Test
+    fun `J23 the SMS row with the role asks for the permissions`() {
+        var role = 0
+        var perms = 0
+        val live = SetupLive(
+            items = permissionItems(),
+            isDefault = true,
+            roleDenied = false,
+            block = null,
+            denied = emptySet(),
+            channelProblem = null,
+        )
+        val rows = buildSetupRows(
+            app,
+            live,
+            SetupActions(requestPermissions = { perms++ }, requestDefaultSms = { role++ }, openNotifications = {}),
+        )
+        rows.first { it.title == app.getString(R.string.onb_perm_sms) }.onAction()
+        assertThat(role).isEqualTo(0)
+        assertThat(perms).isEqualTo(1)
     }
 
     private companion object {

@@ -11,6 +11,7 @@ import com.glooboo.umessage.ui.main.NotificationsBlock
 import com.glooboo.umessage.ui.main.quietChannelProblem
 import com.glooboo.umessage.ui.onboarding.PermissionItem
 import com.glooboo.umessage.ui.onboarding.isGranted
+import com.glooboo.umessage.ui.onboarding.isSms
 
 /** One card of the permissions list: what it is, its live status and the button that opens the right place. */
 internal class SetupRowUi(
@@ -73,14 +74,21 @@ private fun defaultSmsNote(context: Context, live: SetupLive, unavailable: Boole
 
 private fun permissionRow(context: Context, item: PermissionItem, live: SetupLive, actions: SetupActions): SetupRowUi {
     val granted = context.isGranted(item.permissions)
-    val blocked = !granted && item.permissions.any { it in live.denied }
+    // J23: the SMS row asks for the default SMS app role first; the system grants the SMS permissions with it.
+    val roleFirst = item.isSms() && !live.isDefault
+    val blocked = !granted && item.permissions.any { it in live.denied } && !roleFirst
     return SetupRowUi(
         title = context.getString(item.titleRes),
         reason = context.getString(item.reasonRes),
         mark = checkableMark(granted),
         optional = item.optional,
-        actionRes = if (blocked) R.string.onb_perm_open_settings else R.string.setup_action_allow,
-        onAction = { actions.requestPermissions(item.permissions) },
+        actionRes = when {
+            roleFirst -> if (live.roleDenied) R.string.onb_perm_open_settings else R.string.w3c_checklist_action_set
+            blocked -> R.string.onb_perm_open_settings
+            else -> R.string.setup_action_allow
+        },
+        onAction = if (roleFirst) actions.requestDefaultSms else ({ actions.requestPermissions(item.permissions) }),
+        note = if (roleFirst && live.roleDenied) context.getString(R.string.onb_default_denied) else null,
     )
 }
 
