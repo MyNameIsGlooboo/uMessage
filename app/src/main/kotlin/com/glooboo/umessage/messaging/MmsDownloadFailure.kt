@@ -14,8 +14,11 @@ import com.glooboo.umessage.receivers.MmsPushDownload
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.data.ArrivalFacts
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
+import com.glooboo.umessage.spam.mms.AppUnknownNotice
+import com.glooboo.umessage.spam.mms.UnknownNotice
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsSpamStore
@@ -53,6 +56,10 @@ internal class MmsDownloadFailure(
     private val log: (Context, IncomingMessage, String, String, Long?) -> Unit = { c, m, d, r, rule ->
         MmsDecisions.log(c, m, d, r, SOURCE, rule)
     },
+    /** L1-2, D-4: the user wrote to the sender (joined "People you wrote to"): true; not: false; unreadable: null. */
+    private val wroteTo: (Context, String) -> Boolean? = { c, sender -> ArrivalFacts.joinIfWroteTo(c, sender) },
+    /** L1-1: the opt-in notice of an unknown sender's notice shown in Spam. */
+    private val unknownNotice: (Context) -> UnknownNotice = { AppUnknownNotice(it) },
 ) {
 
     /** Where a notice went after a failed download. */
@@ -127,17 +134,31 @@ internal class MmsDownloadFailure(
         val message = IncomingMessage(notice.sender, "", subscriptionId, isMms = true)
         // E-19: the history check on the spot first (it may allow the sender), then the filter is asked once.
         val historyChecked = runCatching { history(context, notice.sender) }.getOrDefault(false)
-        val decision = probe(context, message)
-        val probed = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
+        var decision = probe(context, message)
+        var probed = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
+        // L1-2, D-4: an unknown sender the user wrote to joins "People you wrote to" (asked again);
+        // unreadable: Messages.
+        var sentUnreadable = false
+        if (historyChecked && probed == SpamCause.UNKNOWN) {
+            when (runCatching { wroteTo(context, notice.sender) }.getOrNull()) {
+                null -> sentUnreadable = true
+                true -> {
+                    decision = probe(context, message)
+                    probed = (decision as? FilterDecision.Block)?.let(IncomingMms::causeOf)
+                }
+                false -> Unit
+            }
+        }
         // E-22: a notice counted in its Spam chat (its explicit mark) stays there and is not counted again.
         val alreadyInSpam = probed != null && IncomingMms.hasChat(notice.threadId) &&
             runCatching { store.markOf(row) == NoticeMark.Counted(notice.threadId) }.getOrDefault(false) &&
             runCatching { store.isSpamThreadOf(notice.threadId, notice.sender) }.getOrDefault(false)
         if (alreadyInSpam) return Outcome.Kept(message, decision, inSpam = true)
         // A failed history check leaves only a block rule (history never allows a blocked sender, as E-11).
-        val cause = if (historyChecked) probed else probed.takeIf { it == SpamCause.BLOCKED }
+        val cause = if (historyChecked && !sentUnreadable) probed else probed.takeIf { it == SpamCause.BLOCKED }
         val ruleId = (decision as? FilterDecision.Block)?.ruleId?.takeIf { cause != null }
-        val inSpam = IncomingMms(store).revealNotice(row, notice.sender, cause, ruleId) ?: return Outcome.Gone
+        val inSpam = IncomingMms(store, unknownNotice(context)).revealNotice(row, notice.sender, cause, ruleId)
+            ?: return Outcome.Gone
         return Outcome.Kept(message, decision, inSpam)
     }
 

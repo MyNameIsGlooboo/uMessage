@@ -490,17 +490,28 @@ internal object ArrivalFacts {
     fun wroteToOnArrival(context: Context, address: String, judgement: Judgement): Judgement? {
         val spam = judgement.verdict as? SenderVerdict.Spam
         if (spam?.cause != SpamCause.UNKNOWN) return judgement
-        val sent = runCatching { wroteTo(context, address) }.getOrDefault(ContactLookup.UNKNOWN)
         // E-4: the sent history could not be read: not known (the caller fails open), as the history check does.
-        if (sent == ContactLookup.UNKNOWN) return null
-        if (sent != ContactLookup.FOUND) return judgement
+        val joined = joinIfWroteTo(context, address) ?: return null
+        if (!joined) return judgement
         val place = runCatching {
-            val repo = UMessage.repository(context) as DefaultSpamRepository
-            val filter = UMessage.filter(context) as DefaultSpamFilter
-            val joined = runBlocking { repo.joinGroup(AllowGroup.WROTE, address, MemberSource.HISTORY) }
-            if (joined) filter.senderJudge.verdict(address) else null
+            (UMessage.filter(context) as DefaultSpamFilter).senderJudge.verdict(address)
         }.getOrNull()
         return if (place == null) judgement else judgement.copy(verdict = place)
+    }
+
+    /**
+     * D-4: true when the user wrote to [address] and it is now a member of "People you wrote to" (source HISTORY);
+     * false when it did not (or the join failed); null when the sent history could not be read. Shared by the SMS
+     * and the MMS paths (L1-2).
+     */
+    fun joinIfWroteTo(context: Context, address: String): Boolean? {
+        val sent = runCatching { wroteTo(context, address) }.getOrDefault(ContactLookup.UNKNOWN)
+        if (sent == ContactLookup.UNKNOWN) return null
+        if (sent != ContactLookup.FOUND) return false
+        return runCatching {
+            val repo = UMessage.repository(context) as DefaultSpamRepository
+            runBlocking { repo.joinGroup(AllowGroup.WROTE, address, MemberSource.HISTORY) }
+        }.getOrDefault(false)
     }
 
     /**

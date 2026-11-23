@@ -22,7 +22,8 @@ import org.junit.runner.RunWith
 class IncomingMmsTest {
 
     private val store = FakeMmsSpamStore()
-    private val mms = IncomingMms(store) { NOW }
+    private val posted = mutableListOf<Triple<Long, String, String>>()
+    private val mms = IncomingMms(store, { thread, sender, body, _ -> posted += Triple(thread, sender, body) }) { NOW }
     private val row = Uri.parse("content://mms/7")
     private val notice = Uri.parse("content://mms/inbox/42")
 
@@ -31,6 +32,8 @@ class IncomingMmsTest {
         val answer: FilterDecision? = FilterDecision.Allow(DecisionReason.CONTACT),
         val judgement: Judgement? = null,
         val history: Boolean = true,
+        /** The check's answer to [wroteToOnArrival]; the judgement itself when unset. */
+        val rescued: (Judgement) -> Judgement? = { it },
     ) : MmsSenderCheck {
         var probed = 0
         var judged = 0
@@ -38,6 +41,7 @@ class IncomingMmsTest {
 
         override fun probe(): FilterDecision? = answer.also { probed++ }
         override fun judge(): Judgement? = judgement.also { judged++ }
+        override fun wroteToOnArrival(judgement: Judgement): Judgement? = rescued(judgement)
         override fun historyChecked(): Boolean = history
         override fun log(decision: String, reason: String, ruleId: Long?) {
             logged += Triple(decision, reason, ruleId)
@@ -46,6 +50,7 @@ class IncomingMmsTest {
 
     private fun place(check: Check, others: Int? = 1, counted: Boolean = false): MmsPlace = mms.placeDownloaded(
         row = row, threadId = THREAD, sender = SENDER, recipients = others, check = check, noticeCounted = counted,
+        body = "hello",
     )
 
     private fun spam(cause: SpamCause, ruleId: Long? = null, fact: SenderFact? = null) = Judgement(
@@ -450,6 +455,130 @@ class IncomingMmsTest {
         mms.forgetNoticeChat(noticeThread = 55L, landedIn = 66L, countedIn = null)
         assertThat(store.spamRows[55L]?.third).isEqualTo(1)
         assertThat(store.forgotten).isEmpty()
+    }
+
+    // L1-1: the opt-in notice of an unknown sender's MMS
+
+    @Test
+    fun l11_anUnknownSendersMmsStoredInSpam_postsOneNoticeWithItsText() {
+        assertThat(place(Check(judgement = spam(SpamCause.UNKNOWN)))).isEqualTo(MmsPlace.Spam(SpamCause.UNKNOWN))
+
+        assertThat(posted).containsExactly(Triple(THREAD, SENDER, "hello"))
+    }
+
+    @Test
+    fun l11_aBlockedSendersMms_postsNoNotice() {
+        place(Check(judgement = spam(SpamCause.BLOCKED, ruleId = 5L)))
+
+        assertThat(posted).isEmpty()
+    }
+
+    @Test
+    fun l11_anMmsThatFailedOpenToMessages_orWentToAGroup_postsNoNotice() {
+        store.notListed += THREAD
+        place(Check(judgement = spam(SpamCause.UNKNOWN)))
+        place(Check(answer = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)), others = 2)
+
+        assertThat(posted).isEmpty()
+    }
+
+    @Test
+    fun l11_aRevealedUnknownNotice_postsOnce_andItsLaterDownloadDoesNotPostAgain() {
+        assertThat(mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN)).isTrue()
+        val thread = store.threads.getValue(SENDER)
+        assertThat(posted).containsExactly(Triple(thread, SENDER, ""))
+
+        mms.placeDownloaded(
+            row = row, threadId = thread, sender = SENDER, recipients = 1,
+            check = Check(judgement = spam(SpamCause.UNKNOWN)), noticeCounted = true, body = "hello",
+        )
+
+        assertThat(posted).hasSize(1)
+    }
+
+    @Test
+    fun l11_aRevealedBlockedNotice_orOneThatWentToMessages_postsNoNotice() {
+        mms.revealNotice(notice, SENDER, SpamCause.BLOCKED, ruleId = 7L)
+        mms.revealNotice(Uri.parse("content://mms/inbox/43"), "+15550009999", null)
+
+        assertThat(posted).isEmpty()
+    }
+
+    @Test
+    fun l11_aNoticeThatThrows_neverFailsThePlacement() {
+        val loud = IncomingMms(store, { _, _, _, _ -> error("shade") }) { NOW }
+
+        val place = loud.placeDownloaded(
+            row = row, threadId = THREAD, sender = SENDER, recipients = 1,
+            check = Check(judgement = spam(SpamCause.UNKNOWN)),
+        )
+
+        assertThat(place).isEqualTo(MmsPlace.Spam(SpamCause.UNKNOWN))
+    }
+
+    // L1-2, D-4: a number the user wrote to is rescued, as for an SMS
+
+    @Test
+    fun l12_anUnknownSenderTheUserWroteTo_goesToMessagesAndPostsNoNotice() {
+        val allowed = Judgement(SenderVerdict.Messages(DecisionReason.GROUP_MEMBER, null))
+        val check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { allowed })
+
+        val place = place(check)
+
+        assertThat(place).isEqualTo(MmsPlace.Messages(DecisionReason.GROUP_MEMBER))
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.rowSilent).isEmpty()
+        assertThat(posted).isEmpty()
+    }
+
+    @Test
+    fun l12_theSentHistoryCannotBeRead_failsOpenToMessagesWithAnErrorRow() {
+        val check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { null })
+
+        val place = place(check)
+
+        assertThat(place).isEqualTo(MmsPlace.Messages(null))
+        assertThat(store.spamRows).isEmpty()
+        assertThat(check.logged).containsExactly(Triple("ERROR", "HISTORY_CHECK_FAILED", null))
+    }
+
+    @Test
+    fun l12_aRescueThatThrows_failsOpenToMessages() {
+        val check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { error("store") })
+
+        assertThat(place(check)).isEqualTo(MmsPlace.Messages(null))
+        assertThat(store.spamRows).isEmpty()
+    }
+
+    @Test
+    fun l12_aNoticeVerdict_forAnUnknownSenderTheUserWroteTo_isMessages() {
+        var allowedNow = false
+        val unknown = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
+        val allowed = FilterDecision.Allow(DecisionReason.GROUP_MEMBER)
+
+        val verdict = IncomingMms.noticeVerdict(
+            SpamCause.UNKNOWN, { true }, probe = { if (allowedNow) allowed else unknown },
+            wroteTo = { allowedNow = true; true },
+        )
+
+        assertThat(verdict.cause).isNull()
+        assertThat(verdict.reason).isEqualTo(DecisionReason.GROUP_MEMBER.name)
+    }
+
+    @Test
+    fun l12_aNoticeVerdict_whenTheSentHistoryCannotBeRead_failsOpen_andAnotherSenderStaysSpam() {
+        val unknown = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER)
+
+        val unreadable = IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }, probe = { unknown }, wroteTo = { null })
+        assertThat(unreadable.cause).isNull()
+        val notWrote = IncomingMms.noticeVerdict(SpamCause.UNKNOWN, { true }, probe = { unknown }, wroteTo = { false })
+        assertThat(notWrote.cause).isEqualTo(SpamCause.UNKNOWN)
+        // A blocked sender is never rescued, and the sent history is not even asked.
+        assertThat(
+            IncomingMms.noticeVerdict(
+                SpamCause.BLOCKED, { true }, probe = { unknown }, wroteTo = { error("not asked") },
+            ).cause,
+        ).isEqualTo(SpamCause.BLOCKED)
     }
 
     // E-19: the history check before a notice gets a Spam row

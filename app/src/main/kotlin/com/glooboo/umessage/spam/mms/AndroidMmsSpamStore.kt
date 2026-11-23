@@ -117,7 +117,7 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
             }
             // Bounded: the oldest notice rows (lowest ids) go first; a mark only matters while its notice exists.
             val all = (kept + listOfNotNull(value)).sortedBy { it.substringBefore('=').toLongOrNull() ?: 0L }
-            prefs.edit().putStringSet(MARKS_KEY, all.takeLast(MAX_MARKS).toSet()).apply()
+            prefs.edit().putStringSet(MARKS_KEY, all.takeLast(MAX_MARKS).toSet()).commit()
         }
     }
 

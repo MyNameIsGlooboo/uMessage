@@ -33,12 +33,14 @@ import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.data.ArrivalFacts
 import com.glooboo.umessage.spam.data.ForwardDelivery
 import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
+import com.glooboo.umessage.spam.mms.AppUnknownNotice
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPlace
@@ -187,7 +189,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     @Volatile var noticeUri: Uri? = null
 
     /** Provider truth: the store and Spam table side of the placement. */
-    var incomingMms: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it)) }
+    var incomingMms: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it), AppUnknownNotice(it)) }
 
     /** Provider truth: the sender checks of one MMS ([AppSenderCheck]). */
     var senderCheck: (Context, IncomingMessage, Long) -> MmsSenderCheck = { c, m, t -> AppSenderCheck(c, m, t) }
@@ -302,6 +304,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             recipients = recipientsOf(mms),
             check = unlogged ?: senderCheck(context, message, mms.threadId),
             noticeCounted = noticeCountedIn == mms.threadId,
+            body = mms.body,
         )
         unlogged?.flushUnless(sweepRowHolds(place, noticeCountedIn, mms.threadId))
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
@@ -486,6 +489,9 @@ internal class AppSenderCheck(
 
     /** J3-1: as [judge] (facts first), without the decision-log row. */
     override fun judgeQuietly(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT", writeLog = false)
+
+    override fun wroteToOnArrival(judgement: Judgement): Judgement? =
+        ArrivalFacts.wroteToOnArrival(context, message.address, judgement)
 
     override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
 

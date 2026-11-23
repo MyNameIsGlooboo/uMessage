@@ -115,6 +115,15 @@ interface MmsSpamStore {
     fun markOf(row: Uri): NoticeMark?
 }
 
+/**
+ * 4.6, 6.2: the opt-in "notify me for texts from unknown senders" notice of a one-to-one MMS stored in Spam. The app's
+ * one is [AppUnknownNotice] (it reads the option); tests use a recorder. Never asked for a blocked sender.
+ */
+fun interface UnknownNotice {
+    /** The quiet notice of the Spam chat [threadId]: [body] is the MMS text (blank: the "MMS" label shows). */
+    fun post(threadId: Long, sender: String, body: String, at: Long)
+}
+
 /** The sender checks of one downloaded MMS; the app's one is in MmsReceiver, tests use a fake. */
 interface MmsSenderCheck {
     /** The sender's verdict without writing or logging anything; null when the filter failed. */
@@ -125,6 +134,12 @@ interface MmsSenderCheck {
 
     /** J3-1: [judge] without its decision-log row, for an MMS whose row was written already. */
     fun judgeQuietly(): Judgement? = judge()
+
+    /**
+     * D-4: an unknown sender the user wrote to joins "People you wrote to" and its place is read again, as for an SMS
+     * ([judgement] itself when it does not apply); null when the sent history could not be read (fail open).
+     */
+    fun wroteToOnArrival(judgement: Judgement): Judgement? = judgement
 
     /** R2: the sender's history was checked on the spot; false when that failed. */
     fun historyChecked(): Boolean
@@ -148,6 +163,7 @@ interface MmsSenderCheck {
  */
 class IncomingMms(
     private val store: MmsSpamStore,
+    private val unknownNotice: UnknownNotice = UnknownNotice { _, _, _, _ -> },
     private val now: () -> Long = System::currentTimeMillis,
 ) {
 
@@ -186,7 +202,14 @@ class IncomingMms(
             recordHits(ruleId, MmsPlace.Spam(SpamCause.UNKNOWN))
         }
         runCatching { store.showChat(threadId) }
+        // L1-1: one notice for this MMS, here where it is counted (a later download of it does not post again).
+        if (inSpam && cause == SpamCause.UNKNOWN) postNotice(threadId, sender, "")
         return inSpam
+    }
+
+    /** 4.6: the opt-in notice of an unknown sender's MMS in Spam; never fails the placement. */
+    private fun postNotice(threadId: Long, sender: String, body: String) {
+        runCatching { unknownNotice.post(threadId, sender, body, now()) }
     }
 
     /** J3-2: the app's own rows of [threadId] go when the store has no message and the app no scheduled one in it. */
@@ -208,12 +231,19 @@ class IncomingMms(
         recipients: Int?,
         check: MmsSenderCheck,
         noticeCounted: Boolean = false,
+        body: String = "",
     ): MmsPlace {
         if (recipients != 1) return placeGroup(check)
         if (!runCatching(check::historyChecked).getOrDefault(false)) {
             return placeUnchecked(row, threadId, sender, check, noticeCounted)
         }
-        val judgement = runCatching(check::judge).getOrNull() ?: return MmsPlace.Messages(null)
+        val judged = runCatching(check::judge).getOrNull() ?: return MmsPlace.Messages(null)
+        // L1-2, D-4: an unknown sender the user wrote to is rescued, as for an SMS; an unreadable sent
+        // history fails open.
+        val judgement = runCatching { check.wroteToOnArrival(judged) }.getOrNull() ?: run {
+            runCatching { check.log(ERROR, HISTORY_FAILED, null) }
+            return MmsPlace.Messages(null)
+        }
         val verdict = judgement.verdict
         val place = if (verdict is SenderVerdict.Spam) {
             toSpam(row, threadId, sender, verdict.cause, noticeCounted)
@@ -223,6 +253,10 @@ class IncomingMms(
         val blockRule = (judgement.decision() as? FilterDecision.Block)?.ruleId?.takeIf { place is MmsPlace.Spam }
         // E-22: a counted notice already holds this message's Spam count; a Messages place always counts its word.
         if (!noticeCounted || place !is MmsPlace.Spam) recordHits(judgement.wordRuleId ?: blockRule, place)
+        // L1-1: an unknown sender's MMS stays in Spam: the opt-in notice, unless its notice already posted it.
+        if (place is MmsPlace.Spam && place.cause == SpamCause.UNKNOWN && !noticeCounted) {
+            postNotice(threadId, sender, body)
+        }
         return place
     }
 
@@ -310,19 +344,38 @@ class IncomingMms(
         /**
          * E-19: the cause a notice is put in Spam with. The push probe ran before the sender's history was checked;
          * [history] checks it now (R2). Passed: [probe] answers again (the check may have allowed the sender).
+         * [wroteTo] (L1-2): true when the sender is one the user wrote to (now a member, so it is asked again), false
+         * when not, null when that could not be read (Messages).
          * Failed: only a block rule holds (history never allows a blocked sender, as E-11); anything else is Messages.
          */
         fun noticeCause(cause: SpamCause?, history: () -> Boolean, probe: () -> FilterDecision?): SpamCause? =
-            cause?.let { noticeVerdict(it, history, probe).cause }
+            cause?.let { noticeVerdict(it, history, probe = probe).cause }
 
         /** [noticeCause] with the reason (J3-4): why a notice left without a cause is delivered. */
-        fun noticeVerdict(cause: SpamCause, history: () -> Boolean, probe: () -> FilterDecision?): NoticeVerdict {
+        fun noticeVerdict(
+            cause: SpamCause,
+            history: () -> Boolean,
+            wroteTo: (() -> Boolean?)? = null,
+            probe: () -> FilterDecision?,
+        ): NoticeVerdict {
             if (!runCatching(history).getOrDefault(false)) {
                 return NoticeVerdict(cause.takeIf { it == SpamCause.BLOCKED }, HISTORY_FAILED)
             }
             if (cause == SpamCause.BLOCKED) return NoticeVerdict(cause, DecisionReason.BLOCK_RULE.name)
-            val decision = runCatching(probe).getOrNull()
-            val again = (decision as? FilterDecision.Block)?.let(::causeOf)
+            var decision = runCatching(probe).getOrNull()
+            var again = (decision as? FilterDecision.Block)?.let(::causeOf)
+            if (again == SpamCause.UNKNOWN && wroteTo != null) {
+                // L1-2, D-4: the user wrote to the sender: it joined "People you wrote to", so ask the filter again.
+                // The sent history could not be read: fail open (Messages), as the history check does.
+                when (runCatching(wroteTo).getOrNull()) {
+                    null -> return NoticeVerdict(null, HISTORY_FAILED)
+                    true -> {
+                        decision = runCatching(probe).getOrNull()
+                        again = (decision as? FilterDecision.Block)?.let(::causeOf)
+                    }
+                    false -> Unit
+                }
+            }
             return NoticeVerdict(again, decision?.reason?.name ?: FILTER_FAILED)
         }
 
