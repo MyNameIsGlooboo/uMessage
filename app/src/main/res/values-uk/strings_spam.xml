@@ -116,6 +116,6 @@
     <string name="spam_purge_days">%d днів</string>
     <string name="spam_purge_forever">Зберігати завжди</string>
     <string name="spam_notify_title">Сповіщати про повідомлення від невідомих відправників</string>
-    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
-    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
+    <string name="spam_delete_kept_new_text">Надійшло нове повідомлення, тому цей чат не видалено.</string>
+    <string name="spam_moved_to_archived">Прибрано зі «Спаму». Архівовані чати залишаються в «Архіві».</string>
 </resources>

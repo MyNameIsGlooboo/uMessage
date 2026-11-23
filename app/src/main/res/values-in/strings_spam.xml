@@ -95,6 +95,6 @@
     <string name="spam_purge_days">%d hari</string>
     <string name="spam_purge_forever">Simpan selamanya</string>
     <string name="spam_notify_title">Beri tahu saya untuk pesan dari pengirim tidak dikenal</string>
-    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
-    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
+    <string name="spam_delete_kept_new_text">Ada pesan baru masuk, jadi percakapan ini tidak dihapus.</string>
+    <string name="spam_moved_to_archived">Dipindahkan dari Spam. Percakapan yang diarsipkan tetap di Arsip.</string>
 </resources>

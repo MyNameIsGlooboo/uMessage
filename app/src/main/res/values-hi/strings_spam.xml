@@ -102,6 +102,6 @@
     <string name="spam_purge_days">%d दिन</string>
     <string name="spam_purge_forever">हमेशा रखें</string>
     <string name="spam_notify_title">अनजान भेजने वालों के मैसेज की सूचना दें</string>
-    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
-    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
+    <string name="spam_delete_kept_new_text">एक नया मैसेज आया, इसलिए यह चैट नहीं हटाई गई।</string>
+    <string name="spam_moved_to_archived">स्पैम से बाहर किया गया। संग्रहित चैट संग्रह में ही रहती हैं।</string>
 </resources>

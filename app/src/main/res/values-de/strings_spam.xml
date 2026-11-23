@@ -102,6 +102,6 @@
     <string name="spam_purge_days">%d Tagen</string>
     <string name="spam_purge_forever">Für immer behalten</string>
     <string name="spam_notify_title">Bei Nachrichten von unbekannten Absendern benachrichtigen</string>
-    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
-    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
+    <string name="spam_delete_kept_new_text">Eine neue Nachricht ist eingegangen, daher wurde dieser Chat nicht gelöscht.</string>
+    <string name="spam_moved_to_archived">Aus Spam verschoben. Archivierte Chats bleiben im Archiv.</string>
 </resources>

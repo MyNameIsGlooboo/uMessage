@@ -95,6 +95,6 @@
     <string name="spam_purge_days">%d天</string>
     <string name="spam_purge_forever">永久保留</string>
     <string name="spam_notify_title">收到未知发件人的短信时通知我</string>
-    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
-    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
+    <string name="spam_delete_kept_new_text">收到了新短信，所以这个会话没有被删除。</string>
+    <string name="spam_moved_to_archived">已移出垃圾短信。已归档的会话仍留在归档中。</string>
 </resources>
