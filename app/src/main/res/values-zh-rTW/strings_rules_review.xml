@@ -25,7 +25,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">所有以此開頭的號碼，例如+1555或0555。</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">文字寄件者，例如VM-HDFCBK或Bank Melli。不區分大小寫。</string>
+    <string name="rules2_type_sender_id_help">文字寄件者，例如VM-HDFCBK或MYBANK。不區分大小寫。</string>
     <string name="rules2_type_regex_help">進階功能。用來比對訊息文字的正規表示式。儲存前請先在下方測試。</string>
     <string name="rules2_err_sender_id">請使用字母、數字、空格、句點、連字號或&amp;（最多32個字元，至少一個字母）</string>
     <string name="rules2_err_sender_id_char">寄件者名稱不能使用「%1$s」。請使用字母、數字、空格、句點、連字號或&amp;。</string>

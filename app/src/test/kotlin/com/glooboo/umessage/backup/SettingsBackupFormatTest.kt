@@ -165,8 +165,9 @@ class SettingsBackupFormatTest {
         val added = result.toAdd.single()
         assertThat(added.enabled).isFalse()
         assertThat(added.subscriptionId).isNull()
-        // 09… is stored with the country code of the phone's region; a short code, the phone's own number and the
-        // watched sender are dropped.
+        // 07… is stored with the country code of the phone's region; a short code, the phone's own number and the
+        // watched sender are dropped. 07912345678 is libphonenumber's own GB example; the 07700 900xxx drama range
+        // fails its validation.
         assertThat(added.targets).containsExactly("+447912345678")
         assertThat(result.unusable).isEqualTo(0)
     }

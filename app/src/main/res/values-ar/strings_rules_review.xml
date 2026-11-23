@@ -30,7 +30,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">كل رقم يبدأ بهذه الأرقام، مثل +1555 أو 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">اسم مرسل نصي مثل VM-HDFCBK أو Bank Melli. لا فرق بين الأحرف الكبيرة والصغيرة.</string>
+    <string name="rules2_type_sender_id_help">اسم مرسل نصي مثل VM-HDFCBK أو MYBANK. لا فرق بين الأحرف الكبيرة والصغيرة.</string>
     <string name="rules2_type_regex_help">للمتقدمين. تعبير نمطي يُطابق مع نص الرسالة. اختبره أدناه قبل الحفظ.</string>
     <string name="rules2_err_sender_id">استخدم حروفًا أو أرقامًا أو مسافات أو نقاطًا أو شرطات أو &amp; (حتى 32 حرفًا، بينها حرف أبجدي واحد على الأقل)</string>
     <string name="rules2_err_sender_id_char">لا يمكن استخدام «%1$s» في اسم المرسل. استخدم حروفًا أو أرقامًا أو مسافات أو نقاطًا أو شرطات أو &amp;.</string>

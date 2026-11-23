@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">ہر وہ نمبر جو اس سے شروع ہو، مثلاً +1555 یا 0555۔</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">متن والا بھیجنے والا جیسے VM-HDFCBK یا Bank Melli۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔</string>
+    <string name="rules2_type_sender_id_help">متن والا بھیجنے والا جیسے VM-HDFCBK یا MYBANK۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔</string>
     <string name="rules2_type_regex_help">ایڈوانسڈ۔ ایک ریگولر ایکسپریشن جو پیغام کے متن سے ملایا جاتا ہے۔ محفوظ کرنے سے پہلے نیچے اسے آزمائیں۔</string>
     <string name="rules2_err_sender_id">حروف، ہندسے، اسپیس، نقطے، ڈیش یا &amp; استعمال کریں (زیادہ سے زیادہ 32 حرف، کم از کم ایک حرف)</string>
     <string name="rules2_err_sender_id_char">«%1$s» بھیجنے والے کے نام میں استعمال نہیں ہو سکتا۔ حروف، ہندسے، اسپیس، نقطے، ڈیش یا &amp; استعمال کریں۔</string>
