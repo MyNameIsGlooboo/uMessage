@@ -1,8 +1,8 @@
 package com.glooboo.umessage.spam.data
 
+import android.Manifest
 import android.content.ContentUris
 import android.content.ContentValues
-import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.provider.BaseColumns
