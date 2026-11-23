@@ -77,6 +77,10 @@ class SpamChatsViewModelTest {
     private val received = HashMap<Long, Pair<String, Int>>()
     private val made = mutableListOf<SpamChatsViewModel>()
 
+    /** J24: what the store holds of each chat now, and which chats were read (the confirm-time read comes first). */
+    private val marks = HashMap<Long, ChatMark>()
+    private val markReads: MutableList<Long> = Collections.synchronizedList(mutableListOf())
+
     private fun newModel(source: List<SpamChat>) = SpamChatsViewModel(
         app,
         repository = { repository },
@@ -91,6 +95,10 @@ class SpamChatsViewModelTest {
             deleteResult
         },
         markAll = { markedAll },
+        marker = { id ->
+            markReads.add(id)
+            marks[id] ?: ChatMark(10L, 0L, inSpam = true)
+        },
     ).also { made += it }
 
     @Before
@@ -347,6 +355,77 @@ class SpamChatsViewModelTest {
         val message = awaitEvent<SpamChatsEvent.Message>()
         assertThat(message.res).isEqualTo(R.string.pt_delete_not_default)
         awaitUntil { 1L in rowIds() }
+    }
+
+    // ---- J24: a delete never takes a text that came after it was confirmed ----------------------------------------
+
+    @Test
+    fun aTextThatArrivesDuringAPendingDeleteSurvivesAndTheChatShowsAgain() {
+        vm.delete(setOf(1L, 2L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        awaitUntil { markReads.containsAll(listOf(1L, 2L)) }
+        // A new text lands in chat 1 (its id is above the one seen at the confirm).
+        marks[1L] = ChatMark(11L, 0L, inSpam = true)
+        vm.commitDelete(event.token)
+
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deleted.single()).containsExactly(2L)
+        assertThat(awaitEvent<SpamChatsEvent.Message>().res).isEqualTo(R.string.spam_delete_kept_new_text)
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aChatThatLeftSpamDuringAPendingDeleteIsKept() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        awaitUntil { 1L in markReads }
+        marks[1L] = ChatMark(10L, 0L, inSpam = false)
+        vm.commitDelete(event.token)
+
+        assertThat(awaitEvent<SpamChatsEvent.Message>().res).isEqualTo(R.string.spam_delete_kept_new_text)
+        assertThat(deleted).isEmpty()
+    }
+
+    @Test
+    fun aTabSwitchThenTheActivityStopNeverDeletesTheTextThatCameInBetween() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        awaitUntil { 1L in markReads }
+        // The user switches tab: the snackbar is cancelled, the delete stays pending.
+        showThenCancel(event)
+        marks[1L] = ChatMark(12L, 3L, inSpam = false)
+        // The verification code's notification is tapped: MainActivity stops.
+        SpamChatsViewModel.flushOpen()
+
+        awaitUntil { events.any { it is SpamChatsEvent.Message } }
+        assertThat(deleted).isEmpty()
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun theUndoGoesAwayOnceTheDeleteHasRun() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        val snackbar = SnackbarHostState()
+        val job = scope.launch { showSpamEvent(event, snackbar, vm, app.resources, onViewRule = {}) }
+        awaitUntil { snackbar.currentSnackbarData != null }
+
+        // Leaving the app ran the delete: its Undo must not stay on screen.
+        vm.flushPendingDeletes()
+        awaitUntil { snackbar.currentSnackbarData == null && job.isCompleted }
+        awaitUntil { deleted.isNotEmpty() }
+    }
+
+    @Test
+    fun theMarkSaysWhenAChatMayGo() {
+        val seen = ChatMark(10L, 2L, inSpam = true)
+        assertThat(ChatMark.safeToDelete(seen, seen, needsSpam = true)).isTrue()
+        assertThat(ChatMark.safeToDelete(seen, seen.copy(smsId = 11L), needsSpam = true)).isFalse()
+        assertThat(ChatMark.safeToDelete(seen, seen.copy(mmsId = 3L), needsSpam = false)).isFalse()
+        assertThat(ChatMark.safeToDelete(seen, seen.copy(inSpam = false), needsSpam = true)).isFalse()
+        assertThat(ChatMark.safeToDelete(seen, seen.copy(inSpam = false), needsSpam = false)).isTrue()
+        assertThat(ChatMark.safeToDelete(null, seen, needsSpam = false)).isFalse()
+        assertThat(ChatMark.safeToDelete(seen, null, needsSpam = false)).isFalse()
     }
 
     @Test

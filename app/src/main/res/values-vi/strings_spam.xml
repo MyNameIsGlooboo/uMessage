@@ -95,4 +95,6 @@
     <string name="spam_purge_days">%d ngày</string>
     <string name="spam_purge_forever">Giữ mãi mãi</string>
     <string name="spam_notify_title">Thông báo cho tôi khi có tin nhắn từ người gửi không xác định</string>
+    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
+    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
 </resources>

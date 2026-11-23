@@ -95,4 +95,6 @@
     <string name="spam_purge_days">%d日</string>
     <string name="spam_purge_forever">ずっと保存</string>
     <string name="spam_notify_title">不明な送信者からのメッセージを通知</string>
+    <string name="spam_delete_kept_new_text">A new text came in, so that chat was not deleted.</string>
+    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
 </resources>

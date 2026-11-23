@@ -49,6 +49,9 @@ import com.glooboo.umessage.ui.conversations.SwipeAction
 import com.glooboo.umessage.ui.conversations.commitIfCancelled
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.onboarding.SortingCard
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /** Whether the empty Spam tab's sorting card has played since the app was opened (it plays once per open). */
@@ -295,6 +298,8 @@ private suspend fun showMessage(
 
 /** A snackbar with one action (Undo by default) that replaces the one shown; true when the action was tapped. */
 private class SnackbarOffer(private val snackbar: SnackbarHostState, private val undo: String) {
+    fun dismiss() = snackbar.currentSnackbarData?.dismiss()
+
     suspend operator fun invoke(message: String, action: String = undo, long: Boolean = false): Boolean {
         snackbar.currentSnackbarData?.dismiss()
         val duration = if (long) SnackbarDuration.Long else SnackbarDuration.Short
@@ -311,7 +316,9 @@ private suspend fun showWindowed(
 ) {
     when (event) {
         is SpamChatsEvent.MovedToMessages -> {
-            val text = if (event.name != null) {
+            val text = if (event.archived) {
+                resources.getString(R.string.spam_moved_to_archived)
+            } else if (event.name != null) {
                 resources.getString(R.string.nsf_snack_moved_allowed, event.name)
             } else {
                 resources.getQuantityString(R.plurals.nsf_snack_moved_allowed_many, event.count, event.count)
@@ -327,7 +334,19 @@ private suspend fun showWindowed(
         }
         is SpamChatsEvent.Deleted -> {
             val text = resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count)
-            if (offer(text, long = true)) viewModel.undoDelete(event.token) else viewModel.commitDelete(event.token)
+            // L3-2: when the delete runs before the snackbar ends (the app left, a new delete), its Undo goes away.
+            val undone = coroutineScope {
+                val watcher = launch(start = CoroutineStart.UNDISPATCHED) {
+                    viewModel.deleteClosed.first { it == event.token }
+                    offer.dismiss()
+                }
+                try {
+                    viewModel.isDeletePending(event.token) && offer(text, long = true)
+                } finally {
+                    watcher.cancel()
+                }
+            }
+            if (undone) viewModel.undoDelete(event.token) else viewModel.commitDelete(event.token)
         }
         else -> showUnblockEvent(event, offer, viewModel, resources)
     }
@@ -342,7 +361,11 @@ private suspend fun showUnblockEvent(
 ) {
     when (event) {
         is SpamChatsEvent.Unblocked -> {
-            val text = resources.getQuantityString(R.plurals.pt_snack_unblocked, event.count, event.count)
+            val text = if (event.archived) {
+                resources.getString(R.string.spam_moved_to_archived)
+            } else {
+                resources.getQuantityString(R.plurals.pt_snack_unblocked, event.count, event.count)
+            }
             if (offer(text)) viewModel.undoUnblock(event.token) else viewModel.commitUnblock(event.token)
         }
         is SpamChatsEvent.UnblockedUnsure -> {

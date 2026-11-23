@@ -12,9 +12,14 @@ import android.app.NotificationManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,6 +52,7 @@ import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
+import com.glooboo.umessage.ui.spam.ChatMark
 import com.glooboo.umessage.ui.spam.SimInfo
 
 /**
@@ -92,6 +98,10 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     /** Thread ids hidden from the list while a delete or archive is pending or in flight. */
     private val hidden = HashSet<Long>()
     private val pendingDeletes = LinkedHashMap<Long, List<Long>>()
+
+    /** J24: for each waiting delete, the mark of every chat when the user confirmed it (a later text is never lost). */
+    private val pendingMarks = HashMap<Long, Deferred<Map<Long, ChatMark?>>>()
+    private val markScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val archived = HashMap<Long, List<Long>>()
 
     /** CL-32: the threads an archive marked read because they were unread, by token, so Undo can mark them unread. */
@@ -481,6 +491,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         pendingDeletes.keys.toList().forEach(::commitDelete)
         val token = nextToken++
         pendingDeletes[token] = threadIds
+        pendingMarks[token] = markScope.async { ChatMark.readAll(app, threadIds) }
         hidden += threadIds
         selected = selected - threadIds.toSet()
         requestRebuild()
@@ -488,6 +499,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun undoDelete(token: Long) {
+        pendingMarks.remove(token)
         val ids = pendingDeletes.remove(token) ?: return
         hidden -= ids.toSet()
         requestRebuild()
@@ -495,15 +507,19 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     fun commitDelete(token: Long) {
         val ids = pendingDeletes.remove(token) ?: return
+        val marks = pendingMarks.remove(token)
         viewModelScope.launch(Dispatchers.IO + NonCancellable) {
+            // J24: a chat that got a newer text since the confirm is kept and says so.
+            val (safe, kept) = ChatMark.split(app, ids, marks?.await().orEmpty(), needsSpam = false)
             // S14 (provider truth): a delete that did not happen says why.
-            val (deleted, message) = deleteChats(app, ids)
+            val (deleted, message) = if (safe.isEmpty()) emptySet<Long>() to null else deleteChats(app, safe)
             withContext(Dispatchers.Main) {
                 source = source.filterNot { it.threadId in deleted }
                 hidden -= ids.toSet()
                 requestRebuild()
+                if (kept.isNotEmpty()) _events.trySend(ConversationsEvent.Message(R.string.spam_delete_kept_new_text))
                 if (message != null) _events.trySend(ConversationsEvent.Message(message))
-                else if (deleted.size < ids.size) _events.trySend(ConversationsEvent.Failed)
+                else if (deleted.size < safe.size) _events.trySend(ConversationsEvent.Failed)
             }
             refreshConversations()
         }
@@ -627,11 +643,18 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         quickExecutor.shutdown()
         // Finish deletions whose undo window was still open; the scope is gone, so run them detached.
         val leftovers = pendingDeletes.values.flatten()
+        val marks = pendingMarks.values.toList()
         pendingDeletes.clear()
+        pendingMarks.clear()
         if (leftovers.isNotEmpty()) {
             val context = app
             Thread {
-                runCatching { deleteChats(context, leftovers) }
+                runCatching {
+                    val confirmed = HashMap<Long, ChatMark?>()
+                    runBlocking { marks.forEach { confirmed += it.await() } }
+                    val (safe, _) = ChatMark.split(context, leftovers, confirmed, needsSpam = false)
+                    if (safe.isNotEmpty()) deleteChats(context, safe)
+                }
                 refreshConversations()
             }.start()
         }
