@@ -13,7 +13,7 @@ Questions about privacy: Glooboo@proton.me
 
 - uMessage does not collect your data. It has no servers and no accounts.
 - The app does not have the `INTERNET` permission, so Android does not let it open any network connection. Nothing is sent to any server by the app.
-- No ads, no analytics, no crash reporting, no telemetry, and no third-party SDKs that collect data. The Google Play build includes Google's in-app rating card (see below), which runs on the phone, and uMessage sends no data to it.
+- No ads, no analytics, no crash reporting, no telemetry, and no third-party SDKs that collect data. The Google Play build includes Google's in-app rating card (see below), which runs on the phone, and uMessage sends no data to it; a rating you leave there is sent to Google by the Play Store app, not by uMessage.
 - We do not sell or share your data with anyone.
 
 ## Data the app handles on your device, and why
@@ -42,7 +42,7 @@ Everything below is processed only on your phone.
 | ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION | Share your location, only when you tap Location in the attach menu. |
 | READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED, READ_EXTERNAL_STORAGE (Android 12 and older; not in the Google Play build) | Show recent photos in the attach menu, only if you allow it. |
 | POST_NOTIFICATIONS | Show notifications. |
-| USE_BIOMETRIC, USE_FINGERPRINT (Android 8 and 9) | Unlock the optional app lock with fingerprint or face. |
+| USE_BIOMETRIC, USE_FINGERPRINT (Android 8 and 8.1) | Unlock the optional app lock with fingerprint or face. |
 | WAKE_LOCK, RECEIVE_BOOT_COMPLETED | Finish handling incoming messages with the screen off, light the screen for a new message if you turn that on, and send scheduled messages, also after a reboot. |
 | SCHEDULE_EXACT_ALARM | Send scheduled messages and reminders at the exact time you chose. If it is not allowed, approximate times are used. |
 | FOREGROUND_SERVICE, FOREGROUND_SERVICE_DATA_SYNC | Keep a message backup or restore that you started running, with a progress notification. |

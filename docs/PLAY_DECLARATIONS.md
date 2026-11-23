@@ -23,7 +23,7 @@ Log form); `SCHEDULE_EXACT_ALARM` (no form expected, see section 3); `FOREGROUND
   like any other (up to 1 MiB, not while roaming), because a group MMS cannot be told apart before the download.
 - Risk: low. A complete default SMS app is the listed core use. Fallback: none needed.
 
-## 2. Photo and video permissions (`READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED`)
+## 2. Photo and video permissions (`READ_MEDIA_IMAGES`, `READ_MEDIA_VISUAL_USER_SELECTED`; foss build only, no form for Google Play)
 
 - Form answers: be honest that this is a convenience, not the core function: select the closest use ("Other") and
   describe the recent photos strip. Do not claim gallery or file-manager status.

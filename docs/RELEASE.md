@@ -37,7 +37,7 @@ bash scripts/check-release-version.sh vX.Y.Z           # tag = VERSION_NAME, VER
 bash scripts/check-no-internet.sh app/build/outputs/apk/foss/release/*.apk
 ```
 
-Install the release (or `assembleFossDaily`) build on a real phone and go through [DEVICE_TEST_CHECKLIST.md](DEVICE_TEST_CHECKLIST.md): receive from a contact, from an unknown number, a verification code in Smart and Strict, "Not spam", and an upgrade over the previous version with data kept.
+Install the release (or `assembleFossDaily`) build on a real phone and go through [DEVICE_TEST_CHECKLIST.md](DEVICE_TEST_CHECKLIST.md): receive from a contact, from an unknown number, a verification code from an unknown sender with Senders of a verification code on, then with it off, "Not spam", and an upgrade over the previous version with data kept.
 
 Commit the version bump and changelogs as `release: version X.Y.Z (CODE)`, open a pull request to `main`, and merge it once CI is green.
 

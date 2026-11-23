@@ -21,7 +21,7 @@
          The vendored commons manifest removes it; declaring it here overrides that. -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <!-- The unmaintained Reprint library (legacy fingerprint tab, Android 10 and lower) adds the deprecated
-         USE_FINGERPRINT. Only Android 8 and 9 need it (from Android 9 USE_BIOMETRIC covers the fingerprint API),
+         USE_FINGERPRINT. Only Android 8 and 8.1 need it (from Android 9 USE_BIOMETRIC covers the fingerprint API),
          so it is capped there instead of being declared on every version. -->
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"

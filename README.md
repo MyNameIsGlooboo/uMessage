@@ -37,8 +37,8 @@ uMessage is distributed as an APK on the [GitHub Releases](../../releases) page.
 
 1. On your phone, download the latest `.apk` from Releases.
 2. Android blocks the install the first time. Open the prompt's Settings link (or Settings > Apps > Special app access > Install unknown apps), choose your browser or file manager, and enable "Allow from this source". Install the APK; you may turn the option off again afterwards.
-3. Open uMessage and follow the first-run setup. The welcome screen has a language chip (pick your language or keep the phone's), the choice for unknown senders, and **Get started**; see step 4. Then comes **Allow**: set uMessage as the default SMS app (Android shows a system dialog; choose uMessage) and grant the permissions (Messages, Contacts, Phone state, Notifications; **Allow all** asks for them at once; each one is explained in [PRIVACY.md](PRIVACY.md)). uMessage can only receive and filter messages while it is the default SMS app.
-4. On the welcome screen, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. Two switches sit below it: a quiet notification for each text that goes to Spam (off by default) and a weekly Spam summary (on by default). Spam sorting is not always right, so look at Spam once a week. Spam is kept until you delete it unless you turn on auto-delete later.
+3. Open uMessage and follow the first-run setup. The welcome screen has a language chip (pick your language or keep the phone's) and the choice for unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. Two switches sit below it: a quiet notification for each text that goes to Spam (off by default) and a weekly Spam summary (on by default). Spam sorting is not always right, so look at Spam once a week. Spam is kept until you delete it unless you turn on auto-delete later. Tap **Get started**.
+4. Then comes **Allow**: set uMessage as the default SMS app (Android shows a system dialog; choose uMessage) and grant the permissions (Messages, Contacts, Phone state, Notifications; **Allow all** asks for them at once; each one is explained in [PRIVACY.md](PRIVACY.md)). uMessage can only receive and filter messages while it is the default SMS app.
 5. The last step, **Keep uMessage running**: on Xiaomi/Poco/Redmi (HyperOS/MIUI) enable Autostart and set Battery saver to "No restrictions" for uMessage. On Samsung remove uMessage from "Sleeping apps".
 
 ## How filtering works
@@ -52,9 +52,10 @@ Every incoming SMS is judged by its sender. The first check that decides wins:
 5. The text holds one of your allowed words or patterns: Messages, and the sender is allowed from then on. A blocked word or pattern sends the sender to Spam.
 6. The sender is on one of the two automatic lists, **People you wrote to** or **Senders of a verification code**: Messages.
 7. The spam filter switch is off: Messages.
-8. Otherwise the sender is unknown: Spam.
+8. The text is a clear verification code and **Senders of a verification code** is on: Messages, and the sender joins that list.
+9. Otherwise the sender is unknown: Spam.
 
-The same answer sorts the chat list, so a chat is never split. The old Smart, Strict and Off modes are gone; the verification code list has its own switch (turning it off gives the old Strict behaviour).
+The same answer sorts the chat list, so a chat is never split. Turning off **Senders of a verification code** sends codes from unknown senders to Spam too.
 
 Spam texts are stored in Android's SMS store, marked read and seen, with no sound and no notification unless you turn on the quiet one. Open the Spam tab to review them and tap "Not spam" to move a chat back and allow its sender. Group chats always stay in Messages. Details: [docs/FILTER_PIPELINE.md](docs/FILTER_PIPELINE.md).
 
@@ -89,7 +90,7 @@ Safety:
 
 ## Privacy
 
-All data stays on your device. The app declares no INTERNET permission, so it cannot send anything off the phone over the network, and CI fails any build that requests it. The only messages it sends are the ones you write and, in every build, the SMS forwards of rules you set up yourself (optional, off by default). Spam is stored in the phone's SMS store, so a phone's SMS backup can include it. See [PRIVACY.md](PRIVACY.md).
+uMessage keeps its data on your device. The app declares no INTERNET permission, so it cannot send anything off the phone over the network, and CI fails any build that requests it. The only messages it sends are the ones you write and, in every build, the SMS forwards of rules you set up yourself (optional, off by default). Spam is stored in the phone's SMS store, so a phone's SMS backup can include it. See [PRIVACY.md](PRIVACY.md).
 
 ## Build from source
 
