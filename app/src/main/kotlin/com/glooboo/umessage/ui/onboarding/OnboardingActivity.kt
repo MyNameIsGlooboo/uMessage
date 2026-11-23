@@ -155,9 +155,14 @@ class OnboardingViewModel @JvmOverloads constructor(
     /** Built once, off the main thread by the init read (or by the first tap, whichever comes first). */
     private val cleanup: CleanupPrefs by lazy(cleanupPrefs)
 
-    // A new install's value until the stored one is read in init.
-    private val _digestOn = MutableStateFlow(true)
+    // Off until the stored value is read in init, so an update never shows a summary it had turned off as on.
+    // A new install's read gives on (the install defaults are applied first).
+    private val _digestOn = MutableStateFlow(false)
     val digestOn: StateFlow<Boolean> = _digestOn.asStateFlow()
+
+    /** The stored summary value has been read (or the read failed and the switch stays off). */
+    private val _digestLoaded = MutableStateFlow(false)
+    val digestLoaded: StateFlow<Boolean> = _digestLoaded.asStateFlow()
 
     /** The Welcome choice could not be stored; the page says so, and the next tap tries again. */
     private val _filterSaveFailed = MutableStateFlow(false)
@@ -188,6 +193,7 @@ class OnboardingViewModel @JvmOverloads constructor(
         viewModelScope.launch {
             val stored = withContext(Dispatchers.IO) { runCatching { cleanup.digestOn }.getOrNull() }
             if (stored != null && !digestChosen) _digestOn.value = stored
+            _digestLoaded.value = true
         }
     }
 
@@ -205,7 +211,7 @@ class OnboardingViewModel @JvmOverloads constructor(
     fun setDigestOn(on: Boolean) {
         digestChosen = true
         _digestOn.value = on
-        cleanup.digestOn = on
+        viewModelScope.launch(Dispatchers.IO) { cleanup.digestOn = on }
     }
 
     /** The Welcome choice, written at once like the other steps; the old mode follows it (SpamSettingsStore). */
