@@ -154,6 +154,9 @@ fun OnboardingScreen(
 
     val filterOn by viewModel.filterOn.collectAsStateWithLifecycle()
     val filterSaveFailed by viewModel.filterSaveFailed.collectAsStateWithLifecycle()
+    val notifyOn by viewModel.notifyOnBlock.collectAsStateWithLifecycle()
+    val digestOn by viewModel.digestOn.collectAsStateWithLifecycle()
+    val notifySaveFailed by viewModel.notifySaveFailed.collectAsStateWithLifecycle()
 
     // Raised after the default-app dialog closes during "Allow all"; handled once the screen is resumed again.
     var continueAllowAll by remember { mutableStateOf(false) }
@@ -250,6 +253,11 @@ fun OnboardingScreen(
                         filterOn = filterOn,
                         onFilter = viewModel::setFilterOn,
                         filterSaveFailed = filterSaveFailed,
+                        notifyOn = notifyOn,
+                        onNotify = viewModel::setNotifyOnBlock,
+                        digestOn = digestOn,
+                        onDigest = viewModel::setDigestOn,
+                        notifySaveFailed = notifySaveFailed,
                     )
 
                     OnboardingPage.ALLOW -> AllowPage(
@@ -447,7 +455,8 @@ private fun welcomeTopTitles(): Set<Int> =
 /**
  * The first step. The pager page scrolls, so a long list never pushes "Get started" (in the bottom bar) away.
  * The language chip shows when [onLanguage] is set (Android 13+). With [onFilter] set (provider truth) the spam filter
- * choice sits under the sorting card, and the card follows it ([filterOn]).
+ * choice sits under the sorting card, and the card follows it ([filterOn]). With [onNotify] and [onDigest] set (J16)
+ * the Spam notification switches and the line about checking Spam follow the choice.
  */
 @Composable
 internal fun WelcomePage(
@@ -458,6 +467,11 @@ internal fun WelcomePage(
     filterOn: Boolean = true,
     onFilter: ((Boolean) -> Unit)? = null,
     filterSaveFailed: Boolean = false,
+    notifyOn: Boolean = false,
+    onNotify: ((Boolean) -> Unit)? = null,
+    digestOn: Boolean = true,
+    onDigest: ((Boolean) -> Unit)? = null,
+    notifySaveFailed: Boolean = false,
 ) {
     val alpha by animateFloatAsState(
         targetValue = 1f,
@@ -473,6 +487,9 @@ internal fun WelcomePage(
             mode = if (onFilter == null || filterOn) UnknownSenderMode.SMART else UnknownSenderMode.OFF,
         )
         if (onFilter != null) WelcomeFilterChoice(filterOn, onFilter, saveFailed = filterSaveFailed)
+        if (onNotify != null && onDigest != null) {
+            WelcomeSpamNotices(notifyOn, onNotify, digestOn, onDigest, notifySaveFailed = notifySaveFailed)
+        }
         var more by rememberSaveable { mutableStateOf(false) }
         val top = welcomeTopTitles()
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {

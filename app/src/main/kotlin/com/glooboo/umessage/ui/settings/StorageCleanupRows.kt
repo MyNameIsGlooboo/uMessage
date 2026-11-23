@@ -243,8 +243,8 @@ private fun cleanupLabel(days: Int, @StringRes zeroLabel: Int): String = when (d
 }
 
 /**
- * I08: the switch of the weekly summary of blocked messages, in Settings > Notifications. Off on a new install
- * (U42).
+ * I08: the switch of the weekly summary of blocked messages, in Settings > Notifications. On on a new install
+ * (J16); the Welcome page shows the same switch.
  */
 @Composable
 fun WeeklyDigestRow() {

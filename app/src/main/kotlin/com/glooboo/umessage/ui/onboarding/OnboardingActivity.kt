@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.provider.Settings
 import android.provider.Telephony
 import android.widget.Toast
@@ -17,13 +18,18 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.glooboo.umessage.R
 import com.glooboo.umessage.activities.MainActivity
+import com.glooboo.umessage.helpers.CleanupPrefs
+import com.glooboo.umessage.helpers.Config
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
@@ -129,28 +135,90 @@ class OnboardingActivity : ComponentActivity() {
 /**
  * Holds the one filter switch (the Welcome choice) and writes it through the frozen [UMessage] repository. Nothing
  * here writes the auto-delete days any more (S13). The one-argument constructor is the one viewModel() finds.
+ * J16: also the quiet Spam notification (`notifyOnBlock`, through the repository) and the weekly summary
+ * ([CleanupPrefs.digestOn]), the same settings Settings shows. Welcome writes neither until its switch is tapped.
  */
 class OnboardingViewModel @JvmOverloads constructor(
     app: Application,
+    // Creating the Config applies the install defaults (InstallDefaults) first, so a new install reads the summary on.
+    cleanupPrefs: () -> CleanupPrefs = {
+        Config.newInstance(app)
+        CleanupPrefs.get(app)
+    },
+    // Last, so a test's trailing lambda is the repository.
     private val repository: () -> SpamRepository = { UMessage.repository(app) },
 ) : AndroidViewModel(app) {
     private val _filterOn = MutableStateFlow(SpamSettings().filterOn)
     val filterOn: StateFlow<Boolean> = _filterOn.asStateFlow()
 
+    private val _notifyOnBlock = MutableStateFlow(SpamSettings().notifyOnBlock)
+    val notifyOnBlock: StateFlow<Boolean> = _notifyOnBlock.asStateFlow()
+
+    /** Built once, off the main thread by the init read (or by the first tap, whichever comes first). */
+    private val cleanup: CleanupPrefs by lazy(cleanupPrefs)
+
+    /** One lane for the summary read and writes, so two quick taps are stored in the order they were made. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val prefsLane = Dispatchers.IO.limitedParallelism(1)
+
+    // Off until the stored value is read in init, so an update never shows a summary it had turned off as on.
+    // A new install's read gives on (the install defaults are applied first).
+    private val _digestOn = MutableStateFlow(false)
+    val digestOn: StateFlow<Boolean> = _digestOn.asStateFlow()
+
+    /** The stored summary value has been read (or the read failed and the switch stays off). */
+    private val _digestLoaded = MutableStateFlow(false)
+    val digestLoaded: StateFlow<Boolean> = _digestLoaded.asStateFlow()
+
     /** The Welcome choice could not be stored; the page says so, and the next tap tries again. */
     private val _filterSaveFailed = MutableStateFlow(false)
     val filterSaveFailed: StateFlow<Boolean> = _filterSaveFailed.asStateFlow()
 
+    /** The notification switch could not be stored; the page says so under it, and the next tap tries again. */
+    private val _notifySaveFailed = MutableStateFlow(false)
+    val notifySaveFailed: StateFlow<Boolean> = _notifySaveFailed.asStateFlow()
+
     /** Set by the first tap, so the settings read that finishes later does not undo the choice (G-10). */
     @Volatile
     private var filterChosen = false
+
+    @Volatile
+    private var notifyChosen = false
+
+    @Volatile
+    private var digestChosen = false
 
     init {
         viewModelScope.launch {
             // The engine may not be installed yet (or in previews); keep defaults then.
             runCatching { repository().settings.first() }.onSuccess {
                 if (!filterChosen) _filterOn.value = it.filterOn
+                if (!notifyChosen) _notifyOnBlock.value = it.notifyOnBlock
             }
+        }
+        viewModelScope.launch {
+            val stored = withContext(prefsLane) { runCatching { cleanup.digestOn }.getOrNull() }
+            if (stored != null && !digestChosen) _digestOn.value = stored
+            _digestLoaded.value = true
+        }
+    }
+
+    /** J16: the quiet notification for texts that go to Spam, the `notifyOnBlock` setting. */
+    fun setNotifyOnBlock(on: Boolean) {
+        notifyChosen = true
+        _notifyOnBlock.value = on
+        viewModelScope.launch {
+            val saved = runCatching { repository().updateSettings { it.copy(notifyOnBlock = on) } }.isSuccess
+            _notifySaveFailed.value = !saved
+        }
+    }
+
+    /** J16: the weekly Spam summary, the switch Settings > Notifications shows. */
+    fun setDigestOn(on: Boolean) {
+        digestChosen = true
+        _digestOn.value = on
+        viewModelScope.launch(prefsLane) {
+            runCatching { cleanup.digestOn = on }.onFailure { Log.w("OnboardingViewModel", "Summary not saved", it) }
         }
     }
 
