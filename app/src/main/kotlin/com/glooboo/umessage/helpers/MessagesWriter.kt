@@ -206,7 +206,11 @@ class MessagesWriter(
 
         val existingAddresses = existingAddresses(messageId)
         for (address in backup.addresses) {
-            if (AddressKey(address.type, address.address) in existingAddresses) continue
+            // The same address in another form (case, +44 or 0) is the stored one: no second row for it.
+            val wantedAddress = address.address.trim()
+            if (existingAddresses.any { it.type == address.type && sameAddress(it.address.trim(), wantedAddress) }) {
+                continue
+            }
             val values = address.toContentValues().apply { put(Mms.Addr.MSG_ID, messageId) }
             if (contentResolver.insert(addrUri(messageId), values) != null) {
                 existingAddresses += AddressKey(address.type, address.address)
