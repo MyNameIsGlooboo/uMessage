@@ -98,6 +98,7 @@ import com.glooboo.umessage.models.RecycleBinMessage
 import com.glooboo.umessage.helpers.SCHEDULED_ID_MIN
 import com.glooboo.umessage.spam.FirstRun
 import com.glooboo.umessage.spam.NewChatSorting
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.engine.NumberNormalizer
@@ -1143,7 +1144,7 @@ private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
 fun Context.forgetThread(threadId: Long, vanished: Boolean = false) {
     conversationsDB.deleteThreadId(threadId)
     runCatching { conversationsDB.deleteSpamThread(threadId) }
-    SpamSorting.noteChanged()
+    SpamChanges.noteChanged()
     kotlinx.coroutines.runBlocking { labelsDB.removeAllFromConversation(threadId) }
     kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }
     if (vanished) messagesDB.deleteVanishedThreadMessages(threadId) else messagesDB.deleteThreadMessages(threadId)

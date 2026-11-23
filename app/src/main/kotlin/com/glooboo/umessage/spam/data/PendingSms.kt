@@ -27,7 +27,7 @@ import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.SpamSettings
-import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.engine.ContactLookup
 import com.glooboo.umessage.spam.engine.DefaultSpamFilter
@@ -590,7 +590,7 @@ internal object SpamPlacement {
     fun raiseUnread(context: Context, threadId: Long) {
         dao(context).raiseSpamUnread(threadId)
         // J19: the Messages tab number and the Spam list read the table again.
-        SpamSorting.noteChanged()
+        SpamChanges.noteChanged()
     }
 }
 

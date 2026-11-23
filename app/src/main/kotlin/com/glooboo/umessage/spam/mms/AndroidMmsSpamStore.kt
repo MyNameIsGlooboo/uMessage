@@ -15,6 +15,7 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.receivers.MmsSubscriptions
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.data.SpamEventEntity
@@ -32,6 +33,8 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
     override fun noteSpamArrival(threadId: Long, address: String, cause: SpamCause, at: Long, raise: Boolean) {
         if (!raise && SpamThreads.isSpamThreadOf(app, threadId, address)) return
         SpamThreads.noteArrival(app, threadId, address, cause, at)
+        // J19: the Messages tab number and the Spam list read the table again.
+        SpamChanges.noteChanged()
     }
 
     override fun lowerSpamUnread(threadId: Long) {
@@ -43,6 +46,7 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
             dao.deleteSpamThread(threadId)
             dao.insertSpamThread(row.copy(unread = row.unread - 1))
         })
+        SpamChanges.noteChanged()
     }
 
     override fun isSpamThreadOf(threadId: Long, address: String): Boolean =
