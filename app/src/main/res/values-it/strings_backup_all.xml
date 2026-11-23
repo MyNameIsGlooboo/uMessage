@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Pulizia e spazio di archiviazione</string>
     <string name="n09_label_privacy">Privacy e opzioni di blocco</string>
     <string name="n09_restore_not_included">Non inclusi nel file: i tuoi messaggi, il PIN del blocco app, i nomi delle SIM, i testi salvati, le chat nascoste e gli orari di silenziamento.</string>
-    <string name="n09_restore_after">Imposta di nuovo uMessage come app SMS predefinita e configura di nuovo il blocco app.</string>
+    <string name="n09_restore_after_default">Imposta di nuovo uMessage come app SMS predefinita.</string>
+    <string name="n09_restore_after_lock">Configura il blocco app se ne usavi uno.</string>
 </resources>

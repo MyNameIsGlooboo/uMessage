@@ -9,5 +9,6 @@
     <string name="n09_label_cleanup">Cleanup and storage</string>
     <string name="n09_label_privacy">Privacy and lock options</string>
     <string name="n09_restore_not_included">Not in the file: your messages, the app lock PIN, SIM names, saved texts, hidden chats and mute times.</string>
-    <string name="n09_restore_after">Make uMessage the default SMS app again and set your app lock again.</string>
+    <string name="n09_restore_after_default">Make uMessage the default SMS app again.</string>
+    <string name="n09_restore_after_lock">Set an app lock if you used one.</string>
 </resources>

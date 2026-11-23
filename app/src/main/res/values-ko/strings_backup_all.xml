@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">정리 및 저장 공간</string>
     <string name="n09_label_privacy">개인정보 보호 및 잠금 옵션</string>
     <string name="n09_restore_not_included">메시지, 앱 잠금 PIN, SIM 이름, 저장한 문구, 숨긴 대화, 알림 끄기 시간은 파일에 포함되지 않아요.</string>
-    <string name="n09_restore_after">기본 SMS 앱으로 uMessage를 다시 지정하고 앱 잠금도 다시 설정해 주세요.</string>
+    <string name="n09_restore_after_default">기본 SMS 앱으로 uMessage를 다시 지정해 주세요.</string>
+    <string name="n09_restore_after_lock">앱 잠금을 사용했다면 다시 설정해 주세요.</string>
 </resources>

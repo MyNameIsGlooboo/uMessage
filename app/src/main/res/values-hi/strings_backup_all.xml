@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">सफ़ाई और स्टोरेज</string>
     <string name="n09_label_privacy">निजता और लॉक के विकल्प</string>
     <string name="n09_restore_not_included">फ़ाइल में शामिल नहीं हैं: आपके मैसेज, ऐप लॉक का पिन, सिम के नाम, सेव किए गए टेक्स्ट, छिपी चैट और सूचनाएं बंद रखने का समय.</string>
-    <string name="n09_restore_after">uMessage को फिर से डिफ़ॉल्ट एसएमएस ऐप बनाएं और अपना ऐप लॉक दोबारा सेट करें.</string>
+    <string name="n09_restore_after_default">uMessage को फिर से डिफ़ॉल्ट एसएमएस ऐप बनाएं.</string>
+    <string name="n09_restore_after_lock">अगर आप ऐप लॉक इस्तेमाल करते थे, तो उसे दोबारा सेट करें.</string>
 </resources>

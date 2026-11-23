@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Pembersihan dan penyimpanan</string>
     <string name="n09_label_privacy">Privasi dan opsi kunci</string>
     <string name="n09_restore_not_included">Tidak disertakan dalam file: pesan Anda, PIN kunci aplikasi, nama SIM, teks tersimpan, chat tersembunyi, dan waktu pembisuan.</string>
-    <string name="n09_restore_after">Jadikan uMessage aplikasi SMS default lagi dan atur kembali kunci aplikasi.</string>
+    <string name="n09_restore_after_default">Jadikan uMessage aplikasi SMS default lagi.</string>
+    <string name="n09_restore_after_lock">Atur kunci aplikasi jika sebelumnya Anda memakainya.</string>
 </resources>

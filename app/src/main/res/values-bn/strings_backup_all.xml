@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">পরিষ্কার ও স্টোরেজ</string>
     <string name="n09_label_privacy">গোপনীয়তা ও লকের বিকল্প</string>
     <string name="n09_restore_not_included">ফাইলে নেই: আপনার বার্তা, অ্যাপ লকের PIN, SIM-এর নাম, সেভ করা লেখা, লুকানো চ্যাট ও বিজ্ঞপ্তি বন্ধ রাখার সময়।</string>
-    <string name="n09_restore_after">uMessage-কে আবার ডিফল্ট SMS অ্যাপ করুন এবং আপনার অ্যাপ লক আবার সেট করুন।</string>
+    <string name="n09_restore_after_default">uMessage-কে আবার ডিফল্ট SMS অ্যাপ করুন।</string>
+    <string name="n09_restore_after_lock">আপনি অ্যাপ লক ব্যবহার করলে তা আবার সেট করুন।</string>
 </resources>
