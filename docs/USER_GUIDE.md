@@ -6,7 +6,7 @@ uMessage is a messaging app for SMS and MMS that keeps spam out of your Messages
 
 The first-run setup has up to three steps:
 
-1. **Welcome.** A language chip sits at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Below it, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. The card above the choice shows how chats are sorted. Two switches follow: **Quiet notification for texts that go to Spam** (off) and a **weekly Spam summary** (on for new installs). The page also says: Spam sorting is not always right, look at Spam once a week. You can change all of this later in Settings. Tap **Get started**.
+1. **Welcome.** A language chip sits at the top. Pick your language here, or keep the phone's language; you can change it later with the Language row in Settings. Below it, choose what happens to unknown senders: **Sort unknown senders into Spam** (recommended) or **Keep everything in Messages**. The card above the choice shows how chats are sorted. Two switches follow: **Quiet notification for texts that go to Spam** (off) and a **weekly Spam summary** (on by default). The page also says: Spam sorting is not always right, look at Spam once a week. You can change all of this later in Settings. Tap **Get started**.
 2. **Allow.** Make uMessage your default SMS app, and allow Messages (SMS), Contacts, Phone state and Notifications; **Allow all** asks for them in one go. uMessage can only receive and silence messages while it is your default SMS app. Contacts access is how uMessage knows who you know. Without it, uMessage does not move unknown phone numbers to Spam at all, so that it never hides messages from family and friends. This step is left out when uMessage already is the default app and everything is allowed.
 3. **Keep uMessage running.** On Xiaomi, Redmi and Poco phones turn on **Autostart** and set **Battery saver** to "No restrictions" for uMessage. On Samsung, remove it from "Sleeping apps". Otherwise the phone may delay incoming messages.
 
@@ -93,7 +93,7 @@ Block a sender from Messages with a left swipe, the selection bar, the chat menu
 
 ### Alerts and auto-delete
 
-There is no notification for each spam text by default. A new install gets one quiet summary a week that says how many texts arrived in Spam; turn it off in Settings > Notifications. Settings > Spam protection > **Auto-delete and alerts** has **Notify me for texts from unknown senders**: it posts one quiet notification that opens Spam and hides the sender and text on the lock screen. It is never posted for a sender you blocked.
+There is no notification for each spam text by default. By default you get one quiet summary a week that says how many texts arrived in Spam; turn it off in Settings > Notifications. Settings > Spam protection > **Auto-delete and alerts** has **Notify me for texts from unknown senders**: it posts one quiet notification that opens Spam and hides the sender and text on the lock screen. It is never posted for a sender you blocked.
 
 Spam is kept until you delete it. **Auto-delete old spam** (same page) is off until you choose a number of days. It then deletes texts that arrived in Spam more than that many days ago, from the phone itself, for every app, and they cannot be brought back. Texts you sent, starred or added a note to stay.
 
@@ -173,7 +173,7 @@ To move messages to a new phone:
 2. On the new phone, install uMessage, finish the first-run setup and make it the default SMS app, then open Settings > Backup and restore > **Restore** and choose the same kind (restore is only in Settings, not on the welcome screen).
 3. You can also export and import your **rules** alone from the rules screen.
 
-To save a backup to Google Drive, tap **Save to Google Drive** (Settings > **Backup and restore**). You choose what to back up and, for messages, the same options as for a normal backup (including a password). uMessage writes the backup to one file in its private cache and hands it to the Google Drive app, whose "Save to Drive" screen lets you choose the account and the folder; choose a folder there to finish. The file also stays on your phone, hidden from other apps, for about a day until uMessage cleans it up. If a backup is running while you leave the screen, tap its "finished" notification to open Drive. **Restore from Google Drive** opens the file picker in Drive. Without the Drive app installed, both fall back to Android's file picker, where you can pick Google Drive (or any other storage app) yourself. The app itself never connects to the internet: the Google Drive app does the upload and the download. Besides that, uMessage has no Google Drive code of its own and makes no network connections: when you back up or restore, Android's file picker lets you choose Google Drive (or any other storage app on your phone) as the place for the file.
+To save a backup to Google Drive, tap **Save to Google Drive** (Settings > **Backup and restore**). You choose what to back up and, for messages, the same options as for a normal backup (including a password). uMessage writes the backup to one file in its private cache and hands it to the Google Drive app, whose "Save to Drive" screen lets you choose the account and the folder; choose a folder there to finish. The file also stays on your phone, hidden from other apps, for about a day until uMessage cleans it up. If a backup is running while you leave the screen, tap its "finished" notification to open Drive. **Restore from Google Drive** opens the file picker in Drive. Without the Drive app installed, both fall back to Android's file picker, where you can pick Google Drive (or any other storage app) yourself. Besides that, uMessage has no Google Drive code of its own and makes no network connections: when you back up or restore, Android's file picker lets you choose Google Drive (or any other storage app on your phone) as the place for the file.
 
 ### Moving from another SMS app
 
@@ -204,7 +204,7 @@ shared content ready to send, or search by name or number to reach a chat or a c
 ## What uMessage does not do
 
 - RCS ("chat features") is not supported; only Google Messages and Samsung Messages can use it. If messages stop arriving after you switch, turn off chat features in your old messaging app.
-- Calls are not blocked.
+- Calls are not blocked, except from numbers on Android's own block list.
 - uMessage never connects to the internet, so it has no cloud spam database. Everything is decided on your phone.
 
 ## Getting help

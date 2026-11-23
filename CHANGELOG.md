@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Spam is now a list of chats: a sender's whole chat is in Messages or in Spam, never split
-- Welcome page: choose to sort unknown senders into Spam or keep everything in Messages, with a switch for a quiet notification for Spam texts (off), a weekly Spam summary (on for new installs) and a reminder to look at Spam once a week
+- Welcome page: choose to sort unknown senders into Spam or keep everything in Messages, with a switch for a quiet notification for Spam texts (off), a weekly Spam summary (on by default) and a reminder to look at Spam once a week
 - Blocking a sender moves the whole chat to Spam, with Undo
 - People you wrote to and senders of a verification code stay in Messages; each has its own switch
 ### Changed
