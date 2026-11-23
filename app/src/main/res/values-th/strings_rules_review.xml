@@ -25,7 +25,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">ทุกหมายเลขที่ขึ้นต้นด้วยเลขนี้ เช่น +1555 หรือ 0555</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">ผู้ส่งที่ใช้ชื่อเป็นข้อความ เช่น VM-HDFCBK หรือ Bank Melli ไม่แยกตัวพิมพ์ใหญ่และเล็ก</string>
+    <string name="rules2_type_sender_id_help">ผู้ส่งที่ใช้ชื่อเป็นข้อความ เช่น VM-HDFCBK หรือ MYBANK ไม่แยกตัวพิมพ์ใหญ่และเล็ก</string>
     <string name="rules2_type_regex_help">ขั้นสูง ใช้รูปแบบ (regex) ตรวจข้อความ ทดสอบด้านล่างก่อนบันทึก</string>
     <string name="rules2_err_sender_id">ใช้ตัวอักษร ตัวเลข ช่องว่าง จุด ขีด หรือ &amp; (ไม่เกิน 32 อักขระ และมีตัวอักษรอย่างน้อย 1 ตัว)</string>
     <string name="rules2_err_sender_id_char">ใช้ “%1$s” ในชื่อผู้ส่งไม่ได้ ใช้ตัวอักษร ตัวเลข ช่องว่าง จุด ขีด หรือ &amp;</string>

@@ -28,7 +28,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Усі номери, що починаються з цих цифр, наприклад +1555 або 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Текстове ім’я відправника, наприклад VM-HDFCBK або Bank Melli. Регістр літер не має значення.</string>
+    <string name="rules2_type_sender_id_help">Текстове ім’я відправника, наприклад VM-HDFCBK або MYBANK. Регістр літер не має значення.</string>
     <string name="rules2_type_regex_help">Для досвідчених користувачів. Регулярний вираз для перевірки тексту повідомлення. Перевірте його нижче перед збереженням.</string>
     <string name="rules2_err_sender_id">Використовуйте літери, цифри, пробіли, крапки, дефіси або &amp; (до 32 символів, принаймні одна літера)</string>
     <string name="rules2_err_sender_id_char">Символ «%1$s» не можна використовувати в імені відправника. Використовуйте літери, цифри, пробіли, крапки, дефіси або &amp;.</string>

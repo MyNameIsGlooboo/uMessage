@@ -22,11 +22,11 @@
     <string name="rules2_sheet_delete">اصول حذف کریں</string>
     <string name="rules2_sheet_hint_empty">جاری رکھنے کے لیے کوئی قدر درج کریں</string>
     <string name="rules2_sheet_hint_fix">جاری رکھنے کے لیے اوپر کی قدر درست کریں</string>
-    <string name="rules2_type_number_help">بالکل درست فون نمبر، مثلاً +989121234567 یا 09121234567۔ 3000 جیسے شارٹ کوڈ بھی چلتے ہیں۔ اردو ہندسے بھی ٹھیک ہیں۔</string>
-    <string name="rules2_type_number_hint">+989121234567</string>
-    <string name="rules2_type_prefix_help">ہر وہ نمبر جو اس سے شروع ہو، مثلاً +98912 یا 0912۔</string>
-    <string name="rules2_type_prefix_hint">+98912</string>
-    <string name="rules2_type_sender_id_help">متن والا بھیجنے والا جیسے VM-HDFCBK یا Bank Melli۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔</string>
+    <string name="rules2_type_number_help">بالکل درست فون نمبر، مثلاً +15550001234 یا 05550001234۔ 3000 جیسے شارٹ کوڈ بھی چلتے ہیں۔ اردو ہندسے بھی ٹھیک ہیں۔</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">ہر وہ نمبر جو اس سے شروع ہو، مثلاً +1555 یا 0555۔</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
+    <string name="rules2_type_sender_id_help">متن والا بھیجنے والا جیسے VM-HDFCBK یا MYBANK۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔</string>
     <string name="rules2_type_regex_help">ایڈوانسڈ۔ ایک ریگولر ایکسپریشن جو پیغام کے متن سے ملایا جاتا ہے۔ محفوظ کرنے سے پہلے نیچے اسے آزمائیں۔</string>
     <string name="rules2_err_sender_id">حروف، ہندسے، اسپیس، نقطے، ڈیش یا &amp; استعمال کریں (زیادہ سے زیادہ 32 حرف، کم از کم ایک حرف)</string>
     <string name="rules2_err_sender_id_char">«%1$s» بھیجنے والے کے نام میں استعمال نہیں ہو سکتا۔ حروف، ہندسے، اسپیس، نقطے، ڈیش یا &amp; استعمال کریں۔</string>

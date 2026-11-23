@@ -28,7 +28,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Każdy numer zaczynający się od tych cyfr, np. +1555 lub 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Tekstowa nazwa nadawcy, np. VM-HDFCBK lub Bank Melli. Wielkość liter nie ma znaczenia.</string>
+    <string name="rules2_type_sender_id_help">Tekstowa nazwa nadawcy, np. VM-HDFCBK lub MYBANK. Wielkość liter nie ma znaczenia.</string>
     <string name="rules2_type_regex_help">Zaawansowane. Wyrażenie regularne dopasowywane do treści wiadomości. Przetestuj je poniżej przed zapisaniem.</string>
     <string name="rules2_err_sender_id">Użyj liter, cyfr, spacji, kropek, myślników lub &amp; (do 32 znaków, w tym co najmniej jedna litera)</string>
     <string name="rules2_err_sender_id_char">Znak „%1$s” jest niedozwolony w nazwie nadawcy. Użyj liter, cyfr, spacji, kropek, myślników lub &amp;.</string>

@@ -55,7 +55,7 @@ object MessageCategories {
     /**
      * A number that reads as a service line: digits only, and not a real mobile or landline number of any country
      * (libphonenumber decides, read in the phone's own country, so no country is special). A short code, also one
-     * written with a country code ("+98 5000123"), is a service line; a number with a leading 0 is a person.
+     * written with a country code ("+1 555 0123"), is a service line; a number with a leading 0 is a person.
      */
     private fun isShortLine(folded: String): Boolean {
         if (!folded.all { it.isDigit() || it in NUMBER_SYMBOLS }) return false

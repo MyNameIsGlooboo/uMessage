@@ -25,7 +25,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">+1555や0555など、入力した数字で始まるすべての電話番号が対象です。</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">VM-HDFCBKやBank Melliなど、文字で表示される送信者名です。大文字と小文字は区別されません。</string>
+    <string name="rules2_type_sender_id_help">VM-HDFCBKやMYBANKなど、文字で表示される送信者名です。大文字と小文字は区別されません。</string>
     <string name="rules2_type_regex_help">上級者向けです。正規表現でメッセージ本文を照合します。保存する前に下でテストしてください。</string>
     <string name="rules2_err_sender_id">英字、数字、スペース、ドット、ハイフン、&amp;を使ってください（32文字以内、英字を1文字以上含めてください）。</string>
     <string name="rules2_err_sender_id_char">送信者名に「%1$s」は使えません。英字、数字、スペース、ドット、ハイフン、&amp;を使ってください。</string>

@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Tutti i numeri che iniziano così, ad esempio +1555 o 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Un mittente con nome testuale, come VM-HDFCBK o Bank Melli. Maiuscole e minuscole non fanno differenza.</string>
+    <string name="rules2_type_sender_id_help">Un mittente con nome testuale, come VM-HDFCBK o MYBANK. Maiuscole e minuscole non fanno differenza.</string>
     <string name="rules2_type_regex_help">Avanzato. Un\'espressione regolare da confrontare con il testo del messaggio. Provala qui sotto prima di salvare.</string>
     <string name="rules2_err_sender_id">Usa lettere, cifre, spazi, punti, trattini o &amp; (massimo 32 caratteri, almeno una lettera)</string>
     <string name="rules2_err_sender_id_char">Non puoi usare “%1$s” nel nome di un mittente. Usa lettere, cifre, spazi, punti, trattini o &amp;.</string>

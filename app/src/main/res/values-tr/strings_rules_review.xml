@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Bu rakamlarla başlayan tüm numaralar, örneğin +1555 veya 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">VM-HDFCBK veya Bank Melli gibi metin biçiminde bir gönderen adı. Büyük ve küçük harf fark etmez.</string>
+    <string name="rules2_type_sender_id_help">VM-HDFCBK veya MYBANK gibi metin biçiminde bir gönderen adı. Büyük ve küçük harf fark etmez.</string>
     <string name="rules2_type_regex_help">Gelişmiş seçenek. Mesaj metniyle eşleştirilen bir düzenli ifade. Kaydetmeden önce aşağıda deneyin.</string>
     <string name="rules2_err_sender_id">Harf, rakam, boşluk, nokta, tire veya &amp; kullanın (en fazla 32 karakter, en az bir harf)</string>
     <string name="rules2_err_sender_id_char">Gönderen adında “%1$s” kullanılamaz. Harf, rakam, boşluk, nokta, tire veya &amp; kullanın.</string>

@@ -28,8 +28,8 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
     val single: SimpleContact? get() = contacts.singleOrNull()
 
     /**
-     * Every number to send to, as stored (normalized), in order. The same phone written two ways ("0912..." and
-     * "+98912...") counts once, so a send never goes to one person twice (B15).
+     * Every number to send to, as stored (normalized), in order. The same phone written two ways ("07700 900123" and
+     * "+447700900123") counts once, so a send never goes to one person twice (B15).
      */
     val addresses: List<String> get() = dedupe(contacts.flatMap { it.phoneNumbers }.map { it.normalizedNumber })
 
@@ -73,7 +73,8 @@ class ThreadRecipients(val contacts: List<SimpleContact> = emptyList()) {
     fun toArrayList(): ArrayList<SimpleContact> = ArrayList(contacts)
 
     companion object {
-        // No region: a national number ("0912...") matches the national part of an international one ("+98912...").
+        // No region: a national number ("07700 900123") matches the national part of an international one
+        // ("+447700900123").
         private val matcher = NumberNormalizer { "" }
 
         private fun sameAddress(a: String, b: String): Boolean = a == b || matcher.sameAddress(a, b)
