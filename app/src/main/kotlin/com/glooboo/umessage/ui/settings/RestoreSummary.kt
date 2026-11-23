@@ -88,8 +88,7 @@ object RestoreSummary {
         After.NONE -> null
         After.DEFAULT_APP -> context.getString(R.string.n09_restore_after_default)
         After.LOCK -> context.getString(R.string.n09_restore_after_lock)
-        After.BOTH -> context.getString(R.string.n09_restore_after_default) + "
-" +
+        After.BOTH -> context.getString(R.string.n09_restore_after_default) + "\n\n" +
             context.getString(R.string.n09_restore_after_lock)
     }
 

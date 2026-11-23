@@ -8,5 +8,5 @@
     <string name="n09_label_privacy">Confidentialité et verrouillage</string>
     <string name="n09_restore_not_included">Absents du fichier : vos messages, le code PIN de verrouillage de l\'application, les noms des SIM, les textes enregistrés, les conversations masquées et les durées de mise en sourdine.</string>
     <string name="n09_restore_after_default">Définissez à nouveau uMessage comme application SMS par défaut.</string>
-    <string name="n09_restore_after_lock">Configurez un verrouillage de l'application si vous en utilisiez un.</string>
+    <string name="n09_restore_after_lock">Configurez un verrouillage de l\'application si vous en utilisiez un.</string>
 </resources>
