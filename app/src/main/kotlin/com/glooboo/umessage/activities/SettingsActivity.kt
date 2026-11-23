@@ -59,6 +59,7 @@ import com.glooboo.umessage.helpers.navPrefs
 import com.glooboo.umessage.helpers.threadPrefs
 import com.glooboo.umessage.helpers.w3aPrefs
 import com.glooboo.umessage.backup.SettingsBackup
+import com.glooboo.umessage.ui.onboarding.OnboardingActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -565,10 +566,19 @@ class SettingsActivity : ComposeSimpleActivity() {
                 getString(R.string.settings_f_restore_done, result.rulesAdded, result.forwardRulesAdded)
             } else {
                 getString(R.string.settings_f_restore_done_rules, result.rulesAdded)
-            }.plus("\n\n" + getString(R.string.n09_restore_after))
+            }
+            val after = RestoreSummary.afterText(
+                this@SettingsActivity,
+                RestoreSummary.afterRestore(
+                    preview.content.settings,
+                    notDefaultNow = !OnboardingActivity.isDefaultSmsApp(this@SettingsActivity),
+                    lockOnNow = config.isAppPasswordProtectionOn,
+                ),
+            )
+            val fullMessage = if (after == null) message else "$message\n\n$after"
             showComposeDialog { dismiss ->
                 InfoDialog(onDismiss = dismiss, title = stringResource(R.string.settings_f_restore_done_title)) {
-                    Text(message, style = MaterialTheme.typography.bodyMedium)
+                    Text(fullMessage, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

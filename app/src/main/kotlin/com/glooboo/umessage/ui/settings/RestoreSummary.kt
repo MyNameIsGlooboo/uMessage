@@ -66,6 +66,32 @@ object RestoreSummary {
     @StringRes
     fun labelOf(key: String): Int? = labels[key]
 
+    /** What to do after a restore (J17): each part is only named when it applies. */
+    enum class After { NONE, DEFAULT_APP, LOCK, BOTH }
+
+    /**
+     * [notDefaultNow]: uMessage is not the default SMS app now. The lock part applies when the file shows a lock was
+     * in use (it keeps the lock options: chosen parts only, or locked links) and no lock is on now.
+     */
+    fun afterRestore(settings: BackupSettings, notDefaultNow: Boolean, lockOnNow: Boolean): After {
+        val lockWasUsed = settings.lockScope == "chosen" || settings.riskyLinksLocked == true
+        val lock = lockWasUsed && !lockOnNow
+        return when {
+            notDefaultNow && lock -> After.BOTH
+            notDefaultNow -> After.DEFAULT_APP
+            lock -> After.LOCK
+            else -> After.NONE
+        }
+    }
+
+    /** The text for [after], or null when there is nothing to do. */
+    fun afterText(context: Context, after: After): String? = when (after) {
+        After.NONE -> null
+        After.DEFAULT_APP -> context.getString(R.string.n09_restore_after_default)
+        After.LOCK -> context.getString(R.string.n09_restore_after_lock)
+        After.BOTH -> context.getString(R.string.n09_restore_after)
+    }
+
     /** One paragraph per part: rules, forward rules (always switched off) and the settings that change. */
     fun lines(context: Context, preview: SettingsBackup.Preview): String {
         val parts = mutableListOf<String>()

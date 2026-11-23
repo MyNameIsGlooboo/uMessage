@@ -367,12 +367,19 @@ object SettingsBackupFormat {
     /**
      * Splits the [incoming] rules into the ones not on the phone yet and the count already present, with the same
      * idea as the repository's duplicate check (kind, type, SIM, pattern; numbers by their last digits, sender
-     * names and prefixes without case). Also counts a rule repeated inside the file once.
+     * names and prefixes without case). The count is only of rules already on the phone; a rule repeated inside the file is merged silently.
      */
     fun newRules(incoming: List<SpamRule>, existing: List<SpamRule>): Pair<List<SpamRule>, Int> {
-        val known = existing.map(::ruleKey).toMutableSet()
-        val fresh = incoming.filter { known.add(ruleKey(it)) }
-        return fresh to incoming.size - fresh.size
+        val onPhone = existing.map(::ruleKey).toSet()
+        val seen = mutableSetOf<String>()
+        var present = 0
+        val fresh = mutableListOf<SpamRule>()
+        for (rule in incoming) {
+            val key = ruleKey(rule)
+            // J17: a rule repeated inside the file is merged, not "already on this phone".
+            if (key in onPhone) present++ else if (seen.add(key)) fresh += rule
+        }
+        return fresh to present
     }
 
     private fun ruleKey(rule: SpamRule): String {
@@ -398,14 +405,23 @@ object SettingsBackupFormat {
 
     /**
      * The settings of [incoming] that differ from [current], by JSON key, for the summary shown before a restore. A
-     * pause switched off in the file is never applied, so it is not a change.
+     * pause switched off in the file is never applied, and neither is the purge days (I4/Q38), so they are not
+     * changes. Modes compare by what they mean: Smart and Strict are both "on" (J17).
      */
     fun changedSettings(current: BackupSettings, incoming: BackupSettings): List<String> {
         val now = current.values()
         return incoming.values().filter { (key, value) ->
-            value != null && value != now[key] && !(key == BackupSettings.FORWARD_PAUSED && value == false)
+            value != null && !(key == BackupSettings.PURGE_DAYS) &&
+                !(key == BackupSettings.FORWARD_PAUSED && value == false) &&
+                if (key == BackupSettings.SPAM_MODE) {
+                    modeOn(value) != modeOn(now[key])
+                } else {
+                    value != now[key]
+                }
         }.keys.toList()
     }
+
+    private fun modeOn(mode: Any?): Boolean? = (mode as? UnknownSenderMode)?.let { it != UnknownSenderMode.OFF }
 
     /**
      * Checks the forward rules of a backup before they are added (H1). Each target goes through the forward editor's
