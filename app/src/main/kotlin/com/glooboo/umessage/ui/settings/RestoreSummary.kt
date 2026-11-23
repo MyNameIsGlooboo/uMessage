@@ -70,12 +70,12 @@ object RestoreSummary {
     enum class After { NONE, DEFAULT_APP, LOCK, BOTH }
 
     /**
-     * [notDefaultNow]: uMessage is not the default SMS app now. The lock part applies when the file shows a lock was
-     * in use (it keeps the lock options: chosen parts only, or locked links) and no lock is on now.
+     * [notDefaultNow]: uMessage is not the default SMS app now. The lock part applies whenever no lock is on now: the
+     * settings file cannot tell whether the old phone had a lock (it never holds the lock itself), and a missed
+     * reminder would leave the app unprotected without the owner knowing.
      */
-    fun afterRestore(settings: BackupSettings, notDefaultNow: Boolean, lockOnNow: Boolean): After {
-        val lockWasUsed = settings.lockScope == "chosen" || settings.riskyLinksLocked == true
-        val lock = lockWasUsed && !lockOnNow
+    fun afterRestore(notDefaultNow: Boolean, lockOnNow: Boolean): After {
+        val lock = !lockOnNow
         return when {
             notDefaultNow && lock -> After.BOTH
             notDefaultNow -> After.DEFAULT_APP

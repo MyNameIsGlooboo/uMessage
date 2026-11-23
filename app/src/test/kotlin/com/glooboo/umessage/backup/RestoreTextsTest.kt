@@ -47,20 +47,29 @@ class RestoreTextsTest {
         assertThat(present).isEqualTo(0)
     }
 
-    @Test fun nothingToDoAfterwardsWhenDefaultAndNoLockInTheFile() {
-        assertThat(RestoreSummary.afterRestore(BackupSettings(), notDefaultNow = false, lockOnNow = false))
-            .isEqualTo(After.NONE)
+    @Test fun nothingToDoAfterwardsWhenDefaultAndALockIsOn() {
+        assertThat(RestoreSummary.afterRestore(notDefaultNow = false, lockOnNow = true)).isEqualTo(After.NONE)
     }
 
     @Test fun defaultAppPartOnlyWhenNotDefault() {
-        assertThat(RestoreSummary.afterRestore(BackupSettings(), notDefaultNow = true, lockOnNow = false))
-            .isEqualTo(After.DEFAULT_APP)
+        assertThat(RestoreSummary.afterRestore(notDefaultNow = true, lockOnNow = true)).isEqualTo(After.DEFAULT_APP)
     }
 
-    @Test fun lockPartOnlyWhenTheFileHadALockAndNoneIsSetNow() {
-        val locked = BackupSettings(lockScope = "chosen")
-        assertThat(RestoreSummary.afterRestore(locked, notDefaultNow = false, lockOnNow = false)).isEqualTo(After.LOCK)
-        assertThat(RestoreSummary.afterRestore(locked, notDefaultNow = false, lockOnNow = true)).isEqualTo(After.NONE)
-        assertThat(RestoreSummary.afterRestore(locked, notDefaultNow = true, lockOnNow = false)).isEqualTo(After.BOTH)
+    @Test fun lockPartWhenNoLockIsOnNow() {
+        assertThat(RestoreSummary.afterRestore(notDefaultNow = false, lockOnNow = false)).isEqualTo(After.LOCK)
+        assertThat(RestoreSummary.afterRestore(notDefaultNow = true, lockOnNow = false)).isEqualTo(After.BOTH)
+    }
+
+    @Test fun noLockPartWhenALockIsOnNow() {
+        assertThat(RestoreSummary.afterRestore(notDefaultNow = false, lockOnNow = true)).isEqualTo(After.NONE)
+    }
+
+    @Test fun theSameNumberOnTwoSimsIsOneNewRule() {
+        val (fresh, present) = SettingsBackupFormat.newRules(
+            incoming = listOf(number("07700 900123", 1), number("07700 900123", 2)),
+            existing = emptyList(),
+        )
+        assertThat(fresh).hasSize(1)
+        assertThat(present).isEqualTo(0)
     }
 }

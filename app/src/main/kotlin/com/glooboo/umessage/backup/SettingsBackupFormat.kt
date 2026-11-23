@@ -388,7 +388,8 @@ object SettingsBackupFormat {
             RuleType.SENDER_ID, RuleType.PREFIX -> rule.pattern.trim().lowercase()
             else -> rule.pattern.trim()
         }
-        return "${rule.kind.name}|${rule.type.name}|${rule.subscriptionId}|$pattern"
+        // J17: rules are one per number since schema 9 (the database ignores the SIM), so the key ignores it too.
+        return "${rule.kind.name}|${rule.type.name}|$pattern"
     }
 
     /**

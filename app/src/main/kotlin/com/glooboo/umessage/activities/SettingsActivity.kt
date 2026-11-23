@@ -570,7 +570,6 @@ class SettingsActivity : ComposeSimpleActivity() {
             val after = RestoreSummary.afterText(
                 this@SettingsActivity,
                 RestoreSummary.afterRestore(
-                    preview.content.settings,
                     notDefaultNow = !OnboardingActivity.isDefaultSmsApp(this@SettingsActivity),
                     lockOnNow = config.isAppPasswordProtectionOn,
                 ),

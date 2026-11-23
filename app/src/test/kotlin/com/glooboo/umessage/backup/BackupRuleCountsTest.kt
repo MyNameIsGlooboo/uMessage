@@ -28,13 +28,14 @@ class BackupRuleCountsTest {
         assertThat(present).isEqualTo(0)
     }
 
-    @Test fun sameRuleForAnotherSimIsNew() {
+    @Test fun sameRuleForAnotherSimIsPresent() {
+        // J17: the database keeps one rule per number whatever the SIM, so the SIM does not tell rules apart.
         val (fresh, present) = SettingsBackupFormat.newRules(
             incoming = listOf(keyword("sale").copy(subscriptionId = 2), keyword("sale")),
             existing = listOf(keyword("sale").copy(subscriptionId = 1)),
         )
-        assertThat(fresh.map { it.subscriptionId }).containsExactly(2, null)
-        assertThat(present).isEqualTo(0)
+        assertThat(fresh).isEmpty()
+        assertThat(present).isEqualTo(2)
     }
 
     @Test fun sameRuleForTheSameSimIsPresent() {
