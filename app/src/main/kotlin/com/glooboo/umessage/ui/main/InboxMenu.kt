@@ -19,9 +19,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.glooboo.umessage.R
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.recycleBinEntryCount
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.ui.icons.Symbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -85,8 +87,8 @@ private fun menuText(item: InboxMenuItem, recycleBinCount: Int): String {
 
 /**
  * How many messages are in the recycle bin, read off the main thread. It is read again when the screen resumes and
- * when [changeKey] changes (a chat was deleted or restored) or the conversation list was published again (a chat
- * moved to Spam takes its binned messages out of the bin), and is 0 while the bin is switched off ([on] false).
+ * when [changeKey] changes (a chat was deleted or restored) or the Spam table changed ([SpamChanges]: a chat moved to
+ * Spam takes its binned messages out of the bin), and is 0 while the bin is switched off ([on] false).
  */
 @Composable
 internal fun rememberRecycleBinCount(on: Boolean, changeKey: Int): Int {
@@ -96,8 +98,10 @@ internal fun rememberRecycleBinCount(on: Boolean, changeKey: Int): Int {
         resumes++
         onPauseOrDispose { }
     }
+    // A chat that moves to Spam takes its binned messages out of the bin, whether or not the Messages rows change.
+    val spamChanges by SpamChanges.changes.collectAsStateWithLifecycle()
     var count by remember { mutableIntStateOf(0) }
-    LaunchedEffect(on, changeKey, resumes) {
+    LaunchedEffect(on, changeKey, resumes, spamChanges) {
         count = if (on) {
             // H-4 (provider truth): without the binned messages of chats in Spam, which the bin does not list.
             withContext(Dispatchers.IO) { runCatching { context.recycleBinEntryCount() }.getOrDefault(0) }
