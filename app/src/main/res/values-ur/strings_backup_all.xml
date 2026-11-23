@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">صفائی اور اسٹوریج</string>
     <string name="n09_label_privacy">رازداری اور لاک کے اختیارات</string>
     <string name="n09_restore_not_included">فائل میں شامل نہیں: آپ کے پیغامات، ایپ لاک PIN، SIM کے نام، محفوظ متن، چھپی ہوئی چیٹس اور خاموشی کے اوقات۔</string>
-    <string name="n09_restore_after">uMessage کو دوبارہ ڈیفالٹ SMS ایپ بنائیں اور اپنا ایپ لاک دوبارہ سیٹ کریں۔</string>
+    <string name="n09_restore_after_default">uMessage کو دوبارہ ڈیفالٹ SMS ایپ بنائیں۔</string>
+    <string name="n09_restore_after_lock">اگر آپ ایپ لاک استعمال کرتے تھے تو اسے سیٹ کریں۔</string>
 </resources>

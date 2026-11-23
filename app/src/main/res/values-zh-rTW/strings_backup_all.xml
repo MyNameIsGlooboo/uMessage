@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">清理與儲存空間</string>
     <string name="n09_label_privacy">隱私權和鎖定選項</string>
     <string name="n09_restore_not_included">檔案不包含：你的訊息、應用程式鎖PIN、SIM名稱、已儲存的文字、隱藏的聊天和靜音時間。</string>
-    <string name="n09_restore_after">請重新將uMessage設為預設簡訊應用程式，並重新設定應用程式鎖。</string>
+    <string name="n09_restore_after_default">請重新將uMessage設為預設簡訊應用程式。</string>
+    <string name="n09_restore_after_lock">如果你之前使用過應用程式鎖，請重新設定。</string>
 </resources>

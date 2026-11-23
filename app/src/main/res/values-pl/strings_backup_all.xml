@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Porządkowanie i pamięć</string>
     <string name="n09_label_privacy">Prywatność i opcje blokady</string>
     <string name="n09_restore_not_included">Plik nie zawiera: wiadomości, PIN-u blokady aplikacji, nazw kart SIM, zapisanych tekstów, ukrytych czatów ani czasu wyciszenia.</string>
-    <string name="n09_restore_after">Ponownie ustaw uMessage jako domyślną aplikację do SMS-ów i skonfiguruj blokadę aplikacji.</string>
+    <string name="n09_restore_after_default">Ponownie ustaw uMessage jako domyślną aplikację do SMS-ów.</string>
+    <string name="n09_restore_after_lock">Skonfiguruj blokadę aplikacji, jeśli z niej korzystałeś.</string>
 </resources>

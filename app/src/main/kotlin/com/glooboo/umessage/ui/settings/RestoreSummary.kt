@@ -12,7 +12,6 @@ object RestoreSummary {
     /** The setting each backup key changes, by its row title. Keys missing here (one-time flags) are not shown. */
     private val labels: Map<String, Int> = mapOf(
         BackupSettings.SPAM_MODE to R.string.settings_nav_spam_row,
-        BackupSettings.PURGE_DAYS to R.string.settings_nav_purge_row,
         BackupSettings.NOTIFY_ON_BLOCK to R.string.spam_notify_title,
         BackupSettings.SHOW_FORWARDED_TAB to R.string.settings_nav_forwarded_tab,
         BackupSettings.JALALI to R.string.w2b2_settings_group_dates,
@@ -89,7 +88,9 @@ object RestoreSummary {
         After.NONE -> null
         After.DEFAULT_APP -> context.getString(R.string.n09_restore_after_default)
         After.LOCK -> context.getString(R.string.n09_restore_after_lock)
-        After.BOTH -> context.getString(R.string.n09_restore_after)
+        After.BOTH -> context.getString(R.string.n09_restore_after_default) + "
+" +
+            context.getString(R.string.n09_restore_after_lock)
     }
 
     /** One paragraph per part: rules, forward rules (always switched off) and the settings that change. */

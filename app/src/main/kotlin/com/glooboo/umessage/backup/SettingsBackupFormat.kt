@@ -366,8 +366,9 @@ object SettingsBackupFormat {
 
     /**
      * Splits the [incoming] rules into the ones not on the phone yet and the count already present, with the same
-     * idea as the repository's duplicate check (kind, type, SIM, pattern; numbers by their last digits, sender
-     * names and prefixes without case). The count is only of rules already on the phone; a rule repeated inside the file is merged silently.
+     * idea as the repository's duplicate check (kind, type, pattern; numbers by their last digits, sender names and
+     * prefixes without case). The count is only of rules already on the phone; a rule repeated inside the file is
+     * merged silently.
      */
     fun newRules(incoming: List<SpamRule>, existing: List<SpamRule>): Pair<List<SpamRule>, Int> {
         val onPhone = existing.map(::ruleKey).toSet()
@@ -382,6 +383,11 @@ object SettingsBackupFormat {
         return fresh to present
     }
 
+    /**
+     * The SIM is not part of the key: rules are one per number. Edge case, accepted: a national number for SIM 1 and
+     * SIM 2 whose SIMs are in different countries becomes two rows on restore (the restore reads it with each SIM's
+     * country), while this preview says one.
+     */
     private fun ruleKey(rule: SpamRule): String {
         val pattern = when (rule.type) {
             RuleType.NUMBER -> ForwardTargets.key(rule.pattern).ifEmpty { rule.pattern.trim() }

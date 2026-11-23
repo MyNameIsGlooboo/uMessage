@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Aufräumen und Speicher</string>
     <string name="n09_label_privacy">Datenschutz und Sperroptionen</string>
     <string name="n09_restore_not_included">Nicht in der Datei enthalten: deine Nachrichten, die PIN der App-Sperre, SIM-Namen, gespeicherte Texte, ausgeblendete Chats und Stummschaltzeiten.</string>
-    <string name="n09_restore_after">Lege uMessage wieder als Standard-SMS-App fest und richte deine App-Sperre erneut ein.</string>
+    <string name="n09_restore_after_default">Lege uMessage wieder als Standard-SMS-App fest.</string>
+    <string name="n09_restore_after_lock">Richte eine App-Sperre ein, falls du eine benutzt hast.</string>
 </resources>

@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">整理とストレージ</string>
     <string name="n09_label_privacy">プライバシーとロック設定</string>
     <string name="n09_restore_not_included">メッセージ、アプリロックのPIN、SIM名、保存した定型文、非表示のチャット、通知のミュート時間はファイルに含まれません。</string>
-    <string name="n09_restore_after">uMessageをもう一度デフォルトのSMSアプリにし、アプリロックを設定し直してください。</string>
+    <string name="n09_restore_after_default">uMessageをもう一度デフォルトのSMSアプリにしてください。</string>
+    <string name="n09_restore_after_lock">アプリロックを使っていた場合は、設定し直してください。</string>
 </resources>

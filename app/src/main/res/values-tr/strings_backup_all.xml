@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Temizlik ve depolama</string>
     <string name="n09_label_privacy">Gizlilik ve kilit seçenekleri</string>
     <string name="n09_restore_not_included">Dosyada olmayanlar: mesajlarınız, uygulama kilidi PIN kodu, SIM adları, kayıtlı metinler, gizli sohbetler ve sessize alma süreleri.</string>
-    <string name="n09_restore_after">uMessage uygulamasını yeniden varsayılan SMS uygulaması yapın ve uygulama kilidinizi yeniden ayarlayın.</string>
+    <string name="n09_restore_after_default">uMessage uygulamasını yeniden varsayılan SMS uygulaması yapın.</string>
+    <string name="n09_restore_after_lock">Kullandıysanız uygulama kilidini ayarlayın.</string>
 </resources>

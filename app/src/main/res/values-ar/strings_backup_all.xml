@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">التنظيف والتخزين</string>
     <string name="n09_label_privacy">الخصوصية وخيارات القفل</string>
     <string name="n09_restore_not_included">لا يتضمن الملف: رسائلك، ورقم التعريف الشخصي لقفل التطبيق، وأسماء شرائح SIM، والنصوص المحفوظة، والمحادثات المخفية، وأوقات كتم الصوت.</string>
-    <string name="n09_restore_after">اجعل uMessage تطبيق الرسائل النصية الافتراضي مجددًا، وأعِد إعداد قفل التطبيق.</string>
+    <string name="n09_restore_after_default">اجعل uMessage تطبيق الرسائل النصية الافتراضي مجددًا.</string>
+    <string name="n09_restore_after_lock">أعِد إعداد قفل التطبيق إن كنت تستخدم واحدًا.</string>
 </resources>

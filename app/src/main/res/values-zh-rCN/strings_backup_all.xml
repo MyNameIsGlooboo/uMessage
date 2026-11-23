@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">清理和存储</string>
     <string name="n09_label_privacy">隐私和锁定选项</string>
     <string name="n09_restore_not_included">文件不包含：消息、应用锁PIN、SIM名称、已保存的文本、隐藏的聊天和静音时段。</string>
-    <string name="n09_restore_after">请重新将uMessage设为默认短信应用，并重新设置应用锁。</string>
+    <string name="n09_restore_after_default">请重新将uMessage设为默认短信应用。</string>
+    <string name="n09_restore_after_lock">如果你之前使用过应用锁，请重新设置。</string>
 </resources>

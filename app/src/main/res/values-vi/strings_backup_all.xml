@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Dọn dẹp và bộ nhớ</string>
     <string name="n09_label_privacy">Quyền riêng tư và tùy chọn khóa</string>
     <string name="n09_restore_not_included">Không có trong tệp: tin nhắn của bạn, PIN khóa ứng dụng, tên SIM, văn bản đã lưu, cuộc trò chuyện đã ẩn và thời gian tắt thông báo.</string>
-    <string name="n09_restore_after">Đặt lại uMessage làm ứng dụng SMS mặc định và thiết lập lại khóa ứng dụng.</string>
+    <string name="n09_restore_after_default">Đặt lại uMessage làm ứng dụng SMS mặc định.</string>
+    <string name="n09_restore_after_lock">Hãy thiết lập khóa ứng dụng nếu trước đây bạn có dùng.</string>
 </resources>

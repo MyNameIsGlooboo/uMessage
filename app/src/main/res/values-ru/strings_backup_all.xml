@@ -7,5 +7,6 @@
     <string name="n09_label_cleanup">Очистка и хранение</string>
     <string name="n09_label_privacy">Конфиденциальность и блокировка</string>
     <string name="n09_restore_not_included">В файле нет сообщений, ПИН-кода блокировки приложения, названий SIM-карт, сохраненных текстов, скрытых чатов и сроков отключения уведомлений.</string>
-    <string name="n09_restore_after">Снова назначьте uMessage приложением для SMS по умолчанию и настройте блокировку приложения.</string>
+    <string name="n09_restore_after_default">Снова назначьте uMessage приложением для SMS по умолчанию.</string>
+    <string name="n09_restore_after_lock">Настройте блокировку приложения, если вы ею пользовались.</string>
 </resources>

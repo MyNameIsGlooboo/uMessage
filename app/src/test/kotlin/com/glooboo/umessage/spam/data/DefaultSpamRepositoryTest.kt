@@ -479,4 +479,16 @@ class DefaultSpamRepositoryTest {
         repo.restoreRules(removed)
         assertEquals(listOf(again), dao.getRules().map { it.id })
     }
+
+    @Test fun restoreRulesWritesOneRuleForTheSameNumberOnTwoSims() = runTest {
+        repo.restoreRules(
+            listOf(
+                SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+15550001234", subscriptionId = 1),
+                SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+15550001234", subscriptionId = 2),
+            ),
+        )
+        val rows = dao.getRules()
+        assertEquals(1, rows.size)
+        assertEquals(null, rows.single().subscriptionId)
+    }
 }
