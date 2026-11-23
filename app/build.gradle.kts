@@ -369,7 +369,7 @@ androidComponents {
 
 // L5-3: an instrumented run installs the debug app over the daily build and uninstalls it at the end, which wipes the
 // app's data. It may target an emulator only: ANDROID_SERIAL must name one, so a phone on the cable is never used.
-// The guard runs before every install task of the same build, so nothing is installed when it refuses.
+// The connected task installs inside its own action, so the guard is a task it depends on (it runs first).
 val requireEmulatorSerial = tasks.register("requireEmulatorSerial") {
     doFirst {
         val serial = System.getenv("ANDROID_SERIAL").orEmpty()
@@ -383,7 +383,7 @@ val requireEmulatorSerial = tasks.register("requireEmulatorSerial") {
         }
     }
 }
-tasks.matching { it.name.startsWith("connected") && it.name.endsWith("AndroidTest") }.configureEach {
+tasks.named { it.startsWith("connected") && it.endsWith("AndroidTest") }.configureEach {
     dependsOn(requireEmulatorSerial)
     // Same check right before the run, in case the task is reached another way.
     doFirst {
@@ -391,7 +391,6 @@ tasks.matching { it.name.startsWith("connected") && it.name.endsWith("AndroidTes
         check(Regex("emulator-[0-9]+").matches(serial)) { "$name needs an emulator serial" }
     }
 }
-tasks.matching { it.name.startsWith("install") }.configureEach { mustRunAfter(requireEmulatorSerial) }
 
 dependencies {
     implementation(libs.fossify.commons)

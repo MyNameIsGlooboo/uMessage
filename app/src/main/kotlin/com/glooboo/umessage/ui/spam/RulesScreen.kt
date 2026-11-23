@@ -975,7 +975,7 @@ fun AddRuleSheet(
 
                 if (error == null && form.warnings.isNotEmpty()) RuleWarnings(form.warnings)
 
-                // spam-15: a blocked word or pattern blocks the whole sender; said where it is turned on.
+                // spam-15: a blocked word, pattern or website blocks the whole sender; said where it is turned on.
                 if (RuleValidator.blocksSender(form.kind, form.type)) SenderBlockNote()
 
                 if (form.saveFailed) {
