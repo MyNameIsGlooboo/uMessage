@@ -1,11 +1,13 @@
 package com.glooboo.umessage.spam.data
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.glooboo.umessage.databases.DatabaseBackups
+import com.glooboo.umessage.databases.RecoveryAttempts
 import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FirstRun
@@ -35,7 +37,8 @@ import java.io.File
  * - Forward rules after a trip to schema 3: that build renamed the schema-4 file `-imported` (it copied every table it
  *   knows), so the forward rules are merged back from a `-imported` file of schema 4 or later, once.
  *
- * Failures are logged and never stop the database from opening.
+ * Failures are logged and never stop the database from opening. Nothing here runs SQL on Room's own connection: each
+ * step opens a connection of its own ([DatabaseBackups.withAttached]), so Room's invalidation table survives (J14).
  */
 internal class SpamDatabaseRecovery(
     private val context: Context,
@@ -46,12 +49,12 @@ internal class SpamDatabaseRecovery(
 
     override fun onOpen(db: SupportSQLiteDatabase) {
         runCatching {
-            if (downgradedFrom != null) importNewer(db, downgradedFrom) else restoreFromNewestBackup(db)
+            if (downgradedFrom != null) importNewer(downgradedFrom) else restoreFromNewestBackup()
         }.onFailure { Log.e(TAG, "Recovering $name from a backup failed", it) }
     }
 
-    private fun importNewer(db: SupportSQLiteDatabase, backup: File) {
-        val copied = DatabaseBackups.withAttached(db, backup) {
+    private fun importNewer(backup: File) {
+        val copied = DatabaseBackups.withAttached(context.getDatabasePath(name), backup) { db ->
             DatabaseBackups.inTransaction(db) {
                 importedTables(db).map { (table, where) -> DatabaseBackups.copyRows(db, table, where) }
             }
@@ -60,11 +63,11 @@ internal class SpamDatabaseRecovery(
         Log.w(TAG, "Imported $name from ${backup.name}; tables copied: $copied")
     }
 
-    private fun restoreFromNewestBackup(db: SupportSQLiteDatabase) {
-        restoreForwardRulesFromImported(db)
+    private fun restoreFromNewestBackup() {
+        restoreForwardRulesFromImported()
         val backups = DatabaseBackups.restorableBackups(context, name, SpamDatabase.VERSION)
         val newest = backups.firstOrNull() ?: return
-        DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
+        DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
             DatabaseBackups.inTransaction(db) {
                 reattachKeptMms(db)
                 mergedTables(db).forEach { (table, where) -> DatabaseBackups.mergeRows(db, table, where = where) }
@@ -80,33 +83,43 @@ internal class SpamDatabaseRecovery(
      * A build of schema 3 that opened a schema-4 file copied every table it knows and renamed the file `-imported`,
      * leaving the forward rules behind in it. Back on schema 4 or later, they are merged back from there (rows already
      * here are skipped), and the file is renamed `-restored` so this happens once.
+     *
+     * J14-3: only when both steps worked. A failed try keeps the file for the next open (both steps skip what is
+     * already here, so a second try adds nothing twice); after [RecoveryAttempts.MAX_FAILURES] failed tries it is
+     * kept as `-failed` and not tried again.
      */
-    private fun restoreForwardRulesFromImported(db: SupportSQLiteDatabase) {
+    private fun restoreForwardRulesFromImported() {
         val imported = DatabaseBackups.importedBackups(context, name, FORWARD_SINCE..SpamDatabase.VERSION)
         val newest = imported.firstOrNull() ?: return
-        runCatching {
-            DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
+        val forwardRules = runCatching {
+            DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
                 DatabaseBackups.inTransaction(db) {
                     val (table, where) = forwards(db)
                     DatabaseBackups.mergeRows(db, table, where = where)
                 }
             }
-        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }
-        val providerTruth = restoreProviderTruthFromImported(db, newest)
-        imported.forEach { DatabaseBackups.retire(it) }
+        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }.isSuccess
+        val members = restoreProviderTruthFromImported(newest)
+        if (forwardRules && members != null) {
+            imported.forEach { DatabaseBackups.retire(it) }
+            runCatching { RecoveryAttempts.succeeded(context, newest) }
+        } else {
+            runCatching { RecoveryAttempts.failed(context, newest) }
+        }
         // The history check runs again for every chat (a RESTORE pass).
-        if (providerTruth) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
+        if (members == true) runCatching { FirstRun.request(context, FirstRunTrigger.RESTORE) }
     }
 
     /**
      * R-4 (step F, F-17): after a trip to 0.4.14 and back, the group members and the message migration's marks come
      * back from the schema-9 file that build kept aside: in a transaction of their own, after the forward rules, so a
-     * failure here keeps those. True when the file had the members table (a RESTORE pass is owed).
+     * failure here keeps those. True when the file had the members table (a RESTORE pass is owed), null when this
+     * step failed.
      */
-    private fun restoreProviderTruthFromImported(db: SupportSQLiteDatabase, newest: File): Boolean {
+    private fun restoreProviderTruthFromImported(newest: File): Boolean? {
         var members = false
-        runCatching {
-            DatabaseBackups.withMigratedCopy(context, name, newest, db, migrate = ::migrateScratch) {
+        return runCatching {
+            DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
                 DatabaseBackups.inTransaction(db) {
                     if (hasMembers(db)) {
                         DatabaseBackups.copyRows(db, MEMBERS.first, MEMBERS.second)
@@ -116,7 +129,7 @@ internal class SpamDatabaseRecovery(
                 }
             }
         }.onFailure { Log.e(TAG, "Restoring group members and marks of $name from ${newest.name} failed", it) }
-        return members
+            .map { members }.getOrNull()
     }
 
     /**
@@ -124,7 +137,7 @@ internal class SpamDatabaseRecovery(
      * text, kind, time) in the kept schema-9 file, so a message the user deleted from the store meanwhile is not
      * moved a second time.
      */
-    private fun reattachMarks(db: SupportSQLiteDatabase) {
+    private fun reattachMarks(db: SQLiteDatabase) {
         val marked = { schema: String ->
             DatabaseBackups.columns(db, schema, "blocked_messages").any { it.name == "migratedMsgId" }
         }
@@ -156,7 +169,7 @@ internal class SpamDatabaseRecovery(
      * media state and file of the same message in the backup, so it is not merged in as a second copy and its kept
      * file (never deleted while a backup exists, see AndroidSpamPlatform.sweepMedia) is referenced again.
      */
-    private fun reattachKeptMms(db: SupportSQLiteDatabase) {
+    private fun reattachKeptMms(db: SQLiteDatabase) {
         if (!hasMediaColumns(db)) return
         val t = "main.`blocked_messages`"
         val same = listOf("address", "body", "subscriptionId", "isMms", "receivedAt", "reason")
@@ -169,12 +182,12 @@ internal class SpamDatabaseRecovery(
         )
     }
 
-    private fun hasMediaColumns(db: SupportSQLiteDatabase): Boolean =
+    private fun hasMediaColumns(db: SQLiteDatabase): Boolean =
         DatabaseBackups.columns(db, "src", "blocked_messages").any { it.name == "media" } &&
             DatabaseBackups.columns(db, "main", "blocked_messages").any { it.name == "media" }
 
     /** Blocked rows this build can read: a known reason and, when the backup has it, a known media state. */
-    private fun blocked(db: SupportSQLiteDatabase): Pair<String, String> {
+    private fun blocked(db: SQLiteDatabase): Pair<String, String> {
         val reason = known("reason", DecisionReason.entries.toTypedArray())
         val where = if (hasMediaColumns(db)) "$reason AND ${known("media", MmsMedia.entries.toTypedArray())}" else reason
         return "blocked_messages" to where
@@ -184,7 +197,7 @@ internal class SpamDatabaseRecovery(
      * Forward rules (schema 4) with values this build knows. Rows come back exactly as they were, enabled state
      * included: they were set up behind the app lock, and the backup is the user's own data.
      */
-    private fun forwards(db: SupportSQLiteDatabase): Pair<String, String> {
+    private fun forwards(db: SQLiteDatabase): Pair<String, String> {
         val cols = DatabaseBackups.columns(db, "src", FORWARD_TABLE).map { it.name }.toSet()
         val types = RuleType.entries.toTypedArray()
         val where = buildList {
@@ -195,16 +208,16 @@ internal class SpamDatabaseRecovery(
         return FORWARD_TABLE to where
     }
 
-    private fun importedTables(db: SupportSQLiteDatabase) =
+    private fun importedTables(db: SQLiteDatabase) =
         listOf(RULES, blocked(db), EVENTS, "pending_sms" to "1", forwards(db)) +
             listOfNotNull(MEMBERS.takeIf { hasMembers(db) })
 
     /** The group members table (schema 9) exists on both sides. */
-    private fun hasMembers(db: SupportSQLiteDatabase): Boolean =
+    private fun hasMembers(db: SQLiteDatabase): Boolean =
         DatabaseBackups.columns(db, "src", MEMBERS.first).isNotEmpty() &&
             DatabaseBackups.columns(db, "main", MEMBERS.first).isNotEmpty()
 
-    private fun mergedTables(db: SupportSQLiteDatabase) = listOf(RULES, blocked(db), EVENTS, forwards(db))
+    private fun mergedTables(db: SQLiteDatabase) = listOf(RULES, blocked(db), EVENTS, forwards(db))
 
     private companion object {
         const val TAG = "SpamDbRecovery"
