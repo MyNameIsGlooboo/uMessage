@@ -85,7 +85,8 @@ private fun menuText(item: InboxMenuItem, recycleBinCount: Int): String {
 
 /**
  * How many messages are in the recycle bin, read off the main thread. It is read again when the screen resumes and
- * when [changeKey] changes (a chat was deleted or restored), and is 0 while the bin is switched off ([on] false).
+ * when [changeKey] changes (a chat was deleted or restored) or the conversation list was published again (a chat
+ * moved to Spam takes its binned messages out of the bin), and is 0 while the bin is switched off ([on] false).
  */
 @Composable
 internal fun rememberRecycleBinCount(on: Boolean, changeKey: Int): Int {
