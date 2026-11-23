@@ -1143,8 +1143,7 @@ private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
  */
 fun Context.forgetThread(threadId: Long, vanished: Boolean = false) {
     conversationsDB.deleteThreadId(threadId)
-    runCatching { conversationsDB.deleteSpamThread(threadId) }
-    SpamChanges.noteChanged()
+    if (runCatching { conversationsDB.deleteSpamThread(threadId) }.getOrDefault(0) > 0) SpamChanges.noteChanged()
     kotlinx.coroutines.runBlocking { labelsDB.removeAllFromConversation(threadId) }
     kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }
     if (vanished) messagesDB.deleteVanishedThreadMessages(threadId) else messagesDB.deleteThreadMessages(threadId)
@@ -1744,7 +1743,9 @@ private fun Context.followSpamRow(conversation: Conversation, renumbered: Boolea
         val number = conversation.phoneNumber
         if (row != null && row.sender != number && !conversation.isGroupConversation) {
             if (SpamThreads.readers(this).same(row.sender, number)) {
-                conversationsDB.updateSpamThreadSender(row.threadId, number, row.cause)
+                if (conversationsDB.updateSpamThreadSender(row.threadId, number, row.cause) > 0) {
+                    SpamChanges.noteChanged()
+                }
             }
         }
     }

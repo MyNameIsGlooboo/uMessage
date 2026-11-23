@@ -67,6 +67,8 @@ object SpamThreads {
         // the row counts for the chat (S9): a cached chat under another number, or a group, stays in Messages.
         // J4-1: a failed read counts as "in Spam", so the shortcut goes.
         ShortcutHelper.removeIfMaybeSpam(context, threadId)
+        // J19: the Messages tab number and the Spam list read the table again (every arrival, replay and restore).
+        SpamChanges.noteChanged()
     }
 
     /** R1's safety check: [threadId] has a Spam row for the sender [address] (its chat row may not be cached yet). */

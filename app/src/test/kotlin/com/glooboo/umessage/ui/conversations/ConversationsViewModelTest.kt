@@ -24,13 +24,17 @@ import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.helpers.messageNotesDB
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
 import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.forgetThread
 import com.glooboo.umessage.spam.SortResult
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.SpamRepository
 import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.data.SpamPlacement
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.spam.SenderBlocking
+import com.glooboo.umessage.ui.spam.SpamChat
+import com.glooboo.umessage.ui.spam.SpamChatsSource
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.baseConfig
@@ -335,6 +339,48 @@ class ConversationsViewModelTest {
         idleMain()
         assertThat(vm.state.value.newBlockedCount).isEqualTo(0)
     }
+
+    /** J19: "Mark as read" in the Spam tab clears the count, and the Messages tab number follows. */
+    @Test
+    fun theTabNumberGoesToZeroWhenTheSpamChatIsMarkedRead() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        awaitUntil { vm.state.value.newBlockedCount == 1 }
+
+        offMainThread { SpamChatsSource.markRead(app, listOf(spamChat())) }
+
+        awaitUntil { vm.state.value.newBlockedCount == 0 }
+    }
+
+    @Test
+    fun markReadAndMarkAllReadSignalASpamChange() {
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        val before = SpamChanges.changes.value
+
+        offMainThread { SpamChatsSource.markRead(app, listOf(spamChat())) }
+        val afterOne = SpamChanges.changes.value
+        offMainThread { SpamChatsSource.markAllRead(app, listOf(spamChat())) }
+
+        assertThat(afterOne).isGreaterThan(before)
+        assertThat(SpamChanges.changes.value).isGreaterThan(afterOne)
+    }
+
+    @Test
+    fun forgettingASpamChatSignalsASpamChange() {
+        offMainThread { seedSpamChat(SPAM_ID) }
+        val before = SpamChanges.changes.value
+
+        offMainThread { app.forgetThread(SPAM_ID) }
+
+        assertThat(SpamChanges.changes.value).isGreaterThan(before)
+        offMainThread { assertThat(app.conversationsDB.getSpamThread(SPAM_ID)).isNull() }
+    }
+
+    private fun spamChat() = SpamChat(
+        app.conversationsDB.getConversationWithThreadId(SPAM_ID)!!, app.conversationsDB.getSpamThread(SPAM_ID)!!,
+    )
 
     /** J19: "Not spam" takes the chat out of the Spam table; a published sort makes the number go down. */
     @Test
