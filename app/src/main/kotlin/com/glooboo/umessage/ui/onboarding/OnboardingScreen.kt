@@ -188,8 +188,10 @@ fun OnboardingScreen(
 
     fun requestPermissions(list: List<String>) = asker.request(list)
 
-    fun requestAllMissing() =
-        requestPermissions(items.filter { !context.isGranted(it.permissions) }.flatMap { it.permissions })
+    // J23: without the default-app role the SMS permissions are left out; the role request is their way in.
+    fun requestAllMissing() = requestPermissions(
+        askablePermissions(items, OnboardingActivity.isDefaultSmsApp(context)) { context.isGranted(it.permissions) },
+    )
 
     // "Allow all": the default-app role first when it is missing, then ONE combined permission request.
     fun allowAll() {

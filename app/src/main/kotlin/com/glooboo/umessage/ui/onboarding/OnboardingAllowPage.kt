@@ -47,6 +47,29 @@ internal data class PermissionItem(
 internal fun requiredGranted(items: List<PermissionItem>, granted: Map<PermissionItem, Boolean>): Boolean =
     items.all { it.optional || granted[it] == true }
 
+/** J23: the SMS item. Google Play: SMS permissions are asked only while uMessage is the default SMS app. */
+internal fun PermissionItem.isSms() = permissions.any { it in SMS_GROUP }
+
+/** Every permission of Android's SMS group; the role grants all of them. */
+private val SMS_GROUP = setOf(
+    Manifest.permission.READ_SMS,
+    Manifest.permission.SEND_SMS,
+    Manifest.permission.RECEIVE_SMS,
+    Manifest.permission.RECEIVE_MMS,
+    Manifest.permission.RECEIVE_WAP_PUSH,
+)
+
+/**
+ * The permissions "Allow all" may ask for: every missing item, but not the SMS item while uMessage is not the
+ * default SMS app (the role comes first; the system grants the SMS permissions with it).
+ */
+internal fun askablePermissions(
+    items: List<PermissionItem>,
+    isDefault: Boolean,
+    isGranted: (PermissionItem) -> Boolean,
+): List<String> =
+    items.filter { !isGranted(it) && (isDefault || !it.isSms()) }.flatMap { it.permissions }
+
 internal fun permissionItems(): List<PermissionItem> = buildList {
     add(
         PermissionItem(
@@ -171,17 +194,31 @@ internal fun AllowPage(
         }
         items.forEach { item ->
             val ok = granted[item] == true
-            val blocked = !ok && item.permissions.any { it in permanentlyDenied }
+            val roleFirst = item.isSms() && !defaultSms.isDefault
+            val blocked = !ok && !roleFirst && item.permissions.any { it in permanentlyDenied }
             ChecklistRow(
                 title = stringResource(item.titleRes),
                 reason = stringResource(item.reasonRes),
                 ok = ok,
                 blocked = blocked,
                 optional = item.optional,
-                onClick = if (blocked) onOpenSettings else ({ onRequest(item) }),
+                // J23: no SMS permission is asked before the default SMS app role.
+                onClick = rowClick(roleFirst, blocked, defaultSms.onRequest, onOpenSettings) { onRequest(item) },
             )
         }
     }
+}
+
+private fun rowClick(
+    roleFirst: Boolean,
+    blocked: Boolean,
+    onRole: () -> Unit,
+    onSettings: () -> Unit,
+    onAsk: () -> Unit,
+): () -> Unit = when {
+    roleFirst -> onRole
+    blocked -> onSettings
+    else -> onAsk
 }
 
 /**
