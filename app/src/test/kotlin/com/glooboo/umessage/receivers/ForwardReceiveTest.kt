@@ -18,6 +18,7 @@ import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.spam.data.ForwardRuleEntity
 import com.glooboo.umessage.spam.data.IncomingSmsProcessor
 import com.glooboo.umessage.spam.data.PendingSmsEntity
+import com.glooboo.umessage.spam.data.PendingSmsQueue
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.testing.FakeTelephonyProvider
 import com.glooboo.umessage.testing.ShadowRecordingSmsManager
@@ -99,6 +100,30 @@ class ForwardReceiveTest {
         assertThat(entry.reason).contains("+15550001111")
         assertThat(entry.reason).endsWith("SENT")
         assertThat(entry.reason).doesNotContain("Deposit")
+    }
+
+    /**
+     * J18: a queued text is replayed without the Phone permission (it cannot tell which SIM is active). The filter and
+     * the forward rules still see the SIM the text arrived on, so a rule limited to that SIM still forwards it; only
+     * the store write drops the SIM, and the stored row is there.
+     */
+    @Test
+    fun aReplayedTextKeepsItsSimForTheForwardRuleAndIsStoredWithoutIt() {
+        addRule(bankRule().copy(subscriptionId = 2))
+        val now = System.currentTimeMillis()
+        val row = PendingSmsEntity(
+            address = "+15551234567", subject = "", body = "Deposit of 500", date = now - 61_000L,
+            subscriptionId = 2, status = -1, createdAt = now - 60_000L,
+        )
+        offMainThread { spamDb.spamDao().insertPending(row) }
+
+        offMainThread { PendingSmsQueue.replay(context, now) }
+
+        assertThat(sentTexts().map { it.first }).containsExactly("+15550001111")
+        val stored = telephony.smsRows().filter { it["address"] == "+15551234567" }
+        assertThat(stored).hasSize(1)
+        assertThat(stored.single()["sub_id"]).isEqualTo(-1L)
+        assertThat(spamDb.spamDao().getPending()).isEmpty()
     }
 
     @Test

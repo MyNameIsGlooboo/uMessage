@@ -89,9 +89,17 @@ object IncomingSmsProcessor {
      * Filters and stores [message]. Throws when it could not be saved anywhere, so the caller keeps the pending
      * row (it is then replayed later). A filter failure never throws: the message is delivered instead.
      */
-    fun process(context: Context, message: PendingSmsEntity) {
-        ProviderTruthSms.process(context, message)
+    fun process(context: Context, message: PendingSmsEntity, replayed: Boolean = false) {
+        ProviderTruthSms.process(context, message, replayed)
     }
+
+    /**
+     * J18: the inbox write of [message]. A replayed text may name a SIM that is gone by now, so its write goes through
+     * [deliverReadably]; the filter and the forward rules still see the SIM it arrived on. A live text is written as it
+     * is: its SIM is the receiving one.
+     */
+    internal fun deliverFor(context: Context, message: PendingSmsEntity, notify: NotifyContext, replayed: Boolean) =
+        if (replayed) deliverReadably(context, message, notify) else deliver(context, message, notify)
 
     /**
      * Hands an SMS that is in the inbox (in Messages) to the forward rules. Never throws, so a forwarding problem
@@ -126,6 +134,16 @@ object IncomingSmsProcessor {
         val hasCode = OtpCodeExtractor.extract(message.body) != null
         return NotifyContext(UnknownNotifyPolicy.modeFor(reason, setting, hasCode), reason)
     }
+
+    /**
+     * J18: [deliver] for a message whose SIM may be gone (a restored or old held one): the SIM is dropped when it is
+     * not active, and a row the store hides is deleted and written again without it ([MissingSim]). Returns the id of
+     * the row that is finally there; throws when none could be made visible.
+     */
+    fun deliverReadably(context: Context, message: PendingSmsEntity, notify: NotifyContext): Long =
+        MissingSim.writeReadably(context, message.subscriptionId, isMms = false) { sim ->
+            deliver(context, message.copy(subscriptionId = sim), notify)
+        }
 
     /**
      * Puts [message] in the inbox. [deliverIncomingSms] throws only when the provider insert itself did not happen,
@@ -212,7 +230,7 @@ internal object ProviderTruthSms {
     private class StoredRow(val id: Long, val read: Int)
 
     /** Stores [message] where its sender's chat is. Throws only when it could not be stored (or announced) at all. */
-    fun process(context: Context, message: PendingSmsEntity) {
+    fun process(context: Context, message: PendingSmsEntity, replayed: Boolean = false) {
         val threadId = runCatching { context.getThreadId(message.address) }.getOrDefault(0L)
         val known = runCatching { ArrivalFacts.historyKnown(context, message.address, threadId) }.getOrDefault(false)
         if (!known) logIssue(context, message, "HISTORY_CHECK_FAILED")
@@ -223,11 +241,11 @@ internal object ProviderTruthSms {
         val spam = placed?.verdict as? SenderVerdict.Spam
         if (placed != null && spam != null) {
             // Reviewer: a text judged Spam is never forwarded, wherever it ends.
-            val outcome = storeInSpam(context, message, threadId, placed, spam.cause)
+            val outcome = storeInSpam(context, message, threadId, placed, spam.cause, replayed)
             if (outcome == SpamOutcome.NOT_STORED) {
                 SilentMarks.clear(context, message)
                 val notify = IncomingSmsProcessor.notifyContextFor(context, message, null)
-                IncomingSmsProcessor.deliver(context, message, notify)
+                IncomingSmsProcessor.deliverFor(context, message, notify, replayed)
             }
             return
         }
@@ -235,7 +253,7 @@ internal object ProviderTruthSms {
         SilentMarks.clear(context, message)
         val decision = ArrivalFacts.messagesDecision(context, message.address, placed)
         val notify = IncomingSmsProcessor.notifyContextFor(context, message, decision)
-        IncomingSmsProcessor.deliver(context, message, notify)
+        IncomingSmsProcessor.deliverFor(context, message, notify, replayed)
         // A-11, D-8: the allowed word that let the text in counts it (a blocked word never does here).
         (placed?.fact as? SenderFact.AutoAllow)?.let { countSpam(context, it.wordRuleId, event = false) }
         IncomingSmsProcessor.forward(context, message)
@@ -257,10 +275,10 @@ internal object ProviderTruthSms {
                 ?.let { ArrivalFacts.wroteToOnArrival(context, row.address, Judgement(it)) }
                 ?.verdict as? SenderVerdict.Spam
         }
-        val outcome = spam?.let { storeInSpam(context, row, threadId, Judgement(it), it.cause) }
+        val outcome = spam?.let { storeInSpam(context, row, threadId, Judgement(it), it.cause, replayed = true) }
         if (outcome != null && outcome != SpamOutcome.NOT_STORED) return
         SilentMarks.clear(context, row)
-        IncomingSmsProcessor.deliver(context, row)
+        IncomingSmsProcessor.deliverReadably(context, row, NotifyContext())
     }
 
     /** The sender's place without writing anything; null when the filter failed. */
@@ -274,6 +292,7 @@ internal object ProviderTruthSms {
         threadId: Long,
         judgement: Judgement,
         cause: SpamCause,
+        replayed: Boolean,
     ): SpamOutcome {
         if (threadId <= 0L) return SpamOutcome.NOT_STORED
         // As the held-message store did, for Spam only: the same text from the same sender within ten seconds is one.
@@ -293,7 +312,7 @@ internal object ProviderTruthSms {
         // D-2: on disk before the silent insert, so a replay after a kill knows this row was written silently.
         SilentMarks.mark(context, message)
         // E-2: a text stored nowhere needs no mark.
-        val id = runCatching { insertSilently(context, message, threadId) }
+        val id = runCatching { insertSilently(context, message, threadId, replayed) }
             .onFailure { SilentMarks.clear(context, message) }
             .getOrThrow()
         if (id <= 0L) return SpamOutcome.DUPLICATE.also { SilentMarks.clear(context, message) }
@@ -344,22 +363,27 @@ internal object ProviderTruthSms {
     }
 
     /** The text, read and seen, silent, its chat left archived. Throws when it could not be stored anywhere. */
-    private fun insertSilently(context: Context, message: PendingSmsEntity, threadId: Long): Long = runCatching {
-        context.deliverIncomingSms(
-            address = message.address,
-            subject = message.subject,
-            body = message.body,
-            date = message.date,
-            subscriptionId = message.subscriptionId,
-            status = message.status,
-            notify = NotifyContext.NONE,
-            threadId = threadId,
-            read = 1,
-            dateSent = message.dateSent,
-            seen = 1,
-            unarchive = false,
-        )
-    }.getOrElse { IncomingSmsProcessor.insertRaw(context, message, it, read = 1, seen = 1) }
+    private fun insertSilently(context: Context, message: PendingSmsEntity, threadId: Long, replayed: Boolean): Long {
+        // J18: only the store write of a replayed text drops a SIM that is gone; the filter saw the SIM it arrived on.
+        val stored = if (replayed) message.copy(subscriptionId = MissingSim.simFor(context, message.subscriptionId))
+        else message
+        return runCatching {
+            context.deliverIncomingSms(
+                address = stored.address,
+                subject = stored.subject,
+                body = stored.body,
+                date = stored.date,
+                subscriptionId = stored.subscriptionId,
+                status = stored.status,
+                notify = NotifyContext.NONE,
+                threadId = threadId,
+                read = 1,
+                dateSent = stored.dateSent,
+                seen = 1,
+                unarchive = false,
+            )
+        }.getOrElse { IncomingSmsProcessor.insertRaw(context, stored, it, read = 1, seen = 1) }
+    }
 
     /** A "blocked" event ([event]) and one more hit of rule [ruleId], as the held-message store counted. */
     private fun countSpam(context: Context, ruleId: Long?, event: Boolean) {
@@ -696,12 +720,12 @@ object PendingSmsQueue {
                 alreadyInInbox(context, row) -> ProviderTruthSms.recheckStored(context, row)
                 // A restored message is the user's decision: no second filter pass, and no "already blocked" test
                 // (an identical spam text blocked meanwhile must not stop it from reaching the inbox).
-                row.approved -> IncomingSmsProcessor.deliver(context, row, NotifyContext.NONE)
+                row.approved -> IncomingSmsProcessor.deliverReadably(context, row, NotifyContext.NONE)
                 expired -> if (!alreadyBlocked(dao, row)) {
                     // Reviewer: under provider truth the sender's place still holds (a blocked sender stays silent).
                     ProviderTruthSms.deliverExpired(context, row)
                 }
-                else -> IncomingSmsProcessor.process(context, row)
+                else -> IncomingSmsProcessor.process(context, row, replayed = true)
             }
         }
         result.exceptionOrNull()?.let { error ->

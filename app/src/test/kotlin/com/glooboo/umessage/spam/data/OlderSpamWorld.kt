@@ -61,6 +61,27 @@ internal class OlderSpamWorld {
     var clock = NOW
     var rejectedSims = emptySet<Int>()
 
+    /** J18: SIMs the store takes an insert for and then hides the row from every query (API 34, a missing SIM). */
+    var hidingSims = emptySet<Int>()
+
+    /** The rows the store hides; a clean run leaves none. */
+    val hiddenStore = mutableListOf<StoreRow>()
+
+    /** The SIMs the phone has now; null: every SIM counts as active (the tests that do not care about SIMs). */
+    var activeSims: Set<Int>? = null
+
+    /** The list of SIMs cannot be read (no Phone permission, an error): no SIM is known to be active. */
+    var simListUnreadable = false
+
+    /** A delete of a hidden SMS is refused (on Android 14 a delete by id URI reaches a hidden SMS: not here). */
+    var refusingSmsDeletes = false
+
+    /** The update of a hidden MMS's SIM is refused (on Android 14 an update by id URI reaches it: not here). */
+    var refusingMmsUpdates = false
+
+    /** The read-back of a written row throws (the store cannot be asked). */
+    var visibleThrows = false
+
     /** The next this many verifies fail. */
     var failingChecks = 0
 
@@ -269,6 +290,14 @@ internal class OlderSpamWorld {
     }
 
     val probe = object : MigrationProbe {
+        override fun visible(id: Long, isMms: Boolean): Boolean {
+            check(!visibleThrows) { "store cannot be asked" }
+            return store.any { it.id == id && it.mms == isMms }
+        }
+
+        override fun simActive(subscriptionId: Int): Boolean? =
+            if (simListUnreadable) null else activeSims?.contains(subscriptionId) ?: true
+
         override fun findSms(address: String, body: String, date: Long): Long? = op("findSms") {
             store.firstOrNull { !it.mms && it.inbox && it.address == address && it.body == body && it.date == date }
                 ?.id
@@ -343,7 +372,12 @@ internal class OlderSpamWorld {
 
         override fun writeSms(address: String, body: String, date: Long, subscriptionId: Int): Long = op("writeSms") {
             if (refusedWrite(subscriptionId, body)) return@op 0L
-            storeSms(address, body, date, subscriptionId).id.also { wrote() }
+            val written = storeSms(address, body, date, subscriptionId)
+            if (subscriptionId in hidingSims) {
+                store -= written
+                hiddenStore += written
+            }
+            written.id.also { wrote() }
         }
 
         override fun writeMms(row: BlockedMessage, subscriptionId: Int): Long = op("writeMms") {
@@ -354,7 +388,7 @@ internal class OlderSpamWorld {
                 nextMmsId++, true, row.address, row.body, identity.pduDate ?: 0L, 0, 0, subscriptionId,
                 identity.messageId, identity.textLength, addresses = 0, expectedAddresses = identity.addressCount,
             )
-            store += written
+            if (subscriptionId in hidingSims) hiddenStore += written else store += written
             repeat(identity.addressCount) {
                 if (halfWriteKillAfter == written.addresses) {
                     halfWriteKillAfter = null
@@ -369,7 +403,19 @@ internal class OlderSpamWorld {
             if (persistFails) 0L else written.id
         }
 
+        /** As the real store: the delete of an MMS is filtered by SIM too, so a hidden MMS cannot be deleted. */
         override fun deleteMms(id: Long): Boolean = op("deleteMms") { store.removeIf { it.id == id && it.mms } }
+
+        /** As the real store: a hidden SMS is deleted by id; a hidden MMS is made visible by an update by id. */
+        override fun unhide(id: Long, isMms: Boolean): Boolean = op(if (isMms) "unhideMms" else "deleteSms") {
+            val hidden = hiddenStore.firstOrNull { it.id == id && it.mms == isMms }
+            when {
+                hidden == null -> !isMms && store.removeIf { it.id == id && !it.mms }
+                isMms -> !refusingMmsUpdates && hiddenStore.remove(hidden) &&
+                    store.add(hidden.copy(sub = -1).also { it.addresses = hidden.addresses })
+                else -> !refusingSmsDeletes && hiddenStore.remove(hidden)
+            }
+        }
 
         override fun settleMms(id: Long, date: Long): Settle = op("settleMms") {
             val row = store.firstOrNull { it.id == id && it.mms } ?: return@op Settle.GONE

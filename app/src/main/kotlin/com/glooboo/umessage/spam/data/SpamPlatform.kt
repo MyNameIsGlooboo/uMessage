@@ -52,7 +52,7 @@ class AndroidSpamPlatform(context: Context) : SpamPlatform {
     override fun cancelBlockedNotifications(ids: Collection<Long>) = BlockedNotifier.cancel(appContext, ids)
 
     override fun deliverRestored(pending: PendingSmsEntity): Long? = try {
-        val id = IncomingSmsProcessor.deliver(appContext, pending, NotifyContext.NONE)
+        val id = IncomingSmsProcessor.deliverReadably(appContext, pending, NotifyContext.NONE)
         PendingSmsQueue.done(appContext, pending.id)
         id.coerceAtLeast(0L)
     } catch (_: Throwable) {
