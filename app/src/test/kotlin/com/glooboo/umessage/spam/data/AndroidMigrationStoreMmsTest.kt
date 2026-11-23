@@ -9,6 +9,8 @@ import android.net.Uri
 import android.provider.Telephony
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.extensions.draftsDB
+import com.glooboo.umessage.models.Draft
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -181,12 +183,42 @@ class AndroidMigrationStoreMmsTest {
         MmsStore.install()
         ChatNotices.post(context, 7)
 
-        // The real run is off the main thread (the database refuses the main one).
-        val worker = Thread { AndroidAutoDeleteSource(context).afterThread(7) }
-        worker.start()
-        worker.join()
+        afterThreadOffMain(7)
 
         assertThat(ChatNotices.isShown(context, 7)).isFalse()
+    }
+
+    @Test
+    fun aSpamChatThatKeepsOnlyADraftLosesItsNoticeToo() {
+        SpamProviderMigrationTest.SmsStore.install()
+        MmsStore.install()
+        val worker = Thread { context.draftsDB.insertOrUpdate(Draft(threadId = 7, body = "Mine", date = 1)) }
+        worker.start()
+        worker.join()
+        ChatNotices.post(context, 7)
+
+        afterThreadOffMain(7)
+
+        assertThat(ChatNotices.isShown(context, 7)).isFalse()
+    }
+
+    @Test
+    fun aSpamChatThatStillHasATextKeepsItsNotice() {
+        val sms = SpamProviderMigrationTest.SmsStore.install()
+        MmsStore.install()
+        sms.insertRaw(SENDER, "Advert", 9_000_000, Telephony.Sms.MESSAGE_TYPE_INBOX, threadId = 7)
+        ChatNotices.post(context, 7)
+
+        afterThreadOffMain(7)
+
+        assertThat(ChatNotices.isShown(context, 7)).isTrue()
+    }
+
+    /** The real run is off the main thread (the database refuses the main one). */
+    private fun afterThreadOffMain(threadId: Long) {
+        val worker = Thread { AndroidAutoDeleteSource(context).afterThread(threadId) }
+        worker.start()
+        worker.join()
     }
 
     private fun cached(id: Long, body: String, threadId: Long = 7, date: Int = 5_000) = Message(
