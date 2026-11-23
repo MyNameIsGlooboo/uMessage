@@ -281,6 +281,8 @@ internal class OlderSpamWorld {
         override fun visible(id: Long, isMms: Boolean): Boolean =
             store.any { it.id == id && it.mms == isMms }
 
+        override fun simActive(subscriptionId: Int): Boolean? = activeSims?.contains(subscriptionId)
+
         override fun findSms(address: String, body: String, date: Long): Long? = op("findSms") {
             store.firstOrNull { !it.mms && it.inbox && it.address == address && it.body == body && it.date == date }
                 ?.id
@@ -393,8 +395,6 @@ internal class OlderSpamWorld {
         override fun deleteSms(id: Long): Boolean = op("deleteSms") {
             hiddenStore.removeIf { it.id == id && !it.mms } || store.removeIf { it.id == id && !it.mms }
         }
-
-        override fun simActive(subscriptionId: Int): Boolean? = activeSims?.contains(subscriptionId)
 
         override fun settleMms(id: Long, date: Long): Settle = op("settleMms") {
             val row = store.firstOrNull { it.id == id && it.mms } ?: return@op Settle.GONE

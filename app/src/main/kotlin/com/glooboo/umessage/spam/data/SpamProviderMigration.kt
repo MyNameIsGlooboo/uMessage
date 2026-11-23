@@ -204,6 +204,9 @@ internal interface MigrationProbe {
     /** The carrier message id of MMS [id] in the store; null when it has none (T3-4). */
     fun messageIdOf(id: Long): String?
 
+    /** J18: whether [subscriptionId] is an active SIM now; null when that cannot be told (then it is tried as is). */
+    fun simActive(subscriptionId: Int): Boolean? = null
+
     /** Whether row [id] can be read back from the store at all (J18: some stores hide a row of a missing SIM). */
     fun visible(id: Long, isMms: Boolean): Boolean = true
 
@@ -233,9 +236,6 @@ internal interface MigrationWriter {
 
     /** Deletes SMS [id] (a row of uMessage's own that could not be read back, J18); true when it is gone. */
     fun deleteSms(id: Long): Boolean
-
-    /** J18: whether [subscriptionId] is an active SIM now; null when that cannot be told (then it is tried as is). */
-    fun simActive(subscriptionId: Int): Boolean? = null
 
     /** Date, read and seen of MMS [id] in one update; [Settle.GONE] when the row is not there any more. */
     fun settleMms(id: Long, date: Long): Settle
@@ -646,19 +646,25 @@ internal class OlderSpamMover(
         probe.findSms(kind.address, kind.body, row.receivedAt)?.let { return found(row, kind, it) }
         // F-6: the role is checked before every write; lost, the run ends and nothing counts.
         if (!writer.canWrite()) return Outcome.STOP
+        val (id, ended) = writeText(row, kind)
+        return ended
+            ?: markWritten(row, id, KIND_TEXT)?.let { verify(row, kind, id, ownWrite = true) }
+            ?: Outcome.SKIPPED
+    }
+
+    /** The SMS written: its id, or the outcome that ends the row (J18: a row the store hides is written again). */
+    private fun writeText(row: BlockedMessage, kind: MoveKind.Text): Pair<Long, Outcome?> {
         val sim = simToWrite(row)
-        var id = writer.writeSms(kind.address, kind.body, row.receivedAt, sim)
-        // A SIM taken out since: newer Android refuses its id. Look first (nothing was written), then without a SIM.
-        if (id <= 0L && sim != DEFAULT_SIM && writer.canWrite()) {
-            id = probe.findSms(kind.address, kind.body, row.receivedAt)
-                ?: writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)
-        } else if (id > 0L && sim != DEFAULT_SIM && !probe.visible(id, isMms = false)) {
-            val again = rewriteHiddenSms(row, kind, id)
-            id = again.first
-            again.second?.let { return it }
+        val id = writer.writeSms(kind.address, kind.body, row.receivedAt, sim)
+        val written = when {
+            // A SIM taken out since: newer Android refuses its id. Look first (nothing was written), then without.
+            id <= 0L && sim != DEFAULT_SIM && writer.canWrite() ->
+                (probe.findSms(kind.address, kind.body, row.receivedAt)
+                    ?: writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)) to null
+            id > 0L && sim != DEFAULT_SIM && !probe.visible(id, isMms = false) -> rewriteHiddenSms(row, kind, id)
+            else -> id to null
         }
-        if (id <= 0L) return rowFailure()
-        return markWritten(row, id, KIND_TEXT)?.let { verify(row, kind, id, ownWrite = true) } ?: Outcome.SKIPPED
+        return if (written.second == null && written.first <= 0L) 0L to rowFailure() else written
     }
 
     private fun moveMms(row: BlockedMessage, kind: MoveKind.Mms): Outcome {
@@ -668,19 +674,22 @@ internal class OlderSpamMover(
         }
         probe.findMms(kind.identity, kind.address, row.receivedAt / MILLIS)?.let { return found(row, kind, it) }
         if (!writer.canWrite()) return Outcome.STOP
-        val sim = simToWrite(row)
-        var id = writeMmsOnce(row, kind, sim)
-            ?: (if (sim != DEFAULT_SIM && retriesWithoutSim(row)) writeMmsOnce(row, kind, DEFAULT_SIM) else null)
-            ?: return if (journal.attempt != null) Outcome.STOP else rowFailure()
-        if (sim != DEFAULT_SIM && !probe.visible(id, isMms = true)) {
-            val again = rewriteHiddenMms(row, kind, id)
-            id = again.first
-            again.second?.let { return it }
-        }
+        val (id, ended) = writeMmsRow(row, kind)
+        if (ended != null) return ended
         val marked = markWritten(row, id, KIND_MMS)
         // After the mark the row says which store row is its own; the journal is not needed for it any more.
         journal.attempt = null
         return marked?.let { verify(row, kind, id, ownWrite = true) } ?: Outcome.SKIPPED
+    }
+
+    /** The MMS written: its id, or the outcome that ends the row (J18: a row the store hides is written again). */
+    private fun writeMmsRow(row: BlockedMessage, kind: MoveKind.Mms): Pair<Long, Outcome?> {
+        val sim = simToWrite(row)
+        val id = writeMmsOnce(row, kind, sim)
+            ?: (if (sim != DEFAULT_SIM && retriesWithoutSim(row)) writeMmsOnce(row, kind, DEFAULT_SIM) else null)
+            ?: return 0L to (if (journal.attempt != null) Outcome.STOP else rowFailure())
+        if (sim == DEFAULT_SIM || probe.visible(id, isMms = true)) return id to null
+        return rewriteHiddenMms(row, kind, id)
     }
 
     /**
@@ -729,7 +738,7 @@ internal class OlderSpamMover(
     private fun simToWrite(row: BlockedMessage): Int {
         val sim = simOf(row)
         if (sim == DEFAULT_SIM) return sim
-        return if (runCatching { writer.simActive(sim) }.getOrNull() == false) DEFAULT_SIM else sim
+        return if (runCatching { probe.simActive(sim) }.getOrNull() == false) DEFAULT_SIM else sim
     }
 
     /** As for an SMS: a SIM this phone no longer knows is tried once without one (only when nothing is open). */
