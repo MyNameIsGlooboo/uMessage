@@ -28,8 +28,10 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.fossify.commons.extensions.appLockManager
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.hideKeyboard
@@ -544,7 +546,9 @@ open class ThreadActivity : ComposeSimpleActivity() {
         vm.replyDisabled = false
         vm.closeSearch()
         vm.people = emptyList()
+        inSpam = false
         refreshMenuItems()
+        readInSpam()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -584,6 +588,8 @@ open class ThreadActivity : ComposeSimpleActivity() {
         }
 
         refreshMenuItems()
+        // Each change of the Spam table (Block, "Not spam", a sort) reads the chat's place again; the first value now.
+        lifecycleScope.launch { SpamChanges.changes.collect { readInSpam() } }
         senderActions.observeRules()
         vm.stars.attach(this, lifecycleScope)
         vm.notes.attach(MessageNoteStore(messageNotes), lifecycleScope)
@@ -834,6 +840,23 @@ open class ThreadActivity : ComposeSimpleActivity() {
         )
     }
 
+    /** Whether this chat is in Spam, for the menu; read off the main thread by [readInSpam]. */
+    private var inSpam = false
+
+    /** The chat is in Spam: its menu then has no "Add to home screen" and no "Mark as spam". */
+    private fun readInSpam() {
+        val thread = threadId
+        lifecycleScope.launch {
+            val spam = withContext(Dispatchers.IO) {
+                runCatching { conversationsDB.isInSpam(thread) }.getOrDefault(false)
+            }
+            if (thread == threadId && spam != inSpam) {
+                inSpam = spam
+                refreshMenuItems()
+            }
+        }
+    }
+
     private fun refreshMenuItems() {
         vm.threadId = threadId
         senderActions.refreshIfPeopleChanged()
@@ -859,6 +882,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
                 forwardingAvailable = ForwardingAvailability.isAvailable(this),
                 muted = privacy.isMuted(),
                 hiddenChat = privacy.isHiddenChat(),
+                inSpam = inSpam,
             )
         )
         vm.senderStatus = when {
