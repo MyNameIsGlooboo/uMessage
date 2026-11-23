@@ -21,10 +21,10 @@
     <string name="rules2_sheet_delete">刪除規則</string>
     <string name="rules2_sheet_hint_empty">輸入值後才能繼續</string>
     <string name="rules2_sheet_hint_fix">修正上方的值後才能繼續</string>
-    <string name="rules2_type_number_help">完整的電話號碼，例如+989121234567或09121234567。也可以使用3000這類簡碼。可以使用波斯數字。</string>
-    <string name="rules2_type_number_hint">+989121234567</string>
-    <string name="rules2_type_prefix_help">所有以此開頭的號碼，例如+98912或0912。</string>
-    <string name="rules2_type_prefix_hint">+98912</string>
+    <string name="rules2_type_number_help">完整的電話號碼，例如+15550001234或05550001234。也可以使用3000這類簡碼。可以使用波斯數字。</string>
+    <string name="rules2_type_number_hint">+15550001234</string>
+    <string name="rules2_type_prefix_help">所有以此開頭的號碼，例如+1555或0555。</string>
+    <string name="rules2_type_prefix_hint">+1555</string>
     <string name="rules2_type_sender_id_help">文字寄件者，例如VM-HDFCBK或Bank Melli。不區分大小寫。</string>
     <string name="rules2_type_regex_help">進階功能。用來比對訊息文字的正規表示式。儲存前請先在下方測試。</string>
     <string name="rules2_err_sender_id">請使用字母、數字、空格、句點、連字號或&amp;（最多32個字元，至少一個字母）</string>

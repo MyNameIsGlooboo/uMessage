@@ -157,17 +157,17 @@ class SettingsBackupFormatTest {
     @Test fun importedForwardRulesAreSwitchedOffWithCheckedTargets() {
         val incoming = forward.copy(
             enabled = true, subscriptionId = 4,
-            targets = listOf("09000001111", "1234", "+15550002222", "+447121234567"),
+            targets = listOf("07912345678", "1234", "+15550002222", "+447121234567"),
         )
         val own = listOf("+15550002222")
         val result =
-            SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList(), ownNumbers = own, region = "IR")
+            SettingsBackupFormat.prepareForwardImport(listOf(incoming), emptyList(), ownNumbers = own, region = "GB")
         val added = result.toAdd.single()
         assertThat(added.enabled).isFalse()
         assertThat(added.subscriptionId).isNull()
         // 09… is stored with the country code of the phone's region; a short code, the phone's own number and the
         // watched sender are dropped.
-        assertThat(added.targets).containsExactly("+989000001111")
+        assertThat(added.targets).containsExactly("+447912345678")
         assertThat(result.unusable).isEqualTo(0)
     }
 

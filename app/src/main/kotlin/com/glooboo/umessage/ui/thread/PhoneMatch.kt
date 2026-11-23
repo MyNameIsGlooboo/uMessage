@@ -2,7 +2,7 @@ package com.glooboo.umessage.ui.thread
 
 /* Phone numbers written in a message text: found for tappable links, kept strict so codes, prices and dates are not. */
 
-/** A phone number found in a text: [range] is where it is written, [number] is what to dial ("+989121234567"). */
+/** A phone number found in a text: [range] is where it is written, [number] is what to dial ("+15550001234"). */
 internal data class PhoneMatch(val range: IntRange, val number: String)
 
 private const val TEL = "tel:"
@@ -85,7 +85,7 @@ private fun hasUnbalancedParens(value: String): Boolean = value.count { it == '(
 /** True for the "tel:" links [findPhoneNumbers] makes. */
 internal fun isPhoneLink(uri: String): Boolean = uri.startsWith(TEL, ignoreCase = true)
 
-/** The number of a "tel:" link ("+989121234567"), else null. */
+/** The number of a "tel:" link ("+15550001234"), else null. */
 internal fun phoneOf(uri: String): String? = if (isPhoneLink(uri)) uri.substring(TEL.length).ifBlank { null } else null
 
 /** The "tel:" link for [number]. */

@@ -27,7 +27,7 @@
     <string name="w3b_test_title">測試訊息</string>
     <string name="w3b_test_intro">貼上文字和寄件者，看看uMessage會怎麼處理。不會儲存或傳送任何內容。</string>
     <string name="w3b_test_sender">寄件者</string>
-    <string name="w3b_test_sender_hint">號碼或名稱，例如+98912…或MYBANK</string>
+    <string name="w3b_test_sender_hint">號碼或名稱，例如+1555…或MYBANK</string>
     <string name="w3b_test_text">訊息文字</string>
     <string name="w3b_test_run">測試</string>
     <string name="w3b_test_create_rule">建立規則</string>
