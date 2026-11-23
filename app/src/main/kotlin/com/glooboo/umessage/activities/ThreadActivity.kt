@@ -842,11 +842,14 @@ open class ThreadActivity : ComposeSimpleActivity() {
 
     /** Whether this chat is in Spam, for the menu; read off the main thread by [readInSpam]. */
     private var inSpam = false
+    private var inSpamRead: kotlinx.coroutines.Job? = null
 
     /** The chat is in Spam: its menu then has no "Add to home screen" and no "Mark as spam". */
     private fun readInSpam() {
         val thread = threadId
-        lifecycleScope.launch {
+        // A newer read replaces the one still running, so an older answer never overwrites a newer one.
+        inSpamRead?.cancel()
+        inSpamRead = lifecycleScope.launch {
             val spam = withContext(Dispatchers.IO) {
                 runCatching { conversationsDB.isInSpam(thread) }.getOrDefault(false)
             }

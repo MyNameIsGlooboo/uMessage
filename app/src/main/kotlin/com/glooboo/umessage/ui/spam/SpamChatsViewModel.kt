@@ -132,7 +132,7 @@ private data class RowKey(
     val code: String?,
     /** A language change builds the rows again: their words and digits are fixed when a row is built. */
     val language: String,
-    /** The age of the chat's date label: the minute while it is under an hour old, then the day (see [timeBucket]). */
+    /** How old the date label is: the minute while under an hour old, then the day (see [spamTimeBucket]). */
     val timeBucket: Long,
 )
 
@@ -145,7 +145,7 @@ private const val DAY_MS = 24 * HOUR_MS
  * under an hour old ("Now", "6 min"), then every local day (a clock time, "Yesterday", a weekday). An old chat's row is
  * not built again every minute.
  */
-internal fun timeBucket(dateSeconds: Int, now: Long, zoneOffsetMs: Long): Long {
+internal fun spamTimeBucket(dateSeconds: Int, now: Long, zoneOffsetMs: Long): Long {
     val age = now - dateSeconds * 1000L
     return if (age < HOUR_MS) now / MINUTE_MS else -((now + zoneOffsetMs) / DAY_MS) - 1
 }
@@ -322,7 +322,7 @@ class SpamChatsViewModel internal constructor(
             val key = RowKey(
                 chat, drafts[chat.threadId], pinned.contains(chat.threadId.toString()),
                 SpamChatsPolicy.code(chat.received, now), language,
-                timeBucket(chat.conversation.date, now, zoneOffset),
+                spamTimeBucket(chat.conversation.date, now, zoneOffset),
             )
             rowCache[chat.threadId]?.takeIf { it.first == key }?.second ?: buildRow(chat, key, drafts, pinned, locale)
                 .also { rowCache[chat.threadId] = key to it }

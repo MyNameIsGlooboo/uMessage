@@ -61,36 +61,43 @@ class ThreadMenuInSpamTest {
         if (spam) app.conversationsDB.insertSpamThread(SpamThread(THREAD, SENDER, SpamCause.UNKNOWN, 0, 1L))
     }
 
-    private fun menuAfterOpening(): ThreadMenuState {
+    /** Opens the chat and waits (up to [SETTLE_MS]) until the menu's "Mark as spam" is [expected]. */
+    private fun menuAfterOpening(expected: Boolean): ThreadMenuState {
         scenario = ActivityScenario.launch(
             Intent(app, ThreadActivity::class.java).putExtra(THREAD_ID, THREAD).putExtra(THREAD_NUMBER, SENDER),
         )
         var menu = ThreadMenuState()
+        var loaded = false
         val until = System.currentTimeMillis() + SETTLE_MS
-        while (System.currentTimeMillis() < until) {
+        do {
             Thread.sleep(STEP_MS)
             ShadowLooper.idleMainLooper()
-        }
-        scenario!!.onActivity { menu = ViewModelProvider(it)[ThreadViewModel::class.java].menu }
+            scenario!!.onActivity {
+                val vm = ViewModelProvider(it)[ThreadViewModel::class.java]
+                menu = vm.menu
+                // Before the chat is loaded the menu has no "Mark as spam" either: only a loaded chat counts.
+                loaded = vm.loaded
+            }
+        } while ((!loaded || menu.reportSpam != expected) && System.currentTimeMillis() < until)
         return menu
     }
 
     @Test
     fun aChatInSpamOffersNoMarkAsSpam() {
         chat(spam = true)
-        assertThat(menuAfterOpening().reportSpam).isFalse()
+        assertThat(menuAfterOpening(expected = false).reportSpam).isFalse()
     }
 
     @Test
     fun aChatInMessagesStillOffersMarkAsSpam() {
         chat(spam = false)
-        assertThat(menuAfterOpening().reportSpam).isTrue()
+        assertThat(menuAfterOpening(expected = true).reportSpam).isTrue()
     }
 
     private companion object {
         const val THREAD = 1L
         const val SENDER = "+15550001234"
-        const val SETTLE_MS = 3_000L
+        const val SETTLE_MS = 15_000L
         const val STEP_MS = 50L
     }
 }

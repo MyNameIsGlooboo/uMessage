@@ -13,7 +13,7 @@
     <string name="ui_log_reason_group_member">توی گروه مجاز</string>
     <string name="ui_log_reason_unreadable_sender">فرستنده قابل خواندن نیست</string>
     <string name="ui_log_reason_fact_failed">اطلاعات فرستنده ذخیره نشد</string>
-    <string name="ui_log_reason_chat_other_number">این گفتگو با شماره‌ای دیگر است</string>
+    <string name="ui_log_reason_chat_other_number">این گفتگو با یه شمارهٔ دیگه است</string>
     <string name="ui_log_reason_chat_is_group">این گفتگو گروهی است</string>
     <string name="blocknum_title">شماره‌های بلاک‌شده</string>
     <string name="blocknum_add">افزودن شماره</string>
