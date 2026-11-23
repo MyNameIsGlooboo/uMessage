@@ -67,9 +67,13 @@ class AppStartReceiveDeviceTest {
     private val noForwarding = NoForwarding()
     private val threads = mutableListOf<Long>()
 
+    /** Set once the emulator check passed: a skipped test must not run the tearDown's changes. */
+    private var armed = false
+
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
+        armed = true
         SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
         // Past the Welcome pages, as after a finished onboarding; given back after the test.
@@ -116,6 +120,7 @@ class AppStartReceiveDeviceTest {
 
     @After
     fun tearDown() {
+        if (!armed) return
         // Only the notifications of the test's own chats go.
         runCatching {
             val manager = app.getSystemService(NotificationManager::class.java)

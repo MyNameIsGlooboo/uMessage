@@ -159,11 +159,12 @@ object RuleValidator {
     }
 
     /**
-     * spam-15: a block rule on words in the message (a keyword or a pattern) also blocks the message's sender, so the
-     * form says so. Allow rules and the other types do not do that.
+     * spam-15: a block rule on the text of a message (a keyword, a pattern or a website) also blocks the message's
+     * sender (spec 2.1 row 7, SenderVerdict's TEXT_TYPES), so the form says so. Allow rules and the number, prefix and
+     * sender-name types do not do that.
      */
     fun blocksSender(kind: ListKind, type: RuleType): Boolean =
-        kind == ListKind.BLOCK && (type == RuleType.KEYWORD || type == RuleType.REGEX)
+        kind == ListKind.BLOCK && (type == RuleType.KEYWORD || type == RuleType.REGEX || type == RuleType.DOMAIN)
 
     /**
      * A sender name: letters of any script, digits, spaces, dots, dashes, underscores and "&", with at least one

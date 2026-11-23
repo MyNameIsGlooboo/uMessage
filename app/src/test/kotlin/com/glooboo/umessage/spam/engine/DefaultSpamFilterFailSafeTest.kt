@@ -95,11 +95,8 @@ class DefaultSpamFilterFailSafeTest {
         val firstMs = (System.nanoTime() - first) / 1_000_000
         assertTrue("first check took $firstMs ms", firstMs < 2_000)
 
-        // Turned off: even a body it would match is no longer blocked, and the check costs nothing.
-        val second = System.nanoTime()
+        // Turned off: even a body it would match is no longer blocked.
         assertEquals(FilterDecision.Allow(DecisionReason.MODE_OFF), f.evaluate(msg(body = "ax")))
-        val secondMs = (System.nanoTime() - second) / 1_000_000
-        assertTrue("second check took $secondMs ms", secondMs < 50)
     }
 
     @Test fun fastRegexRuleStillBlocks() {

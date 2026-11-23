@@ -334,6 +334,23 @@ class WroteToGroupTest {
     }
 
     @Test
+    fun aMembershipWriteThatFailsNeverFailsTheSend() {
+        // L5-5 (6.3): the join is guarded; unreadable rules or settings must not stop the text going out.
+        UMessage.repositoryFactory = { error("spamless.db unreadable") }
+        val outcome = send("On my way", STRANGER)
+        assertThat(outcome.handedOff).isTrue()
+        assertThat(ShadowRecordingSmsManager.textSends.map { it.destination }).containsExactly(STRANGER)
+
+        ShadowRecordingSmsManager.reset()
+        UMessage.repositoryFactory = { repo }
+        UMessage.filterFactory = { error("filter unreadable") }
+        val second = send("On my way", OTHER)
+        assertThat(second.handedOff).isTrue()
+        assertThat(ShadowRecordingSmsManager.textSends.map { it.destination }).containsExactly(OTHER)
+        assertThat(members()).isEmpty()
+    }
+
+    @Test
     fun aSendThatSavedNothingKeepsAMemberMadeEarlier() {
         runBlocking { repo.joinGroup(AllowGroup.WROTE, STRANGER, MemberSource.HISTORY) }
         sendStore().refuseInserts = true

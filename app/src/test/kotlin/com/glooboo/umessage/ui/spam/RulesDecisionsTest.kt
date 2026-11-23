@@ -233,12 +233,15 @@ class RulesDecisionsTest {
     // region spam-15
 
     @Test
-    fun onlyBlockedWordsAndPatternsBlockTheSender() {
+    fun onlyBlockedWordsPatternsAndWebsitesBlockTheSender() {
         assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.KEYWORD)).isTrue()
         assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.REGEX)).isTrue()
         assertThat(RuleValidator.blocksSender(ListKind.ALLOW, RuleType.KEYWORD)).isFalse()
         assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.NUMBER)).isFalse()
-        assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.DOMAIN)).isFalse()
+        // L5-6: a blocked website blocks the sender as well (spec 2.1 row 7).
+        assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.DOMAIN)).isTrue()
+        assertThat(RuleValidator.blocksSender(ListKind.ALLOW, RuleType.DOMAIN)).isFalse()
+        assertThat(RuleValidator.blocksSender(ListKind.BLOCK, RuleType.SENDER_ID)).isFalse()
     }
 
     @Test

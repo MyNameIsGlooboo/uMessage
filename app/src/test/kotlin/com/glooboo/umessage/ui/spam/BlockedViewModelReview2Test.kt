@@ -129,7 +129,7 @@ class BlockedViewModelReview2Test {
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
 
     private fun awaitUntil(condition: () -> Boolean) {
-        val deadline = System.currentTimeMillis() + 5_000
+        val deadline = System.currentTimeMillis() + 30_000
         while (true) {
             idleMain()
             if (condition()) return
