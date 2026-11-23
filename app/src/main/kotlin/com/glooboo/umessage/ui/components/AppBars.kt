@@ -32,6 +32,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -80,8 +81,9 @@ fun UMessageTopBar(
     title: String,
     onBack: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    titleLines: Int = 1,
     actions: @Composable RowScope.() -> Unit = {},
-) = TopBarImpl(title, onBack, modifier, LocalPageScrollBehavior.current, actions)
+) = TopBarImpl(title, onBack, modifier, LocalPageScrollBehavior.current, actions, titleLines)
 
 /** [UMessageTopBar] that tints itself while the page scrolls underneath (pass the same behavior to the scroll container). */
 @ExperimentalMaterial3Api
@@ -102,15 +104,21 @@ private fun TopBarImpl(
     modifier: Modifier,
     scrollBehavior: TopAppBarScrollBehavior?,
     actions: @Composable RowScope.() -> Unit,
+    titleLines: Int = 1,
 ) {
+    // A title that may wrap gets a bar as tall as its lines at the user's font size.
+    val fontScale = LocalDensity.current.fontScale
+    val height = if (titleLines > 1) TopAppBarDefaults.TopAppBarExpandedHeight * maxOf(1f, fontScale) else
+        TopAppBarDefaults.TopAppBarExpandedHeight
     TopAppBar(
         modifier = modifier,
         windowInsets = topBarInsets(),
+        expandedHeight = height,
         title = {
             Text(
                 title,
                 style = MaterialTheme.typography.titleLarge,
-                maxLines = 1,
+                maxLines = titleLines,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.semantics { heading() },
             )

@@ -113,7 +113,11 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, snackbarHos
     UMessageScaffold(
         snackbarHostState = snackbarHostState,
         topBar = {
-            UMessageTopBar(title = stringResource(R.string.settings_nav_spam_page_title), onBack = actions.onBack)
+            UMessageTopBar(
+                title = stringResource(R.string.settings_nav_spam_page_title),
+                onBack = actions.onBack,
+                titleLines = 2,
+            )
         },
     ) { inner ->
         if (state.loading) {
