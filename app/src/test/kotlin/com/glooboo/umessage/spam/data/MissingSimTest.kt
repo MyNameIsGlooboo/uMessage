@@ -12,6 +12,11 @@ import android.provider.Telephony
 import android.telephony.SubscriptionManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.spam.DecisionReason
+import com.glooboo.umessage.spam.FilterDecision
+import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.SpamFilter
+import com.glooboo.umessage.spam.UMessage
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
@@ -237,6 +242,38 @@ class MissingSimTest {
         assertThat(id).isEqualTo(2L)
         assertThat(MissingSim.readable(app, 2L, isMms = true)).isTrue()
         assertThat(MissingSim.readable(app, 1L, isMms = true)).isFalse()
+    }
+
+    @Test
+    fun aQueuedTextThatIsNotRestoredIsReplayedWithoutASimThatIsNotActive() {
+        activeSims(1)
+        UMessage.filterFactory = {
+            object : SpamFilter {
+                override fun evaluate(message: IncomingMessage) = FilterDecision.Allow(DecisionReason.MODE_OFF)
+            }
+        }
+        try {
+            val now = System.currentTimeMillis()
+            val row = held(sim = 2).copy(createdAt = now - 60_000L)
+            offMainThread { SpamDatabase.getInstance(app).spamDao().insertPending(row) }
+
+            offMainThread { PendingSmsQueue.replay(app, now) }
+
+            assertThat(HidingSmsStore.left().values).containsExactly(-1)
+        } finally {
+            UMessage.filterFactory = null
+        }
+    }
+
+    @Test
+    fun anMmsWriteThatThrewOnASimIsNotTriedAgainBecauseItMayHaveLeftAHalfRow() {
+        val written = mutableListOf<Int>()
+
+        assertThrows(IllegalStateException::class.java) {
+            MissingSim.writeReadably(2, MissingSim.Ops(retryAfterError = false)) { written += it; error("cut off") }
+        }
+
+        assertThat(written).containsExactly(2)
     }
 
     @Test

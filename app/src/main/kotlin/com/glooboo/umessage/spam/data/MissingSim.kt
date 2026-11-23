@@ -2,11 +2,14 @@ package com.glooboo.umessage.spam.data
 
 import android.content.ContentUris
 import android.content.ContentValues
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.provider.BaseColumns
 import android.provider.Telephony.Mms
 import android.provider.Telephony.Sms
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.extensions.subscriptionManagerCompat
 import com.glooboo.umessage.extensions.updateLastConversationMessage
@@ -48,12 +51,19 @@ internal object MissingSim {
         val makeVisible: (Long) -> Boolean = { false },
         val delete: (Long) -> Boolean = { true },
         val refresh: (Long) -> Unit = {},
+        /** A first write that threw on a SIM is tried again without one (not for an MMS: it may leave a half row). */
+        val retryAfterError: Boolean = true,
     )
 
     /** Whether [subscriptionId] is an active SIM now; null when that cannot be told. */
-    fun active(context: Context, subscriptionId: Int): Boolean? = runCatching {
-        context.subscriptionManagerCompat().activeSubscriptionInfoList?.any { it.subscriptionId == subscriptionId }
-    }.getOrNull()
+    fun active(context: Context, subscriptionId: Int): Boolean? {
+        val canRead = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) ==
+            PackageManager.PERMISSION_GRANTED
+        if (!canRead) return null
+        return runCatching {
+            context.subscriptionManagerCompat().activeSubscriptionInfoList?.any { it.subscriptionId == subscriptionId }
+        }.getOrNull()
+    }
 
     /** The SIM a held row is written on: its own only when it is known to be active, else [NONE]. */
     fun simFor(context: Context, subscriptionId: Int): Int = simFor(subscriptionId) { active(context, it) }
@@ -103,6 +113,7 @@ internal object MissingSim {
                 readable = { runCatching { readable(context, it, isMms) }.getOrNull() },
                 makeVisible = { isMms && dropMmsSim(context, it) },
                 delete = { delete(context, it, isMms) },
+                retryAfterError = !isMms,
                 refresh = { id ->
                     // A hidden row counted in the chat meanwhile: the chat is dated by its newest message again.
                     runCatching {
@@ -117,7 +128,7 @@ internal object MissingSim {
     /** The steps of [writeReadably] with the store behind [ops]. */
     fun writeReadably(subscriptionId: Int, ops: Ops, write: (Int) -> Long): Long {
         val sim = simFor(subscriptionId, ops.active)
-        val (id, usedSim) = writeOnce(sim, write)
+        val (id, usedSim) = writeOnce(sim, write, ops.retryAfterError)
         if (id <= 0L || usedSim == NONE) return id
         return when (ops.readable(id)) {
             true -> id
@@ -134,9 +145,9 @@ internal object MissingSim {
     }
 
     /** The first write: a refused one (0, or an error) on a SIM is tried once without it. Its id and its SIM. */
-    private fun writeOnce(sim: Int, write: (Int) -> Long): Pair<Long, Int> {
+    private fun writeOnce(sim: Int, write: (Int) -> Long, retryAfterError: Boolean): Pair<Long, Int> {
         if (sim == NONE) return write(NONE) to NONE
-        val id = runCatching { write(sim) }.getOrDefault(0L)
+        val id = if (retryAfterError) runCatching { write(sim) }.getOrDefault(0L) else write(sim)
         return if (id == 0L) write(NONE) to NONE else id to sim
     }
 

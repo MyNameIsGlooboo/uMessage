@@ -118,6 +118,9 @@ class OlderSpamMoverUnknownSimTest {
 
         assertThat(result.halted).isFalse()
         assertThat(world.row(bad.id).migratedMsgId).isNull()
+        // The row written with the SIM is taken out again: none is left behind.
+        assertThat(world.store.map { it.sub }).doesNotContain(2)
+        assertThat(world.hiddenStore).isEmpty()
         assertThat(world.row(fine.id).migratedMsgId).isNotNull()
     }
 

@@ -665,7 +665,7 @@ internal class OlderSpamMover(
             id <= 0L && sim != DEFAULT_SIM && writer.canWrite() ->
                 (probe.findSms(kind.address, kind.body, row.receivedAt)
                     ?: writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)) to null
-            id > 0L && sim != DEFAULT_SIM && !probe.visible(id, isMms = false) -> rewriteHiddenSms(row, kind, id)
+            id > 0L && sim != DEFAULT_SIM && !readableOrClean(id, isMms = false) -> rewriteHiddenSms(row, kind, id)
             else -> id to null
         }
         return if (written.second == null && written.first <= 0L) 0L to rowFailure() else written
@@ -692,7 +692,7 @@ internal class OlderSpamMover(
         val id = writeMmsOnce(row, kind, sim)
             ?: (if (sim != DEFAULT_SIM && retriesWithoutSim(row)) writeMmsOnce(row, kind, DEFAULT_SIM) else null)
             ?: return 0L to (if (journal.attempt != null) Outcome.STOP else rowFailure())
-        if (sim == DEFAULT_SIM || probe.visible(id, isMms = true)) return id to null
+        if (sim == DEFAULT_SIM || readableOrClean(id, isMms = true)) return id to null
         return rewriteHiddenMms(row, kind, id)
     }
 
@@ -706,7 +706,7 @@ internal class OlderSpamMover(
         if (!runCatching { writer.unhide(hidden, isMms = false) }.getOrDefault(false)) noteHiddenLeft(hidden)
         if (!writer.canWrite()) return 0L to Outcome.STOP
         val id = writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)
-        if (id > 0L && !probe.visible(id, isMms = false)) {
+        if (id > 0L && !readableOrClean(id, isMms = false)) {
             runCatching { writer.unhide(id, isMms = false) }
             return 0L to failedVerify(row)
         }
@@ -720,14 +720,14 @@ internal class OlderSpamMover(
      * hidden one stays: a possible double if a SIM with that id comes back).
      */
     private fun rewriteHiddenMms(row: BlockedMessage, kind: MoveKind.Mms, hidden: Long): Pair<Long, Outcome?> {
-        if (runCatching { writer.unhide(hidden, isMms = true) }.getOrDefault(false) && probe.visible(hidden, true)) {
+        if (runCatching { writer.unhide(hidden, isMms = true) }.getOrDefault(false) && readableOrClean(hidden, true)) {
             return hidden to null
         }
         deleteHiddenMms(hidden)
         if (!writer.canWrite()) return 0L to Outcome.STOP
         val id = writeMmsOnce(row, kind, DEFAULT_SIM)
             ?: return 0L to (if (journal.attempt != null) Outcome.STOP else rowFailure())
-        if (!probe.visible(id, isMms = true)) {
+        if (!readableOrClean(id, isMms = true)) {
             deleteHiddenMms(id)
             return 0L to failedVerify(row)
         }
@@ -745,6 +745,17 @@ internal class OlderSpamMover(
 
     /** J18: one line, no content: the id of a hidden row that could not be deleted. */
     private fun noteHiddenLeft(id: Long) = Log.w(TAG, "Older spam: a row the store hides could not be deleted (id $id)")
+
+    /**
+     * J18: [MigrationProbe.visible] of a row just written with a SIM. When the store cannot be asked, the row is
+     * taken out first (an SMS deleted by its id URI, an MMS made visible by updating its SIM) so none is left hidden,
+     * then the error goes on as before.
+     */
+    private fun readableOrClean(id: Long, isMms: Boolean): Boolean = runCatching { probe.visible(id, isMms) }
+        .getOrElse { error ->
+            runCatching { writer.unhide(id, isMms) }
+            throw error
+        }
 
     /** J18: the row's SIM when it is known to be active now, else none (also when the list cannot be read). */
     private fun simToWrite(row: BlockedMessage): Int {

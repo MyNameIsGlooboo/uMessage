@@ -694,6 +694,10 @@ object PendingSmsQueue {
     }
 
     /** Re-runs one row. Returns true when it is still waiting afterwards. */
+    /** J18: a queued text may name a SIM that is gone by the time it is replayed: it is stored without that SIM. */
+    private fun withKnownSim(context: Context, row: PendingSmsEntity): PendingSmsEntity =
+        row.copy(subscriptionId = MissingSim.simFor(context, row.subscriptionId))
+
     private fun replayRow(context: Context, dao: SpamDao, row: PendingSmsEntity, now: Long): Boolean {
         if (!PendingSmsPolicy.isDue(row.createdAt, now) || PendingSmsPolicy.isLeased(leases[row.id], now)) {
             return true
@@ -709,12 +713,9 @@ object PendingSmsQueue {
                 row.approved -> IncomingSmsProcessor.deliverReadably(context, row, NotifyContext.NONE)
                 expired -> if (!alreadyBlocked(dao, row)) {
                     // Reviewer: under provider truth the sender's place still holds (a blocked sender stays silent).
-                    // J18: a text queued for days may name a SIM that is gone by now.
-                    ProviderTruthSms.deliverExpired(
-                        context, row.copy(subscriptionId = MissingSim.simFor(context, row.subscriptionId)),
-                    )
+                    ProviderTruthSms.deliverExpired(context, withKnownSim(context, row))
                 }
-                else -> IncomingSmsProcessor.process(context, row)
+                else -> IncomingSmsProcessor.process(context, withKnownSim(context, row))
             }
         }
         result.exceptionOrNull()?.let { error ->

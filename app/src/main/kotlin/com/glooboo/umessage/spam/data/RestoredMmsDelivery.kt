@@ -33,7 +33,8 @@ internal object RestoredMmsDelivery {
      * below may fail the restore.
      */
     fun deliver(context: Context, message: BlockedMessage): Long? {
-        // J18: the held SIM may be gone; a row the store hides is deleted and written again without a SIM.
+        // J18: the held SIM may be gone; a row the store hides is fixed in place by updating its SIM (an MMS cannot
+        // be deleted once hidden).
         val id = MissingSim.writeReadably(context, message.subscriptionId, isMms = true) { sim ->
             persistKept(context, message.copy(subscriptionId = sim))?.let(ContentUris::parseId) ?: 0L
         }
