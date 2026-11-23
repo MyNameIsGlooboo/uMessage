@@ -86,9 +86,13 @@ class SpamProviderMigrationDeviceTest {
     private val base = (System.currentTimeMillis() - THREE_DAYS_MS) / 1000 * 1000
     private lateinit var seed: List<Held>
 
+    /** Set once the emulator check passed: a skipped test must not run the tearDown's changes. */
+    private var armed = false
+
     @Before
     fun setUp() {
         DeviceTest.assumeEmulator()
+        armed = true
         SmsRole.take()
         assumeTrue("uMessage must be the default SMS app to write to the store", SmsRole.isHeld())
         DeviceTest.assumeUnknownSenders(SENDERS)
@@ -121,6 +125,7 @@ class SpamProviderMigrationDeviceTest {
 
     @After
     fun tearDown() {
+        if (!armed) return
         SpamProviderMigration.moverFor = originalMover
         SpamProviderMigration.requestPass = originalRequestPass
         SpamProviderMigration.afterPass = originalAfterPass

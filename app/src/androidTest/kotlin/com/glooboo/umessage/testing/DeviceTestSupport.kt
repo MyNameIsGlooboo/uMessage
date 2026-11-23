@@ -37,11 +37,16 @@ object DeviceTest {
      * `ro.kernel.qemu` flag, and also an emulator build fingerprint or model.
      */
     fun assumeEmulator() {
+        assumeTrue("Runs on the emulator only", isEmulator())
+    }
+
+    /** The check of [assumeEmulator] as a plain answer, for code that must also do nothing on a phone (a tearDown). */
+    fun isEmulator(): Boolean {
         val hardware = Build.HARDWARE in setOf("ranchu", "goldfish") ||
             runCatching { shell("getprop ro.kernel.qemu").trim() == "1" }.getOrDefault(false)
         val build = Build.FINGERPRINT.contains("generic") || Build.FINGERPRINT.contains("emu") ||
             Build.MODEL.contains("sdk")
-        assumeTrue("Runs on the emulator only", hardware && build)
+        return hardware && build
     }
 
     /** One shell command as the shell user (as `adb shell` would run it); its output. */
@@ -107,10 +112,10 @@ object DeviceTest {
 
     /**
      * Removes the chats of [addresses] from the phone's store and the app's caches (a run that failed half way leaves
-     * them). Needs the SMS role; does nothing without it. Never throws.
+     * them). Needs the SMS role and an emulator; does nothing without them (never on a phone). Never throws.
      */
     fun forgetChats(addresses: Collection<String>) {
-        if (!SmsRole.isHeld()) return
+        if (!isEmulator() || !SmsRole.isHeld()) return
         val app = context
         addresses.forEach { address ->
             runCatching {

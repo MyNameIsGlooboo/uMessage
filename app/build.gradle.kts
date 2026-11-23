@@ -367,6 +367,31 @@ androidComponents {
     }
 }
 
+// L5-3: an instrumented run installs the debug app over the daily build and uninstalls it at the end, which wipes the
+// app's data. It may target an emulator only: ANDROID_SERIAL must name one, so a phone on the cable is never used.
+// The connected task installs inside its own action, so the guard is a task it depends on (it runs first).
+val requireEmulatorSerial = tasks.register("requireEmulatorSerial") {
+    doFirst {
+        val serial = System.getenv("ANDROID_SERIAL").orEmpty()
+        if (!Regex("emulator-[0-9]+").matches(serial)) {
+            throw GradleException(
+                "Instrumented tests run on an emulator only: set ANDROID_SERIAL to the emulator (for example " +
+                    "emulator-5554). ANDROID_SERIAL is '${serial.ifEmpty { "not set" }}'. A run without it would " +
+                    "install the app over and then uninstall it from every attached device, a phone included, and " +
+                    "wipe its data."
+            )
+        }
+    }
+}
+tasks.named { it.startsWith("connected") && it.endsWith("AndroidTest") }.configureEach {
+    dependsOn(requireEmulatorSerial)
+    // Same check right before the run, in case the task is reached another way.
+    doFirst {
+        val serial = System.getenv("ANDROID_SERIAL").orEmpty()
+        check(Regex("emulator-[0-9]+").matches(serial)) { "$name needs an emulator serial" }
+    }
+}
+
 dependencies {
     implementation(libs.fossify.commons)
     implementation(libs.eventbus)

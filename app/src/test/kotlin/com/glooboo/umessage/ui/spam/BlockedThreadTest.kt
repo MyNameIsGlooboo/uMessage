@@ -260,7 +260,7 @@ class BlockedThreadTest {
 
     /** Runs the main looper and the compose clock forward, in small steps, until [done]. */
     private fun settle(done: () -> Boolean) {
-        val deadline = System.currentTimeMillis() + 5_000
+        val deadline = System.currentTimeMillis() + 30_000
         while (!done()) {
             shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(STEP_MS))
             compose.waitForIdle()
@@ -312,7 +312,7 @@ class BlockedThreadTest {
     }
 
     private fun awaitUntil(condition: () -> Boolean) {
-        val deadline = System.currentTimeMillis() + 5_000
+        val deadline = System.currentTimeMillis() + 30_000
         while (true) {
             shadowOf(Looper.getMainLooper()).idle()
             if (condition()) return

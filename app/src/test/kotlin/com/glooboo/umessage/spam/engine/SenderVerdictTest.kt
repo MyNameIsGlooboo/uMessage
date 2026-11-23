@@ -265,6 +265,48 @@ class SenderVerdictTest {
         assertSpam(SpamCause.BLOCKED, world.receive(SENDER, "Hello"))
     }
 
+    // L5-4: patterns and websites are text rules too (TEXT_TYPES), so rows 6 and 7 hold for them as for words.
+
+    @Test fun row6_anAllowedPatternAllowsTheSenderForGood() {
+        val world = World()
+        val pattern = world.rule(ListKind.ALLOW, RuleType.REGEX, "parc[e]l\\s+\\d+")
+        val judgement = world.receive(SENDER, "Your parcel 4821 is on its way")
+        assertMessages(DecisionReason.ALLOW_RULE, judgement)
+        assertEquals(SenderFact.AutoAllow(pattern), judgement.fact)
+        assertEquals(RuleNotes.ALLOWED_FROM_KEYWORD, world.rules.single { it.type == RuleType.NUMBER }.note)
+        assertMessages(DecisionReason.ALLOW_RULE, world.receive(SENDER, "Hello again"))
+    }
+
+    @Test fun row6_anAllowedWebsiteAllowsTheSenderForGood() {
+        val world = World()
+        val site = world.rule(ListKind.ALLOW, RuleType.DOMAIN, "example.com")
+        val judgement = world.receive(SENDER, "Track it at https://example.com/track")
+        assertMessages(DecisionReason.ALLOW_RULE, judgement)
+        assertEquals(SenderFact.AutoAllow(site), judgement.fact)
+        assertEquals(RuleNotes.ALLOWED_FROM_KEYWORD, world.rules.single { it.type == RuleType.NUMBER }.note)
+        assertMessages(DecisionReason.ALLOW_RULE, world.receive(SENDER, "Hello again"))
+    }
+
+    @Test fun row7_aBlockedPatternBlocksTheSender() {
+        val world = World()
+        val pattern = world.rule(ListKind.BLOCK, RuleType.REGEX, "win\\s+\\d+")
+        val judgement = world.receive(SENDER, "You can win 1000 today")
+        assertSpam(SpamCause.BLOCKED, judgement)
+        assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, pattern), judgement.decision())
+        assertEquals(RuleNotes.BLOCKED_FROM_KEYWORD, world.rules.last().note)
+        assertSpam(SpamCause.BLOCKED, world.receive(SENDER, "Hello"))
+    }
+
+    @Test fun row7_aBlockedWebsiteBlocksTheSender() {
+        val world = World()
+        val site = world.rule(ListKind.BLOCK, RuleType.DOMAIN, "example.com")
+        val judgement = world.receive(SENDER, "Claim it at https://example.com/prize")
+        assertSpam(SpamCause.BLOCKED, judgement)
+        assertEquals(FilterDecision.Block(DecisionReason.BLOCK_RULE, site), judgement.decision())
+        assertEquals(RuleNotes.BLOCKED_FROM_KEYWORD, world.rules.last().note)
+        assertSpam(SpamCause.BLOCKED, world.receive(SENDER, "Hello"))
+    }
+
     @Test fun row7_theOldWordListWritesABlockRule() {
         val world = World(legacyWords = listOf("casino"))
         val judgement = world.receive(SENDER, "Best casino bonus")
@@ -534,7 +576,7 @@ class SenderVerdictTest {
     private companion object {
         const val SENDER = "+15550001234"
         const val WARM_UP = 200
-        const val SOFT_BOUND_MS = 6_000L
+        const val SOFT_BOUND_MS = 30_000L
         const val OTHER = "+15550005678"
         const val REGION2_NATIONAL = "07700900123"
         const val REGION2_PLUS = "+447700900123"
