@@ -10,6 +10,11 @@
     <string name="declog_ui_clear_message">ہر درج شدہ فیصلہ ہٹا دیا جائے گا۔ اسپیم اور اصول جوں کے توں رہیں گے۔</string>
     <string name="declog_ui_clear_action">صاف کریں</string>
     <string name="ui_log_reason_contacts_unavailable">رابطے پڑھے نہیں جا سکے</string>
+    <string name="ui_log_reason_group_member">اجازت یافتہ گروپ میں</string>
+    <string name="ui_log_reason_unreadable_sender">بھیجنے والا پڑھا نہیں جا سکا</string>
+    <string name="ui_log_reason_fact_failed">بھیجنے والے کی تفصیلات محفوظ نہیں ہو سکیں</string>
+    <string name="ui_log_reason_chat_other_number">چیٹ کسی دوسرے نمبر کے تحت ہے</string>
+    <string name="ui_log_reason_chat_is_group">چیٹ ایک گروپ ہے</string>
     <string name="blocknum_title">بلاک شدہ نمبر</string>
     <string name="blocknum_add">نمبر شامل کریں</string>
     <string name="blocknum_add_title">نمبر بلاک کریں</string>

@@ -10,9 +10,11 @@
     <string name="declog_ui_clear_message">همهٔ تصمیم‌های ثبت‌شده حذف می‌شوند. اسپم‌ها و قانون‌ها بدون تغییر می‌مانند.</string>
     <string name="declog_ui_clear_action">پاک کردن</string>
     <string name="ui_log_reason_contacts_unavailable">مخاطب‌ها قابل خواندن نیستند</string>
-    <string name="ui_log_reason_group_member">فرستنده کد تأیید</string>
+    <string name="ui_log_reason_group_member">توی گروه مجاز</string>
     <string name="ui_log_reason_unreadable_sender">فرستنده قابل خواندن نیست</string>
-    <string name="ui_log_reason_fact_failed">ذخیرهٔ اطلاعات فرستنده نشد</string>
+    <string name="ui_log_reason_fact_failed">اطلاعات فرستنده ذخیره نشد</string>
+    <string name="ui_log_reason_chat_other_number">این گفتگو با شماره‌ای دیگر است</string>
+    <string name="ui_log_reason_chat_is_group">این گفتگو گروهی است</string>
     <string name="blocknum_title">شماره‌های بلاک‌شده</string>
     <string name="blocknum_add">افزودن شماره</string>
     <string name="blocknum_add_title">بلاک کردن شماره</string>

@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">모든 판정 기록이 삭제돼요. 스팸과 규칙은 그대로 유지돼요.</string>
     <string name="declog_ui_clear_action">지우기</string>
     <string name="ui_log_reason_contacts_unavailable">연락처를 읽을 수 없어요.</string>
+    <string name="ui_log_reason_group_member">허용된 그룹에 속함</string>
+    <string name="ui_log_reason_unreadable_sender">발신자를 읽을 수 없음</string>
+    <string name="ui_log_reason_fact_failed">발신자 정보를 저장하지 못했습니다</string>
+    <string name="ui_log_reason_chat_other_number">대화가 다른 번호로 되어 있음</string>
+    <string name="ui_log_reason_chat_is_group">대화가 그룹임</string>
     <string name="blocknum_title">차단된 번호</string>
     <string name="blocknum_add">번호 추가</string>
     <string name="blocknum_add_title">번호 차단</string>

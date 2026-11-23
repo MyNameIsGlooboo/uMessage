@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">記録された判定をすべて削除します。迷惑メッセージとルールはそのまま残ります。</string>
     <string name="declog_ui_clear_action">消去</string>
     <string name="ui_log_reason_contacts_unavailable">連絡先を読み取れません。</string>
+    <string name="ui_log_reason_group_member">許可されたグループに所属</string>
+    <string name="ui_log_reason_unreadable_sender">送信者を読み取れません</string>
+    <string name="ui_log_reason_fact_failed">送信者の情報を保存できませんでした</string>
+    <string name="ui_log_reason_chat_other_number">チャットは別の番号になっています</string>
+    <string name="ui_log_reason_chat_is_group">チャットはグループです</string>
     <string name="blocknum_title">ブロック済みの電話番号</string>
     <string name="blocknum_add">番号を追加</string>
     <string name="blocknum_add_title">電話番号をブロック</string>

@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">所有已記錄的判定都會移除。垃圾訊息和規則將維持不變。</string>
     <string name="declog_ui_clear_action">清除</string>
     <string name="ui_log_reason_contacts_unavailable">無法讀取聯絡人</string>
+    <string name="ui_log_reason_group_member">在允許的群組中</string>
+    <string name="ui_log_reason_unreadable_sender">無法讀取寄件者</string>
+    <string name="ui_log_reason_fact_failed">無法儲存寄件者詳細資料</string>
+    <string name="ui_log_reason_chat_other_number">對話屬於另一個號碼</string>
+    <string name="ui_log_reason_chat_is_group">對話是群組</string>
     <string name="blocknum_title">已封鎖的號碼</string>
     <string name="blocknum_add">新增號碼</string>
     <string name="blocknum_add_title">封鎖號碼</string>

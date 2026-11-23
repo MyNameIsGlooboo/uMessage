@@ -10,6 +10,11 @@
     <string name="declog_ui_clear_message">Toutes les décisions enregistrées seront effacées. Le spam et les règles resteront inchangés.</string>
     <string name="declog_ui_clear_action">Vider</string>
     <string name="ui_log_reason_contacts_unavailable">Contacts illisibles</string>
+    <string name="ui_log_reason_group_member">Dans un groupe autorisé</string>
+    <string name="ui_log_reason_unreadable_sender">Expéditeur illisible</string>
+    <string name="ui_log_reason_fact_failed">Impossible d\'enregistrer les informations de l\'expéditeur</string>
+    <string name="ui_log_reason_chat_other_number">La conversation est sous un autre numéro</string>
+    <string name="ui_log_reason_chat_is_group">La conversation est un groupe</string>
     <string name="blocknum_title">Numéros bloqués</string>
     <string name="blocknum_add">Ajouter un numéro</string>
     <string name="blocknum_add_title">Bloquer un numéro</string>

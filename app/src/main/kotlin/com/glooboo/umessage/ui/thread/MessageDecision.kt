@@ -52,6 +52,9 @@ object MessageDecisions {
         "GROUP_MEMBER" to R.string.ui_log_reason_group_member,
         "UNREADABLE_SENDER" to R.string.ui_log_reason_unreadable_sender,
         "FACT_FAILED" to R.string.ui_log_reason_fact_failed,
+        // Written by the Spam placement when the text goes to Messages instead (an ALLOW row, not an error).
+        "CHAT_OTHER_NUMBER" to R.string.ui_log_reason_chat_other_number,
+        "CHAT_IS_GROUP" to R.string.ui_log_reason_chat_is_group,
     )
 
     /** The label of the reason the engine logged, or null for a reason without one (an error's class name). */

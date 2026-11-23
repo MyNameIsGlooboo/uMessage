@@ -9,6 +9,11 @@
     <string name="declog_ui_clear_message">Semua keputusan yang tercatat akan dihapus. Spam dan aturan tetap seperti semula.</string>
     <string name="declog_ui_clear_action">Kosongkan</string>
     <string name="ui_log_reason_contacts_unavailable">Kontak tidak dapat dibaca</string>
+    <string name="ui_log_reason_group_member">Dalam grup yang diizinkan</string>
+    <string name="ui_log_reason_unreadable_sender">Pengirim tidak terbaca</string>
+    <string name="ui_log_reason_fact_failed">Detail pengirim tidak dapat disimpan</string>
+    <string name="ui_log_reason_chat_other_number">Obrolan berada di nomor lain</string>
+    <string name="ui_log_reason_chat_is_group">Obrolan adalah grup</string>
     <string name="blocknum_title">Nomor diblokir</string>
     <string name="blocknum_add">Tambah nomor</string>
     <string name="blocknum_add_title">Blokir nomor</string>
