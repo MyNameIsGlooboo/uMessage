@@ -428,8 +428,6 @@ object SettingsBackupFormat {
         }.keys.toList()
     }
 
-    private fun modeOn(mode: Any?): Boolean? = (mode as? UnknownSenderMode)?.let { it != UnknownSenderMode.OFF }
-
     /**
      * Checks the forward rules of a backup before they are added (H1). Each target goes through the forward editor's
      * checks ([ForwardTargets]): a real phone number (no short codes), not one of [ownNumbers], not the watched sender;
@@ -467,3 +465,7 @@ object SettingsBackupFormat {
     }
 
 }
+
+/** J17: Smart and Strict both mean "on"; null when [mode] is not a mode. */
+private fun modeOn(mode: Any?): Boolean? =
+    (mode as? UnknownSenderMode)?.let { it != UnknownSenderMode.OFF }
