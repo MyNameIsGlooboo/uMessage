@@ -306,7 +306,8 @@ class MessagesImporter(
         fun attr(name: String): String? = getAttributeValue(null, name)?.takeUnless { it == "null" }
         // The exporter writes the text null for a missing service center or protocol; a body that says null is a body.
         fun raw(name: String): String? = getAttributeValue(null, name)
-        val address = attr("address")?.takeIf { it.isNotBlank() } ?: throw IllegalArgumentException("no address")
+        // No readable sender (blank, missing or "null"): the writer keeps it in the "Unknown" chat (S17).
+        val address = attr("address").orEmpty()
         val date = attr("date")?.toLongOrNull() ?: throw IllegalArgumentException("no date")
         val type = attr("type")?.toIntOrNull() ?: throw IllegalArgumentException("no type")
         return SmsBackup(

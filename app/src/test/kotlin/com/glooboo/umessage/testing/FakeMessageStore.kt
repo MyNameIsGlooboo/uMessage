@@ -32,6 +32,12 @@ class FakeMessageStore : ContentProvider() {
     /** While true, writing any attachment's bytes fails. */
     @Volatile var failAllPartWrites = false
 
+    /** While true, listing every MMS (a query of `content://mms` without a selection) fails, like a busy store. */
+    @Volatile var failMmsList = false
+
+    /** While true, an SMS query that trims the address (the writer's store-wide blank-sender check) fails. */
+    @Volatile var failBlankSenderQuery = false
+
     /** Part ids whose bytes cannot be read back, like a file the provider lost. */
     val unreadableParts = mutableSetOf<Long>()
 
@@ -146,6 +152,11 @@ class FakeMessageStore : ContentProvider() {
         return id
     }
 
+    /** Gives a stored MMS its transaction id, as the MMS library stores one for a message it received. */
+    fun setTransactionId(messageId: Long, transactionId: String) {
+        db.execSQL("UPDATE pdu SET tr_id = ? WHERE _id = ?", arrayOf<Any>(transactionId, messageId))
+    }
+
     // ---- ContentProvider ----------------------------------------------------------------------------------------
 
     override fun query(
@@ -156,12 +167,16 @@ class FakeMessageStore : ContentProvider() {
         val segments = uri.pathSegments
         return when (uri.authority) {
             SMS -> {
+                check(!failBlankSenderQuery || selection?.contains("TRIM(") != true) { "blank-sender query refused" }
                 val (sel, args) = withId(segments.firstOrNull()?.toLongOrNull(), selection, selectionArgs)
                 db.query("sms", projection, sel, args, null, null, sortOrder)
             }
 
             MMS -> when {
-                segments.isEmpty() -> db.query("pdu", projection, selection, selectionArgs, null, null, sortOrder)
+                segments.isEmpty() -> {
+                    check(!failMmsList || !selection.isNullOrBlank()) { "MMS list refused" }
+                    db.query("pdu", projection, selection, selectionArgs, null, null, sortOrder)
+                }
                 segments[0] == "part" -> {
                     val id = segments.getOrNull(1)?.toLongOrNull()
                     val (sel, args) = withId(id, partSelection(selection), selectionArgs)

@@ -283,12 +283,13 @@ class MessagesBackupTest {
             </smses>
         """.trimIndent()
         val summary = importer().import(xml.byteInputStream(), all)
-        assertThat(summary.added).isEqualTo(2)
-        assertThat(summary.damaged).isEqualTo(2)
+        // The text without a sender is kept in the "Unknown" chat; only the bad date is damaged.
+        assertThat(summary.added).isEqualTo(3)
+        assertThat(summary.damaged).isEqualTo(1)
         assertThat(summary.failed).isEqualTo(1)
-        assertThat(store.rows("sms").map { it["body"] }).containsExactly("one", "سلام 👋").inOrder()
+        assertThat(store.rows("sms").map { it["body"] }).containsExactly("one", "no address", "سلام 👋").inOrder()
         val text = BackupSummaryText.import(context, summary)
-        assertThat(text).contains("Added: 2")
+        assertThat(text).contains("Added: 3")
         assertThat(text).contains("Could not be restored: 1")
     }
 

@@ -10,6 +10,8 @@ import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.MMS_PLACEHOLDER_BODY
 import com.glooboo.umessage.spam.MmsMedia
 import com.glooboo.umessage.spam.data.BlockedMessageEntity
+import com.glooboo.umessage.spam.data.MigrationMark
+import com.glooboo.umessage.spam.data.OlderSpamWorld
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
@@ -148,12 +150,101 @@ class BlockedBackupTest {
     }
 
     @Test
-    fun anEntryWithoutASenderOrTimeIsRefused() {
+    fun anEntryWithoutATimeIsRefused() {
         val ok = BlockedBackup(address = "+15550001", body = "x", receivedAt = 5, reason = "NO_MATCH")
 
-        assertThat(support(fresh).restore(ok.copy(address = " "))).isFalse()
         assertThat(support(fresh).restore(ok.copy(receivedAt = 0))).isFalse()
         assertThat(fresh.spamDao().getAllBlocked()).isEmpty()
+    }
+
+    @Test
+    fun anEntryWithoutASenderReachesTheUnknownChatOnceAfterTwoRestores() {
+        // Run 12: the restore dropped it; the migration writes such a row to the "Unknown" thread (S17).
+        val entry = BlockedBackup(
+            address = "", body = "Old spam without a sender", receivedAt = OlderSpamWorld.NOW - OlderSpamWorld.HOUR,
+            reason = "UNKNOWN_SENDER",
+        )
+        val world = OlderSpamWorld()
+        fun move(db: SpamDatabase) {
+            db.spamDao().getAllBlocked().forEach { world.add(it.toModel()) }
+            world.mover().run()
+        }
+
+        assertThat(support(fresh).restore(entry)).isTrue()
+        assertThat(support(fresh).restore(entry)).isFalse()
+        assertThat(support(fresh).restore(entry.copy(address = "Unknown"))).isFalse()
+        assertThat(fresh.spamDao().getAllBlocked().single().address).isEqualTo("Unknown")
+        move(fresh)
+        // The held row is cleaned up later; the same file restored again is held again but not written twice.
+        world.blocked.clear()
+        assertThat(support(old).restore(entry)).isTrue()
+        move(old)
+
+        val copies = world.store.filter { it.body == "Old spam without a sender" }
+        assertThat(copies.map { it.address }).containsExactly("Unknown")
+        assertThat(MigrationMark.isDone(world.blocked.values.single().migratedMsgId)).isTrue()
+    }
+
+    @Test
+    fun everyBlankFormOfTheSenderIsOneUnknownRow() {
+        val entry = BlockedBackup(address = " ", body = "x", receivedAt = 5, reason = "NO_MATCH")
+
+        val first = support(fresh).restore(entry)
+        val again = listOf("", "\t", "unknown", "UNKNOWN", "Unknown").count {
+            support(fresh).restore(entry.copy(address = it))
+        }
+
+        assertThat(first).isTrue()
+        assertThat(again).isEqualTo(0)
+        assertThat(fresh.spamDao().getAllBlocked().map { it.address }).containsExactly("Unknown")
+    }
+
+    @Test
+    fun aHeldRowUnderAnotherBlankFormCountsAsAlreadyThere() {
+        listOf(" ", "\t", "unknown").forEachIndexed { i, held ->
+            old.spamDao().insertBlocked(
+                BlockedMessageEntity(
+                    address = held, body = "held $i", subscriptionId = 1, isMms = false, receivedAt = 9,
+                    reason = DecisionReason.UNKNOWN_SENDER, ruleId = null,
+                )
+            )
+        }
+
+        val again = (0..2).count {
+            support(old).restore(BlockedBackup(address = "", body = "held $it", receivedAt = 9, reason = "NO_MATCH"))
+        }
+
+        assertThat(again).isEqualTo(0)
+        assertThat(old.spamDao().getAllBlocked()).hasSize(3)
+    }
+
+    @Test
+    fun anMmsEntryWithoutASenderIsKeptUnderUnknownOnce() {
+        val entry = BlockedBackup(
+            address = "", body = "", isMms = true, receivedAt = 7, reason = "UNKNOWN_SENDER",
+            media = MmsMedia.MISSING.name,
+        )
+
+        assertThat(support(fresh).restore(entry)).isTrue()
+        assertThat(support(fresh).restore(entry.copy(address = " "))).isFalse()
+        val row = fresh.spamDao().getAllBlocked().single()
+        assertThat(row.address).isEqualTo("Unknown")
+        assertThat(row.body).isEqualTo(MMS_PLACEHOLDER_BODY)
+        assertThat(row.media).isEqualTo(MmsMedia.MISSING)
+    }
+
+    @Test
+    fun anEntryWithoutASenderIsAlreadyThereWhenItsRowIsHeldUnderTheBlankAddress() {
+        old.spamDao().insertBlocked(
+            BlockedMessageEntity(
+                address = "", body = "no sender", subscriptionId = 1, isMms = false, receivedAt = 9,
+                reason = DecisionReason.UNKNOWN_SENDER, ruleId = null,
+            )
+        )
+        val entry = BlockedBackup(address = "", body = "no sender", receivedAt = 9, reason = "UNKNOWN_SENDER")
+
+        assertThat(support(old).restore(entry)).isFalse()
+        assertThat(old.spamDao().getAllBlocked()).hasSize(1)
     }
 
     @Test
