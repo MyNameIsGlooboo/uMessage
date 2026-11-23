@@ -115,7 +115,11 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /** Provider truth (4.1, U5, M-SP3, 3.4): Block and "Report spam" move chats to Spam; the Spam tab's number. */
     private val spamMoves = MessagesSpamMoves(app, viewModelScope, hidden, ::requestRebuild, { _events.trySend(it) }) {
-        if (it != newBlockedCount) newBlockedCount = it.also { requestRebuild() }
+        if (it != newBlockedCount) {
+            // J19: store first; a rebuild that runs at once must read the new number.
+            newBlockedCount = it
+            requestRebuild()
+        }
     }
 
     init {

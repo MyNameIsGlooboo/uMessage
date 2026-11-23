@@ -14,9 +14,7 @@ import com.glooboo.umessage.spam.engine.SpamEngine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
@@ -265,10 +263,8 @@ object SpamSorting {
 
     @Volatile private var installed = false
 
-    private val changeCount = MutableStateFlow(0L)
-
     /** Grows by one each time the Spam table changed; a list screen can show its saved rows again (step C). */
-    val changes: StateFlow<Long> = changeCount.asStateFlow()
+    val changes: StateFlow<Long> = SpamChanges.changes
 
     /** Starts the triggers from the rules, the group members and the settings. Once per process. */
     fun install(context: Context) {
@@ -350,7 +346,7 @@ object SpamSorting {
     /** After a sort that changed the table: the list screen shows its saved rows again, without reading the store. */
     internal fun published(context: Context, result: SortResult) {
         if (result !is SortResult.Applied || !result.anyChange) return
-        changeCount.value++
+        SpamChanges.noteChanged()
         result.touched.firstOrNull()?.let { refreshConversations(it) }
         cancelEnteredNotifications(context, result)
     }

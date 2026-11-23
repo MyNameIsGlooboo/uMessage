@@ -131,6 +131,7 @@ import com.glooboo.umessage.ui.thread.ThreadMenuAction
 import com.glooboo.umessage.ui.thread.SenderStatus
 import com.glooboo.umessage.ui.log.DecisionLogActivity
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.spam.ForwardingActivity
 import com.glooboo.umessage.ui.thread.UnknownCardController
@@ -670,8 +671,10 @@ open class ThreadActivity : ComposeSimpleActivity() {
             // A refused provider write must not skip the saved flags or the list refresh.
             runCatching { markThreadMessagesRead(thread) }
             // Provider truth (3.4): opening a Spam chat clears uMessage's own unread count of it.
-            runCatching { conversationsDB.clearSpamUnread(thread) }
+            val cleared = runCatching { conversationsDB.clearSpamUnread(thread) }.getOrDefault(0)
             repository.markAllRead(thread)
+            // J19: after the store is read too, so the tab number reads the final state.
+            if (cleared > 0) SpamChanges.noteChanged()
             bus?.post(Events.RefreshConversations(thread))
             // A notification posted while the chat was being read would otherwise stay.
             notificationManager.cancel(thread.hashCode())
