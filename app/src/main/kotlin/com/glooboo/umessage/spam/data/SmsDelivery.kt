@@ -79,6 +79,9 @@ fun Context.insertSmsOrThrow(
  * Only the provider insert can fail this call: it throws [SmsInsertException] (or whatever went wrong before the
  * insert) and then nothing was stored. Once the insert succeeded every later step (cache, conversation, archive
  * state, notification) is best effort, so a caller never has a reason to insert the same SMS a second time.
+ *
+ * J18: the SIM is the one the text arrived on, so it is present by definition; unlike a held row it needs no
+ * missing-SIM fallback ([MissingSim]).
  */
 fun Context.deliverIncomingSms(
     address: String,

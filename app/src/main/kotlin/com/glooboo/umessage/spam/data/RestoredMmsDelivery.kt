@@ -33,7 +33,12 @@ internal object RestoredMmsDelivery {
      * below may fail the restore.
      */
     fun deliver(context: Context, message: BlockedMessage): Long? {
-        val uri = persistKept(context, message) ?: return null
+        // J18: the held SIM may be gone; a row the store hides is deleted and written again without a SIM.
+        val id = MissingSim.writeReadably(context, message.subscriptionId, isMms = true) { sim ->
+            persistKept(context, message.copy(subscriptionId = sim))?.let(ContentUris::parseId) ?: 0L
+        }
+        if (id <= 0L) return null
+        val uri = ContentUris.withAppendedId(Mms.CONTENT_URI, id)
 
         runCatching {
             // persist() stamps the time of the restore; keep the thread in order with the time it really arrived.
@@ -58,7 +63,7 @@ internal object RestoredMmsDelivery {
         }.onFailure { Log.w(TAG, "Restored MMS is in the inbox but the chat list was not updated", it) }
         runCatching { refreshMessages() }
         runCatching { refreshConversations() }
-        return ContentUris.parseId(uri)
+        return id
     }
 
     /**

@@ -20,7 +20,6 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.insertNewSMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
-import com.glooboo.umessage.extensions.subscriptionManagerCompat
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
@@ -1304,9 +1303,7 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         query(ContentUris.withAppendedId(Mms.CONTENT_URI, id), arrayOf(Mms.MESSAGE_ID))
             .use { if (it.moveToFirst()) it.textOrNull(Mms.MESSAGE_ID)?.takeIf(String::isNotEmpty) else null }
 
-    override fun visible(id: Long, isMms: Boolean): Boolean =
-        query(ContentUris.withAppendedId(if (isMms) Mms.CONTENT_URI else Sms.CONTENT_URI, id), arrayOf(BaseColumns._ID))
-            .use { it.count > 0 }
+    override fun visible(id: Long, isMms: Boolean): Boolean = MissingSim.readable(app, id, isMms)
 
     override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean =
         query(ContentUris.withAppendedId(Sms.CONTENT_URI, id), arrayOf(Sms.ADDRESS, Sms.DATE, Sms.BODY, Sms.TYPE))
@@ -1351,9 +1348,7 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
     override fun deleteSms(id: Long): Boolean =
         app.contentResolver.delete(ContentUris.withAppendedId(Sms.CONTENT_URI, id), null, null) == 1
 
-    override fun simActive(subscriptionId: Int): Boolean? = runCatching {
-        app.subscriptionManagerCompat().activeSubscriptionInfoList?.any { it.subscriptionId == subscriptionId }
-    }.getOrNull()
+    override fun simActive(subscriptionId: Int): Boolean? = MissingSim.active(app, subscriptionId)
 
     override fun settleMms(id: Long, date: Long): Settle {
         val values = ContentValues().apply {
