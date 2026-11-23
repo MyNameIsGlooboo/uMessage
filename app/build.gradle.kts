@@ -373,7 +373,7 @@ androidComponents {
 val requireEmulatorSerial = tasks.register("requireEmulatorSerial") {
     doFirst {
         val serial = System.getenv("ANDROID_SERIAL").orEmpty()
-        if (!serial.startsWith("emulator-")) {
+        if (!Regex("emulator-[0-9]+").matches(serial)) {
             throw GradleException(
                 "Instrumented tests run on an emulator only: set ANDROID_SERIAL to the emulator (for example " +
                     "emulator-5554). ANDROID_SERIAL is '${serial.ifEmpty { "not set" }}'. A run without it would " +
@@ -387,7 +387,8 @@ tasks.matching { it.name.startsWith("connected") && it.name.endsWith("AndroidTes
     dependsOn(requireEmulatorSerial)
     // Same check right before the run, in case the task is reached another way.
     doFirst {
-        check(System.getenv("ANDROID_SERIAL").orEmpty().startsWith("emulator-")) { "$name needs an emulator serial" }
+        val serial = System.getenv("ANDROID_SERIAL").orEmpty()
+        check(Regex("emulator-[0-9]+").matches(serial)) { "$name needs an emulator serial" }
     }
 }
 tasks.matching { it.name.startsWith("install") }.configureEach { mustRunAfter(requireEmulatorSerial) }
