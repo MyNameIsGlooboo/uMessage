@@ -23,8 +23,18 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.MessageNote
 import com.glooboo.umessage.helpers.messageNotesDB
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
+import com.glooboo.umessage.extensions.conversationsDB
+import com.glooboo.umessage.extensions.forgetThread
+import com.glooboo.umessage.spam.SortResult
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.SpamRepository
+import com.glooboo.umessage.spam.SpamSorting
+import com.glooboo.umessage.spam.SpamThread
+import com.glooboo.umessage.spam.data.SpamPlacement
+import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.ui.spam.SenderBlocking
+import com.glooboo.umessage.ui.spam.SpamChat
+import com.glooboo.umessage.ui.spam.SpamChatsSource
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import com.google.common.truth.Truth.assertThat
 import org.fossify.commons.extensions.baseConfig
@@ -302,6 +312,103 @@ class ConversationsViewModelTest {
         assertThat(vm.state.value.rows.single { it.threadId == dad.threadId }.hasDraft).isFalse()
     }
 
+    /** J19: a spam text received while the screen is open shows the Spam tab's number, without a restart. */
+    @Test
+    fun aReceivedSpamTextShowsTheTabNumberWithTheScreenOpen() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        offMainThread { seedSpamChat(SPAM_ID) }
+        awaitUntil { rowIds().size == 2 }
+        assertThat(vm.state.value.newBlockedCount).isEqualTo(0)
+
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+
+        awaitUntil { vm.state.value.newBlockedCount == 1 }
+    }
+
+    /** J19: opening the Spam tab saves the seen time, and the number goes to 0 and stays there. */
+    @Test
+    fun theTabNumberGoesToZeroWhenTheTabIsSeen() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        awaitUntil { vm.state.value.newBlockedCount == 1 }
+
+        vm.markBlockedSeen()
+
+        awaitUntil { vm.state.value.newBlockedCount == 0 }
+        idleMain()
+        assertThat(vm.state.value.newBlockedCount).isEqualTo(0)
+    }
+
+    /** J19: "Mark as read" in the Spam tab clears the count, and the Messages tab number follows. */
+    @Test
+    fun theTabNumberGoesToZeroWhenTheSpamChatIsMarkedRead() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        awaitUntil { vm.state.value.newBlockedCount == 1 }
+
+        offMainThread { SpamChatsSource.markRead(app, listOf(spamChat())) }
+
+        awaitUntil { vm.state.value.newBlockedCount == 0 }
+    }
+
+    @Test
+    fun markReadAndMarkAllReadSignalASpamChange() {
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        val before = SpamChanges.changes.value
+
+        offMainThread { SpamChatsSource.markRead(app, listOf(spamChat())) }
+        val afterOne = SpamChanges.changes.value
+        offMainThread { SpamChatsSource.markAllRead(app, listOf(spamChat())) }
+
+        assertThat(afterOne).isGreaterThan(before)
+        assertThat(SpamChanges.changes.value).isGreaterThan(afterOne)
+    }
+
+    @Test
+    fun forgettingASpamChatSignalsASpamChange() {
+        offMainThread { seedSpamChat(SPAM_ID) }
+        val before = SpamChanges.changes.value
+
+        offMainThread { app.forgetThread(SPAM_ID) }
+
+        assertThat(SpamChanges.changes.value).isGreaterThan(before)
+        offMainThread { assertThat(app.conversationsDB.getSpamThread(SPAM_ID)).isNull() }
+    }
+
+    private fun spamChat() = SpamChat(
+        app.conversationsDB.getConversationWithThreadId(SPAM_ID)!!, app.conversationsDB.getSpamThread(SPAM_ID)!!,
+    )
+
+    /** J19: "Not spam" takes the chat out of the Spam table; a published sort makes the number go down. */
+    @Test
+    fun theTabNumberDropsAfterNotSpam() {
+        vm.submit(listOf(dad, mom), cached = false, firstRun = false)
+        offMainThread { seedSpamChat(SPAM_ID) }
+        offMainThread { SpamPlacement.raiseUnread(app, SPAM_ID) }
+        awaitUntil { vm.state.value.newBlockedCount == 1 }
+
+        offMainThread {
+            app.conversationsDB.deleteSpamThread(SPAM_ID)
+            SpamSorting.published(app, SortResult.Applied(added = 0, removed = 1, changed = 0))
+        }
+
+        awaitUntil { vm.state.value.newBlockedCount == 0 }
+    }
+
+    private fun seedSpamChat(id: Long) {
+        val number = "+1555000123$id"
+        app.conversationsDB.insertOrUpdate(
+            Conversation(
+                threadId = id, snippet = "hi", date = 1_000, read = true, title = number, photoUri = "",
+                isGroupConversation = false, phoneNumber = number,
+            ),
+        )
+        app.conversationsDB.insertSpamThread(SpamThread(id, number, SpamCause.UNKNOWN, unread = 0, spamSince = 1L))
+    }
+
     private fun rowIds() = vm.state.value.rows.map { it.threadId }
 
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
@@ -334,6 +441,7 @@ class ConversationsViewModelTest {
 
     private companion object {
         const val TIMEOUT_MS = 5_000L
+        const val SPAM_ID = 9L
         val dad = conversation(1, "Dad", date = 200)
         val mom = conversation(2, "Mom", date = 100)
 

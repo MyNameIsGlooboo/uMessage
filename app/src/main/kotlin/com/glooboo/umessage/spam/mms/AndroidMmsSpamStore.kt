@@ -15,6 +15,7 @@ import com.glooboo.umessage.extensions.messagesDB
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
 import com.glooboo.umessage.receivers.MmsSubscriptions
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.data.SpamDatabase
 import com.glooboo.umessage.spam.data.SpamEventEntity
@@ -36,13 +37,17 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
 
     override fun lowerSpamUnread(threadId: Long) {
         val dao = app.conversationsDB
+        var wrote = false
         MessagesDatabase.getInstance(app).runInTransaction(Runnable {
             val row = dao.getSpamThread(threadId) ?: return@Runnable
             if (row.unread <= 0) return@Runnable
             // The DAO has no "- 1": the row is written again with its count lowered, cause and spam_since kept.
             dao.deleteSpamThread(threadId)
             dao.insertSpamThread(row.copy(unread = row.unread - 1))
+            wrote = true
         })
+        // J19: the Messages tab number and the Spam list read the table again.
+        if (wrote) SpamChanges.noteChanged()
     }
 
     override fun isSpamThreadOf(threadId: Long, address: String): Boolean =
@@ -80,6 +85,7 @@ class AndroidMmsSpamStore(context: Context) : MmsSpamStore {
     override fun forgetEmptyChat(threadId: Long) {
         app.conversationsDB.deleteThreadId(threadId)
         app.conversationsDB.deleteSpamThread(threadId)
+        SpamChanges.noteChanged()
     }
 
     override fun showChat(threadId: Long) {

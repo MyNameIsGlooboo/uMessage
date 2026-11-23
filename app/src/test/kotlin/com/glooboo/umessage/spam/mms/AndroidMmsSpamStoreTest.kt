@@ -9,6 +9,7 @@ import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
+import com.glooboo.umessage.spam.SpamChanges
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -146,6 +147,19 @@ class AndroidMmsSpamStoreTest {
         assertThat(store.isListedInSpam(40L)).isTrue()
         // A group chat (more than one recipient) is never listed in Spam, whatever its row says.
         assertThat(store.isListedInSpam(41L)).isFalse()
+    }
+
+    /** J19: an MMS spam arrival, and a lowered count, tell the tab number and the Spam list to read again. */
+    @Test
+    fun j19_aSpamArrivalAndALoweredCount_signalAChange() = offMain {
+        val before = SpamChanges.changes.value
+
+        store.noteSpamArrival(70L, SENDER, SpamCause.UNKNOWN, 1_000L, raise = true)
+        assertThat(SpamChanges.changes.value).isGreaterThan(before)
+
+        val afterArrival = SpamChanges.changes.value
+        store.lowerSpamUnread(70L)
+        assertThat(SpamChanges.changes.value).isGreaterThan(afterArrival)
     }
 
     @Test
