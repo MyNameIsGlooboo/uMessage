@@ -88,7 +88,8 @@ private fun permissionRow(context: Context, item: PermissionItem, live: SetupLiv
             else -> R.string.setup_action_allow
         },
         onAction = if (roleFirst) actions.requestDefaultSms else ({ actions.requestPermissions(item.permissions) }),
-        note = if (roleFirst && live.roleDenied) context.getString(R.string.onb_default_denied) else null,
+        // The default-app row above already shows the "refused" and "unavailable" notes.
+        unavailable = roleFirst && DefaultSmsRole.status(context) is DefaultSmsRole.Status.Unavailable,
     )
 }
 

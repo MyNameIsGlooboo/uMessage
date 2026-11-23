@@ -48,7 +48,16 @@ internal fun requiredGranted(items: List<PermissionItem>, granted: Map<Permissio
     items.all { it.optional || granted[it] == true }
 
 /** J23: the SMS item. Google Play: SMS permissions are asked only while uMessage is the default SMS app. */
-internal fun PermissionItem.isSms() = Manifest.permission.READ_SMS in permissions
+internal fun PermissionItem.isSms() = permissions.any { it in SMS_GROUP }
+
+/** Every permission of Android's SMS group; the role grants all of them. */
+private val SMS_GROUP = setOf(
+    Manifest.permission.READ_SMS,
+    Manifest.permission.SEND_SMS,
+    Manifest.permission.RECEIVE_SMS,
+    Manifest.permission.RECEIVE_MMS,
+    Manifest.permission.RECEIVE_WAP_PUSH,
+)
 
 /**
  * The permissions "Allow all" may ask for: every missing item, but not the SMS item while uMessage is not the

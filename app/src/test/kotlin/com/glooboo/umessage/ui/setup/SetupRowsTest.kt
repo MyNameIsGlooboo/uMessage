@@ -66,6 +66,34 @@ class SetupRowsTest {
         assertThat(perms).isEqualTo(0)
     }
 
+    private fun smsRow(isDefault: Boolean, roleDenied: Boolean = false, roleAvailable: Boolean = true): SetupRowUi {
+        val shadow = org.robolectric.Shadows.shadowOf(app.getSystemService(android.app.role.RoleManager::class.java))
+        // A fresh Robolectric phone has no roles: the SMS role exists only when the test adds it.
+        if (roleAvailable) shadow.addAvailableRole(android.app.role.RoleManager.ROLE_SMS)
+        val live = SetupLive(
+            items = permissionItems(),
+            isDefault = isDefault,
+            roleDenied = roleDenied,
+            block = null,
+            denied = emptySet(),
+            channelProblem = null,
+        )
+        return buildSetupRows(app, live, actions).first { it.title == app.getString(R.string.onb_perm_sms) }
+    }
+
+    @Test
+    fun `J23 the SMS row is unavailable when the phone has no SMS role`() {
+        assertThat(smsRow(isDefault = false, roleAvailable = false).unavailable).isTrue()
+        assertThat(smsRow(isDefault = false).unavailable).isFalse()
+    }
+
+    @Test
+    fun `J23 a refused role gives the SMS row Open settings and no duplicate note`() {
+        val row = smsRow(isDefault = false, roleDenied = true)
+        assertThat(row.actionRes).isEqualTo(R.string.onb_perm_open_settings)
+        assertThat(row.note).isNull()
+    }
+
     @Test
     fun `J23 the SMS row with the role asks for the permissions`() {
         var role = 0

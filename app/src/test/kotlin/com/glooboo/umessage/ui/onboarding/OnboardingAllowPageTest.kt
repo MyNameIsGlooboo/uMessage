@@ -162,6 +162,29 @@ class OnboardingAllowPageTest {
     }
 
     @Test
+    fun `J23 SMS permissions permanently denied and no role still start the role request`() {
+        var settings = 0
+        var roleRequests = 0
+        compose.setContent {
+            UMessageTheme(darkTheme = false, dynamicColor = false, syncWindow = false) {
+                AllowPage(
+                    modifier = Modifier.fillMaxSize(),
+                    items = items,
+                    granted = items.associateWith { false },
+                    permanentlyDenied = items.first { it.isSms() }.permissions.toSet(),
+                    defaultSms = DefaultSmsState(false, denied = true, unavailable = false, { roleRequests++ }, {}),
+                    onRequest = {},
+                    onAllowAll = {},
+                    onOpenSettings = { settings++ },
+                )
+            }
+        }
+        compose.onNodeWithText("Messages").performClick()
+        assertEquals(1, roleRequests)
+        assertEquals(0, settings)
+    }
+
+    @Test
     fun `J23 the SMS row with the role asks for the permissions as before`() {
         var asked: PermissionItem? = null
         page(isDefault = true, grantedAll = false, onRequest = { asked = it })
