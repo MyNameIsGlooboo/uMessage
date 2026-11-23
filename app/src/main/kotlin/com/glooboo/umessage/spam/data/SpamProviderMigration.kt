@@ -20,6 +20,7 @@ import com.glooboo.umessage.extensions.getThreadId
 import com.glooboo.umessage.extensions.insertNewSMS
 import com.glooboo.umessage.extensions.insertOrUpdateConversation
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.subscriptionManagerCompat
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.refreshConversations
 import com.glooboo.umessage.helpers.refreshMessages
@@ -204,6 +205,9 @@ internal interface MigrationProbe {
     /** The carrier message id of MMS [id] in the store; null when it has none (T3-4). */
     fun messageIdOf(id: Long): String?
 
+    /** Whether row [id] can be read back from the store at all (J18: some stores hide a row of a missing SIM). */
+    fun visible(id: Long, isMms: Boolean): Boolean = true
+
     /** The verify of an SMS row: sender, time, text length, received. */
     fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean
 
@@ -227,6 +231,12 @@ internal interface MigrationWriter {
 
     /** Deletes MMS [id] (a half write of uMessage's own, F-4); true when it is gone. */
     fun deleteMms(id: Long): Boolean
+
+    /** Deletes SMS [id] (a row of uMessage's own that could not be read back, J18); true when it is gone. */
+    fun deleteSms(id: Long): Boolean
+
+    /** J18: whether [subscriptionId] is an active SIM now; null when that cannot be told (then it is tried as is). */
+    fun simActive(subscriptionId: Int): Boolean? = null
 
     /** Date, read and seen of MMS [id] in one update; [Settle.GONE] when the row is not there any more. */
     fun settleMms(id: Long, date: Long): Settle
@@ -637,11 +647,16 @@ internal class OlderSpamMover(
         probe.findSms(kind.address, kind.body, row.receivedAt)?.let { return found(row, kind, it) }
         // F-6: the role is checked before every write; lost, the run ends and nothing counts.
         if (!writer.canWrite()) return Outcome.STOP
-        var id = writer.writeSms(kind.address, kind.body, row.receivedAt, simOf(row))
+        val sim = simToWrite(row)
+        var id = writer.writeSms(kind.address, kind.body, row.receivedAt, sim)
         // A SIM taken out since: newer Android refuses its id. Look first (nothing was written), then without a SIM.
-        if (id <= 0L && simOf(row) != DEFAULT_SIM && writer.canWrite()) {
+        if (id <= 0L && sim != DEFAULT_SIM && writer.canWrite()) {
             id = probe.findSms(kind.address, kind.body, row.receivedAt)
                 ?: writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)
+        } else if (id > 0L && sim != DEFAULT_SIM && !probe.visible(id, isMms = false)) {
+            val again = rewriteHiddenSms(row, kind, id)
+            id = again.first
+            again.second?.let { return it }
         }
         if (id <= 0L) return rowFailure()
         return markWritten(row, id, KIND_TEXT)?.let { verify(row, kind, id, ownWrite = true) } ?: Outcome.SKIPPED
@@ -654,13 +669,68 @@ internal class OlderSpamMover(
         }
         probe.findMms(kind.identity, kind.address, row.receivedAt / MILLIS)?.let { return found(row, kind, it) }
         if (!writer.canWrite()) return Outcome.STOP
-        val id = writeMmsOnce(row, kind, simOf(row))
-            ?: (if (retriesWithoutSim(row)) writeMmsOnce(row, kind, DEFAULT_SIM) else null)
+        val sim = simToWrite(row)
+        var id = writeMmsOnce(row, kind, sim)
+            ?: (if (sim != DEFAULT_SIM && retriesWithoutSim(row)) writeMmsOnce(row, kind, DEFAULT_SIM) else null)
             ?: return if (journal.attempt != null) Outcome.STOP else rowFailure()
+        if (sim != DEFAULT_SIM && !probe.visible(id, isMms = true)) {
+            val again = rewriteHiddenMms(row, kind, id)
+            id = again.first
+            again.second?.let { return it }
+        }
         val marked = markWritten(row, id, KIND_MMS)
         // After the mark the row says which store row is its own; the journal is not needed for it any more.
         journal.attempt = null
         return marked?.let { verify(row, kind, id, ownWrite = true) } ?: Outcome.SKIPPED
+    }
+
+    /**
+     * J18: the store took SMS [hidden] (written with a SIM) but hides it: it is deleted and written again without a
+     * SIM. The new id, or the outcome that ends the row; a row still hidden is deleted again, none is left behind.
+     */
+    private fun rewriteHiddenSms(row: BlockedMessage, kind: MoveKind.Text, hidden: Long): Pair<Long, Outcome?> {
+        if (!runCatching { writer.deleteSms(hidden) }.getOrDefault(false)) return 0L to hiddenLeft()
+        if (!writer.canWrite()) return 0L to Outcome.STOP
+        val id = writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)
+        if (id > 0L && !probe.visible(id, isMms = false)) {
+            runCatching { writer.deleteSms(id) }
+            return 0L to failedVerify(row)
+        }
+        return id to null
+    }
+
+    /** J18: as [rewriteHiddenSms] for an MMS: mmslib's delete takes its parts and addresses with it. */
+    private fun rewriteHiddenMms(row: BlockedMessage, kind: MoveKind.Mms, hidden: Long): Pair<Long, Outcome?> {
+        if (!deleteHiddenMms(hidden)) return 0L to hiddenLeft()
+        if (!writer.canWrite()) return 0L to Outcome.STOP
+        val id = writeMmsOnce(row, kind, DEFAULT_SIM)
+            ?: return 0L to (if (journal.attempt != null) Outcome.STOP else rowFailure())
+        if (!probe.visible(id, isMms = true)) {
+            deleteHiddenMms(id)
+            return 0L to failedVerify(row)
+        }
+        return id to null
+    }
+
+    /** J18: a hidden MMS of our own write is deleted (its parts and addresses go with it); the journal is cleared. */
+    private fun deleteHiddenMms(id: Long): Boolean {
+        val gone = runCatching { writer.deleteMms(id) }.getOrDefault(false)
+        if (gone) journal.attempt = null
+        return gone
+    }
+
+    /** J18: a hidden row that could not be deleted: a failed verify of the row; the journal does not hold the run. */
+    private fun hiddenLeft(): Outcome {
+        Log.w(TAG, "Older spam: a row the store hides could not be deleted")
+        journal.attempt = null
+        return Outcome.FAILED_VERIFY
+    }
+
+    /** J18: the row's SIM, or none when it is not among the active SIMs now (when that cannot be told, as it is). */
+    private fun simToWrite(row: BlockedMessage): Int {
+        val sim = simOf(row)
+        if (sim == DEFAULT_SIM) return sim
+        return if (runCatching { writer.simActive(sim) }.getOrNull() == false) DEFAULT_SIM else sim
     }
 
     /** As for an SMS: a SIM this phone no longer knows is tried once without one (only when nothing is open). */
@@ -1234,6 +1304,10 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         query(ContentUris.withAppendedId(Mms.CONTENT_URI, id), arrayOf(Mms.MESSAGE_ID))
             .use { if (it.moveToFirst()) it.textOrNull(Mms.MESSAGE_ID)?.takeIf(String::isNotEmpty) else null }
 
+    override fun visible(id: Long, isMms: Boolean): Boolean =
+        query(ContentUris.withAppendedId(if (isMms) Mms.CONTENT_URI else Sms.CONTENT_URI, id), arrayOf(BaseColumns._ID))
+            .use { it.count > 0 }
+
     override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean =
         query(ContentUris.withAppendedId(Sms.CONTENT_URI, id), arrayOf(Sms.ADDRESS, Sms.DATE, Sms.BODY, Sms.TYPE))
             .use { c ->
@@ -1273,6 +1347,13 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
 
     override fun deleteMms(id: Long): Boolean =
         app.contentResolver.delete(ContentUris.withAppendedId(Mms.CONTENT_URI, id), null, null) == 1
+
+    override fun deleteSms(id: Long): Boolean =
+        app.contentResolver.delete(ContentUris.withAppendedId(Sms.CONTENT_URI, id), null, null) == 1
+
+    override fun simActive(subscriptionId: Int): Boolean? = runCatching {
+        app.subscriptionManagerCompat().activeSubscriptionInfoList?.any { it.subscriptionId == subscriptionId }
+    }.getOrNull()
 
     override fun settleMms(id: Long, date: Long): Settle {
         val values = ContentValues().apply {

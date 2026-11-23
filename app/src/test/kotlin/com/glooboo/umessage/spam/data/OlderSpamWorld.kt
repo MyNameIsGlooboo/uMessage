@@ -61,6 +61,15 @@ internal class OlderSpamWorld {
     var clock = NOW
     var rejectedSims = emptySet<Int>()
 
+    /** J18: SIMs the store takes an insert for and then hides the row from every query (API 34, a missing SIM). */
+    var hidingSims = emptySet<Int>()
+
+    /** The rows the store hides; a clean run leaves none. */
+    val hiddenStore = mutableListOf<StoreRow>()
+
+    /** The SIMs the phone has now; null: not known (every SIM is tried as it is). */
+    var activeSims: Set<Int>? = null
+
     /** The next this many verifies fail. */
     var failingChecks = 0
 
@@ -269,6 +278,9 @@ internal class OlderSpamWorld {
     }
 
     val probe = object : MigrationProbe {
+        override fun visible(id: Long, isMms: Boolean): Boolean =
+            store.any { it.id == id && it.mms == isMms }
+
         override fun findSms(address: String, body: String, date: Long): Long? = op("findSms") {
             store.firstOrNull { !it.mms && it.inbox && it.address == address && it.body == body && it.date == date }
                 ?.id
@@ -343,7 +355,12 @@ internal class OlderSpamWorld {
 
         override fun writeSms(address: String, body: String, date: Long, subscriptionId: Int): Long = op("writeSms") {
             if (refusedWrite(subscriptionId, body)) return@op 0L
-            storeSms(address, body, date, subscriptionId).id.also { wrote() }
+            val written = storeSms(address, body, date, subscriptionId)
+            if (subscriptionId in hidingSims) {
+                store -= written
+                hiddenStore += written
+            }
+            written.id.also { wrote() }
         }
 
         override fun writeMms(row: BlockedMessage, subscriptionId: Int): Long = op("writeMms") {
@@ -354,7 +371,7 @@ internal class OlderSpamWorld {
                 nextMmsId++, true, row.address, row.body, identity.pduDate ?: 0L, 0, 0, subscriptionId,
                 identity.messageId, identity.textLength, addresses = 0, expectedAddresses = identity.addressCount,
             )
-            store += written
+            if (subscriptionId in hidingSims) hiddenStore += written else store += written
             repeat(identity.addressCount) {
                 if (halfWriteKillAfter == written.addresses) {
                     halfWriteKillAfter = null
@@ -369,7 +386,15 @@ internal class OlderSpamWorld {
             if (persistFails) 0L else written.id
         }
 
-        override fun deleteMms(id: Long): Boolean = op("deleteMms") { store.removeIf { it.id == id && it.mms } }
+        override fun deleteMms(id: Long): Boolean = op("deleteMms") {
+            hiddenStore.removeIf { it.id == id && it.mms } || store.removeIf { it.id == id && it.mms }
+        }
+
+        override fun deleteSms(id: Long): Boolean = op("deleteSms") {
+            hiddenStore.removeIf { it.id == id && !it.mms } || store.removeIf { it.id == id && !it.mms }
+        }
+
+        override fun simActive(subscriptionId: Int): Boolean? = activeSims?.contains(subscriptionId)
 
         override fun settleMms(id: Long, date: Long): Settle = op("settleMms") {
             val row = store.firstOrNull { it.id == id && it.mms } ?: return@op Settle.GONE
