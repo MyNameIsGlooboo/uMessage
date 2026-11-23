@@ -234,8 +234,12 @@ internal interface MigrationWriter {
     /** Deletes MMS [id] (a half write of uMessage's own, F-4); true when it is gone. */
     fun deleteMms(id: Long): Boolean
 
-    /** Deletes SMS [id] (a row of uMessage's own that could not be read back, J18); true when it is gone. */
-    fun deleteSms(id: Long): Boolean
+    /**
+     * J18: puts right a row of uMessage's own that the store hides (written on a SIM it does not know). An SMS: deleted
+     * by its id URI (the store allows that, and reuses the id afterwards); true when it is gone. An MMS: its SIM set to
+     * none by its id URI (the store refuses to delete it); true when it can be read back now.
+     */
+    fun unhide(id: Long, isMms: Boolean): Boolean
 
     /** Date, read and seen of MMS [id] in one update; [Settle.GONE] when the row is not there any more. */
     fun settleMms(id: Long, date: Long): Settle
@@ -693,23 +697,33 @@ internal class OlderSpamMover(
     }
 
     /**
-     * J18: the store took SMS [hidden] (written with a SIM) but hides it: it is deleted and written again without a
-     * SIM. The new id, or the outcome that ends the row; a row still hidden is deleted again, none is left behind.
+     * J18: the store took SMS [hidden] (written with a SIM) but hides it: it is deleted (by its id URI) and written
+     * again without a SIM; the old id is not used again (the store reuses it). A visible message wins: when the delete
+     * is refused the visible copy is written all the same and the hidden id is logged. The new id, or the outcome
+     * that ends the row; a copy that is hidden without a SIM too is deleted again and counts as a failed verify.
      */
     private fun rewriteHiddenSms(row: BlockedMessage, kind: MoveKind.Text, hidden: Long): Pair<Long, Outcome?> {
-        if (!runCatching { writer.deleteSms(hidden) }.getOrDefault(false)) return 0L to hiddenLeft()
+        if (!runCatching { writer.unhide(hidden, isMms = false) }.getOrDefault(false)) noteHiddenLeft(hidden)
         if (!writer.canWrite()) return 0L to Outcome.STOP
         val id = writer.writeSms(kind.address, kind.body, row.receivedAt, DEFAULT_SIM)
         if (id > 0L && !probe.visible(id, isMms = false)) {
-            runCatching { writer.deleteSms(id) }
+            runCatching { writer.unhide(id, isMms = false) }
             return 0L to failedVerify(row)
         }
         return id to null
     }
 
-    /** J18: as [rewriteHiddenSms] for an MMS: mmslib's delete takes its parts and addresses with it. */
+    /**
+     * J18: as [rewriteHiddenSms] for an MMS. The store refuses to delete a hidden MMS (its delete is filtered by SIM
+     * like a query) but accepts an update of its SIM by id: that makes the same row visible, parts and addresses
+     * included, so nothing is written again. Only when that fails too is a visible copy written without a SIM (the
+     * hidden one stays: a possible double if a SIM with that id comes back).
+     */
     private fun rewriteHiddenMms(row: BlockedMessage, kind: MoveKind.Mms, hidden: Long): Pair<Long, Outcome?> {
-        if (!deleteHiddenMms(hidden)) return 0L to hiddenLeft()
+        if (runCatching { writer.unhide(hidden, isMms = true) }.getOrDefault(false) && probe.visible(hidden, true)) {
+            return hidden to null
+        }
+        deleteHiddenMms(hidden)
         if (!writer.canWrite()) return 0L to Outcome.STOP
         val id = writeMmsOnce(row, kind, DEFAULT_SIM)
             ?: return 0L to (if (journal.attempt != null) Outcome.STOP else rowFailure())
@@ -720,25 +734,23 @@ internal class OlderSpamMover(
         return id to null
     }
 
-    /** J18: a hidden MMS of our own write is deleted (its parts and addresses go with it); the journal is cleared. */
-    private fun deleteHiddenMms(id: Long): Boolean {
-        val gone = runCatching { writer.deleteMms(id) }.getOrDefault(false)
-        if (gone) journal.attempt = null
-        return gone
-    }
-
-    /** J18: a hidden row that could not be deleted: a failed verify of the row; the journal does not hold the run. */
-    private fun hiddenLeft(): Outcome {
-        Log.w(TAG, "Older spam: a row the store hides could not be deleted")
+    /**
+     * J18: a hidden MMS of our own write is deleted. The journal is cleared either way: the attempt is settled (a
+     * hidden row is never found again, so it cannot be resumed) and must not hold the other MMS of the run.
+     */
+    private fun deleteHiddenMms(id: Long) {
+        if (!runCatching { writer.deleteMms(id) }.getOrDefault(false)) noteHiddenLeft(id)
         journal.attempt = null
-        return Outcome.FAILED_VERIFY
     }
 
-    /** J18: the row's SIM, or none when it is not among the active SIMs now (when that cannot be told, as it is). */
+    /** J18: one line, no content: the id of a hidden row that could not be deleted. */
+    private fun noteHiddenLeft(id: Long) = Log.w(TAG, "Older spam: a row the store hides could not be deleted (id $id)")
+
+    /** J18: the row's SIM when it is known to be active now, else none (also when the list cannot be read). */
     private fun simToWrite(row: BlockedMessage): Int {
         val sim = simOf(row)
         if (sim == DEFAULT_SIM) return sim
-        return if (runCatching { probe.simActive(sim) }.getOrNull() == false) DEFAULT_SIM else sim
+        return if (runCatching { probe.simActive(sim) }.getOrNull() == true) sim else DEFAULT_SIM
     }
 
     /** As for an SMS: a SIM this phone no longer knows is tried once without one (only when nothing is open). */
@@ -1312,7 +1324,8 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
         query(ContentUris.withAppendedId(Mms.CONTENT_URI, id), arrayOf(Mms.MESSAGE_ID))
             .use { if (it.moveToFirst()) it.textOrNull(Mms.MESSAGE_ID)?.takeIf(String::isNotEmpty) else null }
 
-    override fun visible(id: Long, isMms: Boolean): Boolean = MissingSim.readable(app, id, isMms)
+    override fun visible(id: Long, isMms: Boolean): Boolean =
+        MissingSim.readable(app, id, isMms) ?: error("The phone's message store gave no answer")
 
     override fun checkSms(id: Long, address: String, date: Long, bodyLength: Int): Boolean =
         query(ContentUris.withAppendedId(Sms.CONTENT_URI, id), arrayOf(Sms.ADDRESS, Sms.DATE, Sms.BODY, Sms.TYPE))
@@ -1354,8 +1367,12 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
     override fun deleteMms(id: Long): Boolean =
         app.contentResolver.delete(ContentUris.withAppendedId(Mms.CONTENT_URI, id), null, null) == 1
 
-    override fun deleteSms(id: Long): Boolean =
-        app.contentResolver.delete(ContentUris.withAppendedId(Sms.CONTENT_URI, id), null, null) == 1
+    override fun unhide(id: Long, isMms: Boolean): Boolean =
+        if (isMms) {
+            MissingSim.dropMmsSim(app, id)
+        } else {
+            app.contentResolver.delete(ContentUris.withAppendedId(Sms.CONTENT_URI, id), null, null) == 1
+        }
 
     override fun simActive(subscriptionId: Int): Boolean? = MissingSim.active(app, subscriptionId)
 

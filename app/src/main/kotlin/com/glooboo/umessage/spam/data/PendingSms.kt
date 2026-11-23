@@ -128,6 +128,16 @@ object IncomingSmsProcessor {
     }
 
     /**
+     * J18: [deliver] for a message whose SIM may be gone (a restored or old held one): the SIM is dropped when it is
+     * not active, and a row the store hides is deleted and written again without it ([MissingSim]). Returns the id of
+     * the row that is finally there; throws when none could be made visible.
+     */
+    fun deliverReadably(context: Context, message: PendingSmsEntity, notify: NotifyContext): Long =
+        MissingSim.writeReadably(context, message.subscriptionId, isMms = false) { sim ->
+            deliver(context, message.copy(subscriptionId = sim), notify)
+        }
+
+    /**
      * Puts [message] in the inbox. [deliverIncomingSms] throws only when the provider insert itself did not happen,
      * so one plain retry here cannot create a duplicate (and is skipped when the row is somehow already there).
      * Throws [SmsInsertException] when the message is still not stored.
@@ -260,7 +270,7 @@ internal object ProviderTruthSms {
         val outcome = spam?.let { storeInSpam(context, row, threadId, Judgement(it), it.cause) }
         if (outcome != null && outcome != SpamOutcome.NOT_STORED) return
         SilentMarks.clear(context, row)
-        IncomingSmsProcessor.deliver(context, row)
+        IncomingSmsProcessor.deliverReadably(context, row, NotifyContext())
     }
 
     /** The sender's place without writing anything; null when the filter failed. */
@@ -696,10 +706,13 @@ object PendingSmsQueue {
                 alreadyInInbox(context, row) -> ProviderTruthSms.recheckStored(context, row)
                 // A restored message is the user's decision: no second filter pass, and no "already blocked" test
                 // (an identical spam text blocked meanwhile must not stop it from reaching the inbox).
-                row.approved -> IncomingSmsProcessor.deliver(context, row, NotifyContext.NONE)
+                row.approved -> IncomingSmsProcessor.deliverReadably(context, row, NotifyContext.NONE)
                 expired -> if (!alreadyBlocked(dao, row)) {
                     // Reviewer: under provider truth the sender's place still holds (a blocked sender stays silent).
-                    ProviderTruthSms.deliverExpired(context, row)
+                    // J18: a text queued for days may name a SIM that is gone by now.
+                    ProviderTruthSms.deliverExpired(
+                        context, row.copy(subscriptionId = MissingSim.simFor(context, row.subscriptionId)),
+                    )
                 }
                 else -> IncomingSmsProcessor.process(context, row)
             }
