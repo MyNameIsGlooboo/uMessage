@@ -88,6 +88,7 @@ import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import com.glooboo.umessage.ui.theme.applyUMessageWindow
 import com.glooboo.umessage.ui.theme.success
+import com.glooboo.umessage.ui.thread.MessageDecisions
 import com.glooboo.umessage.ui.thread.planSpamReport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -522,20 +523,9 @@ internal fun decisionLabel(decision: String): Int = when (decision) {
 }
 
 @Composable
-private fun reasonLabel(reason: String): String = when (reason) {
-    "ALLOW_RULE" -> stringResource(R.string.ui_log_reason_allow_rule)
-    "BLOCK_RULE" -> stringResource(R.string.ui_log_reason_block_rule)
-    "CONTACT" -> stringResource(R.string.ui_log_reason_contact)
-    "OTP_EXEMPTION" -> stringResource(R.string.ui_log_reason_otp)
-    "UNKNOWN_SENDER" -> stringResource(R.string.ui_log_reason_unknown_sender)
-    "MODE_OFF" -> stringResource(R.string.ui_log_reason_mode_off)
-    "NO_MATCH" -> stringResource(R.string.ui_log_reason_no_match)
-    "CONTACTS_UNAVAILABLE" -> stringResource(R.string.ui_log_reason_contacts_unavailable)
-    "KNOWN_CONVERSATION" -> stringResource(R.string.ui_log_reason_known_conversation)
-    "FOREIGN_NUMBER" -> stringResource(R.string.region_reason_foreign)
+private fun reasonLabel(reason: String): String =
     // Errors log the exception class name; it is only useful as-is.
-    else -> reason
-}
+    MessageDecisions.reasonLabel(reason)?.let { stringResource(it) } ?: reason
 
 internal fun sourceLabel(source: String): Int = when (source) {
     "MMS", "MMS_PUSH", "MMS_CONTENT" -> R.string.ui_log_source_mms
