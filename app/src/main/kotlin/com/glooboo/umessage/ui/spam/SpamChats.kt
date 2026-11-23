@@ -11,6 +11,7 @@ import com.glooboo.umessage.helpers.OtpCodeExtractor
 import com.glooboo.umessage.interfaces.ConversationsDao
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.spam.ChatSorter
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.engine.SenderVerdict
 import com.glooboo.umessage.spam.engine.SpamCause
@@ -135,6 +136,7 @@ object SpamChatsSource {
      */
     fun markRead(context: Context, chats: Collection<SpamChat>): Int =
         markRead(context.conversationsDB, chats) { context.markThreadMessagesRead(it) }
+            .also { SpamSorting.noteChanged() }
 
     fun markRead(dao: ConversationsDao, chats: Collection<SpamChat>, markStoreRead: (Long) -> Unit): Int =
         chats.count { chat ->
@@ -150,6 +152,7 @@ object SpamChatsSource {
      */
     fun markAllRead(context: Context, chats: Collection<SpamChat>): Int =
         markAllRead(context.conversationsDB, chats) { context.markThreadMessagesRead(it) }
+            .also { SpamSorting.noteChanged() }
 
     fun markAllRead(dao: ConversationsDao, chats: Collection<SpamChat>, markStoreRead: (Long) -> Unit): Int {
         val had = chats.count { it.unread > 0 }

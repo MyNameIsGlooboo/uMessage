@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.fossify.commons.extensions.notificationManager
 import java.util.concurrent.Executors
@@ -251,6 +252,7 @@ class SnapshotCache(
  * changed (App calls [requestFull] with [CONTACTS_DELAY_MS]); a new chat row was cached ([requestThreads],
  * [NewChatSorting]); app start ([requestFull]).
  */
+@Suppress("TooManyFunctions") // Each trigger and signal of the sorting queue is one small function.
 object SpamSorting {
     private const val CHANGE_DELAY_MS = 300L
 
@@ -269,6 +271,14 @@ object SpamSorting {
 
     /** Grows by one each time the Spam table changed; a list screen can show its saved rows again (step C). */
     val changes: StateFlow<Long> = changeCount.asStateFlow()
+
+    /**
+     * The Spam table changed outside a sort (a spam text was written, its unread count cleared, a chat forgotten):
+     * the Messages tab number and the Spam list read it again (J19).
+     */
+    fun noteChanged() {
+        changeCount.update { it + 1 }
+    }
 
     /** Starts the triggers from the rules, the group members and the settings. Once per process. */
     fun install(context: Context) {

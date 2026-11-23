@@ -1143,6 +1143,7 @@ private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
 fun Context.forgetThread(threadId: Long, vanished: Boolean = false) {
     conversationsDB.deleteThreadId(threadId)
     runCatching { conversationsDB.deleteSpamThread(threadId) }
+    SpamSorting.noteChanged()
     kotlinx.coroutines.runBlocking { labelsDB.removeAllFromConversation(threadId) }
     kotlinx.coroutines.runBlocking { messageNotes.onThreadDeleted(threadId) }
     if (vanished) messagesDB.deleteVanishedThreadMessages(threadId) else messagesDB.deleteThreadMessages(threadId)

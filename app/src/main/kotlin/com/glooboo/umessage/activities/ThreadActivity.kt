@@ -131,6 +131,7 @@ import com.glooboo.umessage.ui.thread.ThreadMenuAction
 import com.glooboo.umessage.ui.thread.SenderStatus
 import com.glooboo.umessage.ui.log.DecisionLogActivity
 import com.glooboo.umessage.spam.ForwardingAvailability
+import com.glooboo.umessage.spam.SpamSorting
 import com.glooboo.umessage.spam.data.BlockedNotifier
 import com.glooboo.umessage.ui.spam.ForwardingActivity
 import com.glooboo.umessage.ui.thread.UnknownCardController
@@ -671,6 +672,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
             runCatching { markThreadMessagesRead(thread) }
             // Provider truth (3.4): opening a Spam chat clears uMessage's own unread count of it.
             runCatching { conversationsDB.clearSpamUnread(thread) }
+            SpamSorting.noteChanged()
             repository.markAllRead(thread)
             bus?.post(Events.RefreshConversations(thread))
             // A notification posted while the chat was being read would otherwise stay.
