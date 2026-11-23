@@ -35,6 +35,9 @@ class FakeMessageStore : ContentProvider() {
     /** While true, listing every MMS (a query of `content://mms` without a selection) fails, like a busy store. */
     @Volatile var failMmsList = false
 
+    /** While true, an SMS query that trims the address (the writer's store-wide blank-sender check) fails. */
+    @Volatile var failBlankSenderQuery = false
+
     /** Part ids whose bytes cannot be read back, like a file the provider lost. */
     val unreadableParts = mutableSetOf<Long>()
 
@@ -164,6 +167,7 @@ class FakeMessageStore : ContentProvider() {
         val segments = uri.pathSegments
         return when (uri.authority) {
             SMS -> {
+                check(!failBlankSenderQuery || selection?.contains("TRIM(") != true) { "blank-sender query refused" }
                 val (sel, args) = withId(segments.firstOrNull()?.toLongOrNull(), selection, selectionArgs)
                 db.query("sms", projection, sel, args, null, null, sortOrder)
             }

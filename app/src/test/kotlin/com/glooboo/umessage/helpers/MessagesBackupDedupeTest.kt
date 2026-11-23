@@ -20,6 +20,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.shadows.ShadowLog
 import java.util.Base64
+import java.util.Locale
 
 /**
  * J15 (emulator run 12): a restored message the store already has is found whatever conversation it is in, so a
@@ -370,5 +371,132 @@ class MessagesBackupDedupeTest {
         val row = store.rows("sms").single()
         assertThat(row["address"]).isEqualTo("Unknown")
         assertThat(store.threadRecipients(row["thread_id"] as Long)).containsExactly("Unknown")
+    }
+
+    @Test
+    fun aReceivedMmsWithoutASender_storedInAnotherConversation_isNotAddedAgain() {
+        // J15-15: on the phone that made the backup, the message sits in the conversation the system chose.
+        val store = FakeMessageStore.install()
+        val noSender = listOf(
+            MmsAddress("insert-address-token", PduHeaders.FROM, 106),
+            MmsAddress("+15550002", PduHeaders.TO, 106),
+        )
+        store.addMms(
+            store.threadIdFor("+15550009"), 1_000, Mms.MESSAGE_BOX_INBOX, "look", photo,
+            noSender.map { it.address to it.type },
+        )
+
+        val again = writer().writeMmsMessage(mms(addresses = noSender))
+
+        assertThat(again.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(store.count("pdu")).isEqualTo(1)
+    }
+
+    @Test
+    fun twoReceivedMmsWithoutASender_toDifferentRecipients_inTheSameSecond_areTwoMessages() {
+        // J15-16: the same time and text are not enough; the other addresses tell them apart.
+        val store = FakeMessageStore.install()
+        fun noSender(to: String) = listOf(
+            MmsAddress("insert-address-token", PduHeaders.FROM, 106),
+            MmsAddress(to, PduHeaders.TO, 106),
+        )
+
+        val first = writer().writeMmsMessage(mms(addresses = noSender("+15550002")))
+        val second = writer().writeMmsMessage(mms(addresses = noSender("+15550004")))
+        val firstAgain = writer().writeMmsMessage(mms(addresses = noSender("+15550002")))
+        val secondAgain = writer().writeMmsMessage(mms(addresses = noSender("+15550004")))
+
+        assertThat(listOf(first, second, firstAgain, secondAgain).map { it.outcome }).containsExactly(
+            WriteOutcome.ADDED, WriteOutcome.ADDED, WriteOutcome.DUPLICATE, WriteOutcome.DUPLICATE,
+        ).inOrder()
+        assertThat(store.count("pdu")).isEqualTo(2)
+    }
+
+    @Test
+    fun aNumberInTwoForms_isOneAddressRow() {
+        val store = FakeMessageStore.install()
+        val before = Locale.getDefault()
+        Locale.setDefault(Locale("en", "GB"))
+        try {
+            fun sentTo(number: String) = mms(
+                box = Mms.MESSAGE_BOX_SENT, addresses = listOf(MmsAddress(number, PduHeaders.TO, 106)),
+            )
+
+            val first = writer().writeMmsMessage(sentTo("+447700900123"))
+            val again = writer().writeMmsMessage(sentTo("07700900123"))
+
+            assertThat(first.outcome).isEqualTo(WriteOutcome.ADDED)
+            assertThat(again.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+            assertThat(store.count("pdu")).isEqualTo(1)
+            assertThat(store.count("addr")).isEqualTo(1)
+        } finally {
+            Locale.setDefault(before)
+        }
+    }
+
+    @Test
+    fun twoNumbersSharingTheirLastSevenDigits_areTwoAddressRows() {
+        val store = FakeMessageStore.install()
+        val before = Locale.getDefault()
+        Locale.setDefault(Locale("en", "GB"))
+        try {
+            val both = mms(
+                box = Mms.MESSAGE_BOX_SENT,
+                addresses = listOf(
+                    MmsAddress("+447700900123", PduHeaders.TO, 106),
+                    MmsAddress("+15550900123", PduHeaders.TO, 106),
+                ),
+            )
+
+            val first = writer().writeMmsMessage(both)
+            val again = writer().writeMmsMessage(both)
+
+            assertThat(first.outcome).isEqualTo(WriteOutcome.ADDED)
+            assertThat(again.outcome).isEqualTo(WriteOutcome.DUPLICATE)
+            assertThat(store.count("addr")).isEqualTo(2)
+        } finally {
+            Locale.setDefault(before)
+        }
+    }
+
+    @Test
+    fun aReceivedMmsWithoutAnyToRow_staysRefused() {
+        val store = FakeMessageStore.install()
+        val onlyFrom = listOf(MmsAddress("insert-address-token", PduHeaders.FROM, 106))
+
+        val result = writer().writeMmsMessage(mms(addresses = onlyFrom))
+
+        assertThat(result.outcome).isEqualTo(WriteOutcome.FAILED)
+        assertThat(store.count("pdu")).isEqualTo(0)
+    }
+
+    @Test
+    fun aSentOrDraftMmsWithoutRecipients_staysRefused() {
+        val store = FakeMessageStore.install()
+        val none = listOf(MmsAddress("insert-address-token", PduHeaders.TO, 106))
+
+        val results = listOf(Mms.MESSAGE_BOX_SENT, Mms.MESSAGE_BOX_DRAFTS, Mms.MESSAGE_BOX_OUTBOX).map {
+            writer().writeMmsMessage(mms(box = it, addresses = none)).outcome
+        }
+
+        assertThat(results).containsExactly(WriteOutcome.FAILED, WriteOutcome.FAILED, WriteOutcome.FAILED)
+        assertThat(store.count("pdu")).isEqualTo(0)
+    }
+
+    @Test
+    fun whenTheBlankSenderQueryFails_theConversationsOwnCheckStillHolds_andOneLineSaysSo() {
+        val store = FakeMessageStore.install()
+        writer().writeSmsMessage(sms(address = "", body = "no sender"))
+        store.failBlankSenderQuery = true
+        ShadowLog.clear()
+
+        val again = writer().writeSmsMessage(sms(address = " ", body = "no sender")).outcome
+
+        assertThat(again).isEqualTo(WriteOutcome.DUPLICATE)
+        assertThat(store.count("sms")).isEqualTo(1)
+        val lines = ShadowLog.getLogsForTag("uMessageRestore").map { it.msg }
+        assertThat(lines).hasSize(1)
+        assertThat(lines.single()).contains("IllegalStateException")
+        assertThat(lines.single()).doesNotContain("no sender")
     }
 }

@@ -114,7 +114,10 @@ class MessagesWriter(
         ).toTypedArray()
         return runCatching {
             contentResolver.query(Sms.CONTENT_URI, arrayOf(Sms._ID), selection, args, null)?.use { it.moveToFirst() }
-        }.getOrNull() == true
+        }.getOrElse {
+            Log.w(TAG, "Blank-sender SMS not looked for (${it.javaClass.simpleName}); checked per conversation")
+            null
+        } == true
     }
 
     private fun smsKeys(threadId: Long): MutableSet<SmsKey> = smsKeysByThread.getOrPut(threadId) {
@@ -137,15 +140,23 @@ class MessagesWriter(
     }
 
     private fun writeMms(backup: MmsBackup): WriteResult {
-        val recipients = mmsRecipients(backup).ifEmpty { unknownSender(backup) }
+        val known = mmsRecipients(backup)
+        val recipients = known.ifEmpty { unknownSender(backup) }
         if (recipients.isEmpty()) return WriteResult(WriteOutcome.FAILED, REASON_NO_ADDRESS)
+        // J15-15: a message without a sender is looked for store-wide too, and its other addresses must agree.
+        val noSender = known.isEmpty()
         // Already in the store, in whatever conversation: it gets no second copy and no new conversation.
-        val stored = findStoredMms(backup, recipients)
+        val stored = findStoredMms(backup, recipients, noSender)
         val threadId = stored?.threadId ?: threadIdFor(recipients)
             ?: return WriteResult(WriteOutcome.FAILED, REASON_NO_THREAD)
 
         var created = false
-        val messageId = stored?.id ?: findMms(backup, threadId) ?: run {
+        val wantedAddresses = if (noSender) {
+            usableAddresses(backup.addresses.map { AddressKey(it.type, it.address) })
+        } else {
+            null
+        }
+        val messageId = stored?.id ?: findMms(backup, threadId, wantedAddresses) ?: run {
             val values = backup.toContentValues().apply { put(Mms.THREAD_ID, threadId) }
             val uri = contentResolver.insert(Mms.CONTENT_URI, values)
                 ?: return WriteResult(WriteOutcome.FAILED, REASON_REFUSED)
@@ -259,6 +270,7 @@ class MessagesWriter(
     private fun unknownSender(backup: MmsBackup): Set<String> {
         val received = backup.messageBox == Mms.MESSAGE_BOX_INBOX
         val noSender = backup.addresses.none { it.type == PduHeaders.FROM && usableAddress(it.address) }
+        // Any To row counts, also a blank one: such a message has no better chat than "Unknown" either way.
         val toThisPhone = backup.addresses.any { it.type == PduHeaders.TO }
         return if (received && noSender && toThisPhone) setOf(SenderAddress.UNKNOWN_PLACEHOLDER) else emptySet()
     }
@@ -299,15 +311,22 @@ class MessagesWriter(
      * depends on whether this phone knows its own number, and a second copy in a new conversation must never be made.
      * A message with nobody to compare is left to its conversation's check. When more than one fits, the one with the
      * same transaction id or in this conversation is taken; if that does not decide, none is, so the message is
-     * written rather than merged into another.
+     * written rather than merged into another. A message without a sender ([noSender]) is looked for the same way
+     * (the stored one has no usable sender either, as the address check shows), but only when it has the same
+     * transaction id as the stored one or at least one usable address of its own to compare.
      */
-    private fun findStoredMms(backup: MmsBackup, recipients: Set<String>): StoredMms? {
+    private fun findStoredMms(backup: MmsBackup, recipients: Set<String>, noSender: Boolean = false): StoredMms? {
         val wanted = usableAddresses(backup.addresses.map { AddressKey(it.type, it.address) })
-        val candidates = if (keyPeople(backup.messageBox, wanted).isEmpty()) {
+        val comparable = keyPeople(backup.messageBox, wanted).isNotEmpty() || (noSender && wanted.isNotEmpty()) ||
+            (noSender && backup.transactionId != null)
+        val candidates = if (!comparable) {
             emptyList()
         } else {
             storedMms[mmsKey(backup.date, backup.messageBox)].orEmpty().filter {
                 it.transactionId == null || backup.transactionId == null || it.transactionId == backup.transactionId
+            }.filter {
+                // Nothing to compare but the transaction id: it must be the same one, not just a missing one.
+                !noSender || wanted.isNotEmpty() || it.transactionId == backup.transactionId
             }
         }
         if (candidates.isEmpty()) return null
@@ -358,7 +377,8 @@ class MessagesWriter(
         return key.isNotEmpty() && key == runCatching { numbers.comparableKey(b) }.getOrDefault("")
     }
 
-    private fun findMms(backup: MmsBackup, threadId: Long): Long? {
+    /** [addresses]: when given, a candidate must have the same usable addresses both ways (a message without sender). */
+    private fun findMms(backup: MmsBackup, threadId: Long, addresses: List<AddressKey>? = null): Long? {
         val candidates = mutableListOf<Pair<Long, String?>>()
         contentResolver.query(
             Mms.CONTENT_URI, arrayOf(Mms._ID, Mms.TRANSACTION_ID),
@@ -371,6 +391,8 @@ class MessagesWriter(
         }
         val sameTransaction = candidates.filter { (_, trId) ->
             trId == null || backup.transactionId == null || trId == backup.transactionId
+        }.filter { (id, _) ->
+            addresses == null || sameAddresses(addresses, usableAddresses(existingAddresses(id)))
         }
         if (sameTransaction.isEmpty()) return null
         val wantedText = textOf(backup.parts.map { it.contentType to (it.text ?: it.data) })
