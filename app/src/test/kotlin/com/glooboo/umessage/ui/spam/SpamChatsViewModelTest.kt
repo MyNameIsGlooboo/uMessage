@@ -555,6 +555,19 @@ class SpamChatsViewModelTest {
         }
     }
 
+    @Test
+    fun theTimeBucketMovesEachMinuteForAYoungChatAndEachDayForAnOldOne() {
+        val noon = 1_700_000_000_000L
+        val young = (noon / 1000L).toInt() - 600
+        assertThat(timeBucket(young, noon + 30_000L, 0L)).isEqualTo(timeBucket(young, noon, 0L))
+        assertThat(timeBucket(young, noon + 60_000L, 0L)).isNotEqualTo(timeBucket(young, noon, 0L))
+        val old = (noon / 1000L).toInt() - 5 * 3_600
+        assertThat(timeBucket(old, noon + 60_000L, 0L)).isEqualTo(timeBucket(old, noon, 0L))
+        assertThat(timeBucket(old, noon + 24 * 3_600_000L, 0L)).isNotEqualTo(timeBucket(old, noon, 0L))
+        // A young chat turning an hour old does not share a bucket with the minute it was in.
+        assertThat(timeBucket(young, noon + 3_600_000L, 0L)).isNotEqualTo(timeBucket(young, noon, 0L))
+    }
+
     private companion object {
         const val LONG_TIMEOUT_MS = 20_000L
         const val UNKNOWN = "+15550001250"

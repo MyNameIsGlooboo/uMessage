@@ -132,7 +132,23 @@ private data class RowKey(
     val code: String?,
     /** A language change builds the rows again: their words and digits are fixed when a row is built. */
     val language: String,
+    /** The age of the chat's date label: the minute while it is under an hour old, then the day (see [timeBucket]). */
+    val timeBucket: Long,
 )
+
+private const val MINUTE_MS = 60_000L
+private const val HOUR_MS = 60 * MINUTE_MS
+private const val DAY_MS = 24 * HOUR_MS
+
+/**
+ * Changes when the date label of a chat dated [dateSeconds] could read differently: every minute while the chat is
+ * under an hour old ("Now", "6 min"), then every local day (a clock time, "Yesterday", a weekday). An old chat's row is
+ * not built again every minute.
+ */
+internal fun timeBucket(dateSeconds: Int, now: Long, zoneOffsetMs: Long): Long {
+    val age = now - dateSeconds * 1000L
+    return if (age < HOUR_MS) now / MINUTE_MS else -((now + zoneOffsetMs) / DAY_MS) - 1
+}
 
 /**
  * Feeds the Spam tab (4.2): the chats with a valid Spam row (S9), each with its cause line, its unread count from both
@@ -300,10 +316,13 @@ class SpamChatsViewModel internal constructor(
         val pinned = app.config.pinnedConversations
         val locale = app.uiLocale
         val now = clock()
+        val language = locale.toLanguageTag()
+        val zoneOffset = java.util.TimeZone.getDefault().getOffset(now).toLong()
         val rows = shown.sortedByDescending { it.conversation.date }.map { chat ->
             val key = RowKey(
                 chat, drafts[chat.threadId], pinned.contains(chat.threadId.toString()),
-                SpamChatsPolicy.code(chat.received, now), locale.toLanguageTag(),
+                SpamChatsPolicy.code(chat.received, now), language,
+                timeBucket(chat.conversation.date, now, zoneOffset),
             )
             rowCache[chat.threadId]?.takeIf { it.first == key }?.second ?: buildRow(chat, key, drafts, pinned, locale)
                 .also { rowCache[chat.threadId] = key to it }
