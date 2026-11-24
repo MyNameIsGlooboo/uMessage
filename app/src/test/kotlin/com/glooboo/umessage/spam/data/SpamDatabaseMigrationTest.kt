@@ -10,9 +10,11 @@ import com.glooboo.umessage.testing.migrationTestHelper
 import com.glooboo.umessage.testing.offMainThread
 import com.google.common.truth.Truth.assertThat
 import com.glooboo.umessage.databases.DatabaseBackups
+import com.glooboo.umessage.spam.AllowGroup
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.ForwardSim
 import com.glooboo.umessage.spam.ListKind
+import com.glooboo.umessage.spam.MemberSource
 import com.glooboo.umessage.spam.RuleType
 import java.io.File
 import org.junit.After
@@ -265,11 +267,14 @@ class SpamDatabaseMigrationTest {
     }
 
     /**
-     * Schema 4 -> a schema-3 build -> schema 4 again. The schema-3 build copied every table it knows and renamed the
-     * file `-imported`, so the forward rules exist only there. They come back once, and the file is retired.
+     * J27: a schema-3 build (it cannot hold forward rules) imported a newer file and left it aside as `-imported`.
+     * Back on this schema the live file is still at schema 3, so MIGRATION_3_4 runs on this open and the rules that
+     * build could not change come back once. The kept file's name carries the imported schema (9), not the build.
      */
     @Test
     fun forwardRulesComeBackAfterATripToSchemaThree() {
+        // The schema-3 build's own file, upgraded on this open.
+        helper.createDatabase(TEST_DB, 3).close()
         SpamDatabase.build(context, OTHER_DB).also { db ->
             offMainThread { db.forwardDao().insert(forward("+15550001111")) }
         }.close()
@@ -281,6 +286,40 @@ class SpamDatabaseMigrationTest {
         }
         assertThat(imported.exists()).isFalse()
         assertThat(file("$TEST_DB.v${SpamDatabase.VERSION}-restored").exists()).isTrue()
+    }
+
+    /**
+     * J27: a schema-8 build (0.4.14) edits forward rules and keeps a `.v9-imported` too. The live file is at schema 8,
+     * so MIGRATION_3_4 does not run on this open and the old rules do not come back; the members and the migration
+     * marks do.
+     */
+    @Test
+    fun forwardRulesDoNotComeBackAfterATripToTheSchemaEightBuild() {
+        SpamDatabase.build(context, OTHER_DB).also { db ->
+            offMainThread {
+                db.forwardDao().insert(forward("+15550001111"))
+                db.spamDao().insertMember(
+                    AllowGroupMemberEntity(
+                        AllowGroup.CODE, "+15550001234", "+15550001234", 7L, MemberSource.LIVE, acknowledged = false,
+                    )
+                )
+            }
+        }.close()
+        // The rule was deleted on the older build; the live file is at schema 8 and upgrades on this open.
+        helper.createDatabase(TEST_DB, 8).close()
+        val imported = file("$TEST_DB.v${SpamDatabase.VERSION}-imported")
+        DatabaseBackups.copyWithCompanions(context.getDatabasePath(OTHER_DB), imported)
+
+        val db = SpamDatabase.build(context, TEST_DB)
+        try {
+            offMainThread {
+                assertThat(db.forwardDao().getAll()).isEmpty()
+                assertThat(db.spamDao().getMembers().map { it.senderKey }).containsExactly("+15550001234")
+            }
+        } finally {
+            db.close()
+        }
+        assertThat(imported.exists()).isFalse()
     }
 
     @Test
