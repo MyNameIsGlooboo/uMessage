@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.messaging.MmsDownloadFailure
+import com.glooboo.umessage.messaging.MmsDownloadTracker
 import com.glooboo.umessage.models.Message
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.FilterDecision
@@ -18,6 +19,7 @@ import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.NoticeMark
+import com.glooboo.umessage.spam.mms.UnknownNotice
 import com.glooboo.umessage.spam.mms.MmsSenderCheck
 import com.glooboo.umessage.spam.mms.NoticeRow
 import com.glooboo.umessage.testing.FakeMmsProvider
@@ -302,6 +304,39 @@ class MmsArrivalTest {
         assertThat(store.forgotten).containsExactly(55L)
     }
 
+    @Test
+    fun l11_aCountedNoticeWhoseMmsEndsInMessages_getsItsQuietNoticeCancelled_andOneThatStaysInSpamDoesNot() {
+        val provider = FakeMmsProvider.install()
+        val cancelled = mutableListOf<Long>()
+        val notices = object : UnknownNotice {
+            override fun post(threadId: Long, sender: String, body: String, at: Long) = Unit
+            override fun cancel(threadId: Long) {
+                cancelled += threadId
+            }
+        }
+        val counted = provider.addNotice(SENDER, threadId = 55L)
+        AndroidMmsSpamStore(context).markNotice(counted, NoticeMark.Counted(55L))
+        val rescued = handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER))
+            .apply { noticeUri = counted; incomingMms = { IncomingMms(store, notices) } }
+        rescued.isAddressBlocked(context, SENDER)
+
+        rescued.placeAndAnnounce(context, mms(55L, SENDER), SENDER)
+
+        assertThat(cancelled).containsExactly(55L)
+
+        cancelled.clear()
+        val spam = Judgement(SenderVerdict.Spam(SpamCause.UNKNOWN, DecisionReason.UNKNOWN_SENDER))
+        val again = provider.addNotice(SENDER, transactionId = "T-3", threadId = 55L)
+        AndroidMmsSpamStore(context).markNotice(again, NoticeMark.Counted(55L))
+        val stays = handler(probe = FilterDecision.Block(DecisionReason.UNKNOWN_SENDER), judgement = spam)
+            .apply { noticeUri = again; incomingMms = { IncomingMms(store, notices) } }
+        stays.isAddressBlocked(context, SENDER)
+
+        stays.placeAndAnnounce(context, mms(55L, SENDER), SENDER)
+
+        assertThat(cancelled).isEmpty()
+    }
+
     private fun unreported(receiver: MmsReceiver, file: File, notice: Uri) {
         val broadcast = WatchedBroadcast.attachTo(receiver)
         receiver.onReceive(
@@ -395,6 +430,41 @@ class MmsArrivalTest {
     }
 
     @Test
+    fun j28_2_aCountedNoticeWhoseSentHistoryCannotBeRead_failsOpenToMessagesWithAnErrorRow() {
+        val notice = Uri.parse("content://mms/inbox/42")
+        store.notices[notice] = NoticeRow(threadId = 12L, sender = SENDER)
+        store.threads[SENDER] = 12L
+        store.spamRows[12L] = Triple(SENDER, SpamCause.UNKNOWN, 1)
+        store.marks[notice] = NoticeMark.Counted(12L)
+        val logged = mutableListOf<String>()
+        val failure = MmsDownloadFailure(
+            store = { store },
+            probe = { _, _ -> FilterDecision.Block(DecisionReason.UNKNOWN_SENDER) },
+            notify = {}, toast = {}, finishLibraryDownload = {}, tracker = MmsDownloadTracker(),
+            history = { _, _ -> true },
+            log = { _, _, decision, reason, _ -> logged += "$decision/$reason" },
+            wroteTo = { _, _ -> null },
+        )
+
+        failure.handle(
+            context,
+            Intent(context, MmsReceiver::class.java)
+                .putExtra(MmsReceivedReceiver.EXTRA_FILE_PATH, File(context.cacheDir, "download.j28.dat").path)
+                .putExtra(MmsReceivedReceiver.EXTRA_LOCATION_URL, "http://mmsc.example.com/msg/j28")
+                .putExtra(MmsReceivedReceiver.EXTRA_URI, notice)
+                .putExtra(MmsReceivedReceiver.SUBSCRIPTION_ID, 1),
+        )
+
+        // J28-2: counted in its Spam chat, but the sent history is unreadable: Messages, unread, one ERROR row, and
+        // the count and mark the notice raised are released with its quiet notice.
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(store.rowThread[notice]).isEqualTo(12L)
+        assertThat(store.spamRows[12L]?.third).isEqualTo(0)
+        assertThat(store.marks[notice]).isNull()
+        assertThat(logged).containsExactly("ERROR/HISTORY_CHECK_FAILED")
+    }
+
+    @Test
     fun e22_onlyAnExplicitlyCountedNotice_lowersTheCountOfTheChatItLeaves_andItsMarkIsThenForgotten() {
         val provider = FakeMmsProvider.install()
         val counted = provider.addNotice(SENDER, threadId = 55L, read = true)
@@ -481,8 +551,10 @@ class MmsArrivalTest {
 
         handler.placeAndAnnounce(context, mms(12L, SENDER), SENDER)
 
-        assertThat(check.loudJudges).isEqualTo(1)
-        assertThat(check.quietJudges).isEqualTo(0)
+        // E-13: the placement writes the one row itself, after the rescue, so the judgement is always quiet.
+        assertThat(check.loudJudges).isEqualTo(0)
+        assertThat(check.quietJudges).isEqualTo(1)
+        assertThat(check.rows).containsExactly("BLOCK")
     }
 
     @Test

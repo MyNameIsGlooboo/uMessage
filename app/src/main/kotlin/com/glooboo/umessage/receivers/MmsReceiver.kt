@@ -33,12 +33,14 @@ import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.DecisionReason
 import com.glooboo.umessage.spam.HistoryCheck
 import com.glooboo.umessage.spam.IncomingMessage
+import com.glooboo.umessage.spam.data.ArrivalFacts
 import com.glooboo.umessage.spam.data.ForwardDelivery
 import com.glooboo.umessage.spam.engine.ForwardCandidate
 import com.glooboo.umessage.spam.engine.Judgement
 import com.glooboo.umessage.spam.engine.SpamEngine
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
 import com.glooboo.umessage.spam.mms.AndroidMmsSpamStore
+import com.glooboo.umessage.spam.mms.AppUnknownNotice
 import com.glooboo.umessage.spam.mms.IncomingMms
 import com.glooboo.umessage.spam.mms.MmsDecisions
 import com.glooboo.umessage.spam.mms.MmsPlace
@@ -187,7 +189,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
     @Volatile var noticeUri: Uri? = null
 
     /** Provider truth: the store and Spam table side of the placement. */
-    var incomingMms: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it)) }
+    var incomingMms: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it), AppUnknownNotice(it)) }
 
     /** Provider truth: the sender checks of one MMS ([AppSenderCheck]). */
     var senderCheck: (Context, IncomingMessage, Long) -> MmsSenderCheck = { c, m, t -> AppSenderCheck(c, m, t) }
@@ -302,9 +304,12 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
             recipients = recipientsOf(mms),
             check = unlogged ?: senderCheck(context, message, mms.threadId),
             noticeCounted = noticeCountedIn == mms.threadId,
+            body = mms.body,
         )
         unlogged?.flushUnless(sweepRowHolds(place, noticeCountedIn, mms.threadId))
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
+        // L1-1: a quiet notice the counted notice posted goes when this MMS ended outside that Spam chat.
+        placer.withdrawNotice(noticeCountedIn, mms.threadId, place)
         // The notice is gone (the library deleted it once the MMS was stored): its mark is not needed any more.
         noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markNotice(uri, null) } }
         when (place) {
@@ -417,9 +422,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
     private val held = mutableListOf<Triple<String, String, Long?>>()
 
-    /** As [MmsSenderCheck.judge] (facts first); the rows it would write are held. */
-    override fun judge(): Judgement? = check.judgeQuietly().also { hold(it) }
-
+    /** E-13: [IncomingMms.placeDownloaded] asks [MmsSenderCheck.judgeQuietly] and writes the rows through here. */
     override fun log(decision: String, reason: String, ruleId: Long?) {
         held += Triple(decision, reason, ruleId)
     }
@@ -429,24 +432,6 @@ private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by ch
         if (sweepRowHolds) return
         held.forEach { (decision, reason, ruleId) -> runCatching { check.log(decision, reason, ruleId) } }
         held.clear()
-    }
-
-    /** The rows [SpamEngine.judge] writes for [judgement]: a failed judge, a failed fact write, the verdict. */
-    private fun hold(judgement: Judgement?) {
-        if (judgement == null) {
-            held += Triple(IncomingMms.ERROR, FILTER_FAILED, null)
-            return
-        }
-        if (judgement.failOpen) held += Triple(IncomingMms.ERROR, "FACT_WRITE_FAILED", null)
-        when (val decision = judgement.decision()) {
-            is FilterDecision.Block -> held += Triple(IncomingMms.BLOCK, decision.reason.name, decision.ruleId)
-            is FilterDecision.Allow -> held += Triple(ALLOW, decision.reason.name, decision.ruleId)
-        }
-    }
-
-    private companion object {
-        const val ALLOW = "ALLOW"
-        const val FILTER_FAILED = "FILTER_FAILED"
     }
 }
 
@@ -486,6 +471,9 @@ internal class AppSenderCheck(
 
     /** J3-1: as [judge] (facts first), without the decision-log row. */
     override fun judgeQuietly(): Judgement? = SpamEngine.judge(context, message, "MMS_CONTENT", writeLog = false)
+
+    override fun wroteToOnArrival(judgement: Judgement): Judgement? =
+        ArrivalFacts.wroteToOnArrival(context, message.address, judgement)
 
     override fun historyChecked(): Boolean = HistoryCheck.onTheSpot(context, message.address, threadId)
 

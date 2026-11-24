@@ -61,6 +61,9 @@ class MmsSpamPushTest {
     private val loggedNotices = mutableListOf<SpamNotice>()
     private var startFails = false
 
+    /** L1-1: the opt-in notices posted for a Spam notice kept at save (chat, sender). */
+    private val unknownPosts = mutableListOf<Pair<Long, String>>()
+
     @Before
     fun setUp() {
         db = SpamTestWiring.freshSpamDatabase(app)
@@ -97,7 +100,7 @@ class MmsSpamPushTest {
         },
         onStartFailed = { _, _, _, spam -> startFailures++; startFailedWith = spam },
         tracker = MmsDownloadTracker(),
-        incoming = { IncomingMms(store) },
+        incoming = { IncomingMms(store, { thread, sender, _, _ -> unknownPosts += thread to sender }) },
         log = { _, spam, decision -> logged += decision; loggedNotices += spam },
         recheck = { _, spam -> recheck(spam) },
     )
@@ -258,6 +261,19 @@ class MmsSpamPushTest {
         receiver.process(app, push(data))
 
         assertThat(logged).containsExactly("BLOCK")
+    }
+
+    @Test
+    fun l11_anUnknownSendersNoticeKeptAtSave_postsOneOptInNotice_aBlockedOneNone() {
+        receiver().process(app, push(notice(SENDER, "T-1", "http://mmsc.example.com/msg/l11", size = TWO_MIB)))
+
+        assertThat(unknownPosts).containsExactly(store.threads.getValue(SENDER) to SENDER)
+
+        unknownPosts.clear()
+        recheck = { NoticeVerdict(SpamCause.BLOCKED, it.reason) }
+        receiver().process(app, push(notice(SENDER, "T-2", "http://mmsc.example.com/msg/l11b", size = TWO_MIB)))
+
+        assertThat(unknownPosts).isEmpty()
     }
 
     @Test

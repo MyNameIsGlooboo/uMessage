@@ -17,6 +17,7 @@ import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.spam.mms.NoticeMark
 import com.glooboo.umessage.spam.mms.NoticeRow
+import com.glooboo.umessage.spam.mms.UnknownNotice
 import com.glooboo.umessage.testing.FakeMmsProvider
 import com.glooboo.umessage.testing.FakeMmsSpamStore
 import com.glooboo.umessage.testing.FakeTelephonyProvider
@@ -54,6 +55,11 @@ class MmsDownloadFailureTest {
     private val logged = mutableListOf<String>()
     private var historyChecked = true
 
+    /** L1-2: the answer of the "user wrote to the sender" check: false (no), true (joined), null (unreadable). */
+    private var wrote: Boolean? = false
+    private val wroteAsked = mutableListOf<String>()
+    private val unknownNotices = mutableListOf<Pair<Long, String>>()
+
     /** The filter throws (the store and the rest still work), so a sweep's try fails. */
     private var probeFails = false
 
@@ -70,6 +76,13 @@ class MmsDownloadFailureTest {
         tracker = tracker,
         log = { _, _, decision, _, _ -> logged += decision },
         history = { _, _ -> historyChecked },
+        wroteTo = { _, sender ->
+            wroteAsked += sender
+            // The join makes the filter let the sender in on the next probe.
+            if (wrote == true) decision = FilterDecision.Allow(DecisionReason.GROUP_MEMBER)
+            wrote
+        },
+        unknownNotice = { UnknownNotice { thread, sender, _, _ -> unknownNotices += thread to sender } },
     )
 
     @Before
@@ -196,6 +209,58 @@ class MmsDownloadFailureTest {
         assertThat(store.spamRows).isEmpty()
         assertThat(store.rowSilent[notice]).isFalse()
         assertThat(notifications).isEqualTo(1)
+    }
+
+    @Test
+    fun l11_aFailedDownloadOfAnUnknownSender_keptInSpam_postsOneOptInNotice() {
+        failure.handle(context, result())
+
+        assertThat(unknownNotices).containsExactly(store.threads.getValue(SENDER) to SENDER)
+    }
+
+    @Test
+    fun l11_aFailedDownloadOfABlockedSender_postsNoOptInNotice() {
+        decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows).isNotEmpty()
+        assertThat(unknownNotices).isEmpty()
+    }
+
+    @Test
+    fun l12_aFailedDownloadOfAnUnknownSenderTheUserWroteTo_staysInMessages_unreadAndTold() {
+        wrote = true
+
+        failure.handle(context, result())
+
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(notifications).isEqualTo(1)
+        assertThat(unknownNotices).isEmpty()
+    }
+
+    @Test
+    fun l12_aFailedDownloadWhoseSentHistoryCannotBeRead_failsOpenToMessages() {
+        wrote = null
+
+        failure.handle(context, result())
+
+        assertThat(wroteAsked).containsExactly(SENDER)
+        assertThat(store.spamRows).isEmpty()
+        assertThat(store.rowSilent[notice]).isFalse()
+        assertThat(unknownNotices).isEmpty()
+    }
+
+    @Test
+    fun l12_aBlockedSender_isNeverRescued_andTheSentHistoryIsNotAsked() {
+        decision = FilterDecision.Block(DecisionReason.BLOCK_RULE, 3L)
+        wrote = true
+
+        failure.handle(context, result())
+
+        assertThat(wroteAsked).isEmpty()
+        assertThat(store.spamRows.values.single().second).isEqualTo(SpamCause.BLOCKED)
     }
 
     @Test
@@ -556,6 +621,8 @@ class MmsDownloadFailureTest {
             store = { store.also { if (inner++ == 0) failure.sweep(context, now) } },
             probe = { _, _ -> decision }, notify = {}, toast = {}, tracker = tracker, history = { _, _ -> true },
             log = { _, _, d, _, _ -> logged += d },
+            wroteTo = { _, _ -> false },
+            unknownNotice = { UnknownNotice { _, _, _, _ -> } },
         )
         store.notices[lost] = NoticeRow(FakeMmsSpamStore.NO_CHAT, SENDER)
 
