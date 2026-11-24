@@ -13,7 +13,7 @@ echo "1/4 contact number -> expect: inbox + notification"
 echo "2/4 unknown number -> expect: Blocked folder only"
 "$here/send-test-sms.sh" "$unknown" "Hello, I am a stranger writing to you."; sleep 2
 echo "3/4 OTP from alphanumeric id -> expect: Blocked (OTP exemption off) or inbox (on)"
-"$here/send-test-sms.sh" "VM-HDFCBK" "123456 is your OTP for login. Do not share it with anyone."; sleep 2
+"$here/send-test-sms.sh" "VM-MYBANK" "123456 is your OTP for login. Do not share it with anyone."; sleep 2
 echo "4/4 spam keyword -> expect: Blocked (add KEYWORD blacklist rule 'free prize' to test the rule path)"
 "$here/send-test-sms.sh" "5550177" "Congratulations! Claim your FREE PRIZE now: bit.ly/xyz"
 echo "Done."

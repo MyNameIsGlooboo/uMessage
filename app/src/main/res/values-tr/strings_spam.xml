@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Düzenli ifade</string>
     <string name="spam_type_keyword_help">Bu metni daha uzun bir kelimenin içinde bile içeren her mesaj: “kaz” kelimesi “kazanç” ile de eşleşir. Büyük ve küçük harf ayrımı yapılmaz. Gönderen de engellenir, ancak kişilerinizdeyse engellenmez.</string>
     <string name="spam_type_keyword_allow_help">Bu metni içeren bir mesaj, gönderenine izin verir: tüm sohbet Mesajlar\'a gider. Engellediğiniz bir gönderen engelli kalır. Uzun ve tam bir ifade kullanın.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">ücretsiz hediye</string>
     <string name="spam_type_regex_hint">kazan\\s+\\d+</string>
     <string name="spam_sheet_note_label">Not (isteğe bağlı)</string>

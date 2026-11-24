@@ -58,7 +58,7 @@ class SentHistoryCheckerTest {
     @Test fun senderIdsAndBlankAreNotFound() {
         FakeTelephonyProvider.install()
         val checker = SystemContactChecker(app, normalizer)
-        assertEquals(ContactLookup.NOT_FOUND, checker.sentTo("VM-HDFCBK"))
+        assertEquals(ContactLookup.NOT_FOUND, checker.sentTo("VM-MYBANK"))
         assertEquals(ContactLookup.NOT_FOUND, checker.sentTo(""))
     }
 

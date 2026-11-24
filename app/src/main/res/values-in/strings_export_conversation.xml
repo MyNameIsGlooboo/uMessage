@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">Menyiapkan file…</string>
     <string name="export_conv_nothing">Tidak ada pesan dalam rentang tersebut</string>
     <string name="export_conv_failed">File tidak dapat dibuat</string>
+    <string name="export_conv_stopped">Ekspor dihentikan</string>
     <string name="export_conv_subject">Ekspor percakapan</string>
     <string name="export_conv_share_text">Percakapan dengan %1$s, %2$s. SHA-256 teks pesan: %3$s</string>
     <string name="export_conv_attachment_label">[Lampiran]</string>

@@ -3,13 +3,13 @@
     <string name="digest_channel">ہفتہ وار خلاصہ</string>
     <string name="digest_title">ہفتہ وار خلاصہ</string>
     <string name="digest_row_title">ہفتہ وار خلاصہ</string>
-    <string name="digest_row_summary">ہفتے میں ایک بار: کتنے بلاک ہوئے</string>
+    <string name="digest_row_summary">ہفتے میں ایک بار: کتنے پیغامات اسپیم میں گئے</string>
     <plurals name="digest_held">
-        <item quantity="one">اس ہفتے %d پیغام روکا گیا۔ دیکھنے کے لیے ٹیپ کریں۔</item>
-        <item quantity="other">اس ہفتے %d پیغامات روکے گئے۔ دیکھنے کے لیے ٹیپ کریں۔</item>
+        <item quantity="one">اس ہفتے %d پیغام اسپیم میں گیا۔ دیکھنے کے لیے ٹیپ کریں۔</item>
+        <item quantity="other">اس ہفتے %d پیغامات اسپیم میں گئے۔ دیکھنے کے لیے ٹیپ کریں۔</item>
     </plurals>
     <plurals name="digest_held_important">
-        <item quantity="one">اس ہفتے %1$d پیغام روکا گیا۔ ان میں کوڈز یا بینک الرٹس: %2$d۔</item>
-        <item quantity="other">اس ہفتے %1$d پیغامات روکے گئے۔ ان میں کوڈز یا بینک الرٹس: %2$d۔</item>
+        <item quantity="one">اس ہفتے %1$d پیغام اسپیم میں گیا۔ ان میں کوڈ یا بینک الرٹ: %2$d۔</item>
+        <item quantity="other">اس ہفتے %1$d پیغامات اسپیم میں گئے۔ ان میں کوڈ یا بینک الرٹ: %2$d۔</item>
     </plurals>
 </resources>

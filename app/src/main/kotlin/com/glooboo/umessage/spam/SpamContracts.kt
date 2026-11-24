@@ -23,7 +23,7 @@ enum class RuleType {
     /** Normalized number starts with pattern. */
     PREFIX,
 
-    /** Alphanumeric sender id, e.g. "VM-HDFCBK", case-insensitive exact match. */
+    /** Alphanumeric sender id, e.g. "VM-MYBANK", case-insensitive exact match. */
     SENDER_ID,
 
     /** Case-insensitive substring of the message body. */

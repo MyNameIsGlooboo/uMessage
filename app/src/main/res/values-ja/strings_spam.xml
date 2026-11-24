@@ -50,7 +50,7 @@
     <string name="spam_type_regex">パターン（正規表現）</string>
     <string name="spam_type_keyword_help">この文字列を含むメッセージが対象です。単語の一部でも一致するため、「win」は「window」にも一致します。大文字と小文字は区別しません。送信者もブロックされます。連絡先に入っている場合は除きます。</string>
     <string name="spam_type_keyword_allow_help">この語句を含むメッセージが届くと、その送信者が許可され、会話がまるごと「メッセージ」に移動します。ブロックした送信者はブロックされたままです。長く正確な語句を使ってください。</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">無料プレゼント</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">メモ（任意）</string>

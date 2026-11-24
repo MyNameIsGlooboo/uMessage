@@ -15,7 +15,7 @@ class RuleTextCodecTest {
         // SU-11: a SIM 2 block used to come back as a block on both SIMs, and notes were lost.
         val rules = listOf(
             SpamRule(kind = ListKind.BLOCK, type = RuleType.NUMBER, pattern = "+44712", subscriptionId = 2, note = "Telemarketer, again"),
-            SpamRule(kind = ListKind.ALLOW, type = RuleType.SENDER_ID, pattern = "VM-HDFCBK", note = "My bank"),
+            SpamRule(kind = ListKind.ALLOW, type = RuleType.SENDER_ID, pattern = "VM-MYBANK", note = "My bank"),
             SpamRule(kind = ListKind.BLOCK, type = RuleType.REGEX, pattern = "win,\\s+\\d+\tnow"),
         )
         val decoded = RuleTextCodec.decode(RuleTextCodec.encode(rules))

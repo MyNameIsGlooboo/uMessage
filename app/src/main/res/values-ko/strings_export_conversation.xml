@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">파일을 준비하고 있어요.</string>
     <string name="export_conv_nothing">해당 기간에 메시지가 없어요.</string>
     <string name="export_conv_failed">파일을 만들지 못했어요.</string>
+    <string name="export_conv_stopped">내보내기가 중단되었어요</string>
     <string name="export_conv_subject">내보낸 대화</string>
     <string name="export_conv_share_text">대화 상대: %1$s, %2$s. 메시지 본문의 SHA-256: %3$s</string>
     <string name="export_conv_attachment_label">[첨부파일]</string>

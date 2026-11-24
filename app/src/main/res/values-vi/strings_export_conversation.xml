@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">Đang chuẩn bị tệp…</string>
     <string name="export_conv_nothing">Không có tin nhắn trong khoảng thời gian này</string>
     <string name="export_conv_failed">Không thể tạo tệp</string>
+    <string name="export_conv_stopped">Đã dừng xuất</string>
     <string name="export_conv_subject">Bản xuất cuộc trò chuyện</string>
     <string name="export_conv_share_text">Cuộc trò chuyện với %1$s, %2$s. SHA-256 của nội dung tin nhắn: %3$s</string>
     <string name="export_conv_attachment_label">[Tệp đính kèm]</string>

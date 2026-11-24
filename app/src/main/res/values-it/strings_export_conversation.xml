@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">Preparazione del file…</string>
     <string name="export_conv_nothing">Nessun messaggio in questo intervallo</string>
     <string name="export_conv_failed">Impossibile creare il file</string>
+    <string name="export_conv_stopped">Esportazione interrotta</string>
     <string name="export_conv_subject">Esportazione della conversazione</string>
     <string name="export_conv_share_text">Conversazione con %1$s, %2$s. SHA-256 del testo dei messaggi: %3$s</string>
     <string name="export_conv_attachment_label">[Allegato]</string>

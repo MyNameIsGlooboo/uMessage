@@ -50,7 +50,7 @@
     <string name="spam_type_regex">正则表达式</string>
     <string name="spam_type_keyword_help">所有包含此文本的消息，即使文本只是较长单词的一部分：“win”也会匹配“window”。不区分大小写。发送者也会被屏蔽，通讯录中的联系人除外。</string>
     <string name="spam_type_keyword_allow_help">包含此文字的短信会允许其发件人：整个会话进入“消息”。你屏蔽的发件人仍保持屏蔽。请使用较长且准确的词句。</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">免费礼品</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">备注（选填）</string>

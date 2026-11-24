@@ -24,7 +24,7 @@
     <string name="w3c_text_default">默认</string>
     <string name="w3c_text_large">大</string>
     <string name="w3c_text_largest">最大</string>
-    <string name="w3c_text_size_sample">示例：你的验证码是482913。⁧نمونه: کد شما ۴۸۲۹۱۳ است.⁩</string>
+    <string name="w3c_text_size_sample">示例：你的验证码是482913。</string>
     <string name="w3c_backup_failed">无法保存备份</string>
     <string name="w3c_restore_failed">无法从此文件恢复，请选择uMessage设置备份。</string>
 </resources>

@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">फ़ाइल तैयार हो रही है…</string>
     <string name="export_conv_nothing">इस अवधि में कोई मैसेज नहीं है</string>
     <string name="export_conv_failed">फ़ाइल नहीं बन सकी</string>
+    <string name="export_conv_stopped">एक्सपोर्ट रुक गया</string>
     <string name="export_conv_subject">बातचीत का एक्सपोर्ट</string>
     <string name="export_conv_share_text">%1$s के साथ बातचीत, %2$s. मैसेज के टेक्स्ट का SHA-256: %3$s</string>
     <string name="export_conv_attachment_label">[अटैचमेंट]</string>

@@ -82,6 +82,6 @@ class SystemContactCheckerTest {
 
     @Test fun senderIdsAreNeverContacts() {
         val checker = SystemContactChecker(app, normalizer)
-        assertEquals(ContactLookup.NOT_FOUND, checker.lookup("VM-HDFCBK"))
+        assertEquals(ContactLookup.NOT_FOUND, checker.lookup("VM-MYBANK"))
     }
 }

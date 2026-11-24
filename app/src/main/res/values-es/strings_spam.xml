@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Patrón (expresión regular)</string>
     <string name="spam_type_keyword_help">Cualquier mensaje que contenga este texto, incluso dentro de una palabra más larga: «gana» también coincide con «ganador». No distingue entre mayúsculas y minúsculas. El remitente también se bloquea, salvo que esté en tus contactos.</string>
     <string name="spam_type_keyword_allow_help">Un mensaje que contiene este texto permite a su remitente: todo el chat va a Mensajes. Un remitente que bloqueaste sigue bloqueado. Usa una frase larga y exacta.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">regalo gratis</string>
     <string name="spam_type_regex_hint">gana\\s+\\d+</string>
     <string name="spam_sheet_note_label">Nota (opcional)</string>

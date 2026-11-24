@@ -6,10 +6,10 @@
         <item quantity="one">कुल %d रोका गया</item>
         <item quantity="other">कुल %d रोके गए</item>
     </plurals>
-    <string name="e_restored_title">हाल में वापस लाए गए</string>
-    <string name="e_restored_body">पिछले 30 दिनों में आपके इनबॉक्स में लाए गए मैसेज. बातचीत खोलने के लिए किसी मैसेज पर टैप करें.</string>
-    <string name="e_restored_empty">अब से आप जिन मैसेज को इनबॉक्स में लाएंगे, वे यहां 30 दिनों तक दिखेंगे.</string>
-    <string name="e_restored_when">%1$s को इनबॉक्स में लाया गया</string>
+    <string name="e_restored_title">हाल में वापस भेजे गए</string>
+    <string name="e_restored_body">पिछले 30 दिनों में आपने जो मैसेज स्पैम से मैसेज में वापस भेजे. बातचीत खोलने के लिए किसी एक पर टैप करें.</string>
+    <string name="e_restored_empty">अब से आप जो मैसेज स्पैम से मैसेज में वापस भेजेंगे, वे 30 दिन तक यहां दिखेंगे.</string>
+    <string name="e_restored_when">मैसेज में वापस भेजा गया %1$s</string>
     <string name="e_restored_open">%1$s के साथ बातचीत खोलें</string>
     <string name="e_view_rule">नियम देखें</string>
     <string name="e_rules_title">नियम</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">ब्लॉक किए गए शब्दों की पुरानी सूची से</string>
     <string name="e_note_system_list">Android की ब्लॉक सूची से</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">لغو۱۱ वाले मैसेज ब्लॉक करें</string>
-    <string name="e_example_block_ad_prefix">3000 से शुरू होने वाले विज्ञापन नंबर ब्लॉक करें</string>
+    <string name="e_example_block_cancel_word">%1$s वाले मैसेज ब्लॉक करें</string>
+    <string name="e_example_block_ad_prefix">%1$s से शुरू होने वाले विज्ञापन नंबर ब्लॉक करें</string>
     <string name="e_example_allow_number">किसी नंबर को हमेशा अनुमति दें, जैसे आपके डाकघर का नंबर</string>
     <string name="e_sheet_sender_label">भेजने वाला</string>
     <string name="e_sheet_text_label">मैसेज का टेक्स्ट</string>

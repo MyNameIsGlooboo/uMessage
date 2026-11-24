@@ -164,13 +164,13 @@ object SampleData {
         BlockedMessage(1, "+14155550133", "You have won a free gift card! Claim now at example.test/claim", 1, false, now - 2 * HOUR, DecisionReason.UNKNOWN_SENDER),
         BlockedMessage(2, "+14155550133", "Last chance: your reward expires tonight.", 1, false, now - 5 * HOUR, DecisionReason.UNKNOWN_SENDER),
         BlockedMessage(3, "+14155550133", "Congratulations, you are selected.", 1, false, now - 1 * DAY, DecisionReason.UNKNOWN_SENDER),
-        BlockedMessage(4, "VM-HDFCBK", "123456 is your one time password. Do not share it with anyone.", 2, false, now - 3 * HOUR, DecisionReason.UNKNOWN_SENDER),
+        BlockedMessage(4, "VM-MYBANK", "123456 is your one time password. Do not share it with anyone.", 2, false, now - 3 * HOUR, DecisionReason.UNKNOWN_SENDER),
         BlockedMessage(5, "AX-PROMOS", "Flat 70% off today only. Shop now.", 2, false, now - 2 * DAY, DecisionReason.BLOCK_RULE, 7),
         BlockedMessage(6, "+919876543210", "Your parcel is held, pay a fee at example.test/pay", 1, false, now - 9 * DAY, DecisionReason.BLOCK_RULE, 8),
     )
 
     fun rules(): List<SpamRule> = listOf(
-        SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "VM-HDFCBK", null, "My bank"),
+        SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "VM-MYBANK", null, "My bank"),
         SpamRule(2, ListKind.ALLOW, RuleType.NUMBER, "+14155550100", 1, ""),
         SpamRule(3, ListKind.ALLOW, RuleType.KEYWORD, "delivery code", null, ""),
         SpamRule(7, ListKind.BLOCK, RuleType.SENDER_ID, "AX-PROMOS", null, "Promotions"),

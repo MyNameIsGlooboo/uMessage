@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">جارٍ إعداد الملف…</string>
     <string name="export_conv_nothing">لا توجد رسائل في هذه الفترة</string>
     <string name="export_conv_failed">تعذّر إنشاء الملف</string>
+    <string name="export_conv_stopped">تم إيقاف التصدير</string>
     <string name="export_conv_subject">تصدير المحادثة</string>
     <string name="export_conv_share_text">محادثة مع %1$s، %2$s. بصمة SHA-256 لنص الرسائل: %3$s</string>
     <string name="export_conv_attachment_label">[مرفق]</string>

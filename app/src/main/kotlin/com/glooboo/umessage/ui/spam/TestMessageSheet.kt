@@ -52,6 +52,7 @@ import com.glooboo.umessage.spam.RuleType
 import com.glooboo.umessage.spam.SpamRule
 import com.glooboo.umessage.spam.SpamSettings
 import com.glooboo.umessage.spam.UMessage
+import com.glooboo.umessage.ui.components.isolateExamples
 import com.glooboo.umessage.ui.components.ruleValueText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -209,7 +210,7 @@ fun TestMessageSheet(
                 onValueChange = { sender = it.take(MAX_SENDER); outcome = null; failed = false },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.w3b_test_sender)) },
-                placeholder = { Text(stringResource(R.string.w3b_test_sender_hint)) },
+                placeholder = { Text(isolateExamples(stringResource(R.string.w3b_test_sender_hint))) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,

@@ -50,7 +50,7 @@
     <string name="spam_type_regex">模式</string>
     <string name="spam_type_keyword_help">任何含有這段文字的訊息，即使文字位於較長的字詞中也算：「win」也會比對到「window」。不區分大小寫。寄件者也會被封鎖，除非對方在你的聯絡人中。</string>
     <string name="spam_type_keyword_allow_help">含有這段文字的簡訊會允許其寄件者：整個對話會移至「訊息」。你封鎖的寄件者仍會保持封鎖。請使用較長且精確的詞句。</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">免費禮物</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">備註（選填）</string>

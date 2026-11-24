@@ -6,10 +6,10 @@
         <item quantity="one">%d fermato in totale</item>
         <item quantity="other">%d fermati in totale</item>
     </plurals>
-    <string name="e_restored_title">Ripristinati di recente</string>
-    <string name="e_restored_body">Messaggi che hai spostato in In arrivo negli ultimi 30 giorni. Toccane uno per aprire la conversazione.</string>
-    <string name="e_restored_empty">I messaggi che sposti in In arrivo da ora in poi restano in questo elenco per 30 giorni.</string>
-    <string name="e_restored_when">Spostato in In arrivo %1$s</string>
+    <string name="e_restored_title">Rimessi di recente</string>
+    <string name="e_restored_body">Messaggi che hai spostato da Spam a Messaggi negli ultimi 30 giorni. Tocca un messaggio per aprire la conversazione.</string>
+    <string name="e_restored_empty">I messaggi che sposti da Spam a Messaggi da ora in poi compaiono qui per 30 giorni.</string>
+    <string name="e_restored_when">Rimesso in Messaggi %1$s</string>
     <string name="e_restored_open">Apri la conversazione con %1$s</string>
     <string name="e_view_rule">Vedi regola</string>
     <string name="e_rules_title">Regole</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">Dal vecchio elenco di parole bloccate</string>
     <string name="e_note_system_list">Dai mittenti bloccati di Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Blocca i messaggi che contengono لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Blocca i numeri pubblicitari che iniziano con 3000</string>
+    <string name="e_example_block_cancel_word">Blocca i messaggi che contengono %1$s</string>
+    <string name="e_example_block_ad_prefix">Blocca i numeri pubblicitari che iniziano con %1$s</string>
     <string name="e_example_allow_number">Consenti sempre un numero, come quello del tuo ufficio postale</string>
     <string name="e_sheet_sender_label">Mittente</string>
     <string name="e_sheet_text_label">Testo del messaggio</string>

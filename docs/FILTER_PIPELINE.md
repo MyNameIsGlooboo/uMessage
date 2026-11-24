@@ -171,7 +171,7 @@ from a file. Old `DecisionReason` names stay readable in old log lines.
 |---|---|
 | NUMBER | Exact number after normalization (stored as E.164 when possible) |
 | PREFIX | Normalized number starts with the pattern |
-| SENDER_ID | Alphanumeric sender, case-insensitive exact (e.g. `VM-HDFCBK`); without an operator prefix it matches any (`HDFCBK` matches `AD-HDFCBK`) |
+| SENDER_ID | Alphanumeric sender, case-insensitive exact (e.g. `VM-MYBANK`); without an operator prefix it matches any (`MYBANK` matches `AD-MYBANK`) |
 | KEYWORD | Case-insensitive substring of the body; it also matches inside longer words (`win` matches "window") |
 | REGEX | Java regex (case-insensitive, multiline) against the first 2,000 characters of the body |
 | DOMAIN | A link in the body whose host is that domain or one of its subdomains |
@@ -257,7 +257,7 @@ import accepts only phone numbers and `*` wildcards with digits.
 
 ## Edge cases
 
-- **Bank, code and delivery texts** come from non-contacts (`VM-HDFCBK`, short codes). A verification code puts the
+- **Bank, code and delivery texts** come from non-contacts (`VM-MYBANK`, short codes). A verification code puts the
   sender in the code group, so its later texts arrive in Messages. Other senders reach Messages with "Not spam".
 - **Reversible:** "Not spam" on an unknown sender adds an allow rule the user made and moves the chat to Messages,
   with Undo. On a sender name, which anyone can fake, it asks once first. "Unblock" on a blocked sender removes the

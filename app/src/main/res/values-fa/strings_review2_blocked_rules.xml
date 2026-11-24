@@ -6,11 +6,11 @@
         <item quantity="one">در مجموع %d پیام بلاک‌شده</item>
         <item quantity="other">در مجموع %d پیام بلاک‌شده</item>
     </plurals>
-    <string name="e_restored_title">بازیابی‌شده‌های اخیر</string>
-    <string name="e_restored_body">پیام‌هایی که در ۳۰ روز گذشته به صندوق ورودی برگردانده‌اید. برای باز کردن گفتگو، روی یکی بزنید.</string>
+    <string name="e_restored_title">برگردانده‌شده‌های اخیر</string>
+    <string name="e_restored_body">پیام‌هایی که در ۳۰ روز گذشته از اسپم به پیام‌ها برگردانده‌اید. برای باز کردن گفتگو روی یکی بزنید.</string>
     <string name="e_restored_clear">پاک کردن لیست</string>
-    <string name="e_restored_empty">پیام‌هایی که از این پس به صندوق ورودی برگردانید، به‌مدت ۳۰ روز اینجا لیست می‌شوند.</string>
-    <string name="e_restored_when">بردن به صندوق ورودی در %1$s</string>
+    <string name="e_restored_empty">پیام‌هایی که از این به بعد از اسپم به پیام‌ها برگردانید، تا ۳۰ روز اینجا توی لیست می‌مانند.</string>
+    <string name="e_restored_when">برگشت به پیام‌ها در %1$s</string>
     <string name="e_restored_open">باز کردن گفتگو با %1$s</string>
     <string name="e_view_rule">مشاهدهٔ قانون</string>
     <string name="e_rules_title">قانون‌ها</string>
@@ -24,8 +24,8 @@
     <string name="e_note_old_word_list">از لیست قدیمی کلمه‌های بلاک‌شده</string>
     <string name="e_note_system_list">از لیست بلاک Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">بلاک کردن پیام‌های دارای لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">بلاک کردن شماره‌های تبلیغاتی با پیش‌شمارهٔ 3000</string>
+    <string name="e_example_block_cancel_word">بلاک کردن پیام‌های دارای %1$s</string>
+    <string name="e_example_block_ad_prefix">بلاک کردن شماره‌های تبلیغاتی با پیش‌شمارهٔ %1$s</string>
     <string name="e_example_allow_number">اجازه دادن همیشگی به یک شماره، مثل ادارهٔ پست</string>
     <string name="e_sheet_sender_label">فرستنده</string>
     <string name="e_sheet_text_label">متن پیام</string>

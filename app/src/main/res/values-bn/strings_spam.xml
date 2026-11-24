@@ -54,7 +54,7 @@
     <string name="spam_type_regex">প্যাটার্ন (রেগেক্স)</string>
     <string name="spam_type_keyword_help">এই লেখা আছে এমন যেকোনো বার্তা, বড় শব্দের মধ্যে থাকলেও: “win” দিলে “window”-ও মিলে যাবে। বড় ও ছোট হাতের অক্ষরে পার্থক্য করা হয় না। প্রেরকও ব্লক হয়, তবে তিনি আপনার কন্টাক্টে থাকলে নয়।</string>
     <string name="spam_type_keyword_allow_help">যে বার্তায় এই লেখা থাকে, সেটি তার প্রেরককে অনুমতি দেয়: পুরো চ্যাট বার্তা ট্যাবে যায়। আপনার ব্লক করা প্রেরক ব্লকই থাকে। একটি লম্বা, হুবহু বাক্যাংশ ব্যবহার করুন।</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">বিনামূল্যে উপহার</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">নোট (ঐচ্ছিক)</string>

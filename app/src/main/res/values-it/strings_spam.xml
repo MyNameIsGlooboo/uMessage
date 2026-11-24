@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Espressione regolare</string>
     <string name="spam_type_keyword_help">Qualsiasi messaggio che contiene questo testo, anche in una parola più lunga: “vinci” trova anche “provincia”. Maiuscole e minuscole non contano. Anche il mittente viene bloccato, a meno che non sia nei tuoi contatti.</string>
     <string name="spam_type_keyword_allow_help">Un messaggio che contiene questo testo consente il suo mittente: tutta la chat va in Messaggi. Un mittente che hai bloccato resta bloccato. Usa una frase lunga ed esatta.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">regalo gratis</string>
     <string name="spam_type_regex_hint">vinci\\s+\\d+</string>
     <string name="spam_sheet_note_label">Nota (facoltativa)</string>

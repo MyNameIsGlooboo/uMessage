@@ -3,13 +3,13 @@
     <string name="digest_channel">Resumo semanal</string>
     <string name="digest_title">Resumo semanal</string>
     <string name="digest_row_title">Resumo semanal</string>
-    <string name="digest_row_summary">Uma vez por semana: quantas mensagens foram bloqueadas</string>
+    <string name="digest_row_summary">Uma vez por semana: quantas mensagens foram para Spam</string>
     <plurals name="digest_held" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%d mensagem retida nesta semana. Toque para revisar.</item>
-        <item quantity="other">%d mensagens retidas nesta semana. Toque para revisar.</item>
+        <item quantity="one">%d mensagem foi para Spam nesta semana. Toque para revisar.</item>
+        <item quantity="other">%d mensagens foram para Spam nesta semana. Toque para revisar.</item>
     </plurals>
     <plurals name="digest_held_important" tools:ignore="ImpliedQuantity">
-        <item quantity="one">%1$d mensagem retida nesta semana. Com códigos ou alertas bancários: %2$d.</item>
-        <item quantity="other">%1$d mensagens retidas nesta semana. Com códigos ou alertas bancários: %2$d.</item>
+        <item quantity="one">%1$d mensagem foi para Spam nesta semana. Com códigos ou alertas do banco: %2$d.</item>
+        <item quantity="other">%1$d mensagens foram para Spam nesta semana. Com códigos ou alertas do banco: %2$d.</item>
     </plurals>
 </resources>

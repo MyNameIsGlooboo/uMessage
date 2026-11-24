@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">इससे शुरू होने वाला हर नंबर, जैसे +1555 या 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">मैसेज भेजने वाले का नाम, जैसे VM-HDFCBK या MYBANK. बड़े या छोटे अंग्रेज़ी अक्षरों से फ़र्क नहीं पड़ता.</string>
+    <string name="rules2_type_sender_id_help">मैसेज भेजने वाले का नाम, जैसे VM-MYBANK या MYSHOP. बड़े या छोटे अंग्रेज़ी अक्षरों से फ़र्क नहीं पड़ता.</string>
     <string name="rules2_type_regex_help">उन्नत. मैसेज के टेक्स्ट से मिलान करने वाला पैटर्न (रेगुलर एक्सप्रेशन). सेव करने से पहले इसे नीचे जांचें.</string>
     <string name="rules2_err_sender_id">अक्षर, अंक, स्पेस, बिंदु, डैश या &amp; इस्तेमाल करें (अधिकतम 32 अक्षर, कम से कम एक वर्ण)</string>
     <string name="rules2_err_sender_id_char">भेजने वाले के नाम में “%1$s” इस्तेमाल नहीं कर सकते. अक्षर, अंक, स्पेस, बिंदु, डैश या &amp; इस्तेमाल करें.</string>

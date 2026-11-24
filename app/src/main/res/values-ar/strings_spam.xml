@@ -70,7 +70,7 @@
     <string name="spam_type_regex">تعبير نمطي</string>
     <string name="spam_type_keyword_help">أي رسالة تحتوي على هذا النص، حتى ضمن كلمة أطول: «ربح» تطابق «مربح» أيضًا. لا فرق بين الأحرف الكبيرة والصغيرة. يُحظر المرسل أيضًا، إلا إذا كان في جهات اتصالك.</string>
     <string name="spam_type_keyword_allow_help">الرسالة التي تحتوي على هذا النص تسمح لمرسلها: تنتقل المحادثة كلها إلى «الرسائل». ويبقى المرسل الذي حظرته محظورًا. استخدم عبارة طويلة ودقيقة.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">هدية مجانية</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">ملاحظة (اختياري)</string>

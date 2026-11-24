@@ -10,10 +10,10 @@
         <item quantity="many">تم إيقاف %d رسالة إجمالًا</item>
         <item quantity="other">تم إيقاف %d رسالة إجمالًا</item>
     </plurals>
-    <string name="e_restored_title">المستعادة مؤخرًا</string>
-    <string name="e_restored_body">الرسائل التي نقلتها إلى الرسائل الواردة خلال آخر 30 يومًا. اضغط على إحداها لفتح المحادثة.</string>
-    <string name="e_restored_empty">الرسائل التي تنقلها إلى الرسائل الواردة من الآن ستظهر هنا لمدة 30 يومًا.</string>
-    <string name="e_restored_when">نُقلت إلى الرسائل الواردة %1$s</string>
+    <string name="e_restored_title">أُعيدت مؤخرًا</string>
+    <string name="e_restored_body">رسائل نقلتَها من «غير المرغوب فيها» إلى «الرسائل» خلال آخر 30 يومًا. اضغط على إحداها لفتح المحادثة.</string>
+    <string name="e_restored_empty">الرسائل التي تنقلها من «غير المرغوب فيها» إلى «الرسائل» من الآن تظهر هنا لمدة 30 يومًا.</string>
+    <string name="e_restored_when">نُقلت إلى «الرسائل» %1$s</string>
     <string name="e_restored_open">افتح المحادثة مع %1$s</string>
     <string name="e_view_rule">اعرض القاعدة</string>
     <string name="e_rules_title">القواعد</string>
@@ -27,8 +27,8 @@
     <string name="e_note_old_word_list">من قائمة الكلمات المحظورة القديمة</string>
     <string name="e_note_system_list">من قائمة الحظر في Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">احظر الرسائل التي تحتوي على لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">احظر أرقام الإعلانات التي تبدأ بـ 3000</string>
+    <string name="e_example_block_cancel_word">احظر الرسائل التي تحتوي على %1$s</string>
+    <string name="e_example_block_ad_prefix">احظر أرقام الإعلانات التي تبدأ بـ %1$s</string>
     <string name="e_example_allow_number">اسمح دائمًا برقم، مثل رقم مكتب البريد</string>
     <string name="e_sheet_sender_label">المرسل</string>
     <string name="e_sheet_text_label">نص الرسالة</string>

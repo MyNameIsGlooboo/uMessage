@@ -5,10 +5,10 @@
     <plurals name="e_blocked_stats_total">
         <item quantity="other">合計%d件をブロック</item>
     </plurals>
-    <string name="e_restored_title">最近復元したメッセージ</string>
-    <string name="e_restored_body">過去30日間に受信トレイに移したメッセージです。タップすると会話が開きます。</string>
-    <string name="e_restored_empty">今後、受信トレイに移したメッセージがここに30日間表示されます。</string>
-    <string name="e_restored_when">受信トレイへの移動日時：%1$s</string>
+    <string name="e_restored_title">最近戻したもの</string>
+    <string name="e_restored_body">過去30日間に「迷惑メッセージ」から「メッセージ」に戻したメッセージです。タップすると会話を開きます。</string>
+    <string name="e_restored_empty">今後「迷惑メッセージ」から「メッセージ」に戻したメッセージは、30日間ここに表示されます。</string>
+    <string name="e_restored_when">「メッセージ」に戻した日時: %1$s</string>
     <string name="e_restored_open">%1$sとの会話を開く</string>
     <string name="e_view_rule">ルールを表示</string>
     <string name="e_rules_title">ルール</string>
@@ -22,8 +22,8 @@
     <string name="e_note_old_word_list">旧ブロック単語リストから移行</string>
     <string name="e_note_system_list">Androidのブロックリストから移行</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">لغو۱۱を含むメッセージをブロック</string>
-    <string name="e_example_block_ad_prefix">3000で始まる広告の番号をブロック</string>
+    <string name="e_example_block_cancel_word">%1$sを含むメッセージをブロック</string>
+    <string name="e_example_block_ad_prefix">%1$sで始まる広告の番号をブロック</string>
     <string name="e_example_allow_number">郵便局などの番号を常に許可</string>
     <string name="e_sheet_sender_label">送信者</string>
     <string name="e_sheet_text_label">メッセージ本文</string>

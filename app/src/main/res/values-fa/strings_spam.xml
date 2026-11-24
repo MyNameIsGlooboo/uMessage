@@ -54,7 +54,7 @@
     <string name="spam_type_regex">الگو</string>
     <string name="spam_type_keyword_help">هر پیامی که این متن را داشته باشد، حتی درون یک کلمهٔ بلندتر: «win» با «window» هم جور درمی‌آید. بزرگی و کوچکی حروف مهم نیست. فرستنده هم بلاک می‌شود، مگر در مخاطب‌های شما باشد.</string>
     <string name="spam_type_keyword_allow_help">پیامی که این متن را داشته باشد فرستنده‌اش را مجاز می‌کند: کل گفتگو به پیام‌ها می‌رود. فرستنده‌ای که بلاک کرده‌اید بلاک می‌ماند. از عبارتی بلند و دقیق استفاده کنید.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">هدیهٔ رایگان</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">یادداشت (اختیاری)</string>

@@ -5,10 +5,10 @@
     <plurals name="e_blocked_stats_total">
         <item quantity="other">Total %d dihentikan</item>
     </plurals>
-    <string name="e_restored_title">Baru dipulihkan</string>
-    <string name="e_restored_body">Pesan yang Anda pindahkan ke kotak masuk dalam 30 hari terakhir. Ketuk pesan untuk membuka percakapan.</string>
-    <string name="e_restored_empty">Pesan yang Anda pindahkan ke kotak masuk mulai sekarang akan tercantum di sini selama 30 hari.</string>
-    <string name="e_restored_when">Dipindahkan ke kotak masuk %1$s</string>
+    <string name="e_restored_title">Baru dikembalikan</string>
+    <string name="e_restored_body">Pesan yang Anda pindahkan dari Spam ke Pesan dalam 30 hari terakhir. Ketuk salah satu untuk membuka percakapan.</string>
+    <string name="e_restored_empty">Pesan yang Anda pindahkan dari Spam ke Pesan mulai sekarang tercantum di sini selama 30 hari.</string>
+    <string name="e_restored_when">Dikembalikan ke Pesan %1$s</string>
     <string name="e_restored_open">Buka percakapan dengan %1$s</string>
     <string name="e_view_rule">Lihat aturan</string>
     <string name="e_rules_title">Aturan</string>
@@ -22,8 +22,8 @@
     <string name="e_note_old_word_list">Dari daftar kata yang diblokir versi lama</string>
     <string name="e_note_system_list">Dari daftar blokir Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Blokir pesan yang berisi لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Blokir nomor iklan yang diawali 3000</string>
+    <string name="e_example_block_cancel_word">Blokir pesan yang berisi %1$s</string>
+    <string name="e_example_block_ad_prefix">Blokir nomor iklan yang diawali %1$s</string>
     <string name="e_example_allow_number">Selalu izinkan nomor, misalnya kantor pos Anda</string>
     <string name="e_sheet_sender_label">Pengirim</string>
     <string name="e_sheet_text_label">Teks pesan</string>

@@ -22,7 +22,7 @@ class NumberNormalizerTest {
 
     @Test fun plusIgnoresRegion() = assertEquals("+14155552671", india.normalize("+1 415-555-2671"))
 
-    @Test fun alphanumericSenderIsUpperCased() = assertEquals("VM-HDFCBK", india.normalize(" vm-hdfcbk "))
+    @Test fun alphanumericSenderIsUpperCased() = assertEquals("VM-MYBANK", india.normalize(" vm-mybank "))
 
     @Test fun shortCodeKept() = assertEquals("56161", india.normalize("56161"))
 

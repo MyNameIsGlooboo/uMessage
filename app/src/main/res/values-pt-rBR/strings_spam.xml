@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Padrão (expressão regular)</string>
     <string name="spam_type_keyword_help">Qualquer mensagem que contenha este texto, mesmo dentro de uma palavra maior: “casa” também encontra “casamento”. Maiúsculas e minúsculas não fazem diferença. O remetente também é bloqueado, a menos que esteja nos seus contatos.</string>
     <string name="spam_type_keyword_allow_help">Uma mensagem que contém este texto permite o remetente dela: a conversa inteira vai para Mensagens. Um remetente que você bloqueou continua bloqueado. Use uma frase longa e exata.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">brinde grátis</string>
     <string name="spam_type_regex_hint">ganhe\\s+\\d+</string>
     <string name="spam_sheet_note_label">Observação (opcional)</string>

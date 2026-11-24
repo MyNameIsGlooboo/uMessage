@@ -62,7 +62,7 @@
     <string name="spam_type_regex">Wzorzec (regex)</string>
     <string name="spam_type_keyword_help">Każda wiadomość zawierająca ten tekst, także w dłuższym słowie: „gra” pasuje też do „wygrana”. Wielkość liter nie ma znaczenia. Nadawca również jest blokowany, chyba że jest w Twoich kontaktach.</string>
     <string name="spam_type_keyword_allow_help">Wiadomość, która zawiera ten tekst, dopuszcza swojego nadawcę: cały czat trafia do folderu Wiadomości. Nadawca zablokowany przez ciebie zostaje zablokowany. Użyj długiej, dokładnej frazy.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">darmowy prezent</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Notatka (opcjonalnie)</string>

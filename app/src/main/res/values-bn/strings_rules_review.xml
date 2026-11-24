@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">এটি দিয়ে শুরু হওয়া সব নম্বর, যেমন +1555 বা 0555।</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">নাম দিয়ে চেনা প্রেরক, যেমন VM-HDFCBK বা MYBANK। বড় ও ছোট হাতের অক্ষরে পার্থক্য হয় না।</string>
+    <string name="rules2_type_sender_id_help">নাম দিয়ে চেনা প্রেরক, যেমন VM-MYBANK বা MYSHOP। বড় ও ছোট হাতের অক্ষরে পার্থক্য হয় না।</string>
     <string name="rules2_type_regex_help">অভিজ্ঞদের জন্য। বার্তার লেখার সঙ্গে মিলিয়ে দেখা হয় এমন রেগুলার এক্সপ্রেশন। সেভ করার আগে নিচে পরীক্ষা করুন।</string>
     <string name="rules2_err_sender_id">অক্ষর, অঙ্ক, স্পেস, ডট, ড্যাশ বা &amp; ব্যবহার করুন (সর্বোচ্চ 32 অক্ষর, অন্তত একটি বর্ণ)</string>
     <string name="rules2_err_sender_id_char">প্রেরকের নামে “%1$s” ব্যবহার করা যাবে না। অক্ষর, অঙ্ক, স্পেস, ডট, ড্যাশ বা &amp; ব্যবহার করুন।</string>

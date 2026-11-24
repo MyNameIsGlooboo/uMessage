@@ -54,7 +54,7 @@
     <string name="spam_type_regex">पैटर्न (रेगुलर एक्सप्रेशन)</string>
     <string name="spam_type_keyword_help">हर मैसेज जिसमें यह टेक्स्ट हो, किसी बड़े शब्द के अंदर भी: “win” से “window” भी मेल खाता है. बड़े या छोटे अंग्रेज़ी अक्षरों से फ़र्क नहीं पड़ता. भेजने वाला भी ब्लॉक हो जाता है, जब तक वह आपके संपर्कों में न हो.</string>
     <string name="spam_type_keyword_allow_help">जिस मैसेज में यह टेक्स्ट होगा, उसके भेजने वाले को अनुमति मिल जाएगी: पूरी चैट मैसेज टैब में चली जाएगी. आपका ब्लॉक किया गया भेजने वाला ब्लॉक ही रहेगा. लंबा और सटीक वाक्यांश इस्तेमाल करें.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">मुफ़्त उपहार</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">नोट (वैकल्पिक)</string>

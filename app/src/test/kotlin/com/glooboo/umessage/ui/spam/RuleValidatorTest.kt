@@ -63,7 +63,7 @@ class RuleValidatorTest {
             .containsExactly(RuleWarning.ALLOW_SKIPS_BLOCKS, RuleWarning.COMMON_WORD)
         assertThat(RuleValidator.warnings(ListKind.ALLOW, RuleType.KEYWORD, "پرداخت", emptyList(), null))
             .containsExactly(RuleWarning.ALLOW_SKIPS_BLOCKS, RuleWarning.COMMON_WORD)
-        assertThat(RuleValidator.warnings(ListKind.ALLOW, RuleType.SENDER_ID, "VM-HDFCBK", emptyList(), null)).isEmpty()
+        assertThat(RuleValidator.warnings(ListKind.ALLOW, RuleType.SENDER_ID, "VM-MYBANK", emptyList(), null)).isEmpty()
     }
 
     @Test

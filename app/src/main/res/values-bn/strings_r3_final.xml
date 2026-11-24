@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="r3f_spam_summary_stopped">%1$d আটকানো হয়েছে</string>
-    <string name="r3f_spam_summary_restored">%1$d ফিরিয়ে আনা হয়েছে</string>
-    <string name="r3f_spam_summary_stopped_week">7 দিনে %1$d আটকানো হয়েছে</string>
+    <string name="r3f_spam_summary_stopped">%1$dটি স্প্যামে</string>
+    <string name="r3f_spam_summary_restored">%1$dটি ফিরিয়ে আনা</string>
+    <string name="r3f_spam_summary_stopped_week">৭ দিনে %1$dটি স্প্যামে</string>
     <string name="r3f_spam_summary_total">মোট %1$d</string>
 </resources>

@@ -56,8 +56,26 @@ class BlockedRulesReview2UiTest {
         val actions = RulesActions(onExample = { kind, type, value -> opened = Triple(kind, type, value) })
         val state = RulesUiState(loading = false, tab = ListKind.BLOCK)
         compose.setContent { UMessageTheme { RulesScreen(state, SnackbarHostState(), actions) } }
-        compose.onNodeWithText(str(R.string.e_example_block_cancel_word)).performClick()
-        assertThat(opened).isEqualTo(Triple(ListKind.BLOCK, RuleType.KEYWORD, RuleExamples.CANCEL_WORD))
+        // J25: the label shows the very value the rule is created with.
+        val value = str(R.string.e_example_value_cancel_word)
+        assertThat(value).isEqualTo("STOP")
+        compose.onNodeWithText(str(R.string.e_example_block_cancel_word, value)).performClick()
+        assertThat(opened).isEqualTo(Triple(ListKind.BLOCK, RuleType.KEYWORD, value))
+    }
+
+    @Test
+    @Config(qualifiers = "fa-w411dp-h2000dp")
+    fun persianStarterExamplesKeepTheirPersianValuesInLabelAndRule() {
+        // J25 (L4-2): Persian keeps its own opt-out word and ad prefix; the label and the rule use the same characters.
+        var opened: Triple<ListKind, RuleType, String>? = null
+        val actions = RulesActions(onExample = { kind, type, value -> opened = Triple(kind, type, value) })
+        val state = RulesUiState(loading = false, tab = ListKind.BLOCK)
+        compose.setContent { UMessageTheme { RulesScreen(state, SnackbarHostState(), actions) } }
+        val value = str(R.string.e_example_value_cancel_word)
+        assertThat(value).isEqualTo("لغو۱۱")
+        assertThat(str(R.string.e_example_value_ad_prefix)).isEqualTo("3000")
+        compose.onNodeWithText(str(R.string.e_example_block_cancel_word, value)).performClick()
+        assertThat(opened).isEqualTo(Triple(ListKind.BLOCK, RuleType.KEYWORD, value))
     }
 
     @Test

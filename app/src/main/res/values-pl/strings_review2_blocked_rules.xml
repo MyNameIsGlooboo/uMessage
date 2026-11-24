@@ -9,9 +9,9 @@
         <item quantity="other">Łącznie zatrzymano %d wiadomości</item>
     </plurals>
     <string name="e_restored_title">Ostatnio przywrócone</string>
-    <string name="e_restored_body">Wiadomości przeniesione do odebranych w ciągu ostatnich 30 dni. Dotknij wiadomości, aby otworzyć rozmowę.</string>
-    <string name="e_restored_empty">Wiadomości, które od teraz przeniesiesz do odebranych, będą tu widoczne przez 30 dni.</string>
-    <string name="e_restored_when">Przeniesiono do odebranych %1$s</string>
+    <string name="e_restored_body">Wiadomości, które w ciągu ostatnich 30 dni przeniosłeś ze Spamu do Wiadomości. Stuknij jedną, aby otworzyć rozmowę.</string>
+    <string name="e_restored_empty">Wiadomości, które od teraz przeniesiesz ze Spamu do Wiadomości, będą tu widoczne przez 30 dni.</string>
+    <string name="e_restored_when">Przeniesiono do Wiadomości %1$s</string>
     <string name="e_restored_open">Otwórz rozmowę z %1$s</string>
     <string name="e_view_rule">Zobacz regułę</string>
     <string name="e_rules_title">Reguły</string>
@@ -25,8 +25,8 @@
     <string name="e_note_old_word_list">Ze starej listy blokowanych słów</string>
     <string name="e_note_system_list">Z listy blokowanych w Androidzie</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Zablokuj wiadomości zawierające لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Zablokuj numery reklamowe zaczynające się od 3000</string>
+    <string name="e_example_block_cancel_word">Zablokuj wiadomości zawierające %1$s</string>
+    <string name="e_example_block_ad_prefix">Zablokuj numery reklamowe zaczynające się od %1$s</string>
     <string name="e_example_allow_number">Zawsze zezwól na numer, np. twojej poczty</string>
     <string name="e_sheet_sender_label">Nadawca</string>
     <string name="e_sheet_text_label">Treść wiadomości</string>

@@ -73,9 +73,9 @@ class ForwardPlannerTest {
     @Test
     fun prefixAndSenderIdConditions() {
         assertThat(plan(message(), rule(senderType = RuleType.PREFIX, sender = "0712")).sends).hasSize(1)
-        assertThat(plan(message(address = "VM-HDFCBK"), rule(senderType = RuleType.SENDER_ID, sender = "HDFCBK")).sends)
+        assertThat(plan(message(address = "VM-MYBANK"), rule(senderType = RuleType.SENDER_ID, sender = "MYBANK")).sends)
             .hasSize(1)
-        assertThat(plan(message(address = "AX-PROMO"), rule(senderType = RuleType.SENDER_ID, sender = "HDFCBK")).sends)
+        assertThat(plan(message(address = "AX-PROMO"), rule(senderType = RuleType.SENDER_ID, sender = "MYBANK")).sends)
             .isEmpty()
     }
 

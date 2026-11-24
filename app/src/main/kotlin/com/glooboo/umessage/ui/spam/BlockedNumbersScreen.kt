@@ -88,6 +88,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.glooboo.umessage.R
+import com.glooboo.umessage.ui.components.isolateExamples
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.FabListBottomPadding
 import com.glooboo.umessage.ui.components.UMessageFab
@@ -610,7 +611,8 @@ private fun NumberDialog(dialog: BlockedNumberDialog, actions: BlockedNumbersAct
                     singleLine = true,
                     isError = showError && error != null,
                     supportingText = {
-                        Text(if (showError && error != null) error else stringResource(R.string.e_bn_field_help))
+                        val help = isolateExamples(stringResource(R.string.e_bn_field_help))
+                        Text(if (showError && error != null) error else help)
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone, imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { submit() }),

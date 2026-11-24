@@ -6,10 +6,10 @@
         <item quantity="one">Toplam %d mesaj engellendi</item>
         <item quantity="other">Toplam %d mesaj engellendi</item>
     </plurals>
-    <string name="e_restored_title">Son geri yüklenenler</string>
-    <string name="e_restored_body">Son 30 günde gelen kutusuna taşıdığınız mesajlar. Görüşmeyi açmak için bir mesaja dokunun.</string>
-    <string name="e_restored_empty">Bundan sonra gelen kutusuna taşıdığınız mesajlar burada 30 gün boyunca listelenir.</string>
-    <string name="e_restored_when">Gelen kutusuna taşınma zamanı: %1$s</string>
+    <string name="e_restored_title">Yakınlarda geri alınanlar</string>
+    <string name="e_restored_body">Son 30 günde Spam\'den Mesajlar\'a taşıdığınız mesajlar. Sohbeti açmak için birine dokunun.</string>
+    <string name="e_restored_empty">Bundan sonra Spam\'den Mesajlar\'a taşıdığınız mesajlar 30 gün boyunca burada listelenir.</string>
+    <string name="e_restored_when">Mesajlar\'a taşındı: %1$s</string>
     <string name="e_restored_open">%1$s ile görüşmeyi açın</string>
     <string name="e_view_rule">Kuralı görüntüleyin</string>
     <string name="e_rules_title">Kurallar</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">Eski engellenen kelimeler listesinden</string>
     <string name="e_note_system_list">Android engellenenler listesinden</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">لغو۱۱ içeren mesajları engelleyin</string>
-    <string name="e_example_block_ad_prefix">3000 ile başlayan reklam numaralarını engelleyin</string>
+    <string name="e_example_block_cancel_word">%1$s içeren mesajları engelleyin</string>
+    <string name="e_example_block_ad_prefix">%1$s ile başlayan reklam numaralarını engelleyin</string>
     <string name="e_example_allow_number">Postaneniz gibi bir numaraya her zaman izin verin</string>
     <string name="e_sheet_sender_label">Gönderen</string>
     <string name="e_sheet_text_label">Mesaj metni</string>

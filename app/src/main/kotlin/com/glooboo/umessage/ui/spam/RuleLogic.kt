@@ -386,12 +386,3 @@ object RuleTextCodec {
     private fun kindOf(s: String) = s.trim().uppercase().let { v -> ListKind.entries.firstOrNull { it.name == v } }
     private fun typeOf(s: String) = s.trim().uppercase().let { v -> RuleType.entries.firstOrNull { it.name == v } }
 }
-
-/** Values of the concrete starter rules on the empty Rules tabs (ID-53). */
-object RuleExamples {
-    /** "لغو۱۱": Persian promotional texts end with this unsubscribe word, so it marks advertising well. */
-    const val CANCEL_WORD = "لغو۱۱"
-
-    /** Bulk advertising comes from short codes starting with 3000. */
-    const val AD_PREFIX = "3000"
-}

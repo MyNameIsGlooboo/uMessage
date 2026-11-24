@@ -3,17 +3,17 @@
     <string name="digest_channel">Podsumowanie tygodnia</string>
     <string name="digest_title">Podsumowanie tygodnia</string>
     <string name="digest_row_title">Podsumowanie tygodnia</string>
-    <string name="digest_row_summary">Raz w tygodniu: liczba zablokowanych wiadomości</string>
+    <string name="digest_row_summary">Raz w tygodniu: ile wiadomości trafiło do Spamu</string>
     <plurals name="digest_held">
-        <item quantity="one">Zatrzymano %d wiadomość w tym tygodniu. Dotknij, aby przejrzeć.</item>
-        <item quantity="few">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
-        <item quantity="many">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
-        <item quantity="other">Zatrzymano %d wiadomości w tym tygodniu. Dotknij, aby przejrzeć.</item>
+        <item quantity="one">%d wiadomość trafiła w tym tygodniu do Spamu. Stuknij, aby sprawdzić.</item>
+        <item quantity="few">%d wiadomości trafiły w tym tygodniu do Spamu. Stuknij, aby sprawdzić.</item>
+        <item quantity="many">%d wiadomości trafiło w tym tygodniu do Spamu. Stuknij, aby sprawdzić.</item>
+        <item quantity="other">%d wiadomości trafiło w tym tygodniu do Spamu. Stuknij, aby sprawdzić.</item>
     </plurals>
     <plurals name="digest_held_important">
-        <item quantity="one">Zatrzymano %1$d wiadomość w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
-        <item quantity="few">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
-        <item quantity="many">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
-        <item quantity="other">Zatrzymano %1$d wiadomości w tym tygodniu. W tym z kodami lub powiadomieniami bankowymi: %2$d.</item>
+        <item quantity="one">%1$d wiadomość trafiła w tym tygodniu do Spamu. Z kodami lub alertami bankowymi: %2$d.</item>
+        <item quantity="few">%1$d wiadomości trafiły w tym tygodniu do Spamu. Z kodami lub alertami bankowymi: %2$d.</item>
+        <item quantity="many">%1$d wiadomości trafiło w tym tygodniu do Spamu. Z kodami lub alertami bankowymi: %2$d.</item>
+        <item quantity="other">%1$d wiadomości trafiło w tym tygodniu do Spamu. Z kodami lub alertami bankowymi: %2$d.</item>
     </plurals>
 </resources>

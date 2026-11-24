@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">正在準備檔案…</string>
     <string name="export_conv_nothing">這段期間沒有訊息</string>
     <string name="export_conv_failed">無法建立檔案</string>
+    <string name="export_conv_stopped">已停止匯出</string>
     <string name="export_conv_subject">對話匯出</string>
     <string name="export_conv_share_text">與%1$s的對話，%2$s。訊息文字的SHA-256：%3$s</string>
     <string name="export_conv_attachment_label">［附件］</string>

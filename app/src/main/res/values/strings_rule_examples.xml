@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- J25: the values of the two starter rules on the empty Block tab. The Persian text keeps its own opt-out word and
+     ad short code; every other language shows these neutral values. The button label and the rule it creates both
+     use the value, so they always show the same characters. -->
+<resources>
+    <string name="e_example_value_cancel_word">STOP</string>
+    <string name="e_example_value_ad_prefix">5000</string>
+</resources>

@@ -54,7 +54,7 @@
     <string name="spam_type_regex">پیٹرن</string>
     <string name="spam_type_keyword_help">ہر وہ پیغام جس میں یہ متن ہو، کسی لمبے لفظ کے اندر بھی: «انعام» سے «انعامات» بھی میل کھاتا ہے۔ بڑے چھوٹے حروف سے فرق نہیں پڑتا۔ بھیجنے والا بھی بلاک ہو جاتا ہے، سوائے اس کے کہ وہ آپ کے رابطوں میں ہو۔</string>
     <string name="spam_type_keyword_allow_help">جس پیغام میں یہ متن ہو، وہ اپنے بھیجنے والے کو اجازت دے دیتا ہے: پوری چیٹ پیغامات میں چلی جاتی ہے۔ آپ کا بلاک کیا گیا بھیجنے والا بلاک ہی رہتا ہے۔ لمبا اور بالکل درست جملہ استعمال کریں۔</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">مفت تحفہ</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">نوٹ (اختیاری)</string>

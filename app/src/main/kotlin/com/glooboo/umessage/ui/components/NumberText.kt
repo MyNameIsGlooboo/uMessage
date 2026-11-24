@@ -45,6 +45,19 @@ fun isolateNumbers(text: String): String {
  */
 fun isolateLtr(text: String): String = if (text.isEmpty() || LRI in text) text else "$LRI$text$PDI"
 
+/** An example number or prefix in a help text: optional +, digits (short ones too), trailing * or ellipsis. */
+private val EXAMPLE_RUN = Regex("""\+?\p{Nd}+(?: \p{Nd}+)*[*…]?""")
+
+/**
+ * J25: wraps each example number or prefix in a help text ("+1555", "+1555*", "05550001234") in a left-to-right
+ * isolate, short ones and a trailing * or ellipsis included, so a right-to-left line does not show "1555+". Unlike
+ * [isolateNumbers] it also takes runs of fewer than three digits. Text that already has isolates is returned as is.
+ */
+fun isolateExamples(text: String): String {
+    if (text.none { it.isDigit() } || LRI in text) return text
+    return EXAMPLE_RUN.replace(text) { "$LRI${it.value}$PDI" }
+}
+
 /**
  * P-1 to P-5: a rule's value as a screen shows it, so each screen does not choose by itself. A number rule shows
  * [number] (the value as `displayNumber` gives it: grouped, in local digits) with its digits isolated. A prefix is

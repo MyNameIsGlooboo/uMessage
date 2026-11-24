@@ -62,7 +62,7 @@ class NumberMatchingTest {
             "07123456789" to "+917123456789", // national home number vs Indian
             "30001234" to "30001235",
             "30001234" to "+9130001234",
-            "VM-HDFCBK" to "+447123456789",
+            "VM-MYBANK" to "+447123456789",
             "MCI" to "MTN",
             "" to "",
             "  " to "+447123456789",

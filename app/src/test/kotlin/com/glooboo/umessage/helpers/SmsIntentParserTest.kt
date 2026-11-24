@@ -53,7 +53,7 @@ class SmsIntentParserTest {
     fun addressableRecipients() {
         assertThat(SmsIntentParser.isAddressable("+1 (555) 010-0100")).isTrue()
         assertThat(SmsIntentParser.isAddressable("12345")).isTrue()
-        assertThat(SmsIntentParser.isAddressable("VM-HDFCBK")).isTrue()
+        assertThat(SmsIntentParser.isAddressable("VM-MYBANK")).isTrue()
         assertThat(SmsIntentParser.isAddressable("someone@example.test")).isTrue()
         assertThat(SmsIntentParser.isAddressable("z")).isFalse()
         assertThat(SmsIntentParser.isAddressable("�z")).isFalse()

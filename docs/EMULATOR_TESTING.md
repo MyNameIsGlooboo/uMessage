@@ -33,7 +33,7 @@ Note: `adb emu` requires the emulator console auth token (`~/.emulator_console_a
 |---|---|
 | From 5550100 (contact) | Messages, notification shown |
 | From 5550199 (unknown) | The whole chat in Spam, stored read, no notification |
-| From `VM-HDFCBK` (code text) | Messages, with the code; the sender joins "Senders of a verification code" |
+| From `VM-MYBANK` (code text) | Messages, with the code; the sender joins "Senders of a verification code" |
 | Body contains "free prize" from 5550177 | Spam (unknown sender). With a blocked keyword rule "free prize" the sender also gets a block rule and the log shows reason BLOCK_RULE |
 
 Note: `scripts/test-scenarios.sh` and `.ps1` still print the expectations of the old modes. Trust this table.

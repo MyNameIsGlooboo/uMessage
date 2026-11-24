@@ -215,7 +215,7 @@ class ThreadPureRulesTest {
     @Test
     fun shortCodesAndSenderNamesTakeNoCalls() {
         assertThat(menu(recipients = ThreadRecipients.fromNumbers(listOf("300012"))).dial).isFalse()
-        assertThat(menu(recipients = ThreadRecipients.fromNumbers(listOf("VM-HDFCBK"))).dial).isFalse()
+        assertThat(menu(recipients = ThreadRecipients.fromNumbers(listOf("VM-MYBANK"))).dial).isFalse()
         assertThat(menu(recipients = ThreadRecipients.fromNumbers(listOf("07121234567"))).dial).isTrue()
         assertThat(isNumericShortCode("300012")).isTrue()
         assertThat(isNumericShortCode("+44712")).isFalse()

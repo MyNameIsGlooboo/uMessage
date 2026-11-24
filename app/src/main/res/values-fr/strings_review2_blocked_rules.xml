@@ -6,10 +6,10 @@
         <item quantity="one">%d bloqué au total</item>
         <item quantity="other">%d bloqués au total</item>
     </plurals>
-    <string name="e_restored_title">Restaurés récemment</string>
-    <string name="e_restored_body">Messages déplacés vers la boîte de réception ces 30 derniers jours. Appuyez sur un message pour ouvrir la conversation.</string>
-    <string name="e_restored_empty">Les messages que vous déplacez désormais vers la boîte de réception figurent ici pendant 30 jours.</string>
-    <string name="e_restored_when">Déplacé vers la boîte de réception %1$s</string>
+    <string name="e_restored_title">Remis récemment</string>
+    <string name="e_restored_body">Messages que vous avez remis de Spam dans Messages ces 30 derniers jours. Touchez-en un pour ouvrir la discussion.</string>
+    <string name="e_restored_empty">Les messages que vous remettez de Spam dans Messages à partir de maintenant sont listés ici pendant 30 jours.</string>
+    <string name="e_restored_when">Remis dans Messages %1$s</string>
     <string name="e_restored_open">Ouvrir la conversation avec %1$s</string>
     <string name="e_view_rule">Voir la règle</string>
     <string name="e_rules_title">Règles</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">Issu de l\'ancienne liste de mots bloqués</string>
     <string name="e_note_system_list">Issu de la liste de blocage Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Bloquer les messages contenant لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Bloquer les numéros publicitaires commençant par 3000</string>
+    <string name="e_example_block_cancel_word">Bloquer les messages contenant %1$s</string>
+    <string name="e_example_block_ad_prefix">Bloquer les numéros publicitaires commençant par %1$s</string>
     <string name="e_example_allow_number">Toujours autoriser un numéro, comme celui de votre bureau de poste</string>
     <string name="e_sheet_sender_label">Expéditeur</string>
     <string name="e_sheet_text_label">Texte du message</string>

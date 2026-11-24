@@ -8,10 +8,10 @@
         <item quantity="many">Всего заблокировано: %d сообщений</item>
         <item quantity="other">Всего заблокировано: %d сообщения</item>
     </plurals>
-    <string name="e_restored_title">Недавно восстановленные</string>
-    <string name="e_restored_body">Сообщения, которые вы перенесли во входящие за последние 30 дней. Нажмите на сообщение, чтобы открыть чат.</string>
-    <string name="e_restored_empty">Сообщения, которые вы перенесете во входящие, будут отображаться здесь 30 дней.</string>
-    <string name="e_restored_when">Перенесено во входящие %1$s</string>
+    <string name="e_restored_title">Недавно возвращенные</string>
+    <string name="e_restored_body">Сообщения, которые вы переместили из «Спама» в «Сообщения» за последние 30 дней. Нажмите на одно, чтобы открыть чат.</string>
+    <string name="e_restored_empty">Сообщения, которые вы переместите из «Спама» в «Сообщения», будут показаны здесь 30 дней.</string>
+    <string name="e_restored_when">Возвращено в «Сообщения» %1$s</string>
     <string name="e_restored_open">Открыть чат с %1$s</string>
     <string name="e_view_rule">Посмотреть правило</string>
     <string name="e_rules_title">Правила</string>
@@ -25,8 +25,8 @@
     <string name="e_note_old_word_list">Из старого списка заблокированных слов</string>
     <string name="e_note_system_list">Из списка заблокированных Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Заблокировать сообщения с لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Заблокировать рекламные номера, начинающиеся с 3000</string>
+    <string name="e_example_block_cancel_word">Заблокировать сообщения с %1$s</string>
+    <string name="e_example_block_ad_prefix">Заблокировать рекламные номера, начинающиеся с %1$s</string>
     <string name="e_example_allow_number">Всегда разрешать номер, например вашей почты</string>
     <string name="e_sheet_sender_label">Отправитель</string>
     <string name="e_sheet_text_label">Текст сообщения</string>

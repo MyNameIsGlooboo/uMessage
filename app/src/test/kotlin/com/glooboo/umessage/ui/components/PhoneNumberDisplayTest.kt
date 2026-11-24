@@ -57,7 +57,7 @@ class PhoneNumberDisplayTest {
         val never = { _: String -> "formatted" }
         assertEquals("Sara Ahmadi", displayNumber("Sara Ahmadi", persian, never))
         assertEquals("علی رضایی", displayNumber("علی رضایی", persian, never))
-        assertEquals("VM-HDFCBK", displayNumber("VM-HDFCBK", persian, never))
+        assertEquals("VM-MYBANK", displayNumber("VM-MYBANK", persian, never))
         assertEquals("Mom 2", displayNumber("Mom 2", persian, never))
         assertEquals("", displayNumber("", persian, never))
     }

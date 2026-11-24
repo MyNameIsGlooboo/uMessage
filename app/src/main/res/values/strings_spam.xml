@@ -67,7 +67,7 @@
     <string name="spam_type_regex">Pattern</string>
     <string name="spam_type_keyword_help">Any message that contains this text, even inside a longer word: “win” also matches “window”. Capital letters do not matter. The sender is blocked too, unless they are in your contacts.</string>
     <string name="spam_type_keyword_allow_help">A text that contains this allows its sender: the whole chat goes to Messages. A sender you blocked stays blocked. Use a long, exact phrase.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">free gift</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
 

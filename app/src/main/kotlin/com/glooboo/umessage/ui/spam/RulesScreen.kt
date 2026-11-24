@@ -119,6 +119,7 @@ import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.SelectionTopBar
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.GroupShape
+import com.glooboo.umessage.ui.components.isolateExamples
 import com.glooboo.umessage.ui.components.isolateLtr
 import com.glooboo.umessage.ui.components.readsLeftToRight
 import com.glooboo.umessage.ui.components.ruleValueText
@@ -545,13 +546,13 @@ private fun RulesTabs(state: RulesUiState, actions: RulesActions) {
 private data class RuleExample(
     val type: RuleType,
     @androidx.annotation.StringRes val label: Int,
-    val value: String = "",
+    @androidx.annotation.StringRes val value: Int? = null,
 )
 
-/** Concrete starters: a word Persian promotions end with, ad short codes, and the senders people allow most. */
+/** Concrete starters: an opt-out word, ad short codes, and the senders people allow most (values: app language). */
 private val blockExamples = listOf(
-    RuleExample(RuleType.KEYWORD, R.string.e_example_block_cancel_word, RuleExamples.CANCEL_WORD),
-    RuleExample(RuleType.PREFIX, R.string.e_example_block_ad_prefix, RuleExamples.AD_PREFIX),
+    RuleExample(RuleType.KEYWORD, R.string.e_example_block_cancel_word, R.string.e_example_value_cancel_word),
+    RuleExample(RuleType.PREFIX, R.string.e_example_block_ad_prefix, R.string.e_example_value_ad_prefix),
     RuleExample(RuleType.SENDER_ID, R.string.w3b_example_block_sender),
 )
 private val allowExamples = listOf(
@@ -575,11 +576,20 @@ private fun RulesEmpty(tab: ListKind, onExample: (ListKind, RuleType, String) ->
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 (if (allow) allowExamples else blockExamples).forEach { example ->
+                    val value = example.value?.let { stringResource(it) }.orEmpty()
                     OutlinedButton(
-                        onClick = { onExample(tab, example.type, example.value) },
+                        onClick = { onExample(tab, example.type, value) },
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     ) {
-                        Text(stringResource(example.label), textAlign = TextAlign.Center)
+                        val shown = if (example.type.readsLeftToRight) isolateLtr(value) else value
+                        Text(
+                            if (example.value == null) {
+                                stringResource(example.label)
+                            } else {
+                                stringResource(example.label, shown)
+                            },
+                            textAlign = TextAlign.Center,
+                        )
                     }
                 }
             }
@@ -781,7 +791,7 @@ private fun RuleRowText(rule: SpamRule, overridden: Boolean, modifier: Modifier 
 }
 
 @Composable
-private fun typeHelp(kind: ListKind, type: RuleType): String = stringResource(
+private fun typeHelp(kind: ListKind, type: RuleType): String = isolateExamples(stringResource(
     when (type) {
         RuleType.NUMBER -> R.string.rules2_type_number_help
         RuleType.PREFIX -> R.string.rules2_type_prefix_help
@@ -790,7 +800,7 @@ private fun typeHelp(kind: ListKind, type: RuleType): String = stringResource(
         RuleType.REGEX -> R.string.rules2_type_regex_help
         RuleType.DOMAIN -> R.string.rdec_type_domain_help
     },
-)
+))
 
 /**
  * The text style of a rule's value field, shared with the forward editor: a pattern in monospace; F-5: a typed number

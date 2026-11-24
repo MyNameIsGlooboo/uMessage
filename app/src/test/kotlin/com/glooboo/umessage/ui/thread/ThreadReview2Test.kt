@@ -138,8 +138,8 @@ class ThreadReview2Test {
 
     @Test
     fun senderNamesMatchIgnoringCase() {
-        assertThat(MessageDecisions.sameSender("VM-HDFCBK", "vm-hdfcbk")).isTrue()
-        assertThat(MessageDecisions.sameSender("VM-HDFCBK", "VM-OTHER")).isFalse()
+        assertThat(MessageDecisions.sameSender("VM-MYBANK", "vm-mybank")).isTrue()
+        assertThat(MessageDecisions.sameSender("VM-MYBANK", "VM-OTHER")).isFalse()
     }
 
     @Test

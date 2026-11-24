@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- J25: Persian starter values; see values/strings_rule_examples.xml. -->
+<resources>
+    <string name="e_example_value_cancel_word">لغو۱۱</string>
+    <string name="e_example_value_ad_prefix">3000</string>
+</resources>

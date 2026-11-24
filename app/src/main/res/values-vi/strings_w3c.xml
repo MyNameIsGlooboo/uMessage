@@ -24,7 +24,7 @@
     <string name="w3c_text_default">Mặc định</string>
     <string name="w3c_text_large">Lớn</string>
     <string name="w3c_text_largest">Lớn nhất</string>
-    <string name="w3c_text_size_sample">Ví dụ: Mã của bạn là 482913. ⁧نمونه: کد شما ۴۸۲۹۱۳ است.⁩</string>
+    <string name="w3c_text_size_sample">Ví dụ: Mã của bạn là 482913.</string>
     <string name="w3c_backup_failed">Không thể lưu bản sao lưu</string>
     <string name="w3c_restore_failed">Không thể khôi phục tệp này. Chọn bản sao lưu cài đặt uMessage.</string>
 </resources>

@@ -7,9 +7,9 @@
         <item quantity="other">মোট %dটি আটকানো হয়েছে</item>
     </plurals>
     <string name="e_restored_title">সম্প্রতি ফিরিয়ে আনা</string>
-    <string name="e_restored_body">গত 30 দিনে আপনি যেসব বার্তা ইনবক্সে সরিয়েছেন। কথোপকথন খুলতে কোনো বার্তায় ট্যাপ করুন।</string>
-    <string name="e_restored_empty">এখন থেকে আপনি যেসব বার্তা ইনবক্সে সরাবেন, সেগুলো এখানে 30 দিন দেখা যাবে।</string>
-    <string name="e_restored_when">ইনবক্সে সরানো হয়েছে %1$s</string>
+    <string name="e_restored_body">গত ৩০ দিনে স্প্যাম থেকে বার্তায় ফিরিয়ে আনা বার্তা। কথোপকথন খুলতে একটিতে ট্যাপ করুন।</string>
+    <string name="e_restored_empty">এখন থেকে স্প্যাম থেকে বার্তায় যা ফিরিয়ে আনবেন, তা ৩০ দিন এখানে দেখাবে।</string>
+    <string name="e_restored_when">বার্তায় ফেরানো হয়েছে %1$s</string>
     <string name="e_restored_open">%1$s-এর সঙ্গে কথোপকথন খুলুন</string>
     <string name="e_view_rule">নিয়ম দেখুন</string>
     <string name="e_rules_title">নিয়ম</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">ব্লক করা শব্দের পুরোনো তালিকা থেকে</string>
     <string name="e_note_system_list">Android-এর ব্লক তালিকা থেকে</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">لغو11 আছে এমন বার্তা ব্লক করুন</string>
-    <string name="e_example_block_ad_prefix">3000 দিয়ে শুরু বিজ্ঞাপনের নম্বর ব্লক করুন</string>
+    <string name="e_example_block_cancel_word">%1$s আছে এমন বার্তা ব্লক করুন</string>
+    <string name="e_example_block_ad_prefix">%1$s দিয়ে শুরু বিজ্ঞাপনের নম্বর ব্লক করুন</string>
     <string name="e_example_allow_number">কোনো নম্বরকে সবসময় অনুমতি দিন, যেমন আপনার ডাকঘর</string>
     <string name="e_sheet_sender_label">প্রেরক</string>
     <string name="e_sheet_text_label">বার্তার লেখা</string>

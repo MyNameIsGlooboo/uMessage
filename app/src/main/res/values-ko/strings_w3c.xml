@@ -24,7 +24,7 @@
     <string name="w3c_text_default">기본</string>
     <string name="w3c_text_large">크게</string>
     <string name="w3c_text_largest">가장 크게</string>
-    <string name="w3c_text_size_sample">예시: 인증 코드는 482913이에요. ⁧نمونه: کد شما ۴۸۲۹۱۳ است.⁩</string>
+    <string name="w3c_text_size_sample">예시: 인증 코드는 482913이에요.</string>
     <string name="w3c_backup_failed">백업을 저장하지 못했어요.</string>
     <string name="w3c_restore_failed">이 파일을 복원하지 못했어요. uMessage 설정 백업을 선택하세요.</string>
 </resources>
