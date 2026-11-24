@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -20,7 +21,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -176,6 +179,9 @@ private const val MAX_FOLDER_BADGE = 99
 
 /** How faint an action that is off is drawn (Material's disabled content alpha). */
 private const val DISABLED_ALPHA = 0.38f
+
+/** J29: how many rows below the top of a Spam list still count as "near the top" when a new first row appears. */
+private const val NEAR_TOP_ROWS = 3
 
 /**
  * Messages in the Recycle Bin, so its confirmations say what they delete: per chat, and in all (the whole bin,
@@ -483,7 +489,27 @@ private fun FolderList(
         SwipeAction(Symbols.Unarchive, unarchiveLabel) { id -> onRestore(setOf(id)) }
     }
     val selecting = selection.isNotEmpty()
+    val listState = rememberLazyListState()
+    // J29 (Spam only): a chat hidden for a delete that kept a newer text comes back as the first row, above the row the
+    // list is anchored on, and stayed out of sight. When a first row that was not in the list a moment ago appears and
+    // the list sits near its top (the intro card may be scrolled off), the list goes to the top. A row that only moves
+    // up because the one above it left does not scroll. The first composition and a rotation do not scroll either: the
+    // remembered ids start as the current ones.
+    var knownIds by remember { mutableStateOf(rows.mapTo(HashSet()) { it.threadId }) }
+    var scrollRequests by remember { mutableIntStateOf(0) }
+    LaunchedEffect(rows) {
+        val first = rows.firstOrNull()?.threadId
+        val appeared = first != null && first !in knownIds
+        knownIds = rows.mapTo(HashSet()) { it.threadId }
+        val nearTop = listState.firstVisibleItemIndex <= (if (intro != null) 1 else 0) + NEAR_TOP_ROWS
+        if (spamSwipe != null && appeared && nearTop) scrollRequests++
+    }
+    // The scroll has its own effect: a later publish restarts the one above and must not cancel a scroll under way.
+    LaunchedEffect(scrollRequests) {
+        if (scrollRequests > 0) listState.animateScrollToItem(0)
+    }
     LazyColumn(
+        state = listState,
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = bottomPadding + 8.dp),
     ) {

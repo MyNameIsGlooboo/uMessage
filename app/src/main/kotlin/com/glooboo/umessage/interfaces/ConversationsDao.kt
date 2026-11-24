@@ -86,7 +86,10 @@ interface ConversationsDao {
     @Query("UPDATE spam_threads SET sender = :sender, cause = :cause WHERE thread_id = :threadId")
     fun updateSpamThreadSender(threadId: Long, sender: String, cause: SpamCause): Int
 
-    /** R12: one spam text arrived in [threadId]. Besides clearing it and [setSpamUnread] (J29), the only write of `unread`. */
+    /**
+     * R12: one spam text arrived in [threadId]. Besides clearing it and [setSpamUnread] (J29), the only write of
+     * `unread`.
+     */
     @Query("UPDATE spam_threads SET unread = unread + 1 WHERE thread_id = :threadId")
     fun raiseSpamUnread(threadId: Long): Int
 
