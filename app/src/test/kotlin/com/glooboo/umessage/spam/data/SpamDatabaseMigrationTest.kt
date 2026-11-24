@@ -322,6 +322,68 @@ class SpamDatabaseMigrationTest {
         assertThat(imported.exists()).isFalse()
     }
 
+    /**
+     * J27 round 2: a failed schema-3 restore leaves the marker behind. A later open of 0.4.14 (schema 8) must drop it,
+     * or the return after it would merge the rules the user deleted there back from the kept file.
+     */
+    @Test
+    fun aStaleMarkerDoesNotBringRulesBackAfterAnOpenAtAnOlderSchema() {
+        SpamDatabase.build(context, OTHER_DB).also { db ->
+            offMainThread { db.forwardDao().insert(forward("+15550001111")) }
+        }.close()
+        helper.createDatabase(TEST_DB, 8).close()
+        val imported = file("$TEST_DB.v${SpamDatabase.VERSION}-imported")
+        DatabaseBackups.copyWithCompanions(context.getDatabasePath(OTHER_DB), imported)
+        file("$TEST_DB.forward-trip").writeText("")
+
+        val db = SpamDatabase.build(context, TEST_DB)
+        try {
+            offMainThread { assertThat(db.forwardDao().getAll()).isEmpty() }
+        } finally {
+            db.close()
+        }
+        assertThat(file("$TEST_DB.forward-trip").exists()).isFalse()
+        assertThat(imported.exists()).isFalse()
+    }
+
+    /** J27 round 2: marked only for a live file that MIGRATION_3_4 will upgrade (schemas 1 to 3). */
+    @Test
+    fun theMarkerIsSetOnlyForALiveFileBeforeTheForwardRulesSchema() {
+        for (version in 0..SpamDatabase.VERSION) {
+            deleteFiles()
+            databaseAt(version)
+            ForwardTrip.markIfBeforeForwardRules(context, TEST_DB)
+            assertThat(file("$TEST_DB.forward-trip").exists())
+                .isEqualTo(version in 1 until ForwardTrip.FORWARD_SINCE)
+        }
+        deleteFiles()
+        ForwardTrip.markIfBeforeForwardRules(context, TEST_DB)
+        assertThat(file("$TEST_DB.forward-trip").exists()).isFalse()
+    }
+
+    /** J27 round 2: a stale marker is dropped at every schema that is neither a trip nor the retry. */
+    @Test
+    fun anOldMarkerIsDroppedAtEverySchemaThatIsNotATrip() {
+        for (version in listOf(0) + (ForwardTrip.FORWARD_SINCE until SpamDatabase.VERSION)) {
+            deleteFiles()
+            databaseAt(version)
+            file("$TEST_DB.forward-trip").writeText("")
+            ForwardTrip.markIfBeforeForwardRules(context, TEST_DB)
+            assertThat(file("$TEST_DB.forward-trip").exists()).isFalse()
+        }
+    }
+
+    /** J27 round 2: at the current schema the marker is kept, so a failed restore is retried on the next open. */
+    @Test
+    fun aMarkerFromAFailedRestoreSurvivesAnOpenAtTheCurrentSchema() {
+        databaseAt(SpamDatabase.VERSION)
+        file("$TEST_DB.forward-trip").writeText("")
+
+        ForwardTrip.markIfBeforeForwardRules(context, TEST_DB)
+
+        assertThat(file("$TEST_DB.forward-trip").exists()).isTrue()
+    }
+
     @Test
     fun versionConstantMatchesTheLatestSchema() {
         assertThat(SpamDatabase.VERSION).isEqualTo(LATEST)
@@ -402,6 +464,10 @@ class SpamDatabaseMigrationTest {
             .use(block)
 
     private fun file(name: String) = File(context.getDatabasePath(TEST_DB).parentFile, name)
+
+    /** A bare database file at [version], enough for the forward-trip marker check that only reads user_version. */
+    private fun databaseAt(version: Int) =
+        SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath(TEST_DB), null).use { it.version = version }
 
     private fun backup(version: Int) = DatabaseBackups.backupFile(context, TEST_DB, version)
 

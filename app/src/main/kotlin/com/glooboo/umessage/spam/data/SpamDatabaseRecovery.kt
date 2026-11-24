@@ -105,6 +105,8 @@ internal class SpamDatabaseRecovery(
         // J27 (L2-1): a rule the user deleted, switched off or retargeted on 0.4.14 must not return from its file.
         // The marker means MIGRATION_3_4 ran on this open, so the build that wrote the live file could not change a rule.
         val forwardRules = if (!ForwardTrip.isMarked(context, name)) {
+            // Deliberate: with no mark the file brings no forward rules (only members and marks), yet it is retired
+            // below, so a later open cannot read it again.
             true
         } else {
             runCatching {
@@ -262,8 +264,13 @@ internal class SpamDatabaseRecovery(
  * build older than schema 4, which could not hold, and so could not change, a forward rule. A live file still below
  * [FORWARD_SINCE] when this build opens it is marked; the marker outlives the migration, which turns the file into
  * the current schema, and is cleared once the forward rules are restored.
+ *
+ * The marker is dropped on every other version: a failed restore may leave it, and a later trip to 0.4.14 (schema 8)
+ * must not inherit it. Only an open at the current version keeps it, for the retry of that failed restore.
  */
 internal object ForwardTrip {
+    private const val TAG = "SpamDbRecovery"
+
     /** The schema that added the forward rules table: the first one that can hold (and edit) a rule. */
     const val FORWARD_SINCE = 4
 
@@ -271,10 +278,24 @@ internal object ForwardTrip {
 
     /** Called before Room opens [name]: marks it when MIGRATION_3_4 is about to run on it. */
     fun markIfBeforeForwardRules(context: Context, name: String) {
-        runCatching {
-            val version = DatabaseBackups.fileVersion(context.getDatabasePath(name)) ?: return
-            if (version in 1 until FORWARD_SINCE) marker(context, name).createNewFile()
+        val file = marker(context, name)
+        val version = DatabaseBackups.fileVersion(context.getDatabasePath(name))
+        when {
+            version != null && version in 1 until FORWARD_SINCE -> writeMarker(file)
+            // A restore failed before and left the marker: keep it for the retry at the current schema.
+            version == SpamDatabase.VERSION -> Unit
+            else -> runCatching { file.delete() }
         }
+    }
+
+    /** Writes the marker; a failure is logged and never stops the database from opening. */
+    private fun writeMarker(file: File) {
+        if (file.exists()) return
+        val created = runCatching { file.createNewFile() }.getOrElse {
+            Log.w(TAG, "Could not write the forward-trip marker ${file.name}", it)
+            return
+        }
+        if (!created) Log.w(TAG, "Could not write the forward-trip marker ${file.name}")
     }
 
     fun isMarked(context: Context, name: String) = marker(context, name).exists()
