@@ -1076,7 +1076,13 @@ enum class DeleteResult {
     NOTHING_DELETED,
 
     /** The store refused or failed. */
-    FAILED;
+    FAILED,
+
+    /**
+     * J24: the rows up to the confirm-time mark went, but a text that came in after it is still in the chat: the chat
+     * stays, with the app's own data. Not an error: the screen says that the new text was kept.
+     */
+    NEWER_TEXT;
 
     /** The message for the user; null when the delete worked. */
     val messageRes: Int?
@@ -1085,6 +1091,7 @@ enum class DeleteResult {
             NOT_DEFAULT -> R.string.pt_delete_not_default
             NOTHING_DELETED -> R.string.pt_delete_nothing
             FAILED -> org.fossify.commons.R.string.unknown_error_occurred
+            NEWER_TEXT -> null
         }
 }
 
@@ -1096,14 +1103,24 @@ enum class DeleteResult {
  * ignores the delete), or the store still holds messages of the chat afterwards, nothing is removed and the result
  * says why; no message is shown here, the screen that asked shows it. [isDefault]: the role, checked once by a caller
  * that deletes many chats. A chat that holds only scheduled messages is not in the store: it is forgotten at once.
+ *
+ * J24: with [upTo] only the rows with an `_id` up to that mark go (SMS and MMS each by their own id), so a text that
+ * came in after the user confirmed is never deleted. When such a text is still in the chat the result is
+ * [DeleteResult.NEWER_TEXT] and nothing of the app's own data is removed. A second read that fails keeps the chat
+ * too: not knowing whether a newer text is there must never forget it.
  */
-fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null): DeleteResult {
+fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null, upTo: ChatMark? = null): DeleteResult {
     val result = when {
         isScheduledOnly(threadId) -> DeleteResult.DELETED
         !(isDefault ?: isDefaultSmsAppNow()) -> DeleteResult.NOT_DEFAULT
-        !deleteThreadFromStore(threadId) -> DeleteResult.FAILED
-        storeHasThreadMessages(threadId) != false -> DeleteResult.NOTHING_DELETED
-        else -> DeleteResult.DELETED
+        !deleteThreadFromStore(threadId, upTo) -> DeleteResult.FAILED
+        storeHasThreadMessages(threadId, upTo) != false -> DeleteResult.NOTHING_DELETED
+        upTo == null -> DeleteResult.DELETED
+        else -> when (storeHasThreadMessages(threadId)) {
+            true -> DeleteResult.NEWER_TEXT
+            null -> DeleteResult.NOTHING_DELETED
+            false -> DeleteResult.DELETED
+        }
     }
     if (result == DeleteResult.DELETED) forgetThread(threadId)
     return result
@@ -1113,11 +1130,21 @@ fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null): Dele
 private fun Context.isScheduledOnly(threadId: Long): Boolean = threadId >= SCHEDULED_ID_MIN ||
     runCatching { conversationsDB.getConversationWithThreadId(threadId)?.isScheduled == true }.getOrDefault(false)
 
-/** The SMS, then the MMS of [threadId] in the phone's store; false when a delete failed. No error toast. */
-private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
+/** The selection of [threadId]'s rows, and with [upTo] only those with an `_id` up to it. */
+private fun threadRows(threadId: Long, upTo: Long?): Pair<String, Array<String>> =
+    if (upTo == null) {
+        "${Sms.THREAD_ID} = ?" to arrayOf(threadId.toString())
+    } else {
+        "${Sms.THREAD_ID} = ? AND ${Sms._ID} <= ?" to arrayOf(threadId.toString(), upTo.toString())
+    }
+
+/**
+ * The SMS, then the MMS of [threadId] in the phone's store (with [upTo]: up to its ids); false when a delete failed.
+ * No error toast.
+ */
+private fun Context.deleteThreadFromStore(threadId: Long, upTo: ChatMark? = null): Boolean {
     var uri = Sms.CONTENT_URI
-    val selection = "${Sms.THREAD_ID} = ?"
-    val selectionArgs = arrayOf(threadId.toString())
+    var (selection, selectionArgs) = threadRows(threadId, upTo?.smsId)
     try {
         contentResolver.delete(uri, selection, selectionArgs)
     } catch (_: Exception) {
@@ -1126,6 +1153,10 @@ private fun Context.deleteThreadFromStore(threadId: Long): Boolean {
     }
 
     uri = Mms.CONTENT_URI
+    threadRows(threadId, upTo?.mmsId).let { (sel, args) ->
+        selection = sel
+        selectionArgs = args
+    }
     try {
         contentResolver.delete(uri, selection, selectionArgs)
     } catch (e: Exception) {
@@ -1167,10 +1198,14 @@ fun Context.forgetThread(threadId: Long, vanished: Boolean = false) {
 private fun Context.isDefaultSmsAppNow(): Boolean =
     runCatching { DefaultSmsRole.status(this) == DefaultSmsRole.Status.Held }.getOrDefault(false)
 
-/** S14: whether the phone's store still has an SMS or MMS of [threadId]; null when it could not be read. */
-private fun Context.storeHasThreadMessages(threadId: Long): Boolean? = runCatching {
-    listOf(Sms.CONTENT_URI, Mms.CONTENT_URI).any { uri ->
-        contentResolver.query(uri, arrayOf(Sms._ID), "${Sms.THREAD_ID} = ?", arrayOf(threadId.toString()), null)
+/**
+ * S14: whether the phone's store still has an SMS or MMS of [threadId] (with [upTo]: up to its ids); null when it could
+ * not be read.
+ */
+private fun Context.storeHasThreadMessages(threadId: Long, upTo: ChatMark? = null): Boolean? = runCatching {
+    listOf(Sms.CONTENT_URI to upTo?.smsId, Mms.CONTENT_URI to upTo?.mmsId).any { (uri, limit) ->
+        val (selection, args) = threadRows(threadId, limit)
+        contentResolver.query(uri, arrayOf(Sms._ID), selection, args, null)
             ?.use { it.count > 0 } ?: error("no cursor")
     }
 }.getOrNull()

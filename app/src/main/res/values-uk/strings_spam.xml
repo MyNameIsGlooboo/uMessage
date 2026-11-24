@@ -116,4 +116,17 @@
     <string name="spam_purge_days">%d днів</string>
     <string name="spam_purge_forever">Зберігати завжди</string>
     <string name="spam_notify_title">Сповіщати про повідомлення від невідомих відправників</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">Надійшли нові повідомлення, їх збережено. Чатів: %d</item>
+        <item quantity="few">Надійшли нові повідомлення, їх збережено. Чатів: %d</item>
+        <item quantity="many">Надійшли нові повідомлення, їх збережено. Чатів: %d</item>
+        <item quantity="other">Надійшли нові повідомлення, їх збережено. Чатів: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">Не видалено чатів: %d</item>
+        <item quantity="few">Не видалено чатів: %d</item>
+        <item quantity="many">Не видалено чатів: %d</item>
+        <item quantity="other">Не видалено чатів: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Прибрано зі «Спаму». Архівовані чати залишаються в «Архіві».</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.spam.ChatSorter
 import com.glooboo.umessage.spam.ListKind
 import com.glooboo.umessage.spam.RuleType
@@ -48,10 +49,20 @@ internal class ThreadSpamMoves(
     private val repository: () -> SpamRepository,
     private val threadId: () -> Long,
     private val place: SenderPlace = SenderPlace.of(activity, fresh = true),
+    /** L3-4: whether the chat is archived: out of Spam it goes to Archived, not to Messages. Off the main thread. */
+    private val isArchived: (Long) -> Boolean = { id ->
+        runCatching { activity.conversationsDB.getConversationWithThreadId(id)?.isArchived == true }.getOrDefault(false)
+    },
 ) {
     private fun sort() {
         val id = threadId()
         if (id > 0) SpamSorting.requestThreads(activity, listOf(id))
+    }
+
+    /** Whether this chat is archived, so that "back in Messages" would be wrong (L3-4). */
+    private suspend fun archivedChat(): Boolean {
+        val id = threadId().takeIf { it > 0 } ?: return false
+        return withContext(Dispatchers.IO) { isArchived(id) }
     }
 
     private suspend fun offer(message: Int, action: Int = R.string.thread_report_spam_undo, long: Boolean = false) =
@@ -123,8 +134,13 @@ internal class ThreadSpamMoves(
                     if (offer(R.string.thread_unblock_done_filtered, R.string.ux8c_not_spam, long = true)) {
                         notSpam(address)
                     }
-                UnblockOutcome.BACK_IN_MESSAGES ->
-                    undoUnblockIfAsked(repo, removed, activity.getString(R.string.thread_unblock_done))
+                UnblockOutcome.BACK_IN_MESSAGES -> undoUnblockIfAsked(
+                    repo,
+                    removed,
+                    activity.getString(
+                        if (archivedChat()) R.string.spam_moved_to_archived else R.string.thread_unblock_done,
+                    ),
+                )
                 UnblockOutcome.ANDROID_LIST ->
                     undoUnblockIfAsked(repo, removed, activity.getString(R.string.thread_unblock_done_system))
                 UnblockOutcome.OTHER_RULE -> stillBlockedByRule(repo, removed, (verdict as SenderVerdict.Spam).ruleId)
@@ -201,7 +217,9 @@ internal class ThreadSpamMoves(
                 return@launch
             }
             wrote()
-            if (change.createdRuleIds.isNotEmpty() && offer(R.string.thread_always_allow_done)) {
+            if (change.createdRuleIds.isEmpty()) return@launch
+            val done = if (archivedChat()) R.string.spam_moved_to_archived else R.string.thread_always_allow_done
+            if (offer(done)) {
                 SenderMoves.undoNotSpam(repository(), change)
                 wrote()
             }

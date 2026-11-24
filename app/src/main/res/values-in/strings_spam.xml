@@ -95,4 +95,11 @@
     <string name="spam_purge_days">%d hari</string>
     <string name="spam_purge_forever">Simpan selamanya</string>
     <string name="spam_notify_title">Beri tahu saya untuk pesan dari pengirim tidak dikenal</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="other">Pesan baru masuk dan disimpan. Percakapan: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="other">Percakapan yang tidak dihapus: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Dipindahkan dari Spam. Percakapan yang diarsipkan tetap di Arsip.</string>
 </resources>

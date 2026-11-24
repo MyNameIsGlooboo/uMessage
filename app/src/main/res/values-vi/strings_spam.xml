@@ -95,4 +95,11 @@
     <string name="spam_purge_days">%d ngày</string>
     <string name="spam_purge_forever">Giữ mãi mãi</string>
     <string name="spam_notify_title">Thông báo cho tôi khi có tin nhắn từ người gửi không xác định</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="other">Có tin nhắn mới đến và đã được giữ lại. Cuộc trò chuyện: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="other">Cuộc trò chuyện chưa bị xóa: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Đã chuyển khỏi Tin rác. Các cuộc trò chuyện đã lưu trữ vẫn ở trong Lưu trữ.</string>
 </resources>

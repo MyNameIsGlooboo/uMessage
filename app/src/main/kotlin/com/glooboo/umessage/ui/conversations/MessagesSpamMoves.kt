@@ -8,9 +8,8 @@ import android.provider.Telephony.Sms
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
-import com.glooboo.umessage.extensions.DeleteResult
+import com.glooboo.umessage.extensions.ChatMark
 import com.glooboo.umessage.extensions.conversationsDB
-import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.markThreadMessagesRead
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.HiddenChats
@@ -25,6 +24,8 @@ import com.glooboo.umessage.ui.spam.RuleNotes
 import com.glooboo.umessage.ui.spam.SenderBlocking
 import com.glooboo.umessage.ui.spam.SenderMoves
 import com.glooboo.umessage.ui.spam.SpamRepositoryProvider
+import com.glooboo.umessage.ui.spam.deleteMarked
+import com.glooboo.umessage.ui.spam.deleteSpamChats
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -269,22 +270,16 @@ internal object SpamTabCount {
 }
 
 /**
- * Deletes the chats [ids] from the phone's store. Returns the ids that went, and the message of the first one that
- * did not (S14: not the default app, nothing deleted). The role is checked once. Blocking.
+ * Deletes the chats [ids] from the phone's store, each only up to the mark read just before the texts go (J24), so a
+ * text that arrives meanwhile is never deleted. Returns the ids whose chat went, and the message of the first failure
+ * (S14: not the default app, nothing deleted). The role is checked once. Blocking.
  */
 internal fun deleteChats(context: Context, ids: List<Long>): Pair<Set<Long>, Int?> {
     val isDefault = runCatching { DefaultSmsRole.status(context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
-    val results = ids.associateWith {
-        runCatching {
-            context.deleteConversation(it, isDefault).also { result ->
-                if (result == DeleteResult.DELETED) {
-                    context.notificationManager.cancel(it.hashCode())
-                    BlockedNotifier.cancelChat(context, it)
-                }
-            }
-        }.getOrNull()
-    }
-    val deleted = results.filterValues { it == DeleteResult.DELETED }.keys
-    val message = results.values.firstNotNullOfOrNull { it?.messageRes }
-    return deleted to message
+    val marks = ids.associateWith { ChatMark.read(context, it) }
+    val report = deleteMarked(
+        marks, isDefault,
+        deleter = { given, default -> deleteSpamChats(context, given, default) },
+    )
+    return report.deleted to report.failure
 }

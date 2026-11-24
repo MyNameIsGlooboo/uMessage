@@ -9,6 +9,8 @@ import android.os.Looper
 import androidx.lifecycle.viewModelScope
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.glooboo.umessage.extensions.ChatMark
+import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.draftsDB
 import com.glooboo.umessage.models.Draft
@@ -72,6 +74,10 @@ class ConversationsViewModelTest {
     @After
     fun tearDown() {
         scope.cancel()
+        extra.forEach {
+            it.stopObservingNotes()
+            it.viewModelScope.cancel()
+        }
         vm.stopObservingNotes()
         // The model is never cleared here: its Spam count would otherwise read the next test's database.
         vm.viewModelScope.cancel()
@@ -411,6 +417,111 @@ class ConversationsViewModelTest {
 
     private fun rowIds() = vm.state.value.rows.map { it.threadId }
 
+    // ---- J24: a delete never takes a text that came after it was confirmed ----------------------------------------
+
+    private val deletedMarks: MutableList<Map<Long, ChatMark>> = Collections.synchronizedList(mutableListOf())
+    private val deleteResults = HashMap<Long, DeleteResult>()
+    private val unreadable = HashSet<Long>()
+    private val readMarks: MutableList<Long> = Collections.synchronizedList(mutableListOf())
+
+    /**
+     * A list model whose store reads and deletes are faked: every chat is at [confirmedMark] until the test says
+     * else.
+     */
+    private fun markedModel(): ConversationsViewModel = ConversationsViewModel(
+        app,
+        marker = { id ->
+            readMarks += id
+            if (id in unreadable) null else confirmedMark
+        },
+        deleter = { given, _ ->
+            deletedMarks += given
+            given.keys.associateWith { deleteResults[it] ?: DeleteResult.DELETED }
+        },
+    ).also { model ->
+        scope.launch { model.events.collect { events += it } }
+        model.submit(listOf(dad, mom), cached = false, firstRun = false)
+        awaitUntil { model.state.value.rows.size == 2 }
+        extra += model
+    }
+
+    private val extra = mutableListOf<ConversationsViewModel>()
+
+    private fun confirmDeleteOf(model: ConversationsViewModel, id: Long): Long {
+        events.clear()
+        model.deleteOne(id)
+        awaitUntil { model.state.value.confirmDeleteCount == 1 }
+        model.confirmDelete()
+        awaitUntil { events.any { it is ConversationsEvent.Deleted } }
+        return (events.single { it is ConversationsEvent.Deleted } as ConversationsEvent.Deleted).token
+    }
+
+    @Test
+    fun theMarkIsTakenBeforeTheChatHidesAndTheUndoIsOffered() {
+        val model = markedModel()
+        confirmDeleteOf(model, dad.threadId)
+        assertThat(readMarks).contains(dad.threadId)
+    }
+
+    @Test
+    fun aTextThatCameInDuringAPendingDeleteSurvivesAndTheDeleteStopsAtTheMark() {
+        val model = markedModel()
+        deleteResults[dad.threadId] = DeleteResult.NEWER_TEXT
+        val token = confirmDeleteOf(model, dad.threadId)
+
+        model.commitDelete(token)
+
+        awaitUntil { events.any { it is ConversationsEvent.DeleteKept } }
+        assertThat(deletedMarks.single()).containsExactly(dad.threadId, confirmedMark)
+        val kept = events.filterIsInstance<ConversationsEvent.DeleteKept>().single()
+        assertThat(kept.newText).isEqualTo(1)
+        assertThat(kept.other).isEqualTo(0)
+        // The chat shows again.
+        awaitUntil { dad.threadId in model.state.value.rows.map { it.threadId } }
+    }
+
+    @Test
+    fun aChatWhoseMarkCouldNotBeReadIsKeptAndNothingIsDeleted() {
+        val model = markedModel()
+        unreadable += dad.threadId
+        val token = confirmDeleteOf(model, dad.threadId)
+
+        model.commitDelete(token)
+
+        awaitUntil { events.any { it is ConversationsEvent.DeleteKept } }
+        assertThat(deletedMarks).isEmpty()
+        assertThat(events.filterIsInstance<ConversationsEvent.DeleteKept>().single().other).isEqualTo(1)
+        awaitUntil { dad.threadId in model.state.value.rows.map { it.threadId } }
+    }
+
+    @Test
+    fun aModelThatGoesAwayStillDeletesOnlyUpToTheConfirm() {
+        val model = markedModel()
+        confirmDeleteOf(model, dad.threadId)
+        // onCleared is protected: call it the way the system does when the model goes away.
+        val onCleared = ConversationsViewModel::class.java.getDeclaredMethod("onCleared")
+        onCleared.isAccessible = true
+        onCleared.invoke(model)
+
+        awaitUntil { deletedMarks.isNotEmpty() }
+        assertThat(deletedMarks.single()).containsExactly(dad.threadId, confirmedMark)
+    }
+
+    @Test
+    fun aFlushClosesTheWindowAndTellsTheScreenToDropItsUndo() {
+        val model = markedModel()
+        val closed: MutableList<Long> = Collections.synchronizedList(mutableListOf())
+        scope.launch { model.deleteClosed.collect { closed += it } }
+        val token = confirmDeleteOf(model, dad.threadId)
+        assertThat(model.isDeletePending(token)).isTrue()
+
+        model.flushPendingDeletes()
+
+        awaitUntil { token in closed }
+        assertThat(model.isDeletePending(token)).isFalse()
+        awaitUntil { deletedMarks.isNotEmpty() }
+    }
+
     private fun idleMain() = shadowOf(Looper.getMainLooper()).idle()
 
     private fun awaitUntil(condition: () -> Boolean) {
@@ -442,6 +553,7 @@ class ConversationsViewModelTest {
     private companion object {
         const val TIMEOUT_MS = 5_000L
         const val SPAM_ID = 9L
+        val confirmedMark = ChatMark(10L, 2L, inSpam = false)
         val dad = conversation(1, "Dad", date = 200)
         val mom = conversation(2, "Mom", date = 100)
 

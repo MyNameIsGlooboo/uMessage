@@ -6,7 +6,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.SnackbarVisuals
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.ChatMark
 import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.spam.BlockReceipt
 import com.glooboo.umessage.spam.SpamRepository
@@ -65,6 +67,9 @@ class SpamChatsViewModelTest {
         SpamThread(id, number, cause, unread = unread, spamSince = 1L),
     )
 
+    private fun archivedChat(id: Long, number: String, cause: SpamCause): SpamChat =
+        chat(id, number, cause).let { it.copy(conversation = it.conversation.copy(isArchived = true)) }
+
     private val chats = listOf(
         chat(1, UNKNOWN, SpamCause.UNKNOWN, unread = 2),
         chat(2, BLOCKED, SpamCause.BLOCKED),
@@ -72,10 +77,19 @@ class SpamChatsViewModelTest {
     )
 
     private val deleted: MutableList<Set<Long>> = Collections.synchronizedList(mutableListOf())
+
+    /** J24: the marks each delete was given, and what the store answers for a chat (default: [deleteResult]). */
+    private val deletedMarks: MutableList<Map<Long, ChatMark>> = Collections.synchronizedList(mutableListOf())
+    private val deleteResults = HashMap<Long, DeleteResult>()
     private var deleteResult = DeleteResult.DELETED
     private var markedAll = 0
     private val received = HashMap<Long, Pair<String, Int>>()
     private val made = mutableListOf<SpamChatsViewModel>()
+
+    /** J24: what the store holds of each chat now, and which chats were read (the confirm-time read comes first). */
+    private val marks = HashMap<Long, ChatMark>()
+    private val unreadable = HashSet<Long>()
+    private val markReads: MutableList<Long> = Collections.synchronizedList(mutableListOf())
 
     private fun newModel(source: List<SpamChat>) = SpamChatsViewModel(
         app,
@@ -86,11 +100,16 @@ class SpamChatsViewModelTest {
         io = Dispatchers.IO,
         requestSort = { sorted += it },
         newestReceived = { received[it] },
-        deleter = { ids, _ ->
-            deleted.add(ids)
-            deleteResult
+        deleter = { given, _ ->
+            deleted.add(given.keys.toSet())
+            deletedMarks.add(given)
+            given.keys.associateWith { deleteResults[it] ?: deleteResult }
         },
         markAll = { markedAll },
+        marker = { id ->
+            markReads.add(id)
+            if (id in unreadable) null else marks[id] ?: ChatMark(10L, 0L, inSpam = true)
+        },
     ).also { made += it }
 
     @Before
@@ -164,6 +183,23 @@ class SpamChatsViewModelTest {
 
         vm.undoNotSpam(moved.token)
         awaitUntil { rules().isEmpty() && 1L in rowIds() }
+    }
+
+    @Test
+    fun movedToMessagesSaysArchivedOnlyWhenEveryChatGoesThere() {
+        val model = newModel(
+            listOf(chat(1, UNKNOWN, SpamCause.UNKNOWN), archivedChat(2, BLOCKED, SpamCause.BLOCKED)),
+        )
+        val seen = Collections.synchronizedList(mutableListOf<SpamChatsEvent>())
+        scope.launch { model.events.collect { seen += it } }
+        model.load()
+        awaitUntil { model.state.value.rows.size == 2 }
+
+        model.notSpam(setOf(1L, 2L))
+
+        awaitUntil { seen.any { it is SpamChatsEvent.MovedToMessages } }
+        // Only one of the two is archived: the snackbar must not say that all of them stay in Archived.
+        assertThat(seen.filterIsInstance<SpamChatsEvent.MovedToMessages>().single().archived).isFalse()
     }
 
     @Test
@@ -347,6 +383,143 @@ class SpamChatsViewModelTest {
         val message = awaitEvent<SpamChatsEvent.Message>()
         assertThat(message.res).isEqualTo(R.string.pt_delete_not_default)
         awaitUntil { 1L in rowIds() }
+    }
+
+    // ---- J24: a delete never takes a text that came after it was confirmed ----------------------------------------
+
+    @Test
+    fun theMarkIsTakenBeforeTheChatHidesAndTheUndoIsOffered() {
+        vm.delete(setOf(1L))
+        awaitEvent<SpamChatsEvent.Deleted>()
+        // The event is sent only after the read: nothing that arrives later is part of this delete.
+        assertThat(markReads).contains(1L)
+    }
+
+    @Test
+    fun aTextThatArrivesDuringAPendingDeleteSurvivesAndTheDeleteStopsAtTheMark() {
+        vm.delete(setOf(1L, 2L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        // A new text lands in chat 1: its id is above the one seen at the confirm.
+        marks[1L] = ChatMark(11L, 0L, inSpam = true)
+        deleteResults[1L] = DeleteResult.NEWER_TEXT
+        vm.commitDelete(event.token)
+
+        awaitUntil { deleted.isNotEmpty() }
+        // Each chat is given with the mark of the confirm, never the newer one.
+        assertThat(deletedMarks.single().getValue(1L)).isEqualTo(ChatMark(10L, 0L, inSpam = true))
+        assertThat(awaitEvent<SpamChatsEvent.KeptNewText>().count).isEqualTo(1)
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aChatThatLeftSpamDuringAPendingDeleteIsNotDeletedAndSaysSo() {
+        vm.delete(setOf(1L, 2L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        marks[1L] = ChatMark(11L, 0L, inSpam = false)
+        vm.commitDelete(event.token)
+
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deleted.single()).containsExactly(2L)
+        assertThat(awaitEvent<SpamChatsEvent.KeptOther>().count).isEqualTo(1)
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aChatWhoseMarkCouldNotBeReadIsKept() {
+        unreadable += 1L
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        vm.commitDelete(event.token)
+
+        assertThat(awaitEvent<SpamChatsEvent.KeptOther>().count).isEqualTo(1)
+        assertThat(deleted).isEmpty()
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aTabSwitchThenTheActivityStopNeverDeletesTheTextThatCameInBetween() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        // The user switches tab: the snackbar is cancelled, the delete stays pending.
+        showThenCancel(event)
+        // A verification code arrives: the chat moves to Messages. Its notification is tapped: MainActivity stops.
+        marks[1L] = ChatMark(12L, 3L, inSpam = false)
+        SpamChatsViewModel.flushOpen()
+
+        assertThat(awaitEvent<SpamChatsEvent.KeptOther>().count).isEqualTo(1)
+        assertThat(deleted).isEmpty()
+        awaitUntil { 1L in rowIds() }
+    }
+
+    @Test
+    fun aTabSwitchThenTheStopOfAChatStillInSpamDeletesOnlyUpToTheConfirm() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        showThenCancel(event)
+        marks[1L] = ChatMark(12L, 3L, inSpam = true)
+        deleteResults[1L] = DeleteResult.NEWER_TEXT
+        SpamChatsViewModel.flushOpen()
+
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deletedMarks.single().getValue(1L)).isEqualTo(ChatMark(10L, 0L, inSpam = true))
+        assertThat(awaitEvent<SpamChatsEvent.KeptNewText>().count).isEqualTo(1)
+    }
+
+    @Test
+    fun aModelThatGoesAwayDeletesOnlyUpToTheConfirmAndSkipsAChatThatLeftSpam() {
+        vm.delete(setOf(1L, 2L))
+        awaitEvent<SpamChatsEvent.Deleted>()
+        marks[2L] = ChatMark(10L, 0L, inSpam = false)
+        // onCleared is protected: the view model store calls it the way the system does.
+        val onCleared = SpamChatsViewModel::class.java.getDeclaredMethod("onCleared")
+        onCleared.isAccessible = true
+        onCleared.invoke(vm)
+
+        awaitUntil { deleted.isNotEmpty() }
+        assertThat(deleted.single()).containsExactly(1L)
+        assertThat(deletedMarks.single().getValue(1L)).isEqualTo(ChatMark(10L, 0L, inSpam = true))
+    }
+
+    @Test
+    fun theUndoGoesAwayOnceTheDeleteHasRun() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        val snackbar = SnackbarHostState()
+        val job = scope.launch { showSpamEvent(event, snackbar, vm, app.resources, onViewRule = {}) }
+        awaitUntil { snackbar.currentSnackbarData != null }
+
+        // Leaving the app ran the delete: its Undo must not stay on screen.
+        vm.flushPendingDeletes()
+        awaitUntil { snackbar.currentSnackbarData == null && job.isCompleted }
+        awaitUntil { deleted.isNotEmpty() }
+    }
+
+    @Test
+    fun aDeleteThatAlreadyRanOffersNoUndoAtAll() {
+        vm.delete(setOf(1L))
+        val event = awaitEvent<SpamChatsEvent.Deleted>()
+        vm.flushPendingDeletes()
+        val snackbar = SnackbarHostState()
+        val job = scope.launch { showSpamEvent(event, snackbar, vm, app.resources, onViewRule = {}) }
+
+        awaitUntil { job.isCompleted }
+        assertThat(snackbar.currentSnackbarData).isNull()
+    }
+
+    @Test
+    fun aSnackbarIsDismissedOnlyByItsOwnVisuals() {
+        val snackbar = SnackbarHostState()
+        val mine: SnackbarVisuals = OwnedSnackbar("mine", "Undo", SnackbarDuration.Indefinite)
+        val other: SnackbarVisuals = OwnedSnackbar("other", "Undo", SnackbarDuration.Indefinite)
+        val job = scope.launch { snackbar.showSnackbar(other) }
+        awaitUntil { snackbar.currentSnackbarData != null }
+
+        snackbar.dismissIfShown(mine)
+        ShadowLooper.idleMainLooper()
+        assertThat(snackbar.currentSnackbarData?.visuals).isSameInstanceAs(other)
+        snackbar.dismissIfShown(other)
+        awaitUntil { job.isCompleted }
+        assertThat(snackbar.currentSnackbarData).isNull()
     }
 
     @Test

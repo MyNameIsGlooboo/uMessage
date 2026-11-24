@@ -8,9 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.glooboo.umessage.R
 import com.glooboo.umessage.databases.MessagesDatabase
+import com.glooboo.umessage.extensions.ChatMark
 import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.config
-import com.glooboo.umessage.extensions.deleteConversation
 import com.glooboo.umessage.extensions.getAllDrafts
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.HiddenChats
@@ -38,8 +38,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -50,7 +53,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.fossify.commons.extensions.notificationManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -86,10 +88,16 @@ sealed interface SpamChatsEvent {
     }
 
     /** "Not spam" moved [count] chats to Messages; [name] is the one sender's name or number when there was one. */
-    data class MovedToMessages(override val token: Long, val count: Int, val name: String?) : Windowed
+    data class MovedToMessages(
+        override val token: Long,
+        val count: Int,
+        val name: String?,
+        /** L3-4: some of the chats are archived, so they go to Archived, not Messages. */
+        val archived: Boolean = false,
+    ) : Windowed
 
     /** "Unblock" moved [count] chats back to Messages. */
-    data class Unblocked(override val token: Long, val count: Int) : Windowed
+    data class Unblocked(override val token: Long, val count: Int, val archived: Boolean = false) : Windowed
 
     /** "Unblock" removed [count] senders' rules, but where their chats go could not be read: a neutral text. */
     data class UnblockedUnsure(override val token: Long, val count: Int) : Windowed
@@ -103,6 +111,12 @@ sealed interface SpamChatsEvent {
     data class Blocked(override val token: Long, val count: Int) : Windowed
     data class Deleted(override val token: Long, val count: Int) : Windowed
     data class MarkedAllRead(val count: Int) : SpamChatsEvent
+
+    /** J24: [count] chats got a new text while their delete waited; the old texts went and the new ones were kept. */
+    data class KeptNewText(val count: Int) : SpamChatsEvent
+
+    /** J24: [count] chats were not deleted (they left Spam, or the store could not be read) and show again. */
+    data class KeptOther(val count: Int) : SpamChatsEvent
 
     /**
      * A plain message ([arg] fills its one placeholder): why something did not happen (S14, C-4). [viewRule]: the
@@ -173,11 +187,14 @@ class SpamChatsViewModel internal constructor(
     /** Drops the shared snapshot once after the tab's own write, so [place] reads that write (D-7). */
     private val dropSnapshot: () -> Unit = {},
     private val newestReceived: (Long) -> Pair<String, Int>? = { null },
-    private val deleter: (Set<Long>, Boolean) -> DeleteResult = { ids, default ->
-        deleteSpamChats(application, ids, default)
+    /** Deletes each chat up to its mark (J24); the result of each. */
+    private val deleter: (Map<Long, ChatMark>, Boolean) -> Map<Long, DeleteResult> = { marks, default ->
+        deleteSpamChats(application, marks, default)
     },
     private val markAll: (Collection<SpamChat>) -> Int = { SpamChatsSource.markAllRead(application, it) },
     private val clock: () -> Long = System::currentTimeMillis,
+    /** J24: a chat's newest text and place in the store now (see [ChatMark]); blocking, off the main thread. */
+    private val marker: (Long) -> ChatMark? = { ChatMark(0L, 0L, inSpam = true) },
 ) : AndroidViewModel(application) {
 
     constructor(application: Application) : this(
@@ -190,6 +207,7 @@ class SpamChatsViewModel internal constructor(
         requestSort = { ids -> SpamSorting.requestThreads(application, ids) },
         dropSnapshot = { runCatching { ChatSorter.snapshots(application).invalidate() } },
         newestReceived = { id -> SpamChatsSource.newestReceived(MessagesDatabase.getInstance(application), id) },
+        marker = { id -> ChatMark.read(application, id) },
     )
 
     private val app: Application get() = getApplication()
@@ -213,7 +231,13 @@ class SpamChatsViewModel internal constructor(
     /** Removed rules, every chat asked about, and the chats hidden (those that went back to Messages). */
     private val unblocks = HashMap<Long, Triple<List<SpamRule>, Set<Long>, Set<Long>>>()
     private val blocks = HashMap<Long, List<BlockReceipt>>()
-    private val pendingDeletes = LinkedHashMap<Long, Set<Long>>()
+
+    /** The deletes waiting for their Undo window, by token: each chat with its mark from the moment of the confirm. */
+    private val pendingDeletes = LinkedHashMap<Long, Map<Long, ChatMark?>>()
+
+    /** J24: the token of a delete whose window just closed: its Undo must go from the screen (L3-2). */
+    private val _deleteClosed = MutableSharedFlow<Long>(extraBufferCapacity = EVENT_BUFFER)
+    val deleteClosed: SharedFlow<Long> = _deleteClosed.asSharedFlow()
 
     /** Chats whose delete runs now: still hidden, no Undo any more, never deleted twice (D-2). */
     private val deleting = HashSet<Long>()
@@ -307,7 +331,7 @@ class SpamChatsViewModel internal constructor(
         addAll(inFlight)
         notSpams.values.forEach { addAll(it.second) }
         unblocks.values.forEach { addAll(it.third) }
-        pendingDeletes.values.forEach { addAll(it) }
+        pendingDeletes.values.forEach { addAll(it.keys) }
         addAll(deleting)
     }
 
@@ -399,7 +423,7 @@ class SpamChatsViewModel internal constructor(
         notSpams.keys.toList().forEach(::commitNotSpam)
         unblocks.keys.toList().forEach(::commitUnblock)
         blocks.keys.toList().forEach(::commitBlock)
-        pendingDeletes.forEach { (token, ids) -> _events.trySend(SpamChatsEvent.Deleted(token, ids.size)) }
+        pendingDeletes.forEach { (token, marks) -> _events.trySend(SpamChatsEvent.Deleted(token, marks.size)) }
     }
 
     /**
@@ -461,7 +485,14 @@ class SpamChatsViewModel internal constructor(
             val token = nextToken++
             notSpams[token] = change to ids
             publish()
-            send(SpamChatsEvent.MovedToMessages(token, targets.size, targets.singleOrNull()?.conversation?.title))
+            send(
+                SpamChatsEvent.MovedToMessages(
+                    token,
+                    targets.size,
+                    targets.singleOrNull()?.conversation?.title,
+                    archived = targets.all { it.conversation.isArchived },
+                ),
+            )
         }
     }
 
@@ -543,7 +574,11 @@ class SpamChatsViewModel internal constructor(
         publish()
         send(
             when {
-                moved.isNotEmpty() -> SpamChatsEvent.Unblocked(token, moved.size)
+                moved.isNotEmpty() -> SpamChatsEvent.Unblocked(
+                    token,
+                    moved.size,
+                    archived = targets.filter { it.threadId in moved }.all { it.conversation.isArchived },
+                )
                 unknown.isNotEmpty() -> SpamChatsEvent.StillUnknown(token, unknown)
                 unsure.isNotEmpty() -> SpamChatsEvent.UnblockedUnsure(token, targets.size)
                 else -> SpamChatsEvent.StillOnSystemList(token)
@@ -627,28 +662,43 @@ class SpamChatsViewModel internal constructor(
         if (!canDelete()) return refuseDelete()
         // A new delete closes the previous Undo window.
         flushPendingDeletes()
-        val token = nextToken++
-        pendingDeletes[token] = targets
-        publish()
-        send(SpamChatsEvent.Deleted(token, targets.size))
+        viewModelScope.launch {
+            // J24: the marks are taken before the chats hide and before the Undo is offered, so a text that comes in
+            // from now on is never part of this delete.
+            val marks = withContext(io) { targets.associateWith { marker(it) } }
+            val token = nextToken++
+            pendingDeletes[token] = marks
+            publish()
+            send(SpamChatsEvent.Deleted(token, targets.size))
+        }
     }
 
     fun undoDelete(token: Long) {
         if (pendingDeletes.remove(token) != null) publish()
     }
 
+    /** Whether the delete of [token] still waits for its Undo window. */
+    fun isDeletePending(token: Long): Boolean = token in pendingDeletes
+
     /**
      * The Undo window closed: the texts go from the phone's store. A delete that did not happen says why (S14). The
-     * token goes at once, so a second commit (a flush, then the snackbar's own end) does nothing (D-2).
+     * token goes at once, so a second commit (a flush, then the snackbar's own end) does nothing (D-2). J24: only the
+     * texts up to the mark of the confirm go. A chat that left Spam or whose mark could not be read is kept, and one
+     * that got a newer text keeps it: each is shown again with a note, so the delete never takes a text the user has
+     * not seen.
      */
     fun commitDelete(token: Long) {
-        val ids = pendingDeletes.remove(token) ?: return
+        val marks = pendingDeletes.remove(token) ?: return
+        val ids = marks.keys
+        _deleteClosed.tryEmit(token)
         deleting += ids
         viewModelScope.launch(NonCancellable) {
-            val result = withContext(io) { deleter(ids, isDefault()) }
+            val report = withContext(io) { deleteMarked(marks, isDefault(), deleter, now = marker) }
             deleting -= ids
             publish()
-            result.messageRes?.let { send(SpamChatsEvent.Message(it)) }
+            if (report.keptNewText > 0) send(SpamChatsEvent.KeptNewText(report.keptNewText))
+            if (report.keptOther > 0) send(SpamChatsEvent.KeptOther(report.keptOther))
+            report.failure?.let { send(SpamChatsEvent.Message(it)) }
             load()
             refreshConversations()
         }
@@ -686,17 +736,19 @@ class SpamChatsViewModel internal constructor(
         open -= this
         EventBus.getDefault().unregister(this)
         loads.close()
-        val leftovers = pendingDeletes.values.flatten().toSet()
+        val leftovers = LinkedHashMap<Long, ChatMark?>()
+        pendingDeletes.values.forEach { leftovers += it }
         pendingDeletes.clear()
         if (leftovers.isNotEmpty()) {
             val default = isDefault()
-            Thread { runCatching { deleter(leftovers, default) } }.start()
+            Thread { runCatching { deleteMarked(leftovers, default, deleter, now = marker) } }.start()
         }
         super.onCleared()
     }
 
     companion object {
         private const val MAX_BADGE = 99
+        private const val EVENT_BUFFER = 16
 
         /** The models alive now (weakly held): one per screen that showed the Spam tab. */
         private val open: MutableSet<SpamChatsViewModel> =
@@ -713,19 +765,4 @@ class SpamChatsViewModel internal constructor(
         private fun isDefaultSmsApp(context: Context): Boolean =
             runCatching { DefaultSmsRole.status(context) == DefaultSmsRole.Status.Held }.getOrDefault(false)
     }
-}
-
-/** Deletes [ids] from the phone's store; the first result that is not "deleted" is the one to show. Blocking. */
-internal fun deleteSpamChats(context: Context, ids: Set<Long>, isDefault: Boolean): DeleteResult {
-    var shown = DeleteResult.DELETED
-    ids.forEach { id ->
-        val result = runCatching { context.deleteConversation(id, isDefault) }.getOrDefault(DeleteResult.FAILED)
-        if (result == DeleteResult.DELETED) {
-            runCatching { context.notificationManager.cancel(id.hashCode()) }
-            BlockedNotifier.cancelChat(context, id)
-        } else if (shown == DeleteResult.DELETED) {
-            shown = result
-        }
-    }
-    return shown
 }

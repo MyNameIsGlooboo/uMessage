@@ -116,4 +116,17 @@
     <string name="spam_purge_days">%d dni</string>
     <string name="spam_purge_forever">Zachowaj na zawsze</string>
     <string name="spam_notify_title">Powiadamiaj o wiadomościach od nieznanych nadawców</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">Przyszły nowe wiadomości, więc je zachowano. Rozmowy: %d</item>
+        <item quantity="few">Przyszły nowe wiadomości, więc je zachowano. Rozmowy: %d</item>
+        <item quantity="many">Przyszły nowe wiadomości, więc je zachowano. Rozmowy: %d</item>
+        <item quantity="other">Przyszły nowe wiadomości, więc je zachowano. Rozmowy: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">Nieusunięte rozmowy: %d</item>
+        <item quantity="few">Nieusunięte rozmowy: %d</item>
+        <item quantity="many">Nieusunięte rozmowy: %d</item>
+        <item quantity="other">Nieusunięte rozmowy: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Przeniesiono ze Spamu. Zarchiwizowane rozmowy zostają w Archiwum.</string>
 </resources>

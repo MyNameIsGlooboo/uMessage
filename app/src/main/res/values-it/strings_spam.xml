@@ -102,4 +102,13 @@
     <string name="spam_purge_days">%d giorni</string>
     <string name="spam_purge_forever">Conserva per sempre</string>
     <string name="spam_notify_title">Avvisami per i messaggi da mittenti sconosciuti</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">Sono arrivati nuovi messaggi e sono stati conservati. Conversazioni: %d</item>
+        <item quantity="other">Sono arrivati nuovi messaggi e sono stati conservati. Conversazioni: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">Conversazioni non eliminate: %d</item>
+        <item quantity="other">Conversazioni non eliminate: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Spostata fuori da Spam. Le conversazioni archiviate restano in Archivio.</string>
 </resources>

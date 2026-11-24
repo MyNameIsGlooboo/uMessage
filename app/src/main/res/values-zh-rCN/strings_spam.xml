@@ -95,4 +95,11 @@
     <string name="spam_purge_days">%d天</string>
     <string name="spam_purge_forever">永久保留</string>
     <string name="spam_notify_title">收到未知发件人的短信时通知我</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="other">收到了新短信，已保留。会话数：%d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="other">未删除的会话：%d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">已移出垃圾短信。已归档的会话仍留在归档中。</string>
 </resources>

@@ -95,4 +95,11 @@
     <string name="spam_purge_days">%d日</string>
     <string name="spam_purge_forever">ずっと保存</string>
     <string name="spam_notify_title">不明な送信者からのメッセージを通知</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="other">新しいメッセージが届いたため残しました。トーク数: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="other">削除されなかったトーク: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">「迷惑メッセージ」から移動しました。アーカイブ済みのトークは「アーカイブ」に残ります。</string>
 </resources>

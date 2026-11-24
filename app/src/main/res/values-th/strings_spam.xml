@@ -95,4 +95,11 @@
     <string name="spam_purge_days">%d วัน</string>
     <string name="spam_purge_forever">เก็บไว้ตลอด</string>
     <string name="spam_notify_title">แจ้งเตือนเมื่อมีข้อความจากผู้ส่งที่ไม่รู้จัก</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="other">มีข้อความใหม่เข้ามาและเก็บไว้แล้ว แชต: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="other">แชตที่ไม่ได้ลบ: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">ย้ายออกจากสแปมแล้ว แชตที่เก็บถาวรไว้จะอยู่ในเก็บถาวรต่อไป</string>
 </resources>

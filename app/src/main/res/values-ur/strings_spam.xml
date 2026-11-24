@@ -102,4 +102,13 @@
     <string name="spam_purge_days">%d دن</string>
     <string name="spam_purge_forever">ہمیشہ رکھیں</string>
     <string name="spam_notify_title">نامعلوم بھیجنے والوں کے پیغامات کی اطلاع دیں</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">نئے پیغامات آئے اور محفوظ رکھے گئے۔ چیٹس: %d</item>
+        <item quantity="other">نئے پیغامات آئے اور محفوظ رکھے گئے۔ چیٹس: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">جو چیٹس حذف نہیں ہوئیں: %d</item>
+        <item quantity="other">جو چیٹس حذف نہیں ہوئیں: %d</item>
+    </plurals>
+    <string name="spam_moved_to_archived">اسپیم سے نکال دی گئی۔ آرکائیو کی گئی چیٹس آرکائیو ہی میں رہتی ہیں۔</string>
 </resources>

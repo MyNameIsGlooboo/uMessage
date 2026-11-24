@@ -127,4 +127,13 @@
     <string name="spam_purge_days">%d days</string>
     <string name="spam_purge_forever">Keep forever</string>
     <string name="spam_notify_title">Notify me for texts from unknown senders</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">A new text arrived in %d chat, so it was kept.</item>
+        <item quantity="other">New texts arrived in %d chats, so they were kept.</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">%d chat was not deleted.</item>
+        <item quantity="other">%d chats were not deleted.</item>
+    </plurals>
+    <string name="spam_moved_to_archived">Moved out of Spam. Archived chats stay in Archived.</string>
 </resources>
