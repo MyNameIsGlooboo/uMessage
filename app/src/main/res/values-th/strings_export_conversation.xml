@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">กำลังเตรียมไฟล์…</string>
     <string name="export_conv_nothing">ไม่มีข้อความในช่วงวันที่นี้</string>
     <string name="export_conv_failed">สร้างไฟล์ไม่ได้</string>
+    <string name="export_conv_stopped">หยุดการส่งออกแล้ว</string>
     <string name="export_conv_subject">การสนทนาที่ส่งออก</string>
     <string name="export_conv_share_text">การสนทนากับ %1$s, %2$s ค่า SHA-256 ของข้อความ: %3$s</string>
     <string name="export_conv_attachment_label">[ไฟล์แนบ]</string>

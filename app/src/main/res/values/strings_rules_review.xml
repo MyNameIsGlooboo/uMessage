@@ -42,7 +42,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Every number that starts with this, for example +1555 or 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">A text sender such as VM-HDFCBK or MYBANK. Capital letters do not matter.</string>
+    <string name="rules2_type_sender_id_help">A text sender such as VM-MYBANK or MYSHOP. Capital letters do not matter.</string>
     <string name="rules2_type_regex_help">Advanced. A regular expression matched against the message text. Test it below before you save.</string>
     <string name="rules2_err_sender_id">Use letters, digits, spaces, dots, dashes or &amp; (up to 32 characters, at least one letter)</string>
     <string name="rules2_err_sender_id_char">“%1$s” cannot be used in a sender name. Use letters, digits, spaces, dots, dashes or &amp;.</string>

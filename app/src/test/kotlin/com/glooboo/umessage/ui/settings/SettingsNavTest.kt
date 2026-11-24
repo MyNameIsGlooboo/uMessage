@@ -171,11 +171,11 @@ class SettingsNavTest {
     @Test
     fun `spam summary joins its parts with the separator`() {
         show(SettingsUiState(spam = SpamSummary(17, 17, 11)))
-        compose.onNodeWithText("17 stopped · 11 restored").assertExists()
+        compose.onNodeWithText("17 to Spam · 11 moved back").assertExists()
         val resources = androidx.test.core.app.ApplicationProvider
             .getApplicationContext<android.content.Context>().resources
         assertEquals(
-            "2 stopped in 7 days · 30 in total",
+            "2 to Spam in 7 days · 30 in total",
             spamSummaryLine(resources, SpamSummary(2, 30, 0)),
         )
     }

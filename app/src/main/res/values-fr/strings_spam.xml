@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Expression régulière</string>
     <string name="spam_type_keyword_help">Tout message contenant ce texte, même dans un mot plus long : « gain » correspond aussi à « regain ». Les majuscules et minuscules sont équivalentes. L\'expéditeur est aussi bloqué, sauf s\'il figure dans vos contacts.</string>
     <string name="spam_type_keyword_allow_help">Un message qui contient ce texte autorise son expéditeur : toute la discussion va dans Messages. Un expéditeur que vous avez bloqué reste bloqué. Utilisez une expression longue et exacte.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">cadeau gratuit</string>
     <string name="spam_type_regex_hint">gain\\s+\\d+</string>
     <string name="spam_sheet_note_label">Note (facultative)</string>

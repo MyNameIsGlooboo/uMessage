@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">هر شماره‌ای که با این مقدار شروع شود، مثلاً +1555 یا 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">فرستنده‌ای با نام متنی، مانند VM-HDFCBK یا MYBANK. بزرگی و کوچکی حروف مهم نیست.</string>
+    <string name="rules2_type_sender_id_help">فرستنده‌ای با نام متنی، مانند VM-MYBANK یا MYSHOP. بزرگی و کوچکی حروف مهم نیست.</string>
     <string name="rules2_type_regex_help">پیشرفته. یک عبارت منظم (regex) که با متن پیام جور می‌شود. قبل از ذخیره، پایین آزمایشش کنید.</string>
     <string name="rules2_err_sender_id">از حروف، رقم‌ها، فاصله، نقطه، خط تیره یا &amp; استفاده کنید (حداکثر ۳۲ کاراکتر، با حداقل یک حرف)</string>
     <string name="rules2_err_sender_id_char">«%1$s» در نام فرستنده قابل استفاده نیست. از حروف، رقم‌ها، فاصله، نقطه، خط تیره یا &amp; استفاده کنید.</string>

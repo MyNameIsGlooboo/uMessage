@@ -20,7 +20,7 @@ class ThreadSpamReportTest {
     }
 
     @Test fun senderIdIsReportedAsSenderId() {
-        assertEquals(RuleType.SENDER_ID, planSpamReport(emptyList(), "VM-HDFCBK").type)
+        assertEquals(RuleType.SENDER_ID, planSpamReport(emptyList(), "VM-MYBANK").type)
     }
 
     @Test fun notSpamAllowRuleIsRemovedInAnyFormat() {
@@ -41,8 +41,8 @@ class ThreadSpamReportTest {
     }
 
     @Test fun senderIdsMatchIgnoringCase() {
-        val allow = rule(1, ListKind.ALLOW, RuleType.SENDER_ID, "VM-HDFCBK")
-        assertEquals(listOf(allow), planSpamReport(listOf(allow), "vm-hdfcbk").allowRulesToRemove)
+        val allow = rule(1, ListKind.ALLOW, RuleType.SENDER_ID, "VM-MYBANK")
+        assertEquals(listOf(allow), planSpamReport(listOf(allow), "vm-mybank").allowRulesToRemove)
     }
 
     @Test fun reportedOnlyWhenABlockRuleCoversTheSenderAndNoAllowRuleOverridesIt() {

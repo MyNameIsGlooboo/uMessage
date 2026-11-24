@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">Підготовка файлу…</string>
     <string name="export_conv_nothing">За цей період немає повідомлень</string>
     <string name="export_conv_failed">Не вдалося створити файл</string>
+    <string name="export_conv_stopped">Експорт зупинено</string>
     <string name="export_conv_subject">Експорт чату</string>
     <string name="export_conv_share_text">Чат із %1$s, %2$s. SHA-256 тексту повідомлень: %3$s</string>
     <string name="export_conv_attachment_label">[Вкладення]</string>

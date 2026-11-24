@@ -6,10 +6,10 @@
         <item quantity="one">%d bloqueada no total</item>
         <item quantity="other">%d bloqueadas no total</item>
     </plurals>
-    <string name="e_restored_title">Restauradas recentemente</string>
-    <string name="e_restored_body">Mensagens que você moveu para a caixa de entrada nos últimos 30 dias. Toque em uma para abrir a conversa.</string>
-    <string name="e_restored_empty">As mensagens que você mover para a caixa de entrada a partir de agora ficam aqui por 30 dias.</string>
-    <string name="e_restored_when">Movida para a caixa de entrada em %1$s</string>
+    <string name="e_restored_title">Devolvidas recentemente</string>
+    <string name="e_restored_body">Mensagens que você moveu de Spam para Mensagens nos últimos 30 dias. Toque em uma para abrir a conversa.</string>
+    <string name="e_restored_empty">As mensagens que você mover de Spam para Mensagens a partir de agora aparecem aqui por 30 dias.</string>
+    <string name="e_restored_when">Devolvida para Mensagens %1$s</string>
     <string name="e_restored_open">Abra a conversa com %1$s</string>
     <string name="e_view_rule">Veja a regra</string>
     <string name="e_rules_title">Regras</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">Da antiga lista de palavras bloqueadas</string>
     <string name="e_note_system_list">Da lista de bloqueio do Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Bloqueie mensagens que contenham لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Bloqueie números de anúncios que começam com 3000</string>
+    <string name="e_example_block_cancel_word">Bloqueie mensagens que contenham %1$s</string>
+    <string name="e_example_block_ad_prefix">Bloqueie números de anúncios que começam com %1$s</string>
     <string name="e_example_allow_number">Permita sempre um número, como o dos Correios</string>
     <string name="e_sheet_sender_label">Remetente</string>
     <string name="e_sheet_text_label">Texto da mensagem</string>

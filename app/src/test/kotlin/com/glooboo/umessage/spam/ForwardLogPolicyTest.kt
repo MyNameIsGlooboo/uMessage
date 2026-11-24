@@ -15,8 +15,8 @@ class ForwardLogPolicyTest {
 
     @Test
     fun senderIdsCompareAsText() {
-        assertThat(ForwardLogPolicy.sameNumber("VM-HDFC", "vm-hdfc")).isTrue()
-        assertThat(ForwardLogPolicy.sameNumber("VM-HDFC", "VM-HDFD")).isFalse()
+        assertThat(ForwardLogPolicy.sameNumber("VM-MYBANK", "vm-mybank")).isTrue()
+        assertThat(ForwardLogPolicy.sameNumber("VM-MYBANK", "VM-OTHER")).isFalse()
         assertThat(ForwardLogPolicy.sameNumber("BANKX", "bankx")).isTrue()
     }
 

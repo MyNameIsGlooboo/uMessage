@@ -50,7 +50,7 @@
     <string name="spam_type_regex">รูปแบบ (regex)</string>
     <string name="spam_type_keyword_help">ข้อความใดก็ตามที่มีคำนี้ แม้เป็นส่วนหนึ่งของคำที่ยาวกว่า เช่น “win” จะตรงกับ “window” ด้วย ไม่แยกตัวพิมพ์ใหญ่และเล็ก ผู้ส่งจะถูกบล็อกด้วย เว้นแต่อยู่ในรายชื่อติดต่อของคุณ</string>
     <string name="spam_type_keyword_allow_help">ข้อความที่มีคำนี้จะทำให้ผู้ส่งได้รับอนุญาต: แชตทั้งหมดจะไปที่ \"ข้อความ\" ผู้ส่งที่คุณบล็อกไว้จะยังถูกบล็อก ใช้วลีที่ยาวและตรงตัว</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">ของขวัญฟรี</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">หมายเหตุ (ไม่บังคับ)</string>

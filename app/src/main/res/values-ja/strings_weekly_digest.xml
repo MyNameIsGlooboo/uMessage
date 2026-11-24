@@ -3,11 +3,11 @@
     <string name="digest_channel">1週間のまとめ</string>
     <string name="digest_title">1週間のまとめ</string>
     <string name="digest_row_title">1週間のまとめ</string>
-    <string name="digest_row_summary">週1回、ブロック件数をお知らせします。</string>
+    <string name="digest_row_summary">週1回、「迷惑メッセージ」に入った件数をお知らせします。</string>
     <plurals name="digest_held">
-        <item quantity="other">今週%d件のメッセージを保留しました。タップして確認してください。</item>
+        <item quantity="other">今週%d件のメッセージが「迷惑メッセージ」に入りました。タップして確認してください。</item>
     </plurals>
     <plurals name="digest_held_important">
-        <item quantity="other">今週%1$d件のメッセージを保留しました。うち認証コードや銀行からの通知は%2$d件です。</item>
+        <item quantity="other">今週%1$d件のメッセージが「迷惑メッセージ」に入りました。うち認証コードや銀行からの通知は%2$d件です。</item>
     </plurals>
 </resources>

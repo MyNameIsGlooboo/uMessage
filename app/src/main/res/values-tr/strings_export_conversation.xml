@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">Dosya hazırlanıyor…</string>
     <string name="export_conv_nothing">Bu tarih aralığında mesaj yok</string>
     <string name="export_conv_failed">Dosya oluşturulamadı</string>
+    <string name="export_conv_stopped">Dışa aktarma durduruldu</string>
     <string name="export_conv_subject">Dışa aktarılan görüşme</string>
     <string name="export_conv_share_text">%1$s ile görüşme, %2$s. Mesaj metninin SHA-256 değeri: %3$s</string>
     <string name="export_conv_attachment_label">[Ek]</string>

@@ -3,13 +3,13 @@
     <string name="digest_channel">Haftalık özet</string>
     <string name="digest_title">Haftalık özet</string>
     <string name="digest_row_title">Haftalık özet</string>
-    <string name="digest_row_summary">Haftada bir: kaç mesaj engellendi</string>
+    <string name="digest_row_summary">Haftada bir: kaç mesajın Spam\'e gittiği</string>
     <plurals name="digest_held">
-        <item quantity="one">Bu hafta %d mesaj bekletildi. İncelemek için dokunun.</item>
-        <item quantity="other">Bu hafta %d mesaj bekletildi. İncelemek için dokunun.</item>
+        <item quantity="one">Bu hafta %d mesaj Spam\'e gitti. İncelemek için dokunun.</item>
+        <item quantity="other">Bu hafta %d mesaj Spam\'e gitti. İncelemek için dokunun.</item>
     </plurals>
     <plurals name="digest_held_important">
-        <item quantity="one">Bu hafta %1$d mesaj bekletildi. Kod veya banka uyarısı içeren: %2$d.</item>
-        <item quantity="other">Bu hafta %1$d mesaj bekletildi. Kod veya banka uyarısı içeren: %2$d.</item>
+        <item quantity="one">Bu hafta %1$d mesaj Spam\'e gitti. Kod veya banka uyarısı olanlar: %2$d.</item>
+        <item quantity="other">Bu hafta %1$d mesaj Spam\'e gitti. Kod veya banka uyarısı olanlar: %2$d.</item>
     </plurals>
 </resources>

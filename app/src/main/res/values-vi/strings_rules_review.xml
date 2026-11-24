@@ -25,7 +25,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Mọi số điện thoại bắt đầu bằng dãy số này, ví dụ +1555 hoặc 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Tên người gửi dạng chữ như VM-HDFCBK hoặc MYBANK. Không phân biệt chữ hoa, chữ thường.</string>
+    <string name="rules2_type_sender_id_help">Tên người gửi dạng chữ như VM-MYBANK hoặc MYSHOP. Không phân biệt chữ hoa, chữ thường.</string>
     <string name="rules2_type_regex_help">Nâng cao. Biểu thức chính quy dùng để đối chiếu với nội dung tin nhắn. Thử bên dưới trước khi lưu.</string>
     <string name="rules2_err_sender_id">Dùng chữ cái, chữ số, dấu cách, dấu chấm, dấu gạch ngang hoặc &amp; (tối đa 32 ký tự, ít nhất một chữ cái)</string>
     <string name="rules2_err_sender_id_char">Không thể dùng “%1$s” trong tên người gửi. Dùng chữ cái, chữ số, dấu cách, dấu chấm, dấu gạch ngang hoặc &amp;.</string>

@@ -131,7 +131,7 @@ class ForwardUiTest {
     @Test
     fun theForwardingScreenListsRulesWithTheirTargetsAndPaidNote() {
         val rule = ForwardRule(
-            id = 3, senderType = RuleType.SENDER_ID, senderPattern = "HDFCBK",
+            id = 3, senderType = RuleType.SENDER_ID, senderPattern = "MYBANK",
             targets = listOf("+15550001111", "+15550002222"), includeCodes = true,
         )
         showForwarding(ForwardUiState(loading = false, rules = listOf(rule)))
@@ -174,7 +174,7 @@ class ForwardUiTest {
         val rule = ForwardRule(
             id = 3,
             senderType = RuleType.SENDER_ID,
-            senderPattern = "HDFCBK",
+            senderPattern = "MYBANK",
             targets = listOf("+15550001111"),
         )
         showForwarding(ForwardUiState(loading = false, rules = listOf(rule)), onOpenOptions = { opened = true })
@@ -201,7 +201,7 @@ class ForwardUiTest {
         assertThat(RulesActivity.opensForwarding(null)).isFalse()
         val tab = android.content.Intent(plain).putExtra(RulesActivity.EXTRA_OPEN_FORWARD_TAB, true)
         assertThat(RulesActivity.opensForwarding(tab)).isTrue()
-        val sender = android.content.Intent(plain).putExtra(RulesActivity.EXTRA_FORWARD_SENDER, "HDFCBK")
+        val sender = android.content.Intent(plain).putExtra(RulesActivity.EXTRA_FORWARD_SENDER, "MYBANK")
         assertThat(RulesActivity.opensForwarding(sender)).isTrue()
         val forwarding = ForwardingActivity.intent(context, " +15550001111 ")
         assertThat(forwarding.getStringExtra(ForwardingActivity.EXTRA_FORWARD_SENDER)).isEqualTo("+15550001111")

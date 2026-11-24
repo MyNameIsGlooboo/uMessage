@@ -54,7 +54,7 @@
     <string name="spam_type_regex">Muster (Regex)</string>
     <string name="spam_type_keyword_help">Jede Nachricht, die diesen Text enthält, auch als Teil eines längeren Wortes: „win“ passt auch auf „window“. Groß- und Kleinschreibung ist egal. Der Absender wird ebenfalls blockiert, außer er steht in Ihren Kontakten.</string>
     <string name="spam_type_keyword_allow_help">Eine Nachricht, die diesen Text enthält, erlaubt ihren Absender: Der ganze Chat landet in „Nachrichten“. Ein Absender, den du blockiert hast, bleibt blockiert. Verwende eine lange, genaue Wortfolge.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">Gratisgeschenk</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Notiz (optional)</string>

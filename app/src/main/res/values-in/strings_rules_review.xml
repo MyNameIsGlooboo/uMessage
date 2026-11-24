@@ -25,7 +25,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Semua nomor yang diawali angka ini, misalnya +1555 atau 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Nama pengirim berupa teks, seperti VM-HDFCBK atau MYBANK. Huruf besar dan kecil dianggap sama.</string>
+    <string name="rules2_type_sender_id_help">Nama pengirim berupa teks, seperti VM-MYBANK atau MYSHOP. Huruf besar dan kecil dianggap sama.</string>
     <string name="rules2_type_regex_help">Lanjutan. Ekspresi reguler yang dicocokkan dengan teks pesan. Uji di bawah sebelum menyimpan.</string>
     <string name="rules2_err_sender_id">Gunakan huruf, angka, spasi, titik, tanda hubung, atau &amp; (maksimal 32 karakter, minimal satu huruf)</string>
     <string name="rules2_err_sender_id_char">“%1$s” tidak dapat digunakan dalam nama pengirim. Gunakan huruf, angka, spasi, titik, tanda hubung, atau &amp;.</string>

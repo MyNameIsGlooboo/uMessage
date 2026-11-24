@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- J25: neutral starter values; see values/strings_rule_examples.xml. -->
+<resources>
+    <string name="e_example_value_cancel_word">STOP</string>
+    <string name="e_example_value_ad_prefix">5000</string>
+</resources>

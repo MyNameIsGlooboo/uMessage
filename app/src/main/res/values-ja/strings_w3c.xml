@@ -24,7 +24,7 @@
     <string name="w3c_text_default">標準</string>
     <string name="w3c_text_large">大</string>
     <string name="w3c_text_largest">最大</string>
-    <string name="w3c_text_size_sample">サンプル：コードは482913です。例：コードは４８２９１３です。</string>
+    <string name="w3c_text_size_sample">サンプル：コードは482913です。</string>
     <string name="w3c_backup_failed">バックアップを保存できませんでした。</string>
     <string name="w3c_restore_failed">このファイルは復元できませんでした。uMessageの設定バックアップを選んでください。</string>
 </resources>

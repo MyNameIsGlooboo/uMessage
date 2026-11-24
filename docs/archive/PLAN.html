@@ -95,7 +95,7 @@ pre{background:var(--card);border:1px solid var(--line);border-radius:10px;paddi
 </table>
 <h3>2.3 Important edge cases (handled explicitly)</h3>
 <ul>
-<li><b>Bank / OTP / delivery messages</b> come from non-contacts (e.g. <code>VM-HDFCBK</code>, short codes). Strict mode would hide them. Mitigation: first-run explanation, "Allow this sender" in one tap from the Blocked folder, optional OTP exemption toggle, and a "Recently blocked" quick banner.</li>
+<li><b>Bank / OTP / delivery messages</b> come from non-contacts (e.g. <code>VM-MYBANK</code>, short codes). Strict mode would hide them. Mitigation: first-run explanation, "Allow this sender" in one tap from the Blocked folder, optional OTP exemption toggle, and a "Recently blocked" quick banner.</li>
 <li><b>Blocked is reversible</b>: blocked messages are kept (auto-purge after N days, configurable). "Not spam" restores the message into the real inbox and whitelists the sender.</li>
 <li><b>Number formats</b>: <code>+91…</code>, <code>0…</code>, spaces, dashes, local vs international all normalize to one key.</li>
 <li><b>Contacts change</b>: ContentObserver keeps a cached contact set in Room, so filtering is instant and works in the background.</li>

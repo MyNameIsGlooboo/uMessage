@@ -50,7 +50,7 @@
     <string name="spam_type_regex">Biểu thức chính quy</string>
     <string name="spam_type_keyword_help">Mọi tin nhắn chứa nội dung này, kể cả trong một từ dài hơn: “win” cũng khớp với “window”. Không phân biệt chữ hoa, chữ thường. Người gửi cũng bị chặn, trừ khi họ có trong danh bạ của bạn.</string>
     <string name="spam_type_keyword_allow_help">Tin nhắn chứa nội dung này sẽ cho phép người gửi: toàn bộ cuộc trò chuyện vào mục Tin nhắn. Người gửi bạn đã chặn vẫn bị chặn. Hãy dùng một cụm từ dài và chính xác.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">quà miễn phí</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Ghi chú (không bắt buộc)</string>

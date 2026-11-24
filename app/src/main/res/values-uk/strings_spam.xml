@@ -62,7 +62,7 @@
     <string name="spam_type_regex">Регулярний вираз</string>
     <string name="spam_type_keyword_help">Будь-яке повідомлення з цим текстом, навіть у складі довшого слова: «дар» також знайде «подарунок». Регістр літер не має значення. Відправника також буде заблоковано, якщо його немає у ваших контактах.</string>
     <string name="spam_type_keyword_allow_help">Повідомлення з цим текстом дозволяє свого відправника: увесь чат потрапляє в «Повідомлення». Відправник, якого ви заблокували, залишається заблокованим. Використовуйте довгу точну фразу.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">безкоштовний подарунок</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Примітка (необов’язково)</string>

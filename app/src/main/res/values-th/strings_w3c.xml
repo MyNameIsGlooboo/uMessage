@@ -24,7 +24,7 @@
     <string name="w3c_text_default">ค่าเริ่มต้น</string>
     <string name="w3c_text_large">ใหญ่</string>
     <string name="w3c_text_largest">ใหญ่ที่สุด</string>
-    <string name="w3c_text_size_sample">ตัวอย่าง: รหัสของคุณคือ 482913 ⁧نمونه: کد شما 482913 است.⁩</string>
+    <string name="w3c_text_size_sample">ตัวอย่าง: รหัสของคุณคือ 482913</string>
     <string name="w3c_backup_failed">บันทึกข้อมูลสำรองไม่ได้</string>
     <string name="w3c_restore_failed">กู้คืนจากไฟล์นี้ไม่ได้ เลือกไฟล์สำรองข้อมูลการตั้งค่า uMessage</string>
 </resources>

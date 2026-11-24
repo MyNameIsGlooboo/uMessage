@@ -543,7 +543,7 @@ private const val DAY_MS = 24 * HOUR_MS
 private fun previewEntries(now: Long = System.currentTimeMillis()) = listOf(
     SpamLogEntry(now - MINUTE_MS, "+14155550133", 1, "BLOCK", "UNKNOWN_SENDER", "SMS"),
     SpamLogEntry(now - 2 * MINUTE_MS, "+14155550133", 1, "BLOCK", "UNKNOWN_SENDER", "SMS"),
-    SpamLogEntry(now - HOUR_MS / 2, "VM-HDFCBK", 2, "ALLOW", "OTP_EXEMPTION", "SMS"),
+    SpamLogEntry(now - HOUR_MS / 2, "VM-MYBANK", 2, "ALLOW", "OTP_EXEMPTION", "SMS"),
     SpamLogEntry(
         now - HOUR_MS, "+14155550100", 1, "ALLOW", "ALLOW_RULE", "MMS_PUSH", 1, "+1415555", SpamLog.FIX_ALLOWED,
     ),

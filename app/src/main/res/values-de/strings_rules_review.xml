@@ -26,7 +26,7 @@
     <string name="rules2_type_number_hint">+15550001234</string>
     <string name="rules2_type_prefix_help">Alle Nummern, die damit beginnen, zum Beispiel +1555 oder 0555.</string>
     <string name="rules2_type_prefix_hint">+1555</string>
-    <string name="rules2_type_sender_id_help">Ein Absendername wie VM-HDFCBK oder MYBANK. Groß- und Kleinschreibung spielt keine Rolle.</string>
+    <string name="rules2_type_sender_id_help">Ein Absendername wie VM-MYBANK oder MYSHOP. Groß- und Kleinschreibung spielt keine Rolle.</string>
     <string name="rules2_type_regex_help">Für Fortgeschrittene. Ein regulärer Ausdruck, der mit dem Nachrichtentext abgeglichen wird. Teste ihn unten, bevor du speicherst.</string>
     <string name="rules2_err_sender_id">Verwende Buchstaben, Ziffern, Leerzeichen, Punkte, Bindestriche oder &amp; (höchstens 32 Zeichen, mindestens ein Buchstabe)</string>
     <string name="rules2_err_sender_id_char">„%1$s“ ist in einem Absendernamen nicht erlaubt. Verwende Buchstaben, Ziffern, Leerzeichen, Punkte, Bindestriche oder &amp;.</string>

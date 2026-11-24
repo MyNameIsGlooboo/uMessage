@@ -50,7 +50,7 @@
     <string name="spam_type_regex">정규식</string>
     <string name="spam_type_keyword_help">이 문구가 포함된 모든 메시지에 적용돼요. 긴 단어의 일부여도 적용돼요. 예를 들어 \"win\"은 \"window\"에도 적용돼요. 대소문자는 구분하지 않아요. 보낸 사람도 함께 차단돼요. 연락처에 있는 사람은 제외돼요.</string>
     <string name="spam_type_keyword_allow_help">이 텍스트가 들어 있는 문자는 발신자를 허용해요. 대화 전체가 메시지 탭으로 가요. 차단한 발신자는 계속 차단돼요. 길고 정확한 문구를 사용하세요.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">무료 선물</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">메모(선택 사항)</string>

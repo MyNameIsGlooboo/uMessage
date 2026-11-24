@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.glooboo.umessage.R
+import com.glooboo.umessage.ui.components.isolateExamples
 import com.glooboo.umessage.ui.components.InfoDialog
 
 private class HelpSection(val head: Int, val body: Int, val example: Int)
@@ -48,7 +49,7 @@ internal fun KeywordHelpDialog(onDismiss: () -> Unit) {
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    ExampleChip(stringResource(section.example))
+                    ExampleChip(isolateExamples(stringResource(section.example)))
                 }
             }
             // spam-15: a blocked word blocks the whole sender.

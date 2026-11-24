@@ -494,12 +494,12 @@ class RulesViewModelTest {
     @Test
     fun concreteExampleOpensTheSheetFilledInAndValid() {
         start()
-        vm.openExample(ListKind.BLOCK, RuleType.KEYWORD, RuleExamples.CANCEL_WORD)
+        vm.openExample(ListKind.BLOCK, RuleType.KEYWORD, "STOP")
         idleMain()
         val form = vm.state.value.form!!
-        assertThat(form.pattern).isEqualTo(RuleExamples.CANCEL_WORD)
+        assertThat(form.pattern).isEqualTo("STOP")
         assertThat(form.canSubmit).isTrue()
-        vm.openExample(ListKind.BLOCK, RuleType.PREFIX, RuleExamples.AD_PREFIX)
+        vm.openExample(ListKind.BLOCK, RuleType.PREFIX, "5000")
         idleMain()
         assertThat(vm.state.value.form!!.canSubmit).isTrue()
     }

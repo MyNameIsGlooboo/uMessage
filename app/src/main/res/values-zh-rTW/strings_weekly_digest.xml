@@ -3,11 +3,11 @@
     <string name="digest_channel">每週摘要</string>
     <string name="digest_title">每週摘要</string>
     <string name="digest_row_title">每週摘要</string>
-    <string name="digest_row_summary">每週一次：封鎖了多少則</string>
+    <string name="digest_row_summary">每週一次：有多少簡訊進入了「垃圾訊息」</string>
     <plurals name="digest_held">
-        <item quantity="other">本週已攔截%d則訊息。輕觸即可查看。</item>
+        <item quantity="other">本週有 %d 則簡訊進入了「垃圾訊息」。點一下即可查看。</item>
     </plurals>
     <plurals name="digest_held_important">
-        <item quantity="other">本週已攔截%1$d則訊息，其中有%2$d則驗證碼或銀行通知。</item>
+        <item quantity="other">本週有 %1$d 則簡訊進入了「垃圾訊息」。其中驗證碼或銀行提醒：%2$d 則。</item>
     </plurals>
 </resources>

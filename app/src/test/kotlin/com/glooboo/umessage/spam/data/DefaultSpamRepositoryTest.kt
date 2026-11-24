@@ -377,11 +377,11 @@ class DefaultSpamRepositoryTest {
     }
 
     @Test fun blockSenderOfASenderIdGetsASenderIdRule() = runTest {
-        val id = repo.storeBlocked(blocked(address = "vm-hdfcbk"))
+        val id = repo.storeBlocked(blocked(address = "vm-mybank"))
         repo.blockSender(id)
         val block = rules(ListKind.BLOCK).single()
         assertEquals(RuleType.SENDER_ID, block.type)
-        assertEquals("VM-HDFCBK", block.pattern)
+        assertEquals("VM-MYBANK", block.pattern)
     }
 
     /** SU-18: blocking a sender keeps the messages of theirs already in Blocked. */

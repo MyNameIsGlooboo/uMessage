@@ -736,7 +736,7 @@ private fun BlockedListPreview() = PreviewHost(previewState())
 
 @Preview(name = "Blocked - selecting", showBackground = true, widthDp = 360, heightDp = 780)
 @Composable
-private fun BlockedSelectingPreview() = PreviewHost(previewState(selected = setOf("VM-HDFCBK")))
+private fun BlockedSelectingPreview() = PreviewHost(previewState(selected = setOf("VM-MYBANK")))
 
 @Preview(name = "Blocked - empty", showBackground = true, widthDp = 360, heightDp = 780)
 @Composable

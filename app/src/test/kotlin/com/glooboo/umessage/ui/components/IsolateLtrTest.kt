@@ -46,6 +46,21 @@ class IsolateLtrTest {
     }
 
     @Test
+    fun exampleNumbersInHelpTextsAreIsolatedWithTheirMarks() {
+        // J25 (L4-3): "+1555" and "+1555*" are one left-to-right run each, short ones too.
+        assertEquals("Like ⁦+1555⁩ or ⁦+1555*⁩.", isolateExamples("Like +1555 or +1555*."))
+        assertEquals("⁦+1555⁩", isolateExamples("+1555"))
+        assertEquals("Such as ⁦+1555…⁩ or MYBANK", isolateExamples("Such as +1555… or MYBANK"))
+        assertEquals("⁦+15550001234⁩ or ⁦05550001234⁩", isolateExamples("+15550001234 or 05550001234"))
+    }
+
+    @Test
+    fun textWithoutDigitsOrWithIsolatesIsLeftAlone() {
+        assertEquals("MYBANK", isolateExamples("MYBANK"))
+        assertEquals("a ⁦+1555⁩", isolateExamples("a ⁦+1555⁩"))
+    }
+
+    @Test
     fun aSenderNameWithDigitsIsNotIsolated() {
         // F-4: isolating the digits of "AX-650012" laid it out as "650012-AX" in a right-to-left line.
         assertEquals("AX-650012", ruleValueText(RuleType.SENDER_ID, "AX-650012", english))

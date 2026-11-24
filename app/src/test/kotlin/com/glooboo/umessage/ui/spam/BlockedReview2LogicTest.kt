@@ -108,9 +108,14 @@ class BlockedReview2LogicTest {
 
     @Test
     fun concreteExamplesAreValidRules() {
-        assertThat(RuleValidator.validate(ListKind.BLOCK, RuleType.KEYWORD, RuleExamples.CANCEL_WORD))
-            .isInstanceOf(RuleValidation.Valid::class.java)
-        assertThat(RuleValidator.validate(ListKind.BLOCK, RuleType.PREFIX, RuleExamples.AD_PREFIX))
-            .isInstanceOf(RuleValidation.Valid::class.java)
+        // J25: the values are string resources; these are the English and the Persian ones.
+        listOf("STOP", "لغو۱۱").forEach {
+            assertThat(RuleValidator.validate(ListKind.BLOCK, RuleType.KEYWORD, it))
+                .isInstanceOf(RuleValidation.Valid::class.java)
+        }
+        listOf("5000", "3000").forEach {
+            assertThat(RuleValidator.validate(ListKind.BLOCK, RuleType.PREFIX, it))
+                .isInstanceOf(RuleValidation.Valid::class.java)
+        }
     }
 }

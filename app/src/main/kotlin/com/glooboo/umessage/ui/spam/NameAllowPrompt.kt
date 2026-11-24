@@ -27,7 +27,7 @@ data class NameAllowPrompt(val byToken: Map<Long, List<String>>) {
     val names: List<String> get() = byToken.values.flatten().distinctBy { it.lowercase() }
 }
 
-/** Reads sender names the way the filter does, so "HDFCBK" is taken to allow "VM-HDFCBK". The region is not used. */
+/** Reads sender names the way the filter does, so "MYBANK" is taken to allow "VM-MYBANK". The region is not used. */
 private val senderMatcher = RuleMatcher(NumberNormalizer { "US" })
 
 /** Whether an allow rule for both SIMs already lets [name] through, by the filter's own rule. */

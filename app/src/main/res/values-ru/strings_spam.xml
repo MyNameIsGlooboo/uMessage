@@ -62,7 +62,7 @@
     <string name="spam_type_regex">Регулярное выражение</string>
     <string name="spam_type_keyword_help">Любое сообщение с этим текстом, даже внутри другого слова: «приз» найдется и в слове «сюрприз». Регистр букв не важен. Отправитель тоже блокируется, если его нет в ваших контактах.</string>
     <string name="spam_type_keyword_allow_help">Сообщение с этим текстом разрешает своего отправителя: весь чат попадает в «Сообщения». Отправитель, которого вы заблокировали, остается заблокированным. Используйте длинную точную фразу.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">бесплатный подарок</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Примечание (необязательно)</string>

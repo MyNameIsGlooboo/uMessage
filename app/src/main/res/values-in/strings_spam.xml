@@ -50,7 +50,7 @@
     <string name="spam_type_regex">Pola (regex)</string>
     <string name="spam_type_keyword_help">Semua pesan yang memuat teks ini, termasuk dalam kata yang lebih panjang: “hadiah” juga cocok dengan “berhadiah”. Huruf besar dan kecil tidak dibedakan. Pengirim juga diblokir, kecuali ada di kontak Anda.</string>
     <string name="spam_type_keyword_allow_help">Pesan yang berisi teks ini mengizinkan pengirimnya: seluruh chat masuk ke Pesan. Pengirim yang Anda blokir tetap diblokir. Gunakan frasa yang panjang dan persis.</string>
-    <string name="spam_type_sender_id_hint">VM-HDFCBK</string>
+    <string name="spam_type_sender_id_hint">VM-MYBANK</string>
     <string name="spam_type_keyword_hint">hadiah gratis</string>
     <string name="spam_type_regex_hint">win\\s+\\d+</string>
     <string name="spam_sheet_note_label">Catatan (opsional)</string>

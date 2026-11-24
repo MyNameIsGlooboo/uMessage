@@ -5,10 +5,10 @@
     <plurals name="e_blocked_stats_total">
         <item quantity="other">Đã chặn tổng cộng %d tin nhắn</item>
     </plurals>
-    <string name="e_restored_title">Đã khôi phục gần đây</string>
-    <string name="e_restored_body">Tin nhắn bạn đã chuyển vào hộp thư đến trong 30 ngày qua. Nhấn vào một tin nhắn để mở cuộc trò chuyện.</string>
-    <string name="e_restored_empty">Từ giờ, tin nhắn bạn chuyển vào hộp thư đến sẽ được liệt kê ở đây trong 30 ngày.</string>
-    <string name="e_restored_when">Đã chuyển vào hộp thư đến %1$s</string>
+    <string name="e_restored_title">Mới chuyển lại</string>
+    <string name="e_restored_body">Tin nhắn bạn đã chuyển từ mục Tin rác về mục Tin nhắn trong 30 ngày qua. Nhấn vào một tin để mở cuộc trò chuyện.</string>
+    <string name="e_restored_empty">Tin nhắn bạn chuyển từ mục Tin rác về mục Tin nhắn từ giờ sẽ hiện ở đây trong 30 ngày.</string>
+    <string name="e_restored_when">Đã chuyển về mục Tin nhắn %1$s</string>
     <string name="e_restored_open">Mở cuộc trò chuyện với %1$s</string>
     <string name="e_view_rule">Xem quy tắc</string>
     <string name="e_rules_title">Quy tắc</string>
@@ -22,8 +22,8 @@
     <string name="e_note_old_word_list">Từ danh sách từ bị chặn cũ</string>
     <string name="e_note_system_list">Từ danh sách chặn của Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Chặn tin nhắn chứa لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Chặn số quảng cáo bắt đầu bằng 3000</string>
+    <string name="e_example_block_cancel_word">Chặn tin nhắn chứa %1$s</string>
+    <string name="e_example_block_ad_prefix">Chặn số quảng cáo bắt đầu bằng %1$s</string>
     <string name="e_example_allow_number">Luôn cho phép một số, như số bưu điện của bạn</string>
     <string name="e_sheet_sender_label">Người gửi</string>
     <string name="e_sheet_text_label">Nội dung tin nhắn</string>

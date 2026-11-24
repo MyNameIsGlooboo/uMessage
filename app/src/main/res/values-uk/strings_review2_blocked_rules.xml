@@ -8,10 +8,10 @@
         <item quantity="many">Усього заблоковано %d</item>
         <item quantity="other">Усього заблоковано %d</item>
     </plurals>
-    <string name="e_restored_title">Нещодавно відновлені</string>
-    <string name="e_restored_body">Повідомлення, які ви перемістили у «Вхідні» за останні 30 днів. Натисніть на повідомлення, щоб відкрити чат.</string>
-    <string name="e_restored_empty">Повідомлення, які ви відтепер переміщуватимете у «Вхідні», будуть у цьому списку протягом 30 днів.</string>
-    <string name="e_restored_when">Переміщено у «Вхідні» %1$s</string>
+    <string name="e_restored_title">Нещодавно повернуті</string>
+    <string name="e_restored_body">Повідомлення, які ви перемістили зі «Спаму» в «Повідомлення» за останні 30 днів. Торкніться одного, щоб відкрити чат.</string>
+    <string name="e_restored_empty">Повідомлення, які ви перемістите зі «Спаму» в «Повідомлення», показуватимуться тут 30 днів.</string>
+    <string name="e_restored_when">Повернуто в «Повідомлення» %1$s</string>
     <string name="e_restored_open">Відкрити чат із %1$s</string>
     <string name="e_view_rule">Переглянути правило</string>
     <string name="e_rules_title">Правила</string>
@@ -25,8 +25,8 @@
     <string name="e_note_old_word_list">Зі старого списку заблокованих слів</string>
     <string name="e_note_system_list">Зі списку заблокованих Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Заблокувати повідомлення з لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">Заблокувати рекламні номери, що починаються з 3000</string>
+    <string name="e_example_block_cancel_word">Заблокувати повідомлення з %1$s</string>
+    <string name="e_example_block_ad_prefix">Заблокувати рекламні номери, що починаються з %1$s</string>
     <string name="e_example_allow_number">Завжди дозволяти номер, наприклад вашої пошти</string>
     <string name="e_sheet_sender_label">Відправник</string>
     <string name="e_sheet_text_label">Текст повідомлення</string>

@@ -26,7 +26,7 @@ class ForwardLogTextTest {
     private val rules = listOf(
         ForwardRule(id = 1, senderType = RuleType.NUMBER, senderPattern = "07121234567", targets = listOf("5554999"), note = "Bank alerts"),
         ForwardRule(id = 2, senderType = null, bodyType = RuleType.KEYWORD, bodyPattern = "deposit", targets = listOf("5554999")),
-        ForwardRule(id = 3, senderType = RuleType.SENDER_ID, senderPattern = "HDFCBK", targets = listOf("5554999")),
+        ForwardRule(id = 3, senderType = RuleType.SENDER_ID, senderPattern = "MYBANK", targets = listOf("5554999")),
         ForwardRule(id = 4, senderType = RuleType.PREFIX, senderPattern = "+1", targets = listOf("5554999")),
         ForwardRule(id = 5, senderType = RuleType.NUMBER, senderPattern = "+15550001234", targets = listOf("5554999")),
     )
@@ -64,7 +64,7 @@ class ForwardLogTextTest {
     fun ruleIsNamedByItsNoteOrCondition() {
         assertThat(ForwardLogText.ruleLabel(context, "#1 → 5554999 SENT", rules)).isEqualTo("Rule: Bank alerts")
         assertThat(ForwardLogText.ruleLabel(context, "#2 CODE_EXCLUDED", rules)).isEqualTo("Rule: Text: deposit")
-        assertThat(ForwardLogText.ruleLabel(context, "#3 LOOP_FORWARD", rules)).isEqualTo("Rule: From: HDFCBK")
+        assertThat(ForwardLogText.ruleLabel(context, "#3 LOOP_FORWARD", rules)).isEqualTo("Rule: From: MYBANK")
         assertThat(ForwardLogText.ruleLabel(context, "#9 SENT", rules)).isEqualTo("Rule: a deleted rule")
         // P-4: a prefix sender is isolated whole, however short.
         assertThat(ForwardLogText.ruleLabel(context, "#4 SENT", rules)).isEqualTo("Rule: From: \u2066+1\u2069")

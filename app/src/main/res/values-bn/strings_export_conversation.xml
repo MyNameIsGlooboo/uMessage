@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">ফাইল তৈরি হচ্ছে…</string>
     <string name="export_conv_nothing">ওই সময়ের মধ্যে কোনো বার্তা নেই</string>
     <string name="export_conv_failed">ফাইল তৈরি করা যায়নি</string>
+    <string name="export_conv_stopped">এক্সপোর্ট বন্ধ হয়েছে</string>
     <string name="export_conv_subject">কথোপকথনের এক্সপোর্ট</string>
     <string name="export_conv_share_text">%1$s-এর সঙ্গে কথোপকথন, %2$s। বার্তার লেখার SHA-256: %3$s</string>
     <string name="export_conv_attachment_label">[সংযুক্তি]</string>

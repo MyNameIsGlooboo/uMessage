@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="blocked_menu_restored">직접 복원함</string>
-    <string name="blocked_menu_restored_summary">최근 받은 메시지함으로 옮긴 메시지</string>
+    <string name="blocked_menu_restored">내가 되돌린 항목</string>
+    <string name="blocked_menu_restored_summary">최근 메시지 탭으로 되돌린 메시지</string>
 </resources>

@@ -5,10 +5,10 @@
     <plurals name="e_blocked_stats_total">
         <item quantity="other">บล็อกทั้งหมด %d ข้อความ</item>
     </plurals>
-    <string name="e_restored_title">กู้คืนล่าสุด</string>
-    <string name="e_restored_body">ข้อความที่ย้ายไปยังกล่องข้อความเข้าในช่วง 30 วันที่ผ่านมา แตะข้อความเพื่อเปิดการสนทนา</string>
-    <string name="e_restored_empty">ข้อความที่ย้ายไปยังกล่องข้อความเข้านับจากนี้จะแสดงที่นี่เป็นเวลา 30 วัน</string>
-    <string name="e_restored_when">ย้ายไปกล่องข้อความเข้าเมื่อ %1$s</string>
+    <string name="e_restored_title">ย้ายกลับล่าสุด</string>
+    <string name="e_restored_body">ข้อความที่คุณย้ายจาก \"สแปม\" ไปที่ \"ข้อความ\" ใน 30 วันที่ผ่านมา แตะข้อความเพื่อเปิดแชต</string>
+    <string name="e_restored_empty">ข้อความที่คุณย้ายจาก \"สแปม\" ไปที่ \"ข้อความ\" จากนี้ไปจะแสดงที่นี่นาน 30 วัน</string>
+    <string name="e_restored_when">ย้ายไปที่ \"ข้อความ\" %1$s</string>
     <string name="e_restored_open">เปิดการสนทนากับ %1$s</string>
     <string name="e_view_rule">ดูกฎ</string>
     <string name="e_rules_title">กฎ</string>
@@ -22,8 +22,8 @@
     <string name="e_note_old_word_list">จากรายการคำที่บล็อกเดิม</string>
     <string name="e_note_system_list">จากรายการบล็อกของ Android</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">บล็อกข้อความที่มี لغو۱۱</string>
-    <string name="e_example_block_ad_prefix">บล็อกหมายเลขโฆษณาที่ขึ้นต้นด้วย 3000</string>
+    <string name="e_example_block_cancel_word">บล็อกข้อความที่มี %1$s</string>
+    <string name="e_example_block_ad_prefix">บล็อกหมายเลขโฆษณาที่ขึ้นต้นด้วย %1$s</string>
     <string name="e_example_allow_number">อนุญาตหมายเลขเสมอ เช่น ที่ทำการไปรษณีย์</string>
     <string name="e_sheet_sender_label">ผู้ส่ง</string>
     <string name="e_sheet_text_label">เนื้อหาข้อความ</string>

@@ -6,10 +6,10 @@
         <item quantity="one">%d insgesamt abgefangen</item>
         <item quantity="other">%d insgesamt abgefangen</item>
     </plurals>
-    <string name="e_restored_title">Kürzlich wiederhergestellt</string>
-    <string name="e_restored_body">Nachrichten, die du in den letzten 30 Tagen in den Posteingang verschoben hast. Tippe auf eine, um die Unterhaltung zu öffnen.</string>
-    <string name="e_restored_empty">Nachrichten, die du ab jetzt in den Posteingang verschiebst, werden hier 30 Tage lang angezeigt.</string>
-    <string name="e_restored_when">In den Posteingang verschoben: %1$s</string>
+    <string name="e_restored_title">Kürzlich zurückgeholt</string>
+    <string name="e_restored_body">Nachrichten, die du in den letzten 30 Tagen aus „Spam“ nach „Nachrichten“ geholt hast. Tippe auf eine, um den Chat zu öffnen.</string>
+    <string name="e_restored_empty">Nachrichten, die du ab jetzt aus „Spam“ nach „Nachrichten“ holst, stehen hier 30 Tage lang.</string>
+    <string name="e_restored_when">Nach „Nachrichten“ geholt: %1$s</string>
     <string name="e_restored_open">Unterhaltung mit %1$s öffnen</string>
     <string name="e_view_rule">Regel ansehen</string>
     <string name="e_rules_title">Regeln</string>
@@ -23,8 +23,8 @@
     <string name="e_note_old_word_list">Aus der alten Liste blockierter Wörter</string>
     <string name="e_note_system_list">Aus der Android-Blockierliste</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">Nachrichten mit لغو۱۱ blockieren</string>
-    <string name="e_example_block_ad_prefix">Werbenummern blockieren, die mit 3000 beginnen</string>
+    <string name="e_example_block_cancel_word">Nachrichten mit %1$s blockieren</string>
+    <string name="e_example_block_ad_prefix">Werbenummern blockieren, die mit %1$s beginnen</string>
     <string name="e_example_allow_number">Eine Nummer immer erlauben, etwa die deiner Postfiliale</string>
     <string name="e_sheet_sender_label">Absender</string>
     <string name="e_sheet_text_label">Nachrichtentext</string>

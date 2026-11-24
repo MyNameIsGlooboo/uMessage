@@ -5,10 +5,10 @@
     <plurals name="e_blocked_stats_total">
         <item quantity="other">累计屏蔽%d条</item>
     </plurals>
-    <string name="e_restored_title">最近恢复</string>
-    <string name="e_restored_body">过去30天内移至收件箱的消息。点按消息即可打开会话。</string>
-    <string name="e_restored_empty">从现在起，移至收件箱的消息会在这里显示30天。</string>
-    <string name="e_restored_when">移至收件箱的时间：%1$s</string>
+    <string name="e_restored_title">最近移回的</string>
+    <string name="e_restored_body">过去 30 天内你从“垃圾短信”移回“消息”的短信。点按其中一条可打开会话。</string>
+    <string name="e_restored_empty">今后你从“垃圾短信”移回“消息”的短信会在这里显示 30 天。</string>
+    <string name="e_restored_when">已移回“消息”：%1$s</string>
     <string name="e_restored_open">打开与%1$s的会话</string>
     <string name="e_view_rule">查看规则</string>
     <string name="e_rules_title">规则</string>
@@ -22,8 +22,8 @@
     <string name="e_note_old_word_list">来自旧版屏蔽词列表</string>
     <string name="e_note_system_list">来自Android屏蔽列表</string>
     <string name="e_note_quoted">“%1$s”</string>
-    <string name="e_example_block_cancel_word">屏蔽包含لغو۱۱的消息</string>
-    <string name="e_example_block_ad_prefix">屏蔽以3000开头的广告号码</string>
+    <string name="e_example_block_cancel_word">屏蔽包含%1$s的消息</string>
+    <string name="e_example_block_ad_prefix">屏蔽以%1$s开头的广告号码</string>
     <string name="e_example_allow_number">始终允许某个号码，例如邮局号码</string>
     <string name="e_sheet_sender_label">发件人</string>
     <string name="e_sheet_text_label">消息正文</string>

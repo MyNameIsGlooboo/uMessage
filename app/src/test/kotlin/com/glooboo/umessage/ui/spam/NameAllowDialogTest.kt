@@ -78,8 +78,8 @@ class NameAllowDialogTest {
 
     @Test
     fun aRuleWithoutADashAllowsTheNameWithAPrefixLikeTheFilterDoes() {
-        val rules = listOf(SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "HDFCBK"))
-        assertThat(namesToOffer(listOf("VM-HDFCBK", "VM-OTHER"), rules)).containsExactly("VM-OTHER")
+        val rules = listOf(SpamRule(1, ListKind.ALLOW, RuleType.SENDER_ID, "MYBANK"))
+        assertThat(namesToOffer(listOf("VM-MYBANK", "VM-OTHER"), rules)).containsExactly("VM-OTHER")
     }
 
     @Test

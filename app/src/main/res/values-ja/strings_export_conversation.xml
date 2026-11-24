@@ -13,6 +13,7 @@
     <string name="export_conv_preparing">ファイルを準備しています…</string>
     <string name="export_conv_nothing">指定した期間にメッセージがありません。</string>
     <string name="export_conv_failed">ファイルを作成できませんでした。</string>
+    <string name="export_conv_stopped">エクスポートを中止しました</string>
     <string name="export_conv_subject">会話のエクスポート</string>
     <string name="export_conv_share_text">%1$sとの会話、%2$s。メッセージ本文のSHA-256：%3$s</string>
     <string name="export_conv_attachment_label">［添付ファイル］</string>

@@ -115,7 +115,7 @@ Open Settings > Spam protection > **Rules**. A rule is either **allowed** or **b
 |---|---|---|
 | Number | One exact phone number, in any format | `+1 555 000 1234` |
 | Prefix | Every number that starts with it | `+4470` |
-| Sender name | A sender shown as a name instead of a number | `VM-HDFCBK`, or `HDFCBK` for any prefix |
+| Sender name | A sender shown as a name instead of a number | `VM-MYBANK`, or `MYBANK` for any prefix |
 | Keyword | Any message that contains the word or phrase | `lottery` |
 | Pattern | A regular expression, for advanced users | `win.*prize` |
 | Website | A link to that site or one of its subdomains | `example.com` |
