@@ -455,9 +455,12 @@ class MmsArrivalTest {
                 .putExtra(MmsReceivedReceiver.SUBSCRIPTION_ID, 1),
         )
 
-        // J28-2: counted in its Spam chat, but the sent history is unreadable: Messages, unread, one ERROR row.
+        // J28-2: counted in its Spam chat, but the sent history is unreadable: Messages, unread, one ERROR row, and
+        // the count and mark the notice raised are released with its quiet notice.
         assertThat(store.rowSilent[notice]).isFalse()
         assertThat(store.rowThread[notice]).isEqualTo(12L)
+        assertThat(store.spamRows[12L]?.third).isEqualTo(0)
+        assertThat(store.marks[notice]).isNull()
         assertThat(logged).containsExactly("ERROR/HISTORY_CHECK_FAILED")
     }
 

@@ -685,6 +685,24 @@ class IncomingMmsTest {
         assertThat(cancelled).containsExactly(thread)
     }
 
+    @Test
+    fun l11_aCountedNoticeRevealedInMessages_takesBackItsQuietNoticeMarkAndCount() {
+        mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN)
+        val thread = store.threads.getValue(SENDER)
+        assertThat(posted).hasSize(1)
+        assertThat(store.marks[notice]).isEqualTo(NoticeMark.Counted(thread))
+        assertThat(store.spamRows[thread]?.third).isEqualTo(1)
+
+        assertThat(mms.revealNotice(notice, SENDER, null)).isFalse()
+
+        // J28: the MMS is in Messages now, so its quiet notice, mark and Spam count go with it.
+        assertThat(cancelled).containsExactly(thread)
+        assertThat(store.marks[notice]).isNull()
+        assertThat(store.spamRows[thread]?.third).isEqualTo(0)
+        assertThat(store.rowThread[notice]).isEqualTo(thread)
+        assertThat(store.rowSilent[notice]).isFalse()
+    }
+
     // E-19: the history check before a notice gets a Spam row
 
     @Test

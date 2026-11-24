@@ -166,7 +166,7 @@ interface MmsSenderCheck {
  */
 class IncomingMms(
     private val store: MmsSpamStore,
-    val unknownNotice: UnknownNotice = UnknownNotice { _, _, _, _ -> },
+    internal val unknownNotice: UnknownNotice = UnknownNotice { _, _, _, _ -> },
     private val now: () -> Long = System::currentTimeMillis,
 ) {
 
@@ -183,10 +183,21 @@ class IncomingMms(
      *
      * A Spam notice that downloads now is not revealed: it keeps mmslib's dummy thread (no early Spam row, the MMS may
      * be a group one) until the MMS is placed, the download fails, or the sweep finds it.
+     *
+     * L1-1, J28: a counted notice re-revealed with no cause (it ended in Messages) takes back its quiet notice, its
+     * explicit mark and the Spam count it raised there, so one MMS never leaves two notices or a stale count.
      */
     fun revealNotice(row: Uri, sender: String, cause: SpamCause?, ruleId: Long? = null): Boolean? {
         if (sender.isBlank()) return false
         val threadId = store.threadOf(sender)
+        if (cause == null) {
+            val counted = runCatching { store.markOf(row) as? NoticeMark.Counted }.getOrNull()
+            if (counted != null) {
+                runCatching { unknownNotice.cancel(counted.threadId) }
+                runCatching { store.markNotice(row, null) }
+                runCatching { store.lowerSpamUnread(counted.threadId) }
+            }
+        }
         val inSpam = cause != null && runCatching {
             store.noteSpamArrival(threadId, sender, cause, now(), raise = true)
             store.isSpamThreadOf(threadId, sender)
@@ -377,14 +388,16 @@ class IncomingMms(
         /**
          * E-19: the cause a notice is put in Spam with. The push probe ran before the sender's history was checked;
          * [history] checks it now (R2). Passed: [probe] answers again (the check may have allowed the sender).
-         * [wroteTo] (L1-2): true when the sender is one the user wrote to (now a member, so it is asked again), false
-         * when not, null when that could not be read (Messages).
          * Failed: only a block rule holds (history never allows a blocked sender, as E-11); anything else is Messages.
          */
         fun noticeCause(cause: SpamCause?, history: () -> Boolean, probe: () -> FilterDecision?): SpamCause? =
             cause?.let { noticeVerdict(it, history, probe = probe).cause }
 
-        /** [noticeCause] with the reason (J3-4): why a notice left without a cause is delivered. */
+        /**
+         * [noticeCause] with the reason (J3-4): why a notice left without a cause is delivered. [wroteTo] (L1-2): true
+         * when the sender is one the user wrote to (now a member, so it is asked again), false when not, null when that
+         * could not be read (Messages).
+         */
         fun noticeVerdict(
             cause: SpamCause,
             history: () -> Boolean,

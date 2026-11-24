@@ -26,6 +26,7 @@ class AppUnknownNotice(context: Context) : UnknownNotice {
     }
 
     override fun cancel(threadId: Long) {
+        // One quiet notice per chat is shared by SMS and MMS: the cancel is by chat, and also clears an SMS one.
         runCatching { BlockedNotifier.cancelChat(app, threadId) }
     }
 
