@@ -12,17 +12,15 @@ import android.app.NotificationManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -31,6 +29,9 @@ import kotlinx.coroutines.withContext
 import org.fossify.commons.extensions.copyToClipboard
 import org.fossify.commons.extensions.notificationManager
 import com.glooboo.umessage.R
+import com.glooboo.umessage.extensions.ChatMark
+import com.glooboo.umessage.helpers.DefaultSmsRole
+import com.glooboo.umessage.extensions.DeleteResult
 import com.glooboo.umessage.extensions.config
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.markThreadMessagesRead
@@ -52,15 +53,28 @@ import com.glooboo.umessage.helpers.stripControlCharacters
 import com.glooboo.umessage.messaging.isShortCodeWithLetters
 import com.glooboo.umessage.models.Conversation
 import com.glooboo.umessage.helpers.ConversationRefreshEvents
-import com.glooboo.umessage.ui.spam.ChatMark
 import com.glooboo.umessage.ui.spam.SimInfo
+import com.glooboo.umessage.ui.spam.deleteMarked
+import com.glooboo.umessage.ui.spam.deleteSpamChats
 
 /**
  * Feeds [ConversationsScreen]. The host activity keeps running the proven telephony sync and hands every
  * resulting list to [submit]; this class owns everything derived from it (ordering, pins, drafts, SIM chips,
  * selection, optimistic edits, undoable delete and archive) and all conversation actions.
  */
-class ConversationsViewModel(application: Application) : AndroidViewModel(application) {
+class ConversationsViewModel internal constructor(
+    application: Application,
+    /** J24: a chat's newest text in the store now (see [ChatMark]); blocking, off the main thread. */
+    private val marker: (Long) -> ChatMark?,
+    /** Deletes each chat up to its mark; the result of each. */
+    private val deleter: (Map<Long, ChatMark>, Boolean) -> Map<Long, DeleteResult>,
+) : AndroidViewModel(application) {
+
+    constructor(application: Application) : this(
+        application,
+        marker = { id -> ChatMark.read(application, id) },
+        deleter = { marks, default -> deleteSpamChats(application, marks, default) },
+    )
 
     private val app: Application get() = getApplication()
 
@@ -97,11 +111,13 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     /** Thread ids hidden from the list while a delete or archive is pending or in flight. */
     private val hidden = HashSet<Long>()
-    private val pendingDeletes = LinkedHashMap<Long, List<Long>>()
 
-    /** J24: for each waiting delete, the mark of every chat when the user confirmed it (a later text is never lost). */
-    private val pendingMarks = HashMap<Long, Deferred<Map<Long, ChatMark?>>>()
-    private val markScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    /** The deletes waiting for their Undo window, by token: each chat with its mark from the moment of the confirm. */
+    private val pendingDeletes = LinkedHashMap<Long, Map<Long, ChatMark?>>()
+
+    /** J24: the token of a delete whose window just closed: its Undo must go from the screen. */
+    private val _deleteClosed = MutableSharedFlow<Long>(extraBufferCapacity = DELETE_CLOSED_BUFFER)
+    val deleteClosed: SharedFlow<Long> = _deleteClosed.asSharedFlow()
     private val archived = HashMap<Long, List<Long>>()
 
     /** CL-32: the threads an archive marked read because they were unread, by token, so Undo can mark them unread. */
@@ -489,41 +505,59 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         if (threadIds.isEmpty()) return
         // A new delete closes the previous undo window.
         pendingDeletes.keys.toList().forEach(::commitDelete)
-        val token = nextToken++
-        pendingDeletes[token] = threadIds
-        pendingMarks[token] = markScope.async { ChatMark.readAll(app, threadIds) }
-        hidden += threadIds
-        selected = selected - threadIds.toSet()
-        requestRebuild()
-        _events.trySend(ConversationsEvent.Deleted(token, threadIds.size))
+        viewModelScope.launch {
+            // J24: the marks are taken before the chats hide and before the Undo is offered, so a text that comes in
+            // from now on is never part of this delete.
+            val marks = withContext(Dispatchers.IO) { threadIds.associateWith { marker(it) } }
+            val token = nextToken++
+            pendingDeletes[token] = marks
+            hidden += threadIds
+            selected = selected - threadIds.toSet()
+            requestRebuild()
+            _events.trySend(ConversationsEvent.Deleted(token, threadIds.size))
+        }
     }
 
     fun undoDelete(token: Long) {
-        pendingMarks.remove(token)
-        val ids = pendingDeletes.remove(token) ?: return
-        hidden -= ids.toSet()
+        val ids = pendingDeletes.remove(token)?.keys ?: return
+        hidden -= ids
         requestRebuild()
     }
 
+    /** Whether the delete of [token] still waits for its Undo window. */
+    fun isDeletePending(token: Long): Boolean = token in pendingDeletes
+
+    /**
+     * J24: only the texts up to the mark of the confirm go. A chat whose mark could not be read is kept; one that got
+     * a newer text keeps it. Both show again, with a note. The Undo of the window goes from the screen
+     * ([deleteClosed]).
+     */
     fun commitDelete(token: Long) {
-        val ids = pendingDeletes.remove(token) ?: return
-        val marks = pendingMarks.remove(token)
+        val marks = pendingDeletes.remove(token) ?: return
+        val ids = marks.keys
+        _deleteClosed.tryEmit(token)
         viewModelScope.launch(Dispatchers.IO + NonCancellable) {
-            // J24: a chat that got a newer text since the confirm is kept and says so.
-            val (safe, kept) = ChatMark.split(app, ids, marks?.await().orEmpty(), needsSpam = false)
             // S14 (provider truth): a delete that did not happen says why.
-            val (deleted, message) = if (safe.isEmpty()) emptySet<Long>() to null else deleteChats(app, safe)
+            val report = deleteMarked(marks, defaultSmsApp(), deleter)
             withContext(Dispatchers.Main) {
-                source = source.filterNot { it.threadId in deleted }
-                hidden -= ids.toSet()
+                source = source.filterNot { it.threadId in report.deleted }
+                hidden -= ids
                 requestRebuild()
-                if (kept.isNotEmpty()) _events.trySend(ConversationsEvent.Message(R.string.spam_delete_kept_new_text))
-                if (message != null) _events.trySend(ConversationsEvent.Message(message))
-                else if (deleted.size < safe.size) _events.trySend(ConversationsEvent.Failed)
+                val unexplained = marks.size - report.deleted.size - report.keptNewText - report.keptOther
+                when {
+                    report.keptNewText + report.keptOther > 0 -> _events.trySend(
+                        ConversationsEvent.DeleteKept(report.keptNewText, report.keptOther, report.failure),
+                    )
+                    report.failure != null -> _events.trySend(ConversationsEvent.Message(report.failure))
+                    unexplained > 0 -> _events.trySend(ConversationsEvent.Failed)
+                }
             }
             refreshConversations()
         }
     }
+
+    private fun defaultSmsApp(): Boolean =
+        runCatching { DefaultSmsRole.status(app) == DefaultSmsRole.Status.Held }.getOrDefault(false)
 
     /**
      * Shows the Undo snackbar again for every delete still waiting on one. Call when the screen starts collecting
@@ -537,7 +571,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         queued.filterNot { event ->
             event is ConversationsEvent.Deleted || event.moveToken()?.let { it in closed } == true
         }.forEach { _events.trySend(it) }
-        pendingDeletes.forEach { (token, ids) -> _events.trySend(ConversationsEvent.Deleted(token, ids.size)) }
+        pendingDeletes.forEach { (token, marks) -> _events.trySend(ConversationsEvent.Deleted(token, marks.size)) }
     }
 
     /** Finalises every open undo window; call when the screen goes to the background. */
@@ -642,19 +676,14 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         syncExecutor.shutdown()
         quickExecutor.shutdown()
         // Finish deletions whose undo window was still open; the scope is gone, so run them detached.
-        val leftovers = pendingDeletes.values.flatten()
-        val marks = pendingMarks.values.toList()
+        val leftovers = LinkedHashMap<Long, ChatMark?>()
+        pendingDeletes.values.forEach { leftovers += it }
         pendingDeletes.clear()
-        pendingMarks.clear()
         if (leftovers.isNotEmpty()) {
             val context = app
+            val default = defaultSmsApp()
             Thread {
-                runCatching {
-                    val confirmed = HashMap<Long, ChatMark?>()
-                    runBlocking { marks.forEach { confirmed += it.await() } }
-                    val (safe, _) = ChatMark.split(context, leftovers, confirmed, needsSpam = false)
-                    if (safe.isNotEmpty()) deleteChats(context, safe)
-                }
+                runCatching { deleteMarked(leftovers, default, deleter) }
                 refreshConversations()
             }.start()
         }
@@ -823,6 +852,7 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
 
     private companion object {
         const val MAX_BADGE = 99
+        const val DELETE_CLOSED_BUFFER = 16
         const val MINUTE_MS = 60_000L
 
         /** A code chip is shown for this long after the message arrived (ten minutes). */

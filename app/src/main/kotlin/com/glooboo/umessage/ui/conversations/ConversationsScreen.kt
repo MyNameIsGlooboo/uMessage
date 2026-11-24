@@ -81,9 +81,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.runtime.withFrameNanos
 import com.glooboo.umessage.ui.icons.Symbols
+import com.glooboo.umessage.ui.spam.OwnedSnackbar
+import com.glooboo.umessage.ui.spam.dismissIfShown
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.EmptyState
@@ -133,7 +138,12 @@ fun ConversationsRoute(
         coroutineScope {
             viewModel.events.collect { event ->
                 snackbar.currentSnackbarData?.dismiss()
-                launch { showEvent(event, snackbar, callbacks, resources, undoLabel, failedText) }
+                launch {
+                    showEvent(
+                        event, snackbar, callbacks, resources, undoLabel, failedText,
+                        DeleteWindows(viewModel.deleteClosed, viewModel::isDeletePending),
+                    )
+                }
             }
         }
     }
@@ -167,6 +177,19 @@ internal suspend fun commitIfCancelled(commit: () -> Unit, show: suspend () -> U
 private fun stayedNote(resources: android.content.res.Resources, stayed: Int): String =
     if (stayed > 0) " " + resources.getString(R.string.pt_block_still_allowed) else ""
 
+/** J24: when a delete's Undo window is still open, and the tokens of the windows that just closed. */
+internal class DeleteWindows(val closed: Flow<Long>, val isPending: (Long) -> Boolean)
+
+/** The note after a delete that kept chats (J24): new texts kept, chats not deleted, and a real failure if any. */
+private fun deleteKeptText(resources: android.content.res.Resources, event: ConversationsEvent.DeleteKept): String =
+    listOfNotNull(
+        event.newText.takeIf { it > 0 }
+            ?.let { resources.getQuantityString(R.plurals.spam_delete_kept_new_text, it, it) },
+        event.other.takeIf { it > 0 }
+            ?.let { resources.getQuantityString(R.plurals.spam_delete_kept_other, it, it) },
+        event.failure?.let { resources.getString(it) },
+    ).joinToString(" ")
+
 private suspend fun showEvent(
     event: ConversationsEvent,
     snackbar: SnackbarHostState,
@@ -174,21 +197,30 @@ private suspend fun showEvent(
     resources: android.content.res.Resources,
     undoLabel: String,
     failedText: String,
+    deletes: DeleteWindows,
 ) {
     when (event) {
         is ConversationsEvent.Deleted -> {
-            val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count),
-                actionLabel = undoLabel,
-                withDismissAction = false,
-                duration = SnackbarDuration.Long,
+            val visuals = OwnedSnackbar(
+                resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count),
+                undoLabel,
+                SnackbarDuration.Long,
             )
-            if (result == SnackbarResult.ActionPerformed) {
-                callbacks.onUndoDelete(event.token)
-            } else {
-                callbacks.onCommitDelete(event.token)
+            // L3-2: when the delete runs before the snackbar ends (the app left, a new delete), its Undo goes away.
+            val undone = coroutineScope {
+                val watcher = launch(start = CoroutineStart.UNDISPATCHED) {
+                    deletes.closed.first { it == event.token }
+                    snackbar.dismissIfShown(visuals)
+                }
+                try {
+                    deletes.isPending(event.token) && snackbar.showSnackbar(visuals) == SnackbarResult.ActionPerformed
+                } finally {
+                    watcher.cancel()
+                }
             }
+            if (undone) callbacks.onUndoDelete(event.token) else callbacks.onCommitDelete(event.token)
         }
+        is ConversationsEvent.DeleteKept -> snackbar.showSnackbar(deleteKeptText(resources, event))
         is ConversationsEvent.Archived -> {
             val result = snackbar.showSnackbar(
                 // P3-02: says where the chat went; Undo stays the only action.

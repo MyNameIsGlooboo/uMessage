@@ -102,6 +102,13 @@
     <string name="spam_purge_days">%d দিন</string>
     <string name="spam_purge_forever">চিরকাল রাখুন</string>
     <string name="spam_notify_title">অচেনা প্রেরকের বার্তার জন্য বিজ্ঞপ্তি দিন</string>
-    <string name="spam_delete_kept_new_text">একটি নতুন মেসেজ এসেছে, তাই এই চ্যাটটি মুছে ফেলা হয়নি।</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">নতুন মেসেজ এসেছে, তাই সেগুলো রেখে দেওয়া হয়েছে। চ্যাট: %d</item>
+        <item quantity="other">নতুন মেসেজ এসেছে, তাই সেগুলো রেখে দেওয়া হয়েছে। চ্যাট: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">যেসব চ্যাট মোছা হয়নি: %d</item>
+        <item quantity="other">যেসব চ্যাট মোছা হয়নি: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">স্প্যাম থেকে সরানো হয়েছে। আর্কাইভ করা চ্যাট আর্কাইভেই থাকে।</string>
 </resources>

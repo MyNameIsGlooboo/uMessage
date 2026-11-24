@@ -102,6 +102,13 @@
     <string name="spam_purge_days">%d gün</string>
     <string name="spam_purge_forever">Sonsuza kadar sakla</string>
     <string name="spam_notify_title">Bilinmeyen gönderenlerden gelen mesajlar için bildir</string>
-    <string name="spam_delete_kept_new_text">Yeni bir mesaj geldi, bu yüzden bu sohbet silinmedi.</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">Yeni mesajlar geldi ve saklandı. Sohbet: %d</item>
+        <item quantity="other">Yeni mesajlar geldi ve saklandı. Sohbet: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">Silinmeyen sohbetler: %d</item>
+        <item quantity="other">Silinmeyen sohbetler: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">Spam\'den çıkarıldı. Arşivlenmiş sohbetler Arşiv\'de kalır.</string>
 </resources>

@@ -102,6 +102,13 @@
     <string name="spam_purge_days">%d روز</string>
     <string name="spam_purge_forever">همیشه نگه دار</string>
     <string name="spam_notify_title">اعلان برای پیام فرستنده‌های ناشناس</string>
-    <string name="spam_delete_kept_new_text">یک پیام جدید رسید، برای همین این گفتگو پاک نشد.</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">پیام جدید اومد، برای همین نگهش داشتیم. گفتگوها: %d</item>
+        <item quantity="other">پیام جدید اومد، برای همین نگهش داشتیم. گفتگوها: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">گفتگوهایی که پاک نشدن: %d</item>
+        <item quantity="other">گفتگوهایی که پاک نشدن: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">از اسپم بیرون آمد. گفتگوهای بایگانی‌شده در بایگانی می‌مانند.</string>
 </resources>

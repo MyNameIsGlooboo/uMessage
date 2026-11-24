@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -269,6 +270,12 @@ internal suspend fun showSpamEvent(
             resources.getQuantityString(R.plurals.decm_marked_all_read, event.count, event.count),
         )
         is SpamChatsEvent.Message -> showMessage(event, snackbar, resources, onViewRule)
+        is SpamChatsEvent.KeptNewText -> snackbar.showSnackbar(
+            resources.getQuantityString(R.plurals.spam_delete_kept_new_text, event.count, event.count),
+        )
+        is SpamChatsEvent.KeptOther -> snackbar.showSnackbar(
+            resources.getQuantityString(R.plurals.spam_delete_kept_other, event.count, event.count),
+        )
         SpamChatsEvent.Failed ->
             snackbar.showSnackbar(resources.getString(org.fossify.commons.R.string.unknown_error_occurred))
     }
@@ -296,15 +303,37 @@ private suspend fun showMessage(
     if (result == SnackbarResult.ActionPerformed) onViewRule()
 }
 
+/**
+ * J24: the visuals of a snackbar made here. [SnackbarHostState.currentSnackbarData] carries them back, so a caller can
+ * tell its own snackbar from another one before it dismisses (see [dismissIfShown]).
+ */
+internal class OwnedSnackbar(
+    override val message: String,
+    override val actionLabel: String?,
+    override val duration: SnackbarDuration,
+    override val withDismissAction: Boolean = false,
+) : SnackbarVisuals
+
+/** Dismisses the snackbar of [visuals] when it is the one on screen; any other snackbar stays. */
+internal fun SnackbarHostState.dismissIfShown(visuals: SnackbarVisuals) {
+    currentSnackbarData?.takeIf { it.visuals === visuals }?.dismiss()
+}
+
 /** A snackbar with one action (Undo by default) that replaces the one shown; true when the action was tapped. */
 private class SnackbarOffer(private val snackbar: SnackbarHostState, private val undo: String) {
-    fun dismiss() = snackbar.currentSnackbarData?.dismiss()
+    /** The snackbar this offer showed last: [dismiss] never dismisses another one. */
+    private var shown: SnackbarVisuals? = null
+
+    fun dismiss() {
+        shown?.let { snackbar.dismissIfShown(it) }
+    }
 
     suspend operator fun invoke(message: String, action: String = undo, long: Boolean = false): Boolean {
         snackbar.currentSnackbarData?.dismiss()
         val duration = if (long) SnackbarDuration.Long else SnackbarDuration.Short
-        val result = snackbar.showSnackbar(message, actionLabel = action, duration = duration)
-        return result == SnackbarResult.ActionPerformed
+        val visuals = OwnedSnackbar(message, action, duration)
+        shown = visuals
+        return snackbar.showSnackbar(visuals) == SnackbarResult.ActionPerformed
     }
 }
 

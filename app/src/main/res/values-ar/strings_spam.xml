@@ -130,6 +130,21 @@
     <string name="spam_purge_days">%d يومًا</string>
     <string name="spam_purge_forever">الاحتفاظ إلى الأبد</string>
     <string name="spam_notify_title">نبّهني لرسائل المرسلين غير المعروفين</string>
-    <string name="spam_delete_kept_new_text">وصلت رسالة جديدة، لذلك لم تُحذف هذه المحادثة.</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="zero">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+        <item quantity="one">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+        <item quantity="two">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+        <item quantity="few">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+        <item quantity="many">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+        <item quantity="other">وصلت رسائل جديدة فتم الاحتفاظ بها. المحادثات: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="zero">المحادثات التي لم تُحذف: %d</item>
+        <item quantity="one">المحادثات التي لم تُحذف: %d</item>
+        <item quantity="two">المحادثات التي لم تُحذف: %d</item>
+        <item quantity="few">المحادثات التي لم تُحذف: %d</item>
+        <item quantity="many">المحادثات التي لم تُحذف: %d</item>
+        <item quantity="other">المحادثات التي لم تُحذف: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">نُقلت من «غير المرغوب فيها». المحادثات المؤرشفة تبقى في «الأرشيف».</string>
 </resources>

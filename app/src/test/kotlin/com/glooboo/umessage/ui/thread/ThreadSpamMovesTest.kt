@@ -49,8 +49,13 @@ class ThreadSpamMovesTest {
     private val repository = FakeSpamRepository(initialBlocked = emptyList(), initialRules = emptyList())
     private var verdict: SenderVerdict? = null
 
+    private var archived = false
+
     private fun moves(repo: SpamRepository = repository, thread: Long = 0L) =
-        ThreadSpamMoves(activity, scope, snackbar, { repo }, threadId = { thread }, place = { verdict })
+        ThreadSpamMoves(
+            activity, scope, snackbar, { repo }, threadId = { thread }, place = { verdict },
+            isArchived = { archived },
+        )
 
     @After
     fun tearDown() {
@@ -120,6 +125,25 @@ class ThreadSpamMovesTest {
         val bar = shown()
         assertThat(bar.visuals.message).isEqualTo(text(R.string.thread_unblock_done))
         assertThat(bar.visuals.actionLabel).isEqualTo(text(R.string.thread_report_spam_undo))
+    }
+
+    @Test
+    fun unblockOfAnArchivedChatSaysItStaysInArchived() {
+        block(SENDER)
+        archived = true
+        verdict = SenderVerdict.Messages(DecisionReason.CONTACT)
+        moves(thread = THREAD).unblock(SENDER)
+        val bar = shown()
+        assertThat(bar.visuals.message).isEqualTo(text(R.string.spam_moved_to_archived))
+        // Undo stays: only the place named changed.
+        assertThat(bar.visuals.actionLabel).isEqualTo(text(R.string.thread_report_spam_undo))
+    }
+
+    @Test
+    fun notSpamOfAnArchivedChatSaysItStaysInArchived() {
+        archived = true
+        moves(thread = THREAD).notSpam(SENDER)
+        assertThat(shown().visuals.message).isEqualTo(text(R.string.spam_moved_to_archived))
     }
 
     @Test

@@ -102,6 +102,13 @@ sealed interface ConversationsEvent {
         val stayed: Int = 0,
     ) : ConversationsEvent
 
+    /**
+     * J24: a delete kept chats. [newText] got a new text while the delete waited (the old texts went, the new ones
+     * stayed); [other] were not deleted for another reason (the store could not be read). [failure]: the message of
+     * a real failure that came with it, shown in the same snackbar so it is not lost.
+     */
+    data class DeleteKept(val newText: Int, val other: Int, val failure: Int?) : ConversationsEvent
+
     /** A plain message, such as why a delete did not happen (S14: not the default SMS app, nothing deleted). */
     data class Message(val res: Int) : ConversationsEvent
     data object Failed : ConversationsEvent

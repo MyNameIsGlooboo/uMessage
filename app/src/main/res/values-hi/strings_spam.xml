@@ -102,6 +102,13 @@
     <string name="spam_purge_days">%d दिन</string>
     <string name="spam_purge_forever">हमेशा रखें</string>
     <string name="spam_notify_title">अनजान भेजने वालों के मैसेज की सूचना दें</string>
-    <string name="spam_delete_kept_new_text">एक नया मैसेज आया, इसलिए यह चैट नहीं हटाई गई।</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">नए मैसेज आए और उन्हें रख लिया गया। चैट: %d</item>
+        <item quantity="other">नए मैसेज आए और उन्हें रख लिया गया। चैट: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">जो चैट नहीं हटाई गईं: %d</item>
+        <item quantity="other">जो चैट नहीं हटाई गईं: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">स्पैम से बाहर किया गया। संग्रहित चैट संग्रह में ही रहती हैं।</string>
 </resources>

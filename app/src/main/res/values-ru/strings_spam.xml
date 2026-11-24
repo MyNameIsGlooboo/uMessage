@@ -116,6 +116,17 @@
     <string name="spam_purge_days">%d дней</string>
     <string name="spam_purge_forever">Хранить всегда</string>
     <string name="spam_notify_title">Уведомлять о сообщениях от неизвестных отправителей</string>
-    <string name="spam_delete_kept_new_text">Пришло новое сообщение, поэтому этот чат не был удалён.</string>
+    <plurals name="spam_delete_kept_new_text">
+        <item quantity="one">Пришли новые сообщения, они сохранены. Чатов: %d</item>
+        <item quantity="few">Пришли новые сообщения, они сохранены. Чатов: %d</item>
+        <item quantity="many">Пришли новые сообщения, они сохранены. Чатов: %d</item>
+        <item quantity="other">Пришли новые сообщения, они сохранены. Чатов: %d</item>
+    </plurals>
+    <plurals name="spam_delete_kept_other">
+        <item quantity="one">Не удалено чатов: %d</item>
+        <item quantity="few">Не удалено чатов: %d</item>
+        <item quantity="many">Не удалено чатов: %d</item>
+        <item quantity="other">Не удалено чатов: %d</item>
+    </plurals>
     <string name="spam_moved_to_archived">Убрано из «Спама». Архивные чаты остаются в «Архиве».</string>
 </resources>
