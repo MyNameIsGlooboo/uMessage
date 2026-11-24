@@ -1107,7 +1107,8 @@ enum class DeleteResult {
  * J24: with [upTo] only the rows with an `_id` up to that mark go (SMS and MMS each by their own id), so a text that
  * came in after the user confirmed is never deleted. When such a text is still in the chat the result is
  * [DeleteResult.NEWER_TEXT] and nothing of the app's own data is removed. A second read that fails keeps the chat
- * too: not knowing whether a newer text is there must never forget it.
+ * too: not knowing whether a newer text is there must never forget it. J29: such a delete also sets uMessage's own
+ * Spam unread count to the unread texts the store still holds.
  */
 fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null, upTo: ChatMark? = null): DeleteResult {
     val result = when {
@@ -1123,6 +1124,7 @@ fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null, upTo:
         }
     }
     if (result == DeleteResult.DELETED) forgetThread(threadId)
+    if (result == DeleteResult.NEWER_TEXT) recountSpamUnread(threadId)
     return result
 }
 
@@ -1214,6 +1216,32 @@ private fun Context.storeHasThreadMessages(threadId: Long, upTo: ChatMark? = nul
 private fun Context.storeHasRow(uri: Uri, id: Long): Boolean? = runCatching {
     contentResolver.query(uri, arrayOf(Sms._ID), "${Sms._ID} = ?", arrayOf(id.toString()), null)
         ?.use { it.count > 0 } ?: error("no cursor")
+}.getOrNull()
+
+/**
+ * J29: after a delete that kept a newer text, uMessage's own Spam count is set to what the phone's store still holds
+ * unread: the texts the count was raised for went with the delete, and the kept one may be read already. A chat with
+ * no Spam row, or a store that cannot be read, leaves the count as it is.
+ */
+private fun Context.recountSpamUnread(threadId: Long) {
+    if (runCatching { conversationsDB.getSpamThread(threadId) }.getOrNull() == null) return
+    val unread = storeUnreadCount(threadId) ?: return
+    if (runCatching { conversationsDB.setSpamUnread(threadId, unread) }.getOrDefault(0) > 0) {
+        SpamChanges.noteChanged()
+    }
+}
+
+/** The store's unread incoming texts of [threadId] (SMS and MMS); null when it could not be read. */
+private fun Context.storeUnreadCount(threadId: Long): Int? = runCatching {
+    val args = arrayOf(threadId.toString())
+    listOf(
+        Sms.CONTENT_URI to "${Sms.THREAD_ID} = ? AND ${Sms.TYPE} = ${Sms.MESSAGE_TYPE_INBOX} AND ${Sms.READ} = 0",
+        Mms.CONTENT_URI to "${Mms.THREAD_ID} = ? AND ${Mms.MESSAGE_BOX} = ${Mms.MESSAGE_BOX_INBOX} AND " +
+            "${Mms.READ} = 0",
+    ).sumOf { (uri, selection) ->
+        contentResolver.query(uri, arrayOf(Sms._ID), selection, args, null)
+            ?.use { it.count } ?: error("no cursor")
+    }
 }.getOrNull()
 
 fun Context.checkAndDeleteOldRecycleBinMessages(callback: (() -> Unit)? = null) {

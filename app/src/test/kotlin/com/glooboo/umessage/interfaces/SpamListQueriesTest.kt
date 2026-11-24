@@ -162,4 +162,16 @@ class SpamListQueriesTest {
         dao.clearAllSpamUnread()
         assertThat(dao.getSpamThread(4)?.unread).isEqualTo(0)
     }
+
+    @Test
+    fun theUnreadCountCanBeSetToWhatTheStoreStillHolds() {
+        dao.raiseSpamUnread(2)
+        dao.raiseSpamUnread(2)
+
+        // J29: after a delete that kept a newer text, the count is the store's, not a plain reset.
+        assertThat(dao.setSpamUnread(2, 1)).isEqualTo(1)
+        assertThat(dao.getSpamThread(2)?.unread).isEqualTo(1)
+        // A row that is not there is left alone.
+        assertThat(dao.setSpamUnread(99, 4)).isEqualTo(0)
+    }
 }
