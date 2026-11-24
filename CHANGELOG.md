@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.5.0] - 2026-11-25
 ### Added
 - Spam is now a list of chats: a sender's whole chat is in Messages or in Spam, never split
 - Welcome page: choose to sort unknown senders into Spam or keep everything in Messages, with a switch for a quiet notification for Spam texts (off), a weekly Spam summary (on by default) and a reminder to look at Spam once a week

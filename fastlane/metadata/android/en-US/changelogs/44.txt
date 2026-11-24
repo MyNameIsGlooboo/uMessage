@@ -1,0 +1,5 @@
+• Spam sorting now follows your phone's own message store, so what you see matches what is on the phone
+• Simpler and sender-based: a sender's whole chat is in Messages or in Spam
+• Blocking a sender moves the whole chat to Spam, with Undo
+• Safer updates and restores of your messages
+• Many small bug fixes

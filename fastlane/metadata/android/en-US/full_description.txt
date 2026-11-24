@@ -1,23 +1,28 @@
-uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your default messaging app and, out of the box, messages from senders you do not know go to a separate Spam folder instead of your inbox.
+uMessage is a full SMS and MMS app built to stop spam. Make it your default messaging app and chats from senders you do not know go to a separate Spam tab instead of your Messages list.
 
 <b>How it decides</b>
-• Senders in your contacts, and numbers you have texted before, always reach your inbox.
-• Smart mode (the default): messages from unknown senders are blocked, but verification codes still arrive, even with a link.
-• Strict mode: every unknown sender is blocked, verification codes included.
-• Off: no unknown-sender filtering; your own rules still apply.
+• Every sender's chat is in one place, Messages or Spam. A chat is never split.
+• Contacts, people you wrote to and senders of a clear verification code stay in Messages. You can see and edit both lists in your rules.
+• Chats from other unknown senders go to Spam, silently. A small number on the Spam tab shows what is new.
+• Block a sender and the whole chat moves to Spam. Blocked senders never notify you, not even for a code.
+• The spam filter is one switch, on by default. When it is off, only senders you blocked go to Spam.
 
 <b>Your rules</b>
 • Allow or block an exact number, a number prefix, a sender name such as ACME-BANK, a keyword or a pattern.
-• Allowed rules always win over blocked rules.
-• A test box lets you type a message and see what your rules would do with it.
-• On dual-SIM phones each rule can apply to one SIM or both.
-• Export your rules to a file and import them on another phone, with a preview before anything changes.
+• Word rules act on the sender: a blocked word blocks the sender, an allowed word allows it. A word never blocks your contacts. The chat says why, with a button to change it.
+• Allow rules you made yourself win over blocks.
+• Every rule covers both SIMs.
+• A test box shows what your rules would do with a message you type.
+• Export your rules to a file and import them on another phone, with a preview first.
 
 <b>Nothing is lost</b>
-• Spam is kept in the Spam tab with the reason each one was held, without a notification unless you turn one on.
-• Tap "Not spam" to move a message to your inbox and allow its sender from then on, in one step with Undo. Delete the rule in Settings > Rules to stop allowing a sender.
-• Spam is deleted after 30 days by default; you can change this or keep them forever.
-• MMS held as spam are not downloaded, so they cost no mobile data.
+• Texts uMessage receives, spam included, are saved in your phone's own message store. If you switch apps or uninstall uMessage, they stay on the phone; spam shows there as read.
+• Spam is kept until you delete it. Delete asks first and has Undo. Auto-delete is off; if you turn it on in Settings, it deletes from the phone itself.
+• "Not spam" or "Unblock" brings a whole chat back to Messages. Block has Undo too.
+• Reply to an unknown sender in Spam and the chat moves to Messages.
+• Group chats always stay in Messages.
+• Picture messages (MMS) in Spam download only when small (up to 1 MB) and not roaming.
+• Optional: a quiet notification for each Spam text. Off by default.
 
 <b>A complete messaging app</b>
 • Group messages, photos and video, search, drafts, scheduled sending and an emoji picker.
@@ -26,16 +31,16 @@ uMessage is a full SMS and MMS app whose main job is to stop spam. Make it your 
 • Choose what notifications show on the lock screen: sender, text or nothing.
 • Export and import your messages as a backup.
 • Material You design with light, dark and color themes.
-• A Copy code button on messages that contain a verification code.
+• A Copy code button on texts with a verification code, in Messages and in Spam.
 • Persian and Arabic text displays right-to-left in the Vazirmatn font, and Persian verification codes are recognized.
 
 <b>Optional message forwarding</b>
-Forwarding is off until you turn it on. If you create a rule in Settings > Forwarding, your phone sends a copy of matching incoming messages (for example bank alerts) as a normal SMS to up to three numbers you enter. It all happens on your phone: nothing goes through any server or the developer, and it uses your own carrier plan, so each forward is a paid SMS. Spam and blocked messages are never forwarded, verification codes only if you switch that on for the rule, and you can turn it off or delete the rules at any time.
+Forwarding is optional and off by default. A rule you create in Settings > Forwarding sends a copy of only the incoming texts that match it (for example bank alerts), as a normal SMS, to up to three numbers you choose. It runs on your phone, not through any server or the developer, and each forward is a paid SMS on your plan. Spam is never forwarded; verification codes only if you switch that on for the rule. You can turn forwarding off or delete the rules at any time.
 
 <b>Private by design</b>
-uMessage does not request the internet permission, so it cannot send anything off your phone. No ads, no analytics, no accounts, no tracking. Your messages, rules and spam stay on your device and are left out of cloud backups.
+uMessage has no internet permission, so it cannot connect to the internet. It sends only the texts you write or ask it to send, and your forwards if you set any up. No ads, no analytics, no accounts, no tracking. Your rules and settings stay on your device and are left out of cloud backups. Your texts live in the phone's message store, so a phone backup of text messages can include them, spam too.
 
-uMessage does not support RCS (only Google Messages and Samsung Messages can use it). It filters texts only. Numbers on Android's own block list, which you can view in Settings, are also stopped from calling you, because Android applies that list to calls as well.
+uMessage does not support RCS and filters texts only. Numbers on Android's own block list show in Spam, and Android also stops their calls.
 
 uMessage is free and open-source software under the GNU GPL v3, based on Fossify Messages. It is not affiliated with the Fossify project.
 Source code: https://github.com/MyNameIsGlooboo/uMessage
