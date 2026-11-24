@@ -158,6 +158,7 @@ abstract class SpamDatabase : RoomDatabase() {
             // Downgrade policy, see SpamDatabaseRecovery: a file from a newer schema is moved aside and its rows
             // copied into a fresh database of this schema, never wiped.
             val downgradedFrom = DatabaseBackups.moveAsideIfNewer(context, name, VERSION)
+            ForwardTrip.markIfBeforeForwardRules(context, name)
             return Room.databaseBuilder(context, SpamDatabase::class.java, name)
                 .addMigrations(*ALL_MIGRATIONS)
                 // Acts only when moving a newer file aside failed (so nothing was copied): opening empty beats the

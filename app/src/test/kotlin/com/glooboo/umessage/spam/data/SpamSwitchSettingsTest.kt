@@ -94,6 +94,21 @@ class SpamSwitchSettingsTest {
         assertThat(store.get().filterOn).isTrue()
     }
 
+    /** L2-3: 0.4.14 writes only the mode; back on this build the mode it chose decides the switch. */
+    @Test fun aModeChosenOnTheOlderBuildAfterATripDecidesTheSwitch() {
+        val store = store()
+        store.update { it.copy(filterOn = true) }
+        assertThat(store.get().filterOn).isTrue()
+
+        context.getSharedPreferences("spamless_spam_settings", Context.MODE_PRIVATE).edit()
+            .putString("mode", "OFF").commit()
+        assertThat(store.get().filterOn).isFalse()
+
+        store.update { it.copy(purgeAfterDays = 0) }
+        assertThat(store.get().filterOn).isFalse()
+        assertThat(store.get().mode).isEqualTo(UnknownSenderMode.OFF)
+    }
+
     @Test fun keptInStepLeavesABothSidedChangeAlone() {
         val current = SpamSettings()
         // Both changed in one update (a restore of a new backup): each is kept as given.

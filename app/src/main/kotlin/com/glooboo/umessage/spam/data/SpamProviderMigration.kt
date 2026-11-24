@@ -845,7 +845,7 @@ internal class OlderSpamMover(
         // MMS thread (emulator run 1: mmslib and the settle stamp an MMS thread with the time of the write).
         val cachedThread = runCatching { writer.cache(storeId, kind is MoveKind.Mms) }.getOrNull()
         val threadId = runCatching { writer.threadOf(storeId, kind is MoveKind.Mms) }.getOrNull() ?: cachedThread
-        if (threadId != null && threads.add(threadId)) journal.pendingRepairs = threads.toSet()
+        if (threadId != null && threads.add(threadId)) journal.pendingRepairs = journal.pendingRepairs + threadId
         val isMms = kind is MoveKind.Mms
         done(row, storeId)
         takenWritten -= takenKey(isMms, storeId)
@@ -897,7 +897,8 @@ internal class OlderSpamMover(
     /** F-21: the pending repairs are cleared only by a repair that worked. */
     private fun repairTouched() {
         if (threads.isEmpty()) return
-        val repaired = runCatching { writer.repair(threads.toSet()) }
+        // L2-4: the threads of an earlier failed repair stay in the journal and are repaired with these.
+        val repaired = runCatching { writer.repair(threads + journal.pendingRepairs) }
             .onFailure { Log.w(TAG, "Moved chats not repaired", it) }.isSuccess
         threads.clear()
         if (repaired) journal.pendingRepairs = emptySet()

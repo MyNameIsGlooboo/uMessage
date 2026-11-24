@@ -36,7 +36,7 @@ class SpamSettingsStore(
             }.getOrDefault(defaults.unknownInboxNotify),
             openLinkAction = prefs.getBoolean(KEY_OPEN_LINK, defaults.openLinkAction),
             blockOutsideRegion = prefs.getString(KEY_OUTSIDE_REGION, null).orEmpty(),
-            filterOn = if (prefs.contains(KEY_FILTER_ON)) {
+            filterOn = if (prefs.contains(KEY_FILTER_ON) && !modeChangedByOlderBuild()) {
                 prefs.getBoolean(KEY_FILTER_ON, defaults.filterOn)
             } else {
                 filterOnFromMode(prefs.getString(KEY_MODE, null), legacySwitchOn())
@@ -46,12 +46,22 @@ class SpamSettingsStore(
         )
     }
 
+    /**
+     * L2-3: [KEY_MODE_SEEN] is the mode the switch was last written in step with. An older build (0.4.14) writes only
+     * the mode, so a stored mode that differs from it was chosen there, and the switch is read from it again.
+     */
+    private fun modeChangedByOlderBuild(): Boolean {
+        val seen = prefs.getString(KEY_MODE_SEEN, null) ?: return false
+        return seen != prefs.getString(KEY_MODE, null)
+    }
+
     /** One lock for every store of these prefs (A-4): several parts of the app make their own store. */
     fun update(transform: (SpamSettings) -> SpamSettings) = synchronized(LOCK) {
         val current = get()
         val next = keptInStep(current, transform(current))
         prefs.edit()
             .putString(KEY_MODE, next.mode.name)
+            .putString(KEY_MODE_SEEN, next.mode.name)
             .putInt(KEY_PURGE_DAYS, next.purgeAfterDays)
             .putBoolean(KEY_NOTIFY, next.notifyOnBlock)
             .putString(KEY_UNKNOWN_NOTIFY, next.unknownInboxNotify.name)
@@ -74,6 +84,7 @@ class SpamSettingsStore(
         val filterOn = get().filterOn
         prefs.edit(commit = true) {
             putBoolean(KEY_FILTER_ON, filterOn)
+            prefs.getString(KEY_MODE, null)?.let { putString(KEY_MODE_SEEN, it) }
             putInt(KEY_PURGE_DAYS, 0)
             putBoolean(KEY_MAPPED, true)
         }
@@ -130,6 +141,7 @@ class SpamSettingsStore(
         /** Provider truth: the one filter switch (7.1). Missing on installs from before it: read from [KEY_MODE]. */
         private const val KEY_FILTER_ON = "filter_on"
         private const val KEY_CODE_GROUP_ON = "code_group_on"
+        private const val KEY_MODE_SEEN = "filter_mode_seen"
         private const val KEY_WROTE_GROUP_ON = "wrote_group_on"
 
         /** Set by [applyProviderTruthMapping]. */

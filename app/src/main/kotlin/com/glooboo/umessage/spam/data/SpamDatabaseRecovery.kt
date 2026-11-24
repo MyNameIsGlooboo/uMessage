@@ -34,8 +34,12 @@ import java.io.File
  *   database already has, by content, are skipped; clashing ids get new ones), then it is renamed `-restored`. Pending
  *   SMS are not merged here: the older build delivered or dropped them meanwhile, and replaying them would duplicate
  *   messages.
- * - Forward rules after a trip to schema 3: that build renamed the schema-4 file `-imported` (it copied every table it
- *   knows), so the forward rules are merged back from a `-imported` file of schema 4 or later, once.
+ * - Forward rules after a trip to schema 3: that build renamed the file it imported `-imported` (it copied every table
+ *   it knows), so the forward rules are merged back from the newest `-imported` file, once. The file name is that of
+ *   the schema imported, not of the build that imported it (0.4.14 also keeps a `.v9-imported`, and it edits forward
+ *   rules), so the trip is told by the live file: [ForwardTrip] marks a file that was still below schema 4 when this
+ *   build opened it, that is, the open where MIGRATION_3_4 ran. Without the mark only the members and the migration
+ *   marks come back (J27).
  *
  * Failures are logged and never stop the database from opening. Nothing here runs SQL on Room's own connection: each
  * step opens a connection of its own ([DatabaseBackups.withAttached]), so Room's invalidation table survives (J14).
@@ -80,28 +84,44 @@ internal class SpamDatabaseRecovery(
     }
 
     /**
-     * A build of schema 3 that opened a schema-4 file copied every table it knows and renamed the file `-imported`,
-     * leaving the forward rules behind in it. Back on schema 4 or later, they are merged back from there (rows already
-     * here are skipped), and the file is renamed `-restored` so this happens once.
+     * A build older than schema 4 that opened a newer file copied every table it knows and renamed the file
+     * `-imported`, leaving the forward rules behind in it, unchangeable by that build. Back on schema 4 or later, they
+     * are merged back from the newest `-imported` file (rows already here are skipped), and the files are renamed
+     * `-restored` so this happens once. Only when [ForwardTrip] marks the live file (J27), that is, when
+     * MIGRATION_3_4 ran on this open: after a trip to 0.4.14 the forward rules in the kept file are older than the
+     * live ones and must not return.
      *
      * J14-3: only when both steps worked. A failed try keeps the file for the next open (both steps skip what is
      * already here, so a second try adds nothing twice); after [RecoveryAttempts.MAX_FAILURES] failed tries it is
      * kept as `-failed` and not tried again.
      */
     private fun restoreForwardRulesFromImported() {
-        val imported = DatabaseBackups.importedBackups(context, name, FORWARD_SINCE..SpamDatabase.VERSION)
-        val newest = imported.firstOrNull() ?: return
-        val forwardRules = runCatching {
-            DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
-                DatabaseBackups.inTransaction(db) {
-                    val (table, where) = forwards(db)
-                    DatabaseBackups.mergeRows(db, table, where = where)
+        val imported = DatabaseBackups.importedBackups(context, name, ForwardTrip.FORWARD_SINCE..SpamDatabase.VERSION)
+        val newest = imported.firstOrNull()
+        if (newest == null) {
+            ForwardTrip.clear(context, name)
+            return
+        }
+        // J27 (L2-1): a rule the user deleted, switched off or retargeted on 0.4.14 must not return from its file.
+        // The marker means MIGRATION_3_4 ran on this open, so the build that wrote the live file could not change a rule.
+        val forwardRules = if (!ForwardTrip.isMarked(context, name)) {
+            // Deliberate: with no mark the file brings no forward rules (only members and marks), yet it is retired
+            // below, so a later open cannot read it again.
+            true
+        } else {
+            runCatching {
+                DatabaseBackups.withMigratedCopy(context, name, newest, migrate = ::migrateScratch) { db ->
+                    DatabaseBackups.inTransaction(db) {
+                        val (table, where) = forwards(db)
+                        DatabaseBackups.mergeRows(db, table, where = where)
+                    }
                 }
-            }
-        }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }.isSuccess
+            }.onFailure { Log.e(TAG, "Restoring forward rules of $name from ${newest.name} failed", it) }.isSuccess
+        }
         val members = restoreProviderTruthFromImported(newest)
         if (forwardRules && members != null) {
             imported.forEach { DatabaseBackups.retire(it) }
+            ForwardTrip.clear(context, name)
             runCatching { RecoveryAttempts.succeeded(context, newest) }
         } else {
             runCatching { RecoveryAttempts.failed(context, newest) }
@@ -223,9 +243,6 @@ internal class SpamDatabaseRecovery(
         const val TAG = "SpamDbRecovery"
         const val FORWARD_TABLE = "forward_rules"
 
-        /** The schema that added [FORWARD_TABLE]. */
-        const val FORWARD_SINCE = 4
-
         /** `s.column IN ('A', 'B')` for the values this build's enum knows. */
         fun known(column: String, values: Array<out Enum<*>>) =
             "s.`$column` IN (${values.joinToString { "'${it.name}'" }})"
@@ -237,5 +254,53 @@ internal class SpamDatabaseRecovery(
         /** D3 A: the members of the group rules (schema 9), with a group and a source this build knows. */
         val MEMBERS = "allow_group_members" to "${known("group_type", AllowGroup.entries.toTypedArray())} AND " +
             known("source", MemberSource.entries.toTypedArray())
+    }
+}
+
+/**
+ * J27 (L2-1): decides the forward-rule restore by whether MIGRATION_3_4 ran on this open, never by the name of an
+ * `-imported` file: that name carries the schema that was imported, not the build that imported it (0.4.14 leaves a
+ * `.v9-imported` too, and it edits forward rules). MIGRATION_3_4 runs exactly when the live file was written by a
+ * build older than schema 4, which could not hold, and so could not change, a forward rule. A live file still below
+ * [FORWARD_SINCE] when this build opens it is marked; the marker outlives the migration, which turns the file into
+ * the current schema, and is cleared once the forward rules are restored.
+ *
+ * The marker is dropped on every other version: a failed restore may leave it, and a later trip to 0.4.14 (schema 8)
+ * must not inherit it. Only an open at the current version keeps it, for the retry of that failed restore.
+ */
+internal object ForwardTrip {
+    private const val TAG = "SpamDbRecovery"
+
+    /** The schema that added the forward rules table: the first one that can hold (and edit) a rule. */
+    const val FORWARD_SINCE = 4
+
+    private fun marker(context: Context, name: String) = File(context.getDatabasePath(name).path + ".forward-trip")
+
+    /** Called before Room opens [name]: marks it when MIGRATION_3_4 is about to run on it. */
+    fun markIfBeforeForwardRules(context: Context, name: String) {
+        val file = marker(context, name)
+        val version = DatabaseBackups.fileVersion(context.getDatabasePath(name))
+        when {
+            version != null && version in 1 until FORWARD_SINCE -> writeMarker(file)
+            // A restore failed before and left the marker: keep it for the retry at the current schema.
+            version == SpamDatabase.VERSION -> Unit
+            else -> runCatching { file.delete() }
+        }
+    }
+
+    /** Writes the marker; a failure is logged and never stops the database from opening. */
+    private fun writeMarker(file: File) {
+        if (file.exists()) return
+        val created = runCatching { file.createNewFile() }.getOrElse {
+            Log.w(TAG, "Could not write the forward-trip marker ${file.name}", it)
+            return
+        }
+        if (!created) Log.w(TAG, "Could not write the forward-trip marker ${file.name}")
+    }
+
+    fun isMarked(context: Context, name: String) = marker(context, name).exists()
+
+    fun clear(context: Context, name: String) {
+        marker(context, name).delete()
     }
 }
