@@ -117,6 +117,13 @@ interface ConversationsDao {
     @Query("UPDATE spam_threads SET unread = 0 WHERE thread_id = :threadId")
     fun clearSpamUnread(threadId: Long): Int
 
+    /**
+     * J29: the count is set to what the phone's store still holds after a delete kept a newer text (the texts it
+     * counted went with the delete). A row that is not there is left alone; the caller counts this as no change.
+     */
+    @Query("UPDATE spam_threads SET unread = :unread WHERE thread_id = :threadId")
+    fun setSpamUnread(threadId: Long, unread: Int): Int
+
     @Query("UPDATE spam_threads SET unread = 0 WHERE unread > 0")
     fun clearAllSpamUnread(): Int
 
