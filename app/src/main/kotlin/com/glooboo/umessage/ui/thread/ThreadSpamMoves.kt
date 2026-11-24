@@ -54,11 +54,6 @@ internal class ThreadSpamMoves(
         runCatching { activity.conversationsDB.getConversationWithThreadId(id)?.isArchived == true }.getOrDefault(false)
     },
 ) {
-    private fun sort() {
-        val id = threadId()
-        if (id > 0) SpamSorting.requestThreads(activity, listOf(id))
-    }
-
     /** Whether this chat is archived, so that "back in Messages" would be wrong (L3-4). */
     private suspend fun archivedChat(): Boolean {
         val id = threadId().takeIf { it > 0 } ?: return false
@@ -96,22 +91,12 @@ internal class ThreadSpamMoves(
             }
             // D-8: the lock gate's hint for this chat says Spam now, so it is covered before any read.
             threadId().takeIf { it > 0 }?.let { SpamChatGate.Known.note(it, spam = true) }
-            wrote()
+            wrote(activity, threadId)
             if (offer(R.string.thread_block_done)) {
                 SenderMoves.undoBlocks(repo, receipts)
-                wrote()
+                wrote(activity, threadId)
             }
         }
-    }
-
-    /**
-     * After the screen's own write: the shared snapshot is read again (C-17), and the chat is sorted. Its quiet Spam
-     * notice has done its job then (4.6: blocked, unblocked or moved).
-     */
-    private fun wrote() {
-        runCatching { ChatSorter.snapshots(activity).invalidate() }
-        threadId().takeIf { it > 0 }?.let { BlockedNotifier.cancelChat(activity, it) }
-        sort()
     }
 
     /**
@@ -127,7 +112,7 @@ internal class ThreadSpamMoves(
                 snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed))
                 return@launch
             }
-            wrote()
+            wrote(activity, threadId)
             val verdict = withContext(Dispatchers.IO) { place.verdict(address) }
             when (unblockOutcome(verdict)) {
                 UnblockOutcome.STILL_UNKNOWN ->
@@ -160,7 +145,7 @@ internal class ThreadSpamMoves(
      */
     private suspend fun stillBlockedByRule(repo: SpamRepository, removed: List<SpamRule>, ruleId: Long?) {
         runCatching { repo.restoreRules(removed) }
-        wrote()
+        wrote(activity, threadId)
         val rule = runCatching { repo.rules.first() }.getOrNull()?.firstOrNull { it.id == ruleId }
         if (rule == null || rule.type != RuleType.PREFIX) {
             snackbar.showSnackbar(activity.getString(R.string.thread_unblock_failed), duration = SnackbarDuration.Long)
@@ -192,7 +177,7 @@ internal class ThreadSpamMoves(
         ) == SnackbarResult.ActionPerformed
         if (undo) {
             runCatching { repo.restoreRules(removed) }
-            wrote()
+            wrote(activity, threadId)
         }
     }
 
@@ -216,12 +201,12 @@ internal class ThreadSpamMoves(
                 snackbar.showSnackbar(activity.getString(R.string.thread_always_allow_failed))
                 return@launch
             }
-            wrote()
+            wrote(activity, threadId)
             if (change.createdRuleIds.isEmpty()) return@launch
             val done = if (archivedChat()) R.string.spam_moved_to_archived else R.string.thread_always_allow_done
             if (offer(done)) {
                 SenderMoves.undoNotSpam(repository(), change)
-                wrote()
+                wrote(activity, threadId)
             }
         }
     }
@@ -230,4 +215,14 @@ internal class ThreadSpamMoves(
     fun keep(address: String) {
         scope.launch { runCatching { repository().acknowledgeSender(address) } }
     }
+}
+
+/**
+ * After the screen's own write: the shared snapshot is read again (C-17), and the chat is sorted. Its quiet Spam
+ * notice has done its job then (4.6: blocked, unblocked or moved).
+ */
+private fun wrote(activity: Activity, threadId: () -> Long) {
+    runCatching { ChatSorter.snapshots(activity).invalidate() }
+    threadId().takeIf { it > 0 }?.let { BlockedNotifier.cancelChat(activity, it) }
+    threadId().takeIf { it > 0 }?.let { SpamSorting.requestThreads(activity, listOf(it)) }
 }

@@ -103,7 +103,8 @@ internal class SpamDatabaseRecovery(
             return
         }
         // J27 (L2-1): a rule the user deleted, switched off or retargeted on 0.4.14 must not return from its file.
-        // The marker means MIGRATION_3_4 ran on this open, so the build that wrote the live file could not change a rule.
+        // The marker means MIGRATION_3_4 ran on this open, so the build that wrote the live file could not change
+        // a rule.
         val forwardRules = if (!ForwardTrip.isMarked(context, name)) {
             // Deliberate: with no mark the file brings no forward rules (only members and marks), yet it is retired
             // below, so a later open cannot read it again.

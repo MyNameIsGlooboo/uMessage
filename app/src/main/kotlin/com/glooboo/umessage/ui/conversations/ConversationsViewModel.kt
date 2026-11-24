@@ -680,7 +680,6 @@ class ConversationsViewModel internal constructor(
         pendingDeletes.values.forEach { leftovers += it }
         pendingDeletes.clear()
         if (leftovers.isNotEmpty()) {
-            val context = app
             val default = defaultSmsApp()
             Thread {
                 runCatching { deleteMarked(leftovers, default, deleter) }

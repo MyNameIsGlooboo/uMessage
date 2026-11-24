@@ -110,5 +110,5 @@
         <item quantity="one">گفتگوهایی که پاک نشدن: %d</item>
         <item quantity="other">گفتگوهایی که پاک نشدن: %d</item>
     </plurals>
-    <string name="spam_moved_to_archived">از اسپم بیرون آمد. گفتگوهای بایگانی‌شده در بایگانی می‌مانند.</string>
+    <string name="spam_moved_to_archived">از اسپم بیرون آمد. گفتگوهای آرشیوشده توی آرشیو می‌مانند.</string>
 </resources>

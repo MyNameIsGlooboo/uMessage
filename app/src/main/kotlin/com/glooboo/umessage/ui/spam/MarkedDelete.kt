@@ -8,18 +8,6 @@ import com.glooboo.umessage.spam.data.BlockedNotifier
 import org.fossify.commons.extensions.notificationManager
 
 /**
- * J24: what a delete of chats marked at the confirm ([ChatMark]) did: the chats that went, how many were kept because
- * a new text came in, how many were kept for another reason (left Spam, a mark that could not be read), and the
- * message of the first real failure (S14), if any.
- */
-internal data class DeleteReport(
-    val deleted: Set<Long>,
-    val keptNewText: Int,
-    val keptOther: Int,
-    val failure: Int?,
-)
-
-/**
  * Deletes the chats of [marks] with [deleter], each only up to its mark. A chat whose mark could not be read, or (when
  * [now] is given, the Spam tab) that is no longer in Spam, is not given to [deleter]. Blocking.
  */

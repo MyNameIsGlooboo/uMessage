@@ -200,76 +200,111 @@ private suspend fun showEvent(
     deletes: DeleteWindows,
 ) {
     when (event) {
-        is ConversationsEvent.Deleted -> {
-            val visuals = OwnedSnackbar(
-                resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count),
-                undoLabel,
-                SnackbarDuration.Long,
-            )
-            // L3-2: when the delete runs before the snackbar ends (the app left, a new delete), its Undo goes away.
-            val undone = coroutineScope {
-                val watcher = launch(start = CoroutineStart.UNDISPATCHED) {
-                    deletes.closed.first { it == event.token }
-                    snackbar.dismissIfShown(visuals)
-                }
-                try {
-                    deletes.isPending(event.token) && snackbar.showSnackbar(visuals) == SnackbarResult.ActionPerformed
-                } finally {
-                    watcher.cancel()
-                }
-            }
-            if (undone) callbacks.onUndoDelete(event.token) else callbacks.onCommitDelete(event.token)
-        }
+        is ConversationsEvent.Deleted ->
+            showDeleted(event, snackbar, callbacks, resources, undoLabel, deletes)
         is ConversationsEvent.DeleteKept -> snackbar.showSnackbar(deleteKeptText(resources, event))
-        is ConversationsEvent.Archived -> {
-            val result = snackbar.showSnackbar(
-                // P3-02: says where the chat went; Undo stays the only action.
-                message = resources.getQuantityString(R.plurals.w2b1_archived_find, event.count, event.count),
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Short,
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                callbacks.onUndoArchive(event.token)
-            } else {
-                callbacks.onCommitArchive(event.token)
-            }
-        }
-        is ConversationsEvent.MarkedAllRead -> {
-            val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.decm_marked_all_read, event.count, event.count),
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Long,
-            )
-            if (result == SnackbarResult.ActionPerformed) callbacks.onUndoMarkAllRead(event.token)
-        }
-        is ConversationsEvent.Blocked -> commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
-            val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.convlist_blocked_done, event.count, event.count) +
-                    stayedNote(resources, event.stayed),
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Long,
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                callbacks.onUndoReportSpam(event.token)
-            } else {
-                callbacks.onCommitReportSpam(event.token)
-            }
-        }
-        is ConversationsEvent.ReportedSpam -> commitIfCancelled({ callbacks.onCommitReportSpam(event.token) }) {
-            val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.convlist_reported_spam, event.count, event.count) +
-                    stayedNote(resources, event.stayed),
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Long,
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                callbacks.onUndoReportSpam(event.token)
-            } else {
-                callbacks.onCommitReportSpam(event.token)
-            }
-        }
+        is ConversationsEvent.Archived ->
+            showArchived(event, snackbar, callbacks, resources, undoLabel)
+        is ConversationsEvent.MarkedAllRead ->
+            showMarkedAllRead(event, snackbar, callbacks, resources, undoLabel)
+        is ConversationsEvent.Blocked -> showSpamMoved(
+            event.count, event.stayed, event.token, R.plurals.convlist_blocked_done,
+            snackbar, callbacks, resources, undoLabel,
+        )
+        is ConversationsEvent.ReportedSpam -> showSpamMoved(
+            event.count, event.stayed, event.token, R.plurals.convlist_reported_spam,
+            snackbar, callbacks, resources, undoLabel,
+        )
         is ConversationsEvent.Message -> snackbar.showSnackbar(resources.getString(event.res))
         ConversationsEvent.Failed -> snackbar.showSnackbar(failedText)
+    }
+}
+
+/** L3-2: when the delete runs before the snackbar ends (the app left, a new delete), its Undo goes away. */
+private suspend fun showDeleted(
+    event: ConversationsEvent.Deleted,
+    snackbar: SnackbarHostState,
+    callbacks: ConversationsCallbacks,
+    resources: android.content.res.Resources,
+    undoLabel: String,
+    deletes: DeleteWindows,
+) {
+    val visuals = OwnedSnackbar(
+        resources.getQuantityString(R.plurals.convlist_deleted, event.count, event.count),
+        undoLabel,
+        SnackbarDuration.Long,
+    )
+    val undone = coroutineScope {
+        val watcher = launch(start = CoroutineStart.UNDISPATCHED) {
+            deletes.closed.first { it == event.token }
+            snackbar.dismissIfShown(visuals)
+        }
+        try {
+            deletes.isPending(event.token) && snackbar.showSnackbar(visuals) == SnackbarResult.ActionPerformed
+        } finally {
+            watcher.cancel()
+        }
+    }
+    if (undone) callbacks.onUndoDelete(event.token) else callbacks.onCommitDelete(event.token)
+}
+
+/** P3-02: says where the chat went; Undo stays the only action. */
+private suspend fun showArchived(
+    event: ConversationsEvent.Archived,
+    snackbar: SnackbarHostState,
+    callbacks: ConversationsCallbacks,
+    resources: android.content.res.Resources,
+    undoLabel: String,
+) {
+    val result = snackbar.showSnackbar(
+        message = resources.getQuantityString(R.plurals.w2b1_archived_find, event.count, event.count),
+        actionLabel = undoLabel,
+        duration = SnackbarDuration.Short,
+    )
+    if (result == SnackbarResult.ActionPerformed) {
+        callbacks.onUndoArchive(event.token)
+    } else {
+        callbacks.onCommitArchive(event.token)
+    }
+}
+
+private suspend fun showMarkedAllRead(
+    event: ConversationsEvent.MarkedAllRead,
+    snackbar: SnackbarHostState,
+    callbacks: ConversationsCallbacks,
+    resources: android.content.res.Resources,
+    undoLabel: String,
+) {
+    val result = snackbar.showSnackbar(
+        message = resources.getQuantityString(R.plurals.decm_marked_all_read, event.count, event.count),
+        actionLabel = undoLabel,
+        duration = SnackbarDuration.Long,
+    )
+    if (result == SnackbarResult.ActionPerformed) callbacks.onUndoMarkAllRead(event.token)
+}
+
+/** Block and Report spam move the chats once their Undo window closes; only the count text differs. */
+private suspend fun showSpamMoved(
+    count: Int,
+    stayed: Int,
+    token: Long,
+    plural: Int,
+    snackbar: SnackbarHostState,
+    callbacks: ConversationsCallbacks,
+    resources: android.content.res.Resources,
+    undoLabel: String,
+) {
+    commitIfCancelled({ callbacks.onCommitReportSpam(token) }) {
+        val result = snackbar.showSnackbar(
+            message = resources.getQuantityString(plural, count, count) + stayedNote(resources, stayed),
+            actionLabel = undoLabel,
+            duration = SnackbarDuration.Long,
+        )
+        if (result == SnackbarResult.ActionPerformed) {
+            callbacks.onUndoReportSpam(token)
+        } else {
+            callbacks.onCommitReportSpam(token)
+        }
     }
 }
 
