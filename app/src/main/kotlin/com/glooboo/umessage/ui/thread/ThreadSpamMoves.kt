@@ -217,8 +217,9 @@ internal class ThreadSpamMoves(
                 return@launch
             }
             wrote()
+            if (change.createdRuleIds.isEmpty()) return@launch
             val done = if (archivedChat()) R.string.spam_moved_to_archived else R.string.thread_always_allow_done
-            if (change.createdRuleIds.isNotEmpty() && offer(done)) {
+            if (offer(done)) {
                 SenderMoves.undoNotSpam(repository(), change)
                 wrote()
             }

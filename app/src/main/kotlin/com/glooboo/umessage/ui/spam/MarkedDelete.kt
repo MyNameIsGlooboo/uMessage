@@ -32,8 +32,12 @@ internal fun deleteMarked(
     val go = LinkedHashMap<Long, ChatMark>()
     var other = 0
     marks.forEach { (id, confirmed) ->
+        if (confirmed == null) {
+            other++
+            return@forEach
+        }
         val current = if (now == null) confirmed else now(id)
-        if (ChatMark.keepReason(confirmed, current, needsSpam = now != null) != null) other++ else go[id] = confirmed!!
+        if (ChatMark.keepReason(confirmed, current, needsSpam = now != null) != null) other++ else go[id] = confirmed
     }
     val results = if (go.isEmpty()) emptyMap() else deleter(go, isDefault)
     return DeleteReport(

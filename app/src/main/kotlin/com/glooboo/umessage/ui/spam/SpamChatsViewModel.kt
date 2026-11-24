@@ -490,7 +490,7 @@ class SpamChatsViewModel internal constructor(
                     token,
                     targets.size,
                     targets.singleOrNull()?.conversation?.title,
-                    archived = targets.any { it.conversation.isArchived },
+                    archived = targets.all { it.conversation.isArchived },
                 ),
             )
         }
@@ -577,7 +577,7 @@ class SpamChatsViewModel internal constructor(
                 moved.isNotEmpty() -> SpamChatsEvent.Unblocked(
                     token,
                     moved.size,
-                    archived = targets.any { it.threadId in moved && it.conversation.isArchived },
+                    archived = targets.filter { it.threadId in moved }.all { it.conversation.isArchived },
                 )
                 unknown.isNotEmpty() -> SpamChatsEvent.StillUnknown(token, unknown)
                 unsure.isNotEmpty() -> SpamChatsEvent.UnblockedUnsure(token, targets.size)

@@ -1106,7 +1106,8 @@ enum class DeleteResult {
  *
  * J24: with [upTo] only the rows with an `_id` up to that mark go (SMS and MMS each by their own id), so a text that
  * came in after the user confirmed is never deleted. When such a text is still in the chat the result is
- * [DeleteResult.NEWER_TEXT] and nothing of the app's own data is removed.
+ * [DeleteResult.NEWER_TEXT] and nothing of the app's own data is removed. A second read that fails keeps the chat
+ * too: not knowing whether a newer text is there must never forget it.
  */
 fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null, upTo: ChatMark? = null): DeleteResult {
     val result = when {
@@ -1114,8 +1115,12 @@ fun Context.deleteConversation(threadId: Long, isDefault: Boolean? = null, upTo:
         !(isDefault ?: isDefaultSmsAppNow()) -> DeleteResult.NOT_DEFAULT
         !deleteThreadFromStore(threadId, upTo) -> DeleteResult.FAILED
         storeHasThreadMessages(threadId, upTo) != false -> DeleteResult.NOTHING_DELETED
-        upTo != null && storeHasThreadMessages(threadId) != false -> DeleteResult.NEWER_TEXT
-        else -> DeleteResult.DELETED
+        upTo == null -> DeleteResult.DELETED
+        else -> when (storeHasThreadMessages(threadId)) {
+            true -> DeleteResult.NEWER_TEXT
+            null -> DeleteResult.NOTHING_DELETED
+            false -> DeleteResult.DELETED
+        }
     }
     if (result == DeleteResult.DELETED) forgetThread(threadId)
     return result

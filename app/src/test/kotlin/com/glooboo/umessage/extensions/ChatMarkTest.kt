@@ -15,6 +15,7 @@ import com.glooboo.umessage.spam.engine.SpamCause
 import com.glooboo.umessage.testing.FakeSmsMmsProvider
 import com.glooboo.umessage.testing.offMainThread
 import com.glooboo.umessage.testing.resetSharedMessagesDatabase
+import com.glooboo.umessage.ui.conversations.deleteChats
 import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Test
@@ -43,6 +44,45 @@ class ChatMarkTest {
             sortOrder: String?,
         ): Cursor {
             queries += Query(uri, projection?.toList(), selection, selectionArgs?.toList())
+            return super.query(uri, projection, selection, selectionArgs, sortOrder)
+        }
+    }
+
+    /** A store where a text lands during the delete itself: its id is above the mark, so it must survive. */
+    class ArrivesOnDeleteStore : FakeSmsMmsProvider() {
+        private var arrived = false
+
+        override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+            if (!arrived && selection?.contains("${Telephony.Sms._ID} <= ?") == true) {
+                arrived = true
+                selectionArgs?.firstOrNull()?.toLong()?.let { thread ->
+                    insert(
+                        uri,
+                        ContentValues().apply {
+                            put(Telephony.Sms.THREAD_ID, thread)
+                            put(Telephony.Sms.ADDRESS, "+15550001234")
+                            put(Telephony.Sms.BODY, "Code")
+                            put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_INBOX)
+                        },
+                    )
+                }
+            }
+            return super.delete(uri, selection, selectionArgs)
+        }
+    }
+
+    /** A store that answers, then fails the whole-thread read that follows the delete. */
+    class FailsAfterDeleteStore : FakeSmsMmsProvider() {
+        private var deleted = false
+
+        override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int =
+            super.delete(uri, selection, selectionArgs).also { deleted = true }
+
+        override fun query(
+            uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?,
+            sortOrder: String?,
+        ): Cursor {
+            check(!(deleted && selection == "${Telephony.Sms.THREAD_ID} = ?")) { "read after delete" }
             return super.query(uri, projection, selection, selectionArgs, sortOrder)
         }
     }
@@ -189,6 +229,47 @@ class ChatMarkTest {
         // The chat keeps its own data: no forget step ran.
         offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(THREAD)).isNotNull() }
         assertThat(mark(THREAD)?.mmsId).isGreaterThan(confirmed.mmsId)
+    }
+
+    @Test
+    fun theArchivedDeleteTakesItsMarkSoATextThatArrivesDuringItSurvives() {
+        Robolectric.setupContentProvider(ArrivesOnDeleteStore::class.java, Telephony.Sms.CONTENT_URI.authority)
+        Robolectric.setupContentProvider(FakeSmsMmsProvider::class.java, Telephony.Mms.CONTENT_URI.authority)
+        beDefaultSmsApp()
+        addSms(THREAD)
+        addMms(THREAD)
+        cacheChat(THREAD, inSpam = false)
+
+        val (deleted, message) = offMainThread { deleteChats(context, listOf(THREAD)) }
+
+        assertThat(deleted).isEmpty()
+        assertThat(message).isNull()
+        // The text that came in during the delete stays, and so does the chat with it.
+        offMainThread {
+            assertThat(context.conversationsDB.getConversationWithThreadId(THREAD)).isNotNull()
+            val smsCount = context.contentResolver.query(
+                Telephony.Sms.CONTENT_URI, arrayOf(Telephony.Sms._ID),
+                "${Telephony.Sms.THREAD_ID} = ?", arrayOf(THREAD.toString()), null,
+            )?.use { it.count }
+            assertThat(smsCount).isEqualTo(1)
+        }
+    }
+
+    @Test
+    fun aWholeThreadReadThatFailsAfterTheDeleteKeepsTheChat() {
+        Robolectric.setupContentProvider(FailsAfterDeleteStore::class.java, Telephony.Sms.CONTENT_URI.authority)
+        Robolectric.setupContentProvider(FailsAfterDeleteStore::class.java, Telephony.Mms.CONTENT_URI.authority)
+        beDefaultSmsApp()
+        addSms(THREAD)
+        addMms(THREAD)
+        cacheChat(THREAD, inSpam = true)
+        val confirmed = mark(THREAD)!!
+
+        val result = offMainThread { context.deleteConversation(THREAD, isDefault = true, upTo = confirmed) }
+
+        // Not knowing whether a newer text is there must not forget the chat.
+        assertThat(result).isEqualTo(DeleteResult.NOTHING_DELETED)
+        offMainThread { assertThat(context.conversationsDB.getConversationWithThreadId(THREAD)).isNotNull() }
     }
 
     @Test

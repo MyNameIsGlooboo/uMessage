@@ -67,6 +67,9 @@ class SpamChatsViewModelTest {
         SpamThread(id, number, cause, unread = unread, spamSince = 1L),
     )
 
+    private fun archivedChat(id: Long, number: String, cause: SpamCause): SpamChat =
+        chat(id, number, cause).let { it.copy(conversation = it.conversation.copy(isArchived = true)) }
+
     private val chats = listOf(
         chat(1, UNKNOWN, SpamCause.UNKNOWN, unread = 2),
         chat(2, BLOCKED, SpamCause.BLOCKED),
@@ -180,6 +183,23 @@ class SpamChatsViewModelTest {
 
         vm.undoNotSpam(moved.token)
         awaitUntil { rules().isEmpty() && 1L in rowIds() }
+    }
+
+    @Test
+    fun movedToMessagesSaysArchivedOnlyWhenEveryChatGoesThere() {
+        val model = newModel(
+            listOf(chat(1, UNKNOWN, SpamCause.UNKNOWN), archivedChat(2, BLOCKED, SpamCause.BLOCKED)),
+        )
+        val seen = Collections.synchronizedList(mutableListOf<SpamChatsEvent>())
+        scope.launch { model.events.collect { seen += it } }
+        model.load()
+        awaitUntil { model.state.value.rows.size == 2 }
+
+        model.notSpam(setOf(1L, 2L))
+
+        awaitUntil { seen.any { it is SpamChatsEvent.MovedToMessages } }
+        // Only one of the two is archived: the snackbar must not say that all of them stay in Archived.
+        assertThat(seen.filterIsInstance<SpamChatsEvent.MovedToMessages>().single().archived).isFalse()
     }
 
     @Test
