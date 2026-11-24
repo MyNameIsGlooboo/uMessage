@@ -122,6 +122,9 @@ interface MmsSpamStore {
 fun interface UnknownNotice {
     /** The quiet notice of the Spam chat [threadId]: [body] is the MMS text (blank: the "MMS" label shows). */
     fun post(threadId: Long, sender: String, body: String, at: Long)
+
+    /** The notice of the Spam chat [threadId] goes (its MMS ended outside that chat or outside Spam). */
+    fun cancel(threadId: Long) {}
 }
 
 /** The sender checks of one downloaded MMS; the app's one is in MmsReceiver, tests use a fake. */
@@ -163,7 +166,7 @@ interface MmsSenderCheck {
  */
 class IncomingMms(
     private val store: MmsSpamStore,
-    private val unknownNotice: UnknownNotice = UnknownNotice { _, _, _, _ -> },
+    val unknownNotice: UnknownNotice = UnknownNotice { _, _, _, _ -> },
     private val now: () -> Long = System::currentTimeMillis,
 ) {
 
@@ -207,6 +210,17 @@ class IncomingMms(
         return inSpam
     }
 
+    /**
+     * L1-1: the quiet notice a counted notice posted in the Spam chat [countedIn] goes when its downloaded MMS ended
+     * outside that chat or outside Spam ([landedIn], [place]), so one MMS never leaves a notice for a message that is
+     * not in Spam. Nothing for an MMS whose notice was not counted.
+     */
+    fun withdrawNotice(countedIn: Long?, landedIn: Long, place: MmsPlace) {
+        val thread = countedIn ?: return
+        if (place is MmsPlace.Spam && thread == landedIn) return
+        runCatching { unknownNotice.cancel(thread) }
+    }
+
     /** 4.6: the opt-in notice of an unknown sender's MMS in Spam; never fails the placement. */
     private fun postNotice(threadId: Long, sender: String, body: String) {
         runCatching { unknownNotice.post(threadId, sender, body, now()) }
@@ -237,13 +251,7 @@ class IncomingMms(
         if (!runCatching(check::historyChecked).getOrDefault(false)) {
             return placeUnchecked(row, threadId, sender, check, noticeCounted)
         }
-        val judged = runCatching(check::judge).getOrNull() ?: return MmsPlace.Messages(null)
-        // L1-2, D-4: an unknown sender the user wrote to is rescued, as for an SMS; an unreadable sent
-        // history fails open.
-        val judgement = runCatching { check.wroteToOnArrival(judged) }.getOrNull() ?: run {
-            runCatching { check.log(ERROR, HISTORY_FAILED, null) }
-            return MmsPlace.Messages(null)
-        }
+        val judgement = judgedAndRescued(check) ?: return MmsPlace.Messages(null)
         val verdict = judgement.verdict
         val place = if (verdict is SenderVerdict.Spam) {
             toSpam(row, threadId, sender, verdict.cause, noticeCounted)
@@ -329,12 +337,37 @@ class IncomingMms(
     }
 
     companion object {
+        /**
+         * E-13: the sender's judgement (facts first, no row of its own), then the "wrote to" rescue (L1-2, D-4), then
+         * the MMS's one decision-log row: the verdict's (BLOCK or ALLOW), or ERROR when the filter or the sent
+         * history failed. Null when it failed: the MMS goes to Messages (fail open).
+         */
+        private fun judgedAndRescued(check: MmsSenderCheck): Judgement? {
+            val judged = runCatching(check::judgeQuietly).getOrNull() ?: run {
+                runCatching { check.log(ERROR, FILTER_FAILED, null) }
+                return null
+            }
+            if (judged.failOpen) runCatching { check.log(ERROR, "FACT_WRITE_FAILED", null) }
+            val judgement = runCatching { check.wroteToOnArrival(judged) }.getOrNull() ?: run {
+                runCatching { check.log(ERROR, HISTORY_FAILED, null) }
+                return null
+            }
+            val decision = judgement.decision()
+            val (name, ruleId) = when (decision) {
+                is FilterDecision.Block -> BLOCK to decision.ruleId
+                is FilterDecision.Allow -> ALLOW to decision.ruleId
+            }
+            runCatching { check.log(name, decision.reason.name, ruleId) }
+            return judgement
+        }
+
         /** E-1: the thread id mmslib's PduPersister gives a notice saved without a chat (DUMMY_THREAD_ID). */
         const val NO_CHAT_THREAD = Long.MAX_VALUE
 
         const val DELIVER = "DELIVER"
         const val BLOCK = "BLOCK"
         const val ERROR = "ERROR"
+        private const val ALLOW = "ALLOW"
         private const val HISTORY_FAILED = "HISTORY_CHECK_FAILED"
         private const val FILTER_FAILED = "FILTER_FAILED"
 

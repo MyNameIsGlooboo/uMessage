@@ -308,6 +308,8 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
         )
         unlogged?.flushUnless(sweepRowHolds(place, noticeCountedIn, mms.threadId))
         placer.forgetNoticeChat(noticeThread, mms.threadId, noticeCountedIn)
+        // L1-1: a quiet notice the counted notice posted goes when this MMS ended outside that Spam chat.
+        placer.withdrawNotice(noticeCountedIn, mms.threadId, place)
         // The notice is gone (the library deleted it once the MMS was stored): its mark is not needed any more.
         noticeUri?.let { uri -> runCatching { AndroidMmsSpamStore(context).markNotice(uri, null) } }
         when (place) {
@@ -420,9 +422,7 @@ internal class MmsDownloadHandler : MmsReceivedReceiver() {
 private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by check {
     private val held = mutableListOf<Triple<String, String, Long?>>()
 
-    /** As [MmsSenderCheck.judge] (facts first); the rows it would write are held. */
-    override fun judge(): Judgement? = check.judgeQuietly().also { hold(it) }
-
+    /** E-13: [IncomingMms.placeDownloaded] asks [MmsSenderCheck.judgeQuietly] and writes the rows through here. */
     override fun log(decision: String, reason: String, ruleId: Long?) {
         held += Triple(decision, reason, ruleId)
     }
@@ -432,24 +432,6 @@ private class Unlogged(private val check: MmsSenderCheck) : MmsSenderCheck by ch
         if (sweepRowHolds) return
         held.forEach { (decision, reason, ruleId) -> runCatching { check.log(decision, reason, ruleId) } }
         held.clear()
-    }
-
-    /** The rows [SpamEngine.judge] writes for [judgement]: a failed judge, a failed fact write, the verdict. */
-    private fun hold(judgement: Judgement?) {
-        if (judgement == null) {
-            held += Triple(IncomingMms.ERROR, FILTER_FAILED, null)
-            return
-        }
-        if (judgement.failOpen) held += Triple(IncomingMms.ERROR, "FACT_WRITE_FAILED", null)
-        when (val decision = judgement.decision()) {
-            is FilterDecision.Block -> held += Triple(IncomingMms.BLOCK, decision.reason.name, decision.ruleId)
-            is FilterDecision.Allow -> held += Triple(ALLOW, decision.reason.name, decision.ruleId)
-        }
-    }
-
-    private companion object {
-        const val ALLOW = "ALLOW"
-        const val FILTER_FAILED = "FILTER_FAILED"
     }
 }
 

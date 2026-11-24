@@ -24,6 +24,7 @@ import com.glooboo.umessage.spam.SpamThread
 import com.glooboo.umessage.spam.SpamThreads
 import com.glooboo.umessage.spam.FilterDecision
 import com.glooboo.umessage.spam.engine.UnknownNotifyPolicy
+import com.glooboo.umessage.spam.mms.AppUnknownNotice
 import com.glooboo.umessage.spam.IncomingMessage
 import com.glooboo.umessage.spam.SpamLogEntry
 import com.glooboo.umessage.spam.SpamSettings
@@ -346,14 +347,8 @@ internal object ProviderTruthSms {
             check(announced) { "A silent text outside Spam could not be made unread" }
             return SpamOutcome.ANNOUNCED
         }
-        // 4.6: "notify me for texts from unknown senders", stored under the old key notify_on_block. Read from the
-        // repository the verdict was judged with (the app's one repository; SpamEngine's when none is installed).
-        val noticeOn = runCatching {
-            val repo = runCatching { UMessage.repository(context) }.getOrNull() as? DefaultSpamRepository
-                ?: SpamEngine.repository(context)
-            repo.currentSettings().notifyOnBlock
-        }.getOrDefault(false)
-        if (cause == SpamCause.UNKNOWN && noticeOn) {
+        // 4.6: "notify me for texts from unknown senders" (shared with the MMS path).
+        if (cause == SpamCause.UNKNOWN && AppUnknownNotice.isOn(context)) {
             val shown = BlockedMessage(
                 address = message.address, body = message.body, subscriptionId = message.subscriptionId,
                 isMms = false, receivedAt = message.date, reason = DecisionReason.UNKNOWN_SENDER,

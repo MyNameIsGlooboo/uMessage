@@ -23,7 +23,17 @@ class IncomingMmsTest {
 
     private val store = FakeMmsSpamStore()
     private val posted = mutableListOf<Triple<Long, String, String>>()
-    private val mms = IncomingMms(store, { thread, sender, body, _ -> posted += Triple(thread, sender, body) }) { NOW }
+    private val cancelled = mutableListOf<Long>()
+    private val recorder = object : UnknownNotice {
+        override fun post(threadId: Long, sender: String, body: String, at: Long) {
+            posted += Triple(threadId, sender, body)
+        }
+
+        override fun cancel(threadId: Long) {
+            cancelled += threadId
+        }
+    }
+    private val mms = IncomingMms(store, recorder) { NOW }
     private val row = Uri.parse("content://mms/7")
     private val notice = Uri.parse("content://mms/inbox/42")
 
@@ -40,7 +50,9 @@ class IncomingMmsTest {
         val logged = mutableListOf<Triple<String, String, Long?>>()
 
         override fun probe(): FilterDecision? = answer.also { probed++ }
-        override fun judge(): Judgement? = judgement.also { judged++ }
+        /** The real engine writes its own row here; a placement that wants one row never asks for this. */
+        override fun judge(): Judgement? = judgement.also { logged += Triple("JUDGE", "engine", null) }
+        override fun judgeQuietly(): Judgement? = judgement.also { judged++ }
         override fun wroteToOnArrival(judgement: Judgement): Judgement? = rescued(judgement)
         override fun historyChecked(): Boolean = history
         override fun log(decision: String, reason: String, ruleId: Long?) {
@@ -172,8 +184,8 @@ class IncomingMmsTest {
         // S9: the Spam row is written before the row is marked read and silent, and checked after (R1).
         assertThat(store.calls).containsExactly("noteSpamArrival", "setSilent(true)", "isListedInSpam").inOrder()
         assertThat(store.spamEvents).isEqualTo(1)
-        // The judgement wrote the one row; nothing else is logged and the sender is not probed.
-        assertThat(check.logged).isEmpty()
+        // The placement writes the one row (not the engine's own); the sender is not probed.
+        assertThat(check.logged).containsExactly(Triple("BLOCK", "UNKNOWN_SENDER", null))
         assertThat(check.probed).isEqualTo(0)
     }
 
@@ -579,6 +591,98 @@ class IncomingMmsTest {
                 SpamCause.BLOCKED, { true }, probe = { unknown }, wroteTo = { error("not asked") },
             ).cause,
         ).isEqualTo(SpamCause.BLOCKED)
+    }
+
+    // E-13, J28: one decision-log row per MMS, written after the rescue
+
+    @Test
+    fun e13_anUnknownSendersMmsInSpam_logsOneVerdictRow_notTheEnginesOwn() {
+        val check = Check(judgement = spam(SpamCause.UNKNOWN))
+
+        place(check)
+
+        assertThat(check.logged).containsExactly(Triple("BLOCK", "UNKNOWN_SENDER", null))
+    }
+
+    @Test
+    fun e13_aRescuedMms_logsOnlyTheRescueRow() {
+        val allowed = Judgement(SenderVerdict.Messages(DecisionReason.GROUP_MEMBER, null))
+
+        val check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { allowed })
+        place(check)
+
+        assertThat(check.logged).containsExactly(Triple("ALLOW", "GROUP_MEMBER", null))
+    }
+
+    @Test
+    fun e13_anMmsWhoseSentHistoryCannotBeRead_logsOnlyTheErrorRow() {
+        val check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { null })
+
+        place(check)
+
+        assertThat(check.logged).containsExactly(Triple("ERROR", "HISTORY_CHECK_FAILED", null))
+    }
+
+    @Test
+    fun e13_aFactThatCouldNotBeWritten_andAFailedFilter_logAnErrorRowEach() {
+        val failed = Judgement(SenderVerdict.Messages(DecisionReason.FACT_FAILED))
+        val first = Check(judgement = failed)
+        place(first)
+        val second = Check(judgement = null)
+        place(second)
+
+        assertThat(first.logged.map { it.first to it.second }).containsExactly(
+            "ERROR" to "FACT_WRITE_FAILED", "ALLOW" to "FACT_FAILED",
+        ).inOrder()
+        assertThat(second.logged).containsExactly(Triple("ERROR", "FILTER_FAILED", null))
+    }
+
+    // L1-1: a quiet notice of a counted notice goes when its MMS ends outside that Spam chat
+
+    @Test
+    fun l11_aCountedNoticesQuietNotice_staysWhileTheMmsIsInThatSpamChat() {
+        mms.withdrawNotice(countedIn = THREAD, landedIn = THREAD, place = MmsPlace.Spam(SpamCause.UNKNOWN))
+
+        assertThat(cancelled).isEmpty()
+    }
+
+    @Test
+    fun l11_aCountedNoticesQuietNotice_goesWhenTheMmsEndsInMessagesAGroupOrAnotherChat() {
+        mms.withdrawNotice(THREAD, THREAD, MmsPlace.Messages(null))
+        mms.withdrawNotice(THREAD, 99L, MmsPlace.QuietGroup)
+        mms.withdrawNotice(THREAD, 99L, MmsPlace.Spam(SpamCause.UNKNOWN))
+
+        assertThat(cancelled).containsExactly(THREAD, THREAD, THREAD)
+    }
+
+    @Test
+    fun l11_withoutACountedNotice_nothingIsCancelled_andAThrowingCancelIsHarmless() {
+        mms.withdrawNotice(null, THREAD, MmsPlace.Messages(null))
+        assertThat(cancelled).isEmpty()
+
+        val loud = IncomingMms(store, object : UnknownNotice {
+            override fun post(threadId: Long, sender: String, body: String, at: Long) = Unit
+            override fun cancel(threadId: Long) = error("shade")
+        }) { NOW }
+        loud.withdrawNotice(THREAD, THREAD, MmsPlace.Messages(null))
+    }
+
+    @Test
+    fun l11_oneMms_neverLeavesTwoNotices_aRevealedThenRescuedMmsEndsWithNone() {
+        mms.revealNotice(notice, SENDER, SpamCause.UNKNOWN)
+        val thread = store.threads.getValue(SENDER)
+        val allowed = Judgement(SenderVerdict.Messages(DecisionReason.GROUP_MEMBER, null))
+
+        val place = mms.placeDownloaded(
+            row = row, threadId = thread, sender = SENDER, recipients = 1,
+            check = Check(judgement = spam(SpamCause.UNKNOWN), rescued = { allowed }),
+            noticeCounted = true, body = "hello",
+        )
+        mms.withdrawNotice(thread, thread, place)
+
+        // One post at the notice, taken back when the MMS went to Messages; no second post at the download.
+        assertThat(posted).hasSize(1)
+        assertThat(cancelled).containsExactly(thread)
     }
 
     // E-19: the history check before a notice gets a Spam row

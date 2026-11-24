@@ -77,7 +77,7 @@ internal class MmsPushDownload(
     },
     private val tracker: MmsDownloadTracker = MmsDownloadTracker.shared,
     /** Provider truth: the store and Spam table side of a [SpamNotice]. */
-    private val incoming: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it), AppUnknownNotice(it)) },
+    val incoming: (Context) -> IncomingMms = { IncomingMms(AndroidMmsSpamStore(it), AppUnknownNotice(it)) },
     /** Provider truth: the one decision-log row of a notice placed at save (decision, reason, rule). */
     private val log: (Context, SpamNotice, String) -> Unit = { c, spam, decision -> logNotice(c, spam, decision) },
     /** E-19: where a notice goes after the sender's history check on the spot (J3-4: with the reason). */
