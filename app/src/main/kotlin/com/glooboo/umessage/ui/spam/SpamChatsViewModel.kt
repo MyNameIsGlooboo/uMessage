@@ -45,6 +45,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
@@ -269,11 +270,13 @@ class SpamChatsViewModel internal constructor(
         viewModelScope.launch {
             val repo = runCatching { repository() }.getOrNull() ?: return@launch
             // F-2: every held row not verified-done is shown (waiting, given up, stopped, late MMS, restored).
-            combine(repo.settings, repo.blocked, repo.stats) { settings, blocked, stats ->
+            // The 7-day figure has its own catch: a failing stats read must not stop the other two from updating.
+            val week = repo.stats.map { it.blockedLast7Days }.catch { emit(0) }
+            combine(repo.settings, repo.blocked, week) { settings, blocked, last7Days ->
                 Triple(
                     settings.filterOn,
                     OlderSpam.count(blocked, SpamProviderMigration.keptHere(app, blocked)),
-                    stats.blockedLast7Days,
+                    last7Days,
                 )
             }.flowOn(Dispatchers.IO).catch { }.collect { (filterOn, older, week) ->
                 _state.update { it.copy(filterOn = filterOn, olderSpam = older, blockedLast7Days = week) }

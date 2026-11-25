@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-11-25
+### Added
+- The Spam tab shows again how many texts went to Spam in the last 7 days
+- Settings > Setup warns when something needs attention (default SMS app, battery, permissions)
+### Changed
+- Messages, Spam, Forwarded and Archived share one top bar: a search icon and a menu that ends with Settings
+- Each Settings page opens at the top instead of keeping the scroll position of the previous page
+- Settings > Setup moved below Display
+- The two different Spam protection screens are now one page
+- The message menu in a chat (when you select a message) is shorter: chat-level actions such as Block and Allow moved out of it, "Select text" is removed because text can be selected in place, and "More" is gone
+
 ## [0.5.0] - 2026-11-25
 ### Added
 - Spam is now a list of chats: a sender's whole chat is in Messages or in Spam, never split

@@ -1,0 +1,5 @@
+• The Spam tab again shows how many texts went to Spam in the last 7 days
+• Every tab has the same top bar: a search icon and a menu that ends with Settings
+• Settings pages open at the top; Setup moved below Display and warns when something needs attention
+• The two Spam protection screens are now one page
+• Shorter message menu in a chat: Block and Allow moved out, "Select text" and "More" are gone

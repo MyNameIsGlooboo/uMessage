@@ -32,7 +32,7 @@ internal fun spamWeekLineText(resources: Resources, count: Int, countText: Strin
  * the tab's menu opens the Spam settings. It grows with the font size.
  */
 @Composable
-fun BlockedLine(count: Int, modifier: Modifier = Modifier) {
+internal fun BlockedLine(count: Int, modifier: Modifier = Modifier) {
     if (count <= 0) return
     val colors = MaterialTheme.colorScheme
     val text = spamWeekLineText(LocalResources.current, count, localizedNumber(count, uiLocale()))

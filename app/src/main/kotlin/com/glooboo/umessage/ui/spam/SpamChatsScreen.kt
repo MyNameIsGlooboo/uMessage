@@ -113,7 +113,7 @@ fun SpamChatsRoute(
     val spam = rememberSpamActions(viewModel, state.deleteOff)
     val menu = remember(onOpenRules, onOpenSettings) {
         listOf(
-            FolderMenuEntry(R.string.spam_blocked_open_settings, Symbols.Settings, onOpenSettings),
+            FolderMenuEntry(R.string.spam_blocked_open_settings, Symbols.Shield, onOpenSettings),
             FolderMenuEntry(R.string.settings_spam_open_rules, Symbols.Rule, onOpenRules),
         )
     }
