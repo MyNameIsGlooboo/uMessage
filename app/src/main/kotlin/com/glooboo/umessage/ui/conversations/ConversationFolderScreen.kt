@@ -46,7 +46,6 @@ import com.glooboo.umessage.ui.components.LoadingState
 import com.glooboo.umessage.ui.components.LongSetStateSaver
 import com.glooboo.umessage.ui.components.SearchAction
 import com.glooboo.umessage.ui.components.SelectionTopBar
-import com.glooboo.umessage.ui.components.TabMenuItem
 import com.glooboo.umessage.ui.components.TabOverflowMenu
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
@@ -54,7 +53,6 @@ import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.components.formatListTimeStyled
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
-import com.glooboo.umessage.ui.components.tabMenuItems
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.spam.SpamSelection
@@ -388,25 +386,6 @@ private fun RowScope.SpamSelectionButtons(spam: SpamFolderActions, chosen: Set<L
             Icon(Symbols.DoneAll, contentDescription = stringResource(R.string.convlist_mark_read))
         }
     }
-}
-
-/**
- * The rows of a folder's overflow menu: the folder's own rows first (its [more] entries, "Mark all read" when given,
- * "Empty …" while it holds chats), then Settings last on a main tab. A pure list so the order can be tested.
- */
-internal fun folderMenuItems(
-    more: List<FolderMenuEntry>,
-    markAllRead: (() -> Unit)?,
-    emptying: FolderEmptying?,
-    onEmpty: () -> Unit,
-    onSettings: (() -> Unit)?,
-): List<TabMenuItem> {
-    val entries = buildList {
-        more.forEach { add(TabMenuItem(it.labelRes, it.icon, it.onClick)) }
-        markAllRead?.let { add(TabMenuItem(R.string.nav_folder_mark_all_read, Symbols.DoneAll, it)) }
-        emptying?.let { add(TabMenuItem(it.menuRes, Symbols.DeleteSweep, onEmpty)) }
-    }
-    return tabMenuItems(entries, onSettings)
 }
 
 /**
