@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="one">%1$s повідомлення потрапило в Спам за останні 7 днів</item>
+        <item quantity="few">%1$s повідомлення потрапили в Спам за останні 7 днів</item>
+        <item quantity="many">%1$s повідомлень потрапило в Спам за останні 7 днів</item>
+        <item quantity="other">%1$s повідомлення потрапило в Спам за останні 7 днів</item>
+    </plurals>
+</resources>

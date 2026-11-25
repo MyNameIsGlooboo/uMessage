@@ -55,7 +55,9 @@ import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.InfoChip
 import com.glooboo.umessage.ui.components.InfoDialog
 import com.glooboo.umessage.ui.components.LoadingState
+import com.glooboo.umessage.ui.components.SearchAction
 import com.glooboo.umessage.ui.components.SectionHeader
+import com.glooboo.umessage.ui.components.TabOverflowMenu
 import com.glooboo.umessage.ui.components.UMessageBottomSheet
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
@@ -65,6 +67,7 @@ import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.components.ruleValueText
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
+import com.glooboo.umessage.ui.components.tabMenuItems
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.lock.LockActivity
@@ -84,6 +87,8 @@ fun ForwardedRoute(
     onManageRules: () -> Unit,
     onOpenThread: (threadId: Long, title: String) -> Unit,
     modifier: Modifier = Modifier,
+    onSearch: () -> Unit = {},
+    onSettings: () -> Unit = {},
     viewModel: ForwardedViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -144,6 +149,8 @@ fun ForwardedRoute(
         onRetryAll = viewModel::retryAll,
         onManageRules = onManageRules,
         onOpenThread = { entry -> viewModel.openThread(entry, onOpenThread) },
+        onSearch = onSearch,
+        onSettings = onSettings,
         modifier = modifier,
     )
 }
@@ -158,6 +165,8 @@ fun ForwardedScreen(
     onManageRules: () -> Unit,
     onOpenThread: (ForwardLogEntry) -> Unit,
     modifier: Modifier = Modifier,
+    onSearch: () -> Unit = {},
+    onSettings: () -> Unit = {},
 ) {
     var openId by rememberSaveable { mutableStateOf<Long?>(null) }
     var confirmRetryAll by rememberSaveable { mutableStateOf(false) }
@@ -170,7 +179,12 @@ fun ForwardedScreen(
     UMessageScaffold(
         modifier = modifier,
         snackbarHostState = snackbarHostState,
-        topBar = { UMessageTopBar(title = stringResource(R.string.main_tab_forwarded), onBack = null) },
+        topBar = {
+            UMessageTopBar(title = stringResource(R.string.main_tab_forwarded), onBack = null) {
+                SearchAction(onSearch)
+                TabOverflowMenu(tabMenuItems(emptyList(), onSettings))
+            }
+        },
     ) { padding ->
         when {
             state.loading -> LoadingState(Modifier.padding(top = padding.calculateTopPadding()))

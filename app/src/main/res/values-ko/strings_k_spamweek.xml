@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="other">지난 7일 동안 %1$s개의 메시지가 스팸으로 이동했습니다</item>
+    </plurals>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="zero">لم تذهب %1$s رسالة إلى غير المرغوب فيها في آخر 7 أيام</item>
+        <item quantity="one">ذهبت %1$s رسالة إلى غير المرغوب فيها في آخر 7 أيام</item>
+        <item quantity="two">ذهبت %1$s رسالتان إلى غير المرغوب فيها في آخر 7 أيام</item>
+        <item quantity="few">ذهبت %1$s رسائل إلى غير المرغوب فيها في آخر 7 أيام</item>
+        <item quantity="many">ذهبت %1$s رسالة إلى غير المرغوب فيها في آخر 7 أيام</item>
+        <item quantity="other">ذهبت %1$s رسالة إلى غير المرغوب فيها في آخر 7 أيام</item>
+    </plurals>
+</resources>

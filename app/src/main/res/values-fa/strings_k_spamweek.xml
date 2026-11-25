@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="one">%1$s پیام توی ۷ روز گذشته به اسپم رفت</item>
+        <item quantity="other">%1$s پیام توی ۷ روز گذشته به اسپم رفتن</item>
+    </plurals>
+</resources>

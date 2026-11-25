@@ -143,6 +143,11 @@ fun MainScreen(
     }
 
     var selectedTab by rememberSaveable { mutableStateOf(MainTab.Messages) }
+    // The search page lives on the Messages tab, so the other tabs' search icon goes there first.
+    val openSearch = {
+        selectedTab = MainTab.Messages
+        search.active = true
+    }
     // Forwarded opened on purpose although switched off (Settings > Forwarding history): it stays until left.
     var forwardedOpened by rememberSaveable { mutableStateOf(false) }
     val openTabHandled by rememberUpdatedState(onOpenTabHandled)
@@ -223,16 +228,22 @@ fun MainScreen(
                             onOpenRules = links.onOpenRules,
                             onViewRule = links.onViewRule,
                             onOpenSettings = navigation.onSpamSettings,
+                            onSearch = openSearch,
+                            onSettings = navigation.onSettings,
                             reloadKey = published,
                         )
                     }
                     MainTab.Forwarded -> ForwardedRoute(
                         onManageRules = navigation.onManageForwardRules,
                         onOpenThread = navigation.onOpenThread,
+                        onSearch = openSearch,
+                        onSettings = navigation.onSettings,
                     )
                     MainTab.Archived -> ArchivedRoute(
                         onOpen = navigation.onOpenArchived,
                         onBackToMessages = { selectedTab = MainTab.Messages },
+                        onSearch = openSearch,
+                        onSettings = navigation.onSettings,
                     )
                 }
             }

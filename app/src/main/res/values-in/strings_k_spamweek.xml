@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="other">%1$s pesan masuk ke Spam dalam 7 hari terakhir</item>
+    </plurals>
+</resources>

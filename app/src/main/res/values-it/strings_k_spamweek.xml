@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="one">%1$s messaggio è andato in Spam negli ultimi 7 giorni</item>
+        <item quantity="other">%1$s messaggi sono andati in Spam negli ultimi 7 giorni</item>
+    </plurals>
+</resources>
