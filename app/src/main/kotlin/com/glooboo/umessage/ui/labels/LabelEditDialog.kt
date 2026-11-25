@@ -21,11 +21,15 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -64,6 +68,8 @@ internal fun LabelEditDialog(
     var name by rememberSaveable { mutableStateOf(initial?.name.orEmpty()) }
     var color by rememberSaveable { mutableIntStateOf(initial?.color ?: LabelRules.nextColor(labels)) }
     val verdict = LabelRules.check(labels, name, initial?.id)
+    val focus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
     val save = {
         if (verdict == LabelResult.Ok) {
             onSave(name, color)
@@ -80,7 +86,7 @@ internal fun LabelEditDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it.take(LabelRules.MAX_NAME_LENGTH) },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().focusRequester(focus),
                     singleLine = true,
                     textStyle = LocalTextStyle.current.contentDirection(),
                     label = { Text(stringResource(R.string.i29_edit_name)) },

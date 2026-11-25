@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.SelectionTopBar
+import com.glooboo.umessage.ui.components.displayNumber
+import com.glooboo.umessage.ui.components.isolateNumbers
 import com.glooboo.umessage.ui.icons.Symbols
 
 /**
@@ -131,7 +134,9 @@ fun ConversationsSelectionBar(
     }
 
     if (blockDialog) {
-        val numbers = selection.numbers.joinToString(", ")
+        // Each number is grouped and isolated, so a right-to-left (Persian) sentence does not reorder its digits.
+        val context = LocalContext.current
+        val numbers = selection.numbers.joinToString(", ") { isolateNumbers(displayNumber(context, it)) }
         AlertDialog(
             onDismissRequest = { blockDialog = false },
             title = { Text(stringResource(R.string.convlist_block_title)) },
