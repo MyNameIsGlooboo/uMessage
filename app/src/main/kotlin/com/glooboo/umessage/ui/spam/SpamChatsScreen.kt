@@ -72,6 +72,8 @@ fun SpamChatsRoute(
     onViewRule: () -> Unit,
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
+    onSearch: () -> Unit = {},
+    onSettings: () -> Unit = {},
     reloadKey: Any? = null,
     viewModel: SpamChatsViewModel = viewModel(),
 ) {
@@ -129,16 +131,21 @@ fun SpamChatsRoute(
         snackbarHostState = snackbar,
         onMarkAllRead = viewModel::markAllRead,
         intro = {
-            SpamStrips(
-                filterOn = state.filterOn,
-                olderSpam = state.olderSpam,
-                onTurnOn = { viewModel.switches.request(SortChange.Filter(on = true)) },
-                onOpenOlder = { olderOpen = true },
-                empty = empty,
-            )
+            Column {
+                SpamStrips(
+                    filterOn = state.filterOn,
+                    olderSpam = state.olderSpam,
+                    onTurnOn = { viewModel.switches.request(SortChange.Filter(on = true)) },
+                    onOpenOlder = { olderOpen = true },
+                    empty = empty,
+                )
+                if (spamWeekLineShown(state.blockedLast7Days, empty)) BlockedLine(state.blockedLast7Days)
+            }
         },
         spam = spam,
         menu = menu,
+        onSearch = onSearch,
+        onSettings = onSettings,
     )
 }
 

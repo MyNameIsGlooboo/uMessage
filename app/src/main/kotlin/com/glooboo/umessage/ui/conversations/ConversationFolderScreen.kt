@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
@@ -46,13 +44,17 @@ import com.glooboo.umessage.ui.components.ConfirmDialog
 import com.glooboo.umessage.ui.components.EmptyState
 import com.glooboo.umessage.ui.components.LoadingState
 import com.glooboo.umessage.ui.components.LongSetStateSaver
+import com.glooboo.umessage.ui.components.SearchAction
 import com.glooboo.umessage.ui.components.SelectionTopBar
+import com.glooboo.umessage.ui.components.TabMenuItem
+import com.glooboo.umessage.ui.components.TabOverflowMenu
 import com.glooboo.umessage.ui.components.UMessageScaffold
 import com.glooboo.umessage.ui.components.UMessageTopBar
 import com.glooboo.umessage.ui.components.displayTitle
 import com.glooboo.umessage.ui.components.formatListTimeStyled
 import com.glooboo.umessage.ui.components.localizeDigits
 import com.glooboo.umessage.ui.components.localizedNumber
+import com.glooboo.umessage.ui.components.tabMenuItems
 import com.glooboo.umessage.ui.components.uiLocale
 import com.glooboo.umessage.ui.icons.Symbols
 import com.glooboo.umessage.ui.spam.SpamSelection
@@ -218,6 +220,10 @@ fun ConversationFolderScreen(
     spam: SpamFolderActions? = null,
     /** More entries of the overflow menu, shown also while the folder is empty. */
     menu: List<FolderMenuEntry> = emptyList(),
+    /** The main Settings page: on a tab its menu always ends with Settings. Null keeps the menu as before. */
+    onSettings: (() -> Unit)? = null,
+    /** Opens the inbox search; null shows no search icon (screens that are not main tabs). */
+    onSearch: (() -> Unit)? = null,
 ) {
     var selected by rememberSaveable(saver = LongSetStateSaver) { mutableStateOf(emptySet()) }
     var confirmDelete by remember { mutableStateOf<Set<Long>?>(null) }
@@ -273,6 +279,8 @@ fun ConversationFolderScreen(
                     onMarkAllRead = onMarkAllRead?.takeIf { rows.any { it.unread } },
                     onEmpty = { confirmEmpty = true },
                     more = menu,
+                    onSettings = onSettings,
+                    onSearch = onSearch,
                 )
             }
         },
@@ -382,7 +390,29 @@ private fun RowScope.SpamSelectionButtons(spam: SpamFolderActions, chosen: Set<L
     }
 }
 
-/** Title, and an overflow menu with "Mark all read" (when given) and "Empty …" while the folder holds chats. */
+/**
+ * The rows of a folder's overflow menu: the folder's own rows first (its [more] entries, "Mark all read" when given,
+ * "Empty …" while it holds chats), then Settings last on a main tab. A pure list so the order can be tested.
+ */
+internal fun folderMenuItems(
+    more: List<FolderMenuEntry>,
+    markAllRead: (() -> Unit)?,
+    emptying: FolderEmptying?,
+    onEmpty: () -> Unit,
+    onSettings: (() -> Unit)?,
+): List<TabMenuItem> {
+    val entries = buildList {
+        more.forEach { add(TabMenuItem(it.labelRes, it.icon, it.onClick)) }
+        markAllRead?.let { add(TabMenuItem(R.string.nav_folder_mark_all_read, Symbols.DoneAll, it)) }
+        emptying?.let { add(TabMenuItem(it.menuRes, Symbols.DeleteSweep, onEmpty)) }
+    }
+    return tabMenuItems(entries, onSettings)
+}
+
+/**
+ * Title, the search icon, and an overflow menu with the folder's rows and "Empty …" while it holds chats. On a main
+ * tab the search and the menu show even when the folder is empty, because the menu then holds Settings.
+ */
 @Composable
 private fun FolderTopBar(
     folder: ConversationFolder,
@@ -391,51 +421,16 @@ private fun FolderTopBar(
     onMarkAllRead: (() -> Unit)?,
     onEmpty: () -> Unit,
     more: List<FolderMenuEntry> = emptyList(),
+    onSettings: (() -> Unit)? = null,
+    onSearch: (() -> Unit)? = null,
 ) {
-    var menuOpen by remember { mutableStateOf(false) }
     val emptying = folder.emptying.takeIf { hasRows }
     val markAllRead = onMarkAllRead.takeIf { hasRows }
+    val menu = folderMenuItems(more, markAllRead, emptying, onEmpty, onSettings)
     UMessageTopBar(title = stringResource(folder.titleRes), onBack = onBack) {
+        onSearch?.let { SearchAction(it) }
         // A labelled menu instead of a lone trash icon that looked like "clear all" (CL-31).
-        if (emptying != null || markAllRead != null || more.isNotEmpty()) {
-            Box {
-                IconButton(onClick = { menuOpen = true }) {
-                    Icon(Symbols.MoreVert, contentDescription = stringResource(R.string.nav_folder_more))
-                }
-                DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                    more.forEach { entry ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(entry.labelRes)) },
-                            leadingIcon = { Icon(entry.icon, contentDescription = null) },
-                            onClick = {
-                                menuOpen = false
-                                entry.onClick()
-                            },
-                        )
-                    }
-                    markAllRead?.let { markAllRead ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.nav_folder_mark_all_read)) },
-                            leadingIcon = { Icon(Symbols.DoneAll, contentDescription = null) },
-                            onClick = {
-                                menuOpen = false
-                                markAllRead()
-                            },
-                        )
-                    }
-                    emptying?.let {
-                        DropdownMenuItem(
-                            text = { Text(stringResource(it.menuRes)) },
-                            leadingIcon = { Icon(Symbols.DeleteSweep, contentDescription = null) },
-                            onClick = {
-                                menuOpen = false
-                                onEmpty()
-                            },
-                        )
-                    }
-                }
-            }
-        }
+        if (menu.isNotEmpty()) TabOverflowMenu(menu)
     }
 }
 

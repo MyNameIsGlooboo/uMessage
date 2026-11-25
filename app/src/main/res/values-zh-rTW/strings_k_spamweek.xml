@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="spam_week_line">
+        <item quantity="other">過去 7 天有 %1$s 則訊息進入了垃圾訊息</item>
+    </plurals>
+</resources>

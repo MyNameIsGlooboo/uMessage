@@ -169,7 +169,12 @@ class ArchivedViewModel(application: Application) : AndroidViewModel(application
  * says where the chats went and offers Undo; a one-line intro explains what the archive does until it is dismissed.
  */
 @Composable
-fun ArchivedRoute(onOpen: (ConversationRow) -> Unit, onBackToMessages: (() -> Unit)? = null) {
+fun ArchivedRoute(
+    onOpen: (ConversationRow) -> Unit,
+    onBackToMessages: (() -> Unit)? = null,
+    onSearch: (() -> Unit)? = null,
+    onSettings: (() -> Unit)? = null,
+) {
     val viewModel: ArchivedViewModel = viewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -204,6 +209,8 @@ fun ArchivedRoute(onOpen: (ConversationRow) -> Unit, onBackToMessages: (() -> Un
         snackbarHostState = snackbar,
         onBackToMessages = onBackToMessages,
         onMarkAllRead = viewModel::markAllRead,
+        onSearch = onSearch,
+        onSettings = onSettings,
         intro = if (introDismissed) null else {
             { ArchivedIntro(onDismiss = { prefs.archivedIntroDismissed = true }) }
         },

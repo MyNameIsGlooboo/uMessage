@@ -66,6 +66,8 @@ data class SpamChatsUiState(
     val filterOn: Boolean = true,
     /** U20: held texts the message migration has not moved yet, while it waits; 0 shows no entry. */
     val olderSpam: Int = 0,
+    /** The same figure Settings shows: texts that went to Spam in the last 7 days (0 hides the line). */
+    val blockedLast7Days: Int = 0,
     /** 4.4: the sender names asked about before "Not spam" acts; null shows no question. */
     val nameConfirm: NameConfirm? = null,
     /** Why Delete is off now (not the default SMS app), null while it works; read on each load, never in a draw. */
@@ -267,10 +269,14 @@ class SpamChatsViewModel internal constructor(
         viewModelScope.launch {
             val repo = runCatching { repository() }.getOrNull() ?: return@launch
             // F-2: every held row not verified-done is shown (waiting, given up, stopped, late MMS, restored).
-            combine(repo.settings, repo.blocked) { settings, blocked ->
-                settings.filterOn to OlderSpam.count(blocked, SpamProviderMigration.keptHere(app, blocked))
-            }.flowOn(Dispatchers.IO).catch { }.collect { (filterOn, older) ->
-                _state.update { it.copy(filterOn = filterOn, olderSpam = older) }
+            combine(repo.settings, repo.blocked, repo.stats) { settings, blocked, stats ->
+                Triple(
+                    settings.filterOn,
+                    OlderSpam.count(blocked, SpamProviderMigration.keptHere(app, blocked)),
+                    stats.blockedLast7Days,
+                )
+            }.flowOn(Dispatchers.IO).catch { }.collect { (filterOn, older, week) ->
+                _state.update { it.copy(filterOn = filterOn, olderSpam = older, blockedLast7Days = week) }
             }
         }
     }
