@@ -11,7 +11,6 @@ import com.glooboo.umessage.dialogs.DeleteConfirmationDialog
 import com.glooboo.umessage.dialogs.MessageDetailsDialog
 import com.glooboo.umessage.dialogs.askForReminder
 import com.glooboo.umessage.dialogs.ShareTextDialog
-import com.glooboo.umessage.dialogs.SelectTextDialog
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
 import androidx.lifecycle.lifecycleScope
@@ -87,7 +86,6 @@ class ThreadSelectionActions(
             SelectionAction.SaveAs -> saveSelected(selected)
             SelectionAction.Forward -> forward(selected.first())
             SelectionAction.Star -> vm.stars.toggle(selected)
-            SelectionAction.SelectText -> selectText(selected.first().body)
             else -> handleSingleOrRemove(action, selected)
         }
     }
@@ -108,10 +106,6 @@ class ThreadSelectionActions(
     private fun saveSelected(selected: List<Message>) {
         val attachments = selected.flatMap { it.attachment?.attachments.orEmpty() }
         if (attachments.isNotEmpty()) saveAttachments(attachments)
-    }
-
-    private fun selectText(body: String) {
-        if (body.trim().isNotEmpty()) SelectTextDialog(activity, body)
     }
 
     private fun copy(selected: List<Message>) {

@@ -62,5 +62,4 @@
     <string name="screens_schedule_pick_time">اختر الوقت</string>
     <string name="screens_schedule_next">التالي</string>
     <string name="screens_delete_skip_bin">تجاوز سلة المهملات واحذف مباشرة</string>
-    <string name="screens_select_text_title">حدّد النص</string>
 </resources>

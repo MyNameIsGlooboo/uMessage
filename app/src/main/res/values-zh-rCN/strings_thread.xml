@@ -39,7 +39,6 @@
     <string name="thread_action_copy">复制</string>
     <string name="thread_action_share">分享</string>
     <string name="thread_action_save_as">另存为</string>
-    <string name="thread_action_select_text">选择文本</string>
     <string name="thread_action_details">消息详情</string>
     <string name="thread_action_delete">删除</string>
     <string name="thread_action_restore">恢复</string>

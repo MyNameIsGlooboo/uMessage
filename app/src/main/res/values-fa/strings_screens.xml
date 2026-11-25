@@ -57,5 +57,4 @@
     <string name="screens_schedule_pick_time">انتخاب ساعت</string>
     <string name="screens_schedule_next">بعدی</string>
     <string name="screens_delete_skip_bin">حذف مستقیم بدون رفتن به سطل زباله</string>
-    <string name="screens_select_text_title">انتخاب متن</string>
 </resources>

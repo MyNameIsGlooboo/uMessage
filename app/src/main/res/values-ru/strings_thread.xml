@@ -45,7 +45,6 @@
     <string name="thread_action_copy">Копировать</string>
     <string name="thread_action_share">Поделиться</string>
     <string name="thread_action_save_as">Сохранить как</string>
-    <string name="thread_action_select_text">Выделить текст</string>
     <string name="thread_action_details">Сведения о сообщении</string>
     <string name="thread_action_delete">Удалить</string>
     <string name="thread_action_restore">Восстановить</string>

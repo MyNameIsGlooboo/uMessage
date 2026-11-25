@@ -39,7 +39,6 @@
     <string name="thread_action_copy">複製</string>
     <string name="thread_action_share">分享</string>
     <string name="thread_action_save_as">儲存附件</string>
-    <string name="thread_action_select_text">選取文字</string>
     <string name="thread_action_details">訊息詳細資料</string>
     <string name="thread_action_delete">刪除</string>
     <string name="thread_action_restore">還原</string>

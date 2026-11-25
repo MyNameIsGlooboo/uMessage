@@ -49,7 +49,6 @@
     <string name="thread_action_copy">انسخ</string>
     <string name="thread_action_share">شارك</string>
     <string name="thread_action_save_as">احفظ باسم</string>
-    <string name="thread_action_select_text">حدّد النص</string>
     <string name="thread_action_details">تفاصيل الرسالة</string>
     <string name="thread_action_delete">احذف</string>
     <string name="thread_action_restore">استعد</string>

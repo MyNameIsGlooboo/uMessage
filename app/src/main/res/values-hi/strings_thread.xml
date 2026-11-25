@@ -41,7 +41,6 @@
     <string name="thread_action_copy">कॉपी करें</string>
     <string name="thread_action_share">शेयर करें</string>
     <string name="thread_action_save_as">इस रूप में सेव करें</string>
-    <string name="thread_action_select_text">टेक्स्ट चुनें</string>
     <string name="thread_action_details">मैसेज की जानकारी</string>
     <string name="thread_action_delete">मिटाएं</string>
     <string name="thread_action_restore">वापस लाएं</string>

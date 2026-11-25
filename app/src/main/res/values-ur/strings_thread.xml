@@ -41,7 +41,6 @@
     <string name="thread_action_copy">کاپی کریں</string>
     <string name="thread_action_share">شیئر</string>
     <string name="thread_action_save_as">منسلکہ محفوظ کریں</string>
-    <string name="thread_action_select_text">متن منتخب کریں</string>
     <string name="thread_action_details">پیغام کی تفصیلات</string>
     <string name="thread_action_delete">حذف کریں</string>
     <string name="thread_action_restore">بحال کریں</string>

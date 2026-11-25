@@ -6,10 +6,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.glooboo.umessage.R
@@ -24,7 +20,6 @@ internal fun selectionEntryIcon(action: SelectionAction): ImageVector = when (ac
     SelectionAction.Share -> Symbols.Upload
     SelectionAction.SaveAs -> Symbols.Download
     SelectionAction.Forward -> Symbols.Forward
-    SelectionAction.SelectText -> Symbols.TextFields
     SelectionAction.Details -> Symbols.Info
     SelectionAction.Delete -> Symbols.Delete
     SelectionAction.Restore -> Symbols.RestoreFromTrash
@@ -35,23 +30,9 @@ internal fun selectionEntryIcon(action: SelectionAction): ImageVector = when (ac
     SelectionAction.Note -> Symbols.Edit
 }
 
-/** The leading icon of a sender-decision row in the selection bar's menu. */
-internal fun selectionMenuIcon(action: ThreadMenuAction): ImageVector = when (action) {
-    ThreadMenuAction.AllowSender -> Symbols.Shield
-    ThreadMenuAction.ReportSpam -> Symbols.Warning
-    ThreadMenuAction.Block -> Symbols.Block
-    ThreadMenuAction.AlwaysForward -> Symbols.ArrowForward
-    ThreadMenuAction.WhyDecided -> Symbols.Rule
-    else -> Symbols.Info
-}
-
-/** What the selection menu shows for the selected messages: the short list and what "More…" opens (U37). */
-data class SelectionEntries(val main: List<SelectionEntry>, val more: List<SelectionEntry>)
-
 /**
- * U37: Share, Select text, Message details and the save rows stay in the list; Read aloud and Remind me fold into
- * "More…". In the recycle bin Restore joins the list. [noteLabel] is the note row's label (see [noteMenuLabel]),
- * null when the row is not offered.
+ * The selection menu's rows: Share, Details, the save rows, Note, Restore (recycle bin), Read aloud and Remind me.
+ * [noteLabel] is the note row's label (see [noteMenuLabel]), null when the row is not offered.
  */
 fun selectionEntries(
     hasText: Boolean,
@@ -61,35 +42,29 @@ fun selectionEntries(
     readAloudLabel: Int,
     isRecycleBin: Boolean,
     noteLabel: Int? = null,
-): SelectionEntries {
+): List<SelectionEntry> {
     fun pick(vararg entries: Triple<Boolean, Int, SelectionAction>) =
         entries.filter { it.first }.map { SelectionEntry(it.second, it.third) }
-    return SelectionEntries(
-        main = pick(
-            Triple(hasText, R.string.thread_action_share, SelectionAction.Share),
-            Triple(single && hasText, R.string.thread_action_select_text, SelectionAction.SelectText),
-            Triple(single, R.string.thread_action_details, SelectionAction.Details),
-            Triple(canSave, R.string.thread_action_save_as, SelectionAction.SaveAs),
-            Triple(single && hasText && !isRecycleBin, R.string.n06_save_from_message, SelectionAction.SaveText),
-            Triple(noteLabel != null, noteLabel ?: R.string.add_note, SelectionAction.Note),
-            Triple(isRecycleBin, R.string.thread_action_restore, SelectionAction.Restore),
-        ),
-        more = pick(
-            Triple(readAloudOk, readAloudLabel, SelectionAction.ReadAloud),
-            Triple(single && !isRecycleBin, R.string.reminder_action, SelectionAction.Remind),
-        ),
+    return pick(
+        Triple(hasText, R.string.thread_action_share, SelectionAction.Share),
+        Triple(single, R.string.thread_action_details, SelectionAction.Details),
+        Triple(canSave, R.string.thread_action_save_as, SelectionAction.SaveAs),
+        Triple(single && hasText && !isRecycleBin, R.string.n06_save_from_message, SelectionAction.SaveText),
+        Triple(noteLabel != null, noteLabel ?: R.string.add_note, SelectionAction.Note),
+        Triple(isRecycleBin, R.string.thread_action_restore, SelectionAction.Restore),
+        Triple(readAloudOk, readAloudLabel, SelectionAction.ReadAloud),
+        Triple(single && !isRecycleBin, R.string.reminder_action, SelectionAction.Remind),
     )
 }
 
-/** The message rows of the selection bar's menu, then "More…" (when it has rows) and Select all. */
+/** The message rows of the selection bar's menu, then Select all. */
 @Composable
 internal fun SelectionMenuRows(
-    entries: SelectionEntries,
+    entries: List<SelectionEntry>,
     actions: ThreadActions,
     onSelectAll: () -> Unit,
     close: () -> Unit,
 ) {
-    var showMore by remember { mutableStateOf(false) }
     val row = @Composable { entry: SelectionEntry ->
         DropdownMenuItem(
             text = { Text(stringResource(entry.label)) },
@@ -101,15 +76,7 @@ internal fun SelectionMenuRows(
         )
     }
     Column {
-        entries.main.forEach { row(it) }
-        if (showMore) entries.more.forEach { row(it) }
-        if (entries.more.isNotEmpty() && !showMore) {
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.thread_menu_more)) },
-                leadingIcon = { Icon(Symbols.MoreVert, contentDescription = null) },
-                onClick = { showMore = true },
-            )
-        }
+        entries.forEach { row(it) }
         HorizontalDivider()
         DropdownMenuItem(
             text = { Text(stringResource(R.string.thread_action_select_all)) },

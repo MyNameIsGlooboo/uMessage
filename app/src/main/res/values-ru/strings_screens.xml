@@ -58,5 +58,4 @@
     <string name="screens_schedule_pick_time">Выберите время</string>
     <string name="screens_schedule_next">Далее</string>
     <string name="screens_delete_skip_bin">Удалить сразу, минуя корзину</string>
-    <string name="screens_select_text_title">Выделить текст</string>
 </resources>

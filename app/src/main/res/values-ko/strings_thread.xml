@@ -39,7 +39,6 @@
     <string name="thread_action_copy">복사</string>
     <string name="thread_action_share">공유</string>
     <string name="thread_action_save_as">다른 이름으로 저장</string>
-    <string name="thread_action_select_text">텍스트 선택</string>
     <string name="thread_action_details">메시지 상세정보</string>
     <string name="thread_action_delete">삭제</string>
     <string name="thread_action_restore">복원</string>

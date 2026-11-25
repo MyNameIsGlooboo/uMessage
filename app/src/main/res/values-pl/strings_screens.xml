@@ -58,5 +58,4 @@
     <string name="screens_schedule_pick_time">Wybierz godzinę</string>
     <string name="screens_schedule_next">Dalej</string>
     <string name="screens_delete_skip_bin">Pomiń kosz i usuń od razu</string>
-    <string name="screens_select_text_title">Zaznacz tekst</string>
 </resources>

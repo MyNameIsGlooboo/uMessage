@@ -39,7 +39,6 @@
     <string name="thread_action_copy">コピー</string>
     <string name="thread_action_share">共有</string>
     <string name="thread_action_save_as">名前を付けて保存</string>
-    <string name="thread_action_select_text">テキストを選択</string>
     <string name="thread_action_details">メッセージの詳細</string>
     <string name="thread_action_delete">削除</string>
     <string name="thread_action_restore">復元</string>

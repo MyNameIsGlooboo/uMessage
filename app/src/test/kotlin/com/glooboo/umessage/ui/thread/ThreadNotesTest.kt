@@ -191,10 +191,10 @@ class ThreadNotesTest {
             isRecycleBin = false, noteLabel = noteLabel,
         )
 
-        assertThat(entries(null).main.map { it.action }).doesNotContain(SelectionAction.Note)
-        val add = entries(R.string.add_note).main.single { it.action == SelectionAction.Note }
+        assertThat(entries(null).map { it.action }).doesNotContain(SelectionAction.Note)
+        val add = entries(R.string.add_note).single { it.action == SelectionAction.Note }
         assertThat(add.label).isEqualTo(R.string.add_note)
-        val edit = entries(R.string.edit_note).main.single { it.action == SelectionAction.Note }
+        val edit = entries(R.string.edit_note).single { it.action == SelectionAction.Note }
         assertThat(edit.label).isEqualTo(R.string.edit_note)
     }
 }

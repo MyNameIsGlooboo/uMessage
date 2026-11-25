@@ -17,19 +17,29 @@ class ThreadUx8bTest {
     )
 
     @Test
-    fun remindAndReadAloudFoldIntoMore() {
+    fun readAloudAndRemindFollowTheNoteRow() {
         val e = entries()
-        assertThat(e.main.map { it.action }).containsExactly(
-            SelectionAction.Share, SelectionAction.SelectText, SelectionAction.Details, SelectionAction.SaveText,
+        assertThat(e.map { it.action }).containsExactly(
+            SelectionAction.Share, SelectionAction.Details, SelectionAction.SaveText,
+            SelectionAction.ReadAloud, SelectionAction.Remind,
         ).inOrder()
-        assertThat(e.more.map { it.action }).containsExactly(SelectionAction.ReadAloud, SelectionAction.Remind)
     }
 
     @Test
     fun recycleBinOffersRestoreAndNoReminder() {
         val e = entries(recycleBin = true)
-        assertThat(e.main.map { it.action }).contains(SelectionAction.Restore)
-        assertThat(e.more.map { it.action }).doesNotContain(SelectionAction.Remind)
+        assertThat(e.map { it.action }).contains(SelectionAction.Restore)
+        assertThat(e.map { it.action }).doesNotContain(SelectionAction.Remind)
+    }
+
+    @Test
+    fun multipleSelectionKeepsOnlyTheRowsForSeveralMessages() {
+        val e = selectionEntries(
+            hasText = true, single = false, canSave = false, readAloudOk = false,
+            readAloudLabel = R.string.read_aloud_action, isRecycleBin = false,
+        )
+        assertThat(e.map { it.action }).containsExactly(SelectionAction.Share).inOrder()
+        assertThat(e.map { it.action }).doesNotContain(SelectionAction.Details, SelectionAction.Remind)
     }
 
     @Test

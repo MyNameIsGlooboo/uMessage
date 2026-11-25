@@ -54,5 +54,4 @@
     <string name="screens_schedule_pick_time">Scegli ora</string>
     <string name="screens_schedule_next">Avanti</string>
     <string name="screens_delete_skip_bin">Elimina direttamente senza passare dal cestino</string>
-    <string name="screens_select_text_title">Seleziona testo</string>
 </resources>

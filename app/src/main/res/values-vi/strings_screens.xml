@@ -52,5 +52,4 @@
     <string name="screens_schedule_pick_time">Chọn giờ</string>
     <string name="screens_schedule_next">Tiếp</string>
     <string name="screens_delete_skip_bin">Xóa trực tiếp, bỏ qua thùng rác</string>
-    <string name="screens_select_text_title">Chọn văn bản</string>
 </resources>

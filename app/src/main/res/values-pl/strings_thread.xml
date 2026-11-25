@@ -45,7 +45,6 @@
     <string name="thread_action_copy">Kopiuj</string>
     <string name="thread_action_share">Udostępnij</string>
     <string name="thread_action_save_as">Zapisz jako</string>
-    <string name="thread_action_select_text">Zaznacz tekst</string>
     <string name="thread_action_details">Szczegóły wiadomości</string>
     <string name="thread_action_delete">Usuń</string>
     <string name="thread_action_restore">Przywróć</string>

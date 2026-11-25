@@ -39,7 +39,6 @@
     <string name="thread_action_copy">คัดลอก</string>
     <string name="thread_action_share">แชร์</string>
     <string name="thread_action_save_as">บันทึกเป็น</string>
-    <string name="thread_action_select_text">เลือกข้อความ</string>
     <string name="thread_action_details">รายละเอียดข้อความ</string>
     <string name="thread_action_delete">ลบ</string>
     <string name="thread_action_restore">กู้คืน</string>

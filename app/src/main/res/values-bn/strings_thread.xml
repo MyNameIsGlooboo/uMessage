@@ -41,7 +41,6 @@
     <string name="thread_action_copy">কপি করুন</string>
     <string name="thread_action_share">শেয়ার করুন</string>
     <string name="thread_action_save_as">অন্য নামে সেভ করুন</string>
-    <string name="thread_action_select_text">লেখা নির্বাচন করুন</string>
     <string name="thread_action_details">বার্তার বিবরণ</string>
     <string name="thread_action_delete">মুছুন</string>
     <string name="thread_action_restore">ফিরিয়ে আনুন</string>
