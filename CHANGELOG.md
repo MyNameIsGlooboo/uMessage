@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-11-25
+### Fixed
+- If the Spam list cannot be read, the Spam tab now says so and offers Retry instead of showing a spinner forever
+- Sharing a long chat and sharing the decision log no longer delete each other's files
+- Right-to-left languages (Persian, Arabic, Urdu): the Forward icon points the right way, and phone numbers in the Block confirmation stay in the right order
+### Changed
+- The two lines about the quiet Spam notification and looking at Spam once a week on the first-run Welcome page are now translated into all 20 other languages (they showed English before)
+- The dialog for a label's name opens with the keyboard ready
+
 ## [0.5.1] - 2026-11-25
 ### Added
 - The Spam tab shows again how many texts went to Spam in the last 7 days

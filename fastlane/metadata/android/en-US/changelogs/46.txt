@@ -1,0 +1,5 @@
+• Welcome page: the two Spam tips are now translated in all 20 other languages
+• If the Spam list can't be read, the Spam tab says so and offers Retry, not an endless spinner
+• Sharing a long chat and sharing the decision log no longer delete each other's files
+• Right-to-left languages: Forward icon points the right way; Block confirmation keeps phone numbers in order
+• The label name dialog opens with the keyboard ready
