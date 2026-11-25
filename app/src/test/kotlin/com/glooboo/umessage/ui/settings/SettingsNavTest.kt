@@ -2,6 +2,7 @@ package com.glooboo.umessage.ui.settings
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.isToggleable
@@ -213,7 +214,10 @@ class SettingsNavTest {
             R.string.setup_group_title,
             R.string.settings_nav_group_privacy_about,
         )
-        val tops = order.map { compose.onNodeWithText(str(it)).fetchSemanticsNode().boundsInRoot.top }
+        // The unclipped position: a group below the screen's edge is still laid out in the scrolling column.
+        val tops = order.map {
+            compose.onNodeWithText(str(it)).fetchSemanticsNode().layoutInfo.coordinates.positionInRoot().y
+        }
         assertEquals(tops.sorted(), tops)
     }
 
