@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">Spam\'e giden mesajlar için sessiz bildirim</string>
+    <string name="onb_spam_check_weekly">Spam sıralaması her zaman doğru değildir. Haftada bir Spam\'e göz atın.</string>
+</resources>

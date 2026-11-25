@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">进入垃圾短信的短信使用静音通知</string>
+    <string name="onb_spam_check_weekly">垃圾短信分拣并不总是准确。每周查看一次垃圾短信。</string>
+</resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- J16 (owner, 22-23 Nov 2026): the Spam notification switch and the line about checking Spam on the Welcome page.
-     English and Persian only; the other languages show the English text. The summary switch uses digest_row_title. -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<!-- J16 (owner, 22-23 Nov 2026): the Spam notification switch and the line about checking Spam on the Welcome page. The summary switch uses digest_row_title. -->
+<resources>
     <string name="onb_spam_notify_quiet">Quiet notification for texts that go to Spam</string>
     <string name="onb_spam_check_weekly">Spam sorting is not always right. Look at Spam once a week.</string>
 </resources>

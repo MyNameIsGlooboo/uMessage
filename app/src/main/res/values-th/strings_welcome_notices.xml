@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">แจ้งเตือนแบบเงียบสำหรับข้อความที่ไปอยู่ในสแปม</string>
+    <string name="onb_spam_check_weekly">การคัดแยกสแปมไม่ถูกต้องเสมอไป ตรวจดูสแปมสัปดาห์ละครั้ง</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">Ciche powiadomienie dla wiadomości trafiających do Spamu</string>
+    <string name="onb_spam_check_weekly">Sortowanie Spamu nie zawsze jest trafne. Zaglądaj do Spamu raz w tygodniu.</string>
+</resources>

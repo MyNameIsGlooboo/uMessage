@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">進入垃圾訊息的訊息使用靜音通知</string>
+    <string name="onb_spam_check_weekly">垃圾訊息的分類不一定正確。每週查看一次垃圾訊息。</string>
+</resources>

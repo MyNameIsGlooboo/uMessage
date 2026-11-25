@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onb_spam_notify_quiet">स्पैम में जाने वाले मैसेज के लिए शांत सूचना</string>
+    <string name="onb_spam_check_weekly">स्पैम की छंटाई हमेशा सही नहीं होती. हफ़्ते में एक बार स्पैम देखें.</string>
+</resources>
