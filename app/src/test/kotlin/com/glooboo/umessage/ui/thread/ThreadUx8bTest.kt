@@ -39,7 +39,7 @@ class ThreadUx8bTest {
             readAloudLabel = R.string.read_aloud_action, isRecycleBin = false,
         )
         assertThat(e.map { it.action }).containsExactly(SelectionAction.Share).inOrder()
-        assertThat(e.map { it.action }).doesNotContain(SelectionAction.Details, SelectionAction.Remind)
+        assertThat(e.map { it.action }).containsNoneOf(SelectionAction.Details, SelectionAction.Remind)
     }
 
     @Test
