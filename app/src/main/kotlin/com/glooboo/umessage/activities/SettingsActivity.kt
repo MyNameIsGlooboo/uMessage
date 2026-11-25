@@ -278,7 +278,6 @@ class SettingsActivity : ComposeSimpleActivity() {
     private fun refreshState() {
         uiState = SettingsUiState(
             simPermissionGranted = SimCards.hasPermission(this),
-            showOldBlockedWords = config.blockedKeywords.isNotEmpty(),
             sims = sims,
             defaultSimId = config.defaultSimId,
             lockScreenLabel = lockScreenLabel(),

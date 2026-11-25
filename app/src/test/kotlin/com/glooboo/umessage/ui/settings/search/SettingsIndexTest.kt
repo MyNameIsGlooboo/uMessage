@@ -59,7 +59,7 @@ class SettingsIndexTest {
     fun theIndexCoversEveryPageOfSettings() {
         val targets = SettingsIndex.entries.map { it.target }.toSet()
         assertThat(targets).containsAtLeast(
-            SettingsTarget.SPAM, SettingsTarget.NOTIFICATIONS, SettingsTarget.TYPING, SettingsTarget.STORAGE,
+            SettingsTarget.NOTIFICATIONS, SettingsTarget.TYPING, SettingsTarget.STORAGE,
             SettingsTarget.APPEARANCE, SettingsTarget.BACKUP, SettingsTarget.APP_LOCK, SettingsTarget.ABOUT,
             SettingsTarget.SETUP,
             SettingsTarget.FORWARD_RULES, SettingsTarget.FORWARD_OPTIONS, SettingsTarget.SPAM_SETTINGS,
@@ -72,7 +72,9 @@ class SettingsIndexTest {
         assertThat(search.find("dark").first().entry.target).isEqualTo(SettingsTarget.APPEARANCE)
         assertThat(search.find("font").first().entry.target).isEqualTo(SettingsTarget.APPEARANCE)
         assertThat(search.find("backup").first().entry.target).isEqualTo(SettingsTarget.BACKUP)
-        assertThat(search.find("spam").first().entry.target).isEqualTo(SettingsTarget.SPAM)
+        // B3: every Spam protection entry opens the one full page now, wherever its row used to live.
+        assertThat(search.find("spam").first().entry.target).isEqualTo(SettingsTarget.SPAM_SETTINGS)
+        assertThat(search.find("spam").map { it.entry.target }).contains(SettingsTarget.SPAM_SETTINGS)
         assertThat(search.find("fingerprint").first().entry.target).isEqualTo(SettingsTarget.APP_LOCK)
         assertThat(search.find("pdf").first().entry.target).isEqualTo(SettingsTarget.BACKUP)
         assertThat(search.find("ringtone").map { it.entry.target }).contains(SettingsTarget.NOTIFICATIONS)

@@ -8,7 +8,6 @@ import com.glooboo.umessage.ui.settings.SettingsPage
  * the rows of the main list open, so a result leads where tapping its row would.
  */
 enum class SettingsTarget(private val page: SettingsPage? = null) {
-    SPAM(SettingsPage.Spam),
     FORWARD_OPTIONS(SettingsPage.Forwarding),
     NOTIFICATIONS(SettingsPage.Notifications),
     TYPING(SettingsPage.Typing),

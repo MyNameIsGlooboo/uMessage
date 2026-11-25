@@ -39,8 +39,6 @@ data class SimCard(
 @Suppress("LongParameterList")
 data class SettingsUiState(
     val spam: SpamSummary? = null,
-    /** SU-33: the old blocked-words list still has words; once they are moved into rules its row is hidden. */
-    val showOldBlockedWords: Boolean = false,
     val simPermissionGranted: Boolean = true,
     val sims: List<SimCard> = emptyList(),
     val defaultSimId: Int = DEFAULT_SIM_PHONE,
@@ -115,7 +113,7 @@ enum class ForwardingSummary { NO_RULES, OFF, PAUSED, ON }
 
 /** The pages of Settings: the main list and the screens it opens. */
 enum class SettingsPage {
-    Main, Spam, Forwarding, Notifications, Typing, Storage, Backup, MoveFromApp, AppLock, About, Licenses, Setup
+    Main, Forwarding, Notifications, Typing, Storage, Backup, MoveFromApp, AppLock, About, Licenses, Setup
 }
 
 /** Everything the screen can ask the host to do. */

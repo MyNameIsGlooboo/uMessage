@@ -61,6 +61,9 @@ import com.glooboo.umessage.helpers.threadPrefs
 class SettingsActions(
     val onBack: () -> Unit = {},
     val onOpenRules: () -> Unit = {},
+    /** B3: rows moved here from the old short Settings copy, so no setting is lost. */
+    val onOpenBlockedNumbers: () -> Unit = {},
+    val onOpenBlockedKeywords: () -> Unit = {},
     val onPurgeDays: (Int) -> Unit = {},
     val onNotify: (Boolean) -> Unit = {},
     val onUnknownNotify: (UnknownInboxNotify) -> Unit = {},
@@ -81,13 +84,26 @@ fun SettingsRoute(
     onBack: () -> Unit,
     onOpenRules: () -> Unit,
     onOpenDecisionLog: (() -> Unit)? = null,
+    onOpenBlockedNumbers: () -> Unit = {},
+    onOpenBlockedKeywords: () -> Unit = {},
+    /** B3: the old blocked words still have entries; the moved row stays hidden once they are gone. */
+    showOldBlockedWords: Boolean = false,
 ) {
     val viewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory)
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val actions = remember(viewModel, onBack, onOpenRules, onOpenDecisionLog) {
+    val actions = remember(
+        viewModel,
+        onBack,
+        onOpenRules,
+        onOpenDecisionLog,
+        onOpenBlockedNumbers,
+        onOpenBlockedKeywords,
+    ) {
         SettingsActions(
             onBack = onBack,
             onOpenRules = onOpenRules,
+            onOpenBlockedNumbers = onOpenBlockedNumbers,
+            onOpenBlockedKeywords = onOpenBlockedKeywords,
             onPurgeDays = viewModel::setPurgeDays,
             onNotify = viewModel::setNotifyOnBlock,
             onUnknownNotify = viewModel::setUnknownInboxNotify,
@@ -105,11 +121,16 @@ fun SettingsRoute(
     LaunchedEffect(viewModel) {
         viewModel.failureFlow.collect { snackbar.showSnackbar(failedText) }
     }
-    SettingsScreen(state, actions, snackbar)
+    SettingsScreen(state, actions, snackbar, showOldBlockedWords)
 }
 
 @Composable
-fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, snackbarHostState: SnackbarHostState? = null) {
+fun SettingsScreen(
+    state: SettingsUiState,
+    actions: SettingsActions,
+    snackbarHostState: SnackbarHostState? = null,
+    showOldBlockedWords: Boolean = false,
+) {
     UMessageScaffold(
         snackbarHostState = snackbarHostState,
         topBar = {
@@ -126,13 +147,25 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, snackbarHos
                 CircularProgressIndicator(Modifier.semantics { contentDescription = label })
             }
         } else {
-            SettingsContent(state, actions, Modifier.padding(top = inner.calculateTopPadding()), inner.calculateBottomPadding())
+            SettingsContent(
+                state,
+                actions,
+                Modifier.padding(top = inner.calculateTopPadding()),
+                inner.calculateBottomPadding(),
+                showOldBlockedWords,
+            )
         }
     }
 }
 
 @Composable
-private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, modifier: Modifier = Modifier, bottomInset: Dp = 0.dp) {
+private fun SettingsContent(
+    state: SettingsUiState,
+    actions: SettingsActions,
+    modifier: Modifier = Modifier,
+    bottomInset: Dp = 0.dp,
+    showOldBlockedWords: Boolean = false,
+) {
     val settings = state.settings
     var purgeDialog by rememberSaveable { mutableStateOf(false) }
     var unknownNotifyDialog by rememberSaveable { mutableStateOf(false) }
@@ -151,6 +184,21 @@ private fun SettingsContent(state: SettingsUiState, actions: SettingsActions, mo
                 onClick = actions.onOpenRules,
                 showChevron = true,
             )
+            // B3: moved here from the old short copy of this page inside Settings, so neither setting disappears.
+            SettingsRow(
+                title = stringResource(R.string.rules2_bn_title),
+                summary = stringResource(R.string.settings_nav_android_block_list_body),
+                onClick = actions.onOpenBlockedNumbers,
+                showChevron = true,
+            )
+            if (showOldBlockedWords) {
+                SettingsRow(
+                    title = stringResource(R.string.settings_old_blocked_words),
+                    summary = stringResource(R.string.settings_old_blocked_words_body),
+                    onClick = actions.onOpenBlockedKeywords,
+                    showChevron = true,
+                )
+            }
             SettingsRow(
                 title = stringResource(R.string.blocked_menu_restored),
                 summary = stringResource(R.string.blocked_menu_restored_summary),

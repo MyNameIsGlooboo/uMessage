@@ -2,14 +2,18 @@ package com.glooboo.umessage.ui.settings
 
 import com.glooboo.umessage.helpers.DEFAULT_SIM_ASK
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,22 +23,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import com.glooboo.umessage.R
-import com.glooboo.umessage.spam.UnknownSenderMode
 import com.glooboo.umessage.ui.components.SettingsGroup
 import com.glooboo.umessage.ui.components.SettingsRow
 import com.glooboo.umessage.ui.components.SettingsSwitchRow
@@ -50,12 +56,7 @@ import com.glooboo.umessage.ui.settings.search.SettingsSearchButton
 import com.glooboo.umessage.ui.settings.search.SettingsSearchField
 import com.glooboo.umessage.ui.settings.search.SettingsSearchResults
 import com.glooboo.umessage.ui.setup.SetupPage
-import com.glooboo.umessage.ui.spam.rememberSortingCardMode
-import com.glooboo.umessage.ui.spam.FilterSwitchGroup
-import com.glooboo.umessage.ui.spam.SortChange
-import com.glooboo.umessage.ui.spam.SwitchConfirmDialog
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.glooboo.umessage.ui.setup.setupAttentionNow
 import androidx.compose.material3.Icon
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.fossify.commons.R as CommonsR
@@ -99,13 +100,17 @@ fun SettingsScreen(state: SettingsUiState, actions: SettingsActions, initialPage
         }
     }
     val snackbar = remember { SnackbarHostState() }
+    // B1: the main list keeps its own offset (and gets it back on Back); every other page and the search start at top.
+    val mainScroll = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
+    val pageScroll = rememberSaveable(scrollKey(page, searching), saver = ScrollState.Saver) { ScrollState(0) }
+    val scroll = if (keepsScrollOnMain(page, searching)) mainScroll else pageScroll
     CompositionLocalProvider(LocalSettingsSnackbar provides snackbar) {
     SettingsFrame(topBar, snackbar) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = padding.calculateTopPadding())
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(scroll),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             val open: (SettingsPage) -> Unit = { page = it }
@@ -140,7 +145,6 @@ private fun PageContent(
 ) {
     when (page) {
         SettingsPage.Main -> MainPage(state, actions, open)
-        SettingsPage.Spam -> SpamPage(state, actions)
         SettingsPage.Forwarding ->
             if (state.forwardingAvailable) ForwardingPage(state, actions) else MainPage(state, actions, open)
         SettingsPage.Notifications -> NotificationsPage(state, actions)
@@ -172,9 +176,16 @@ private fun SettingsFrame(
 @Suppress("CompositionLocalAllowlist") // Scoped to the settings pages; a lambda would thread through every row.
 internal val LocalSettingsSnackbar = compositionLocalOf<SnackbarHostState?> { null }
 
+/** B1: true only on the main list itself (not on a sub-page and not while searching), which keeps its own offset. */
+internal fun keepsScrollOnMain(page: SettingsPage, searching: Boolean): Boolean =
+    !searching && page == SettingsPage.Main
+
+/** B1: the saveable key of a scroll that must open at the top: each page and each search session has its own. */
+internal fun scrollKey(page: SettingsPage, searching: Boolean): String =
+    if (searching) "search" else page.name
+
 private fun pageTitle(page: SettingsPage): Int = when (page) {
     SettingsPage.Main -> R.string.settings_title
-    SettingsPage.Spam -> R.string.settings_nav_spam_page_title
     // Owner notes R2: the options page opened from the Forwarding screen's tune button is not named like that screen.
     SettingsPage.Forwarding -> R.string.r3fwd_options
     SettingsPage.Notifications -> R.string.settings_group_notifications
@@ -192,21 +203,19 @@ private fun pageTitle(page: SettingsPage): Int = when (page) {
 
 @Composable
 private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (SettingsPage) -> Unit) {
-    SettingsGroup(stringResource(R.string.setup_group_title)) {
-        SettingsRow(
-            title = stringResource(R.string.setup_title),
-            summary = stringResource(R.string.setup_row_summary),
-            icon = Symbols.Settings,
-            onClick = { open(SettingsPage.Setup) },
-            showChevron = true,
-        )
-    }
+    val context = LocalContext.current
+    // B2: the row says so (with a dot) while the Setup page has something to fix, using the page's own checks.
+    // Read again each time the screen comes back: a battery or notification change made outside the app counts.
+    var resumes by remember { mutableIntStateOf(0) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
+    val setupNeedsYou = remember(state, resumes) { setupAttentionNow(context) }
     SettingsGroup(stringResource(R.string.settings_nav_group_protection)) {
         SettingsRow(
             title = stringResource(R.string.settings_nav_spam_row),
             summary = spamSummaryText(state.spam),
             icon = Symbols.Shield,
-            onClick = { open(SettingsPage.Spam) },
+            // B3: one Spam protection page; the row opens the full page itself, not a short copy inside Settings.
+            onClick = actions.onOpenSpamSettings,
             showChevron = true,
         )
         // Round 3: always here, and it opens the forward rules themselves; their switches are one tap further.
@@ -258,6 +267,17 @@ private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (Se
         )
         LanguageRow(state, actions)
     }
+    // B2: Setup sits below Display now.
+    SettingsGroup(stringResource(R.string.setup_group_title)) {
+        SettingsRow(
+            title = stringResource(R.string.setup_title),
+            summary = stringResource(if (setupNeedsYou) R.string.setup_row_attention else R.string.setup_row_summary),
+            icon = Symbols.Settings,
+            onClick = { open(SettingsPage.Setup) },
+            showChevron = true,
+            trailing = if (setupNeedsYou) ({ SetupAttentionDot() }) else null,
+        )
+    }
     SettingsGroup(stringResource(R.string.settings_nav_group_privacy_about)) {
         // SE-16: one Backup page for messages, rules and settings.
         SettingsRow(
@@ -276,6 +296,16 @@ private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (Se
             showChevron = true,
         )
     }
+}
+
+/** B2: a small error-coloured dot beside the Setup row's chevron while the Setup page needs the user. */
+@Composable
+private fun SetupAttentionDot() {
+    Box(
+        Modifier
+            .size(8.dp)
+            .background(MaterialTheme.colorScheme.error, CircleShape),
+    )
 }
 
 @Composable
@@ -381,84 +411,6 @@ private fun DefaultSimRow(state: SettingsUiState, actions: SettingsActions) {
 // endregion
 
 // region Sub-pages
-
-@Composable
-private fun SpamPage(state: SettingsUiState, actions: SettingsActions) {
-    // P4-11: the filter is switched right here, not two pages deeper.
-    val spam = state.spam
-    if (spam != null) SpamFilterGroup(spam)
-    // B11: the group is not named like the page above it.
-    SettingsGroup(stringResource(R.string.settings_block_group)) {
-        SettingsRow(
-            title = stringResource(R.string.settings_block_umessage_title),
-            summary = stringResource(R.string.settings_block_umessage_body),
-            icon = Symbols.Rule,
-            onClick = actions.onOpenRules,
-            showChevron = true,
-        )
-        SettingsRow(
-            title = stringResource(R.string.rules2_bn_title),
-            summary = stringResource(R.string.settings_nav_android_block_list_body),
-            icon = Symbols.Block,
-            onClick = actions.onOpenBlockedNumbers,
-            showChevron = true,
-        )
-        // Old blocked words move into rules on their own; only words that cannot be a rule stay, and show here.
-        if (state.showOldBlockedWords) {
-            SettingsRow(
-                title = stringResource(R.string.settings_old_blocked_words),
-                summary = stringResource(R.string.settings_old_blocked_words_body),
-                icon = Symbols.Description,
-                onClick = actions.onOpenBlockedKeywords,
-                showChevron = true,
-            )
-        }
-        if (state.showDecisionLog) {
-            SettingsRow(
-                title = stringResource(R.string.settings_nav_decision_log),
-                summary = stringResource(R.string.settings_nav_decision_log_body),
-                icon = Symbols.Visibility,
-                onClick = actions.onOpenDecisionLog,
-                showChevron = true,
-            )
-        }
-        SettingsRow(
-            title = stringResource(
-                if (spam != null) R.string.settings_f_spam_more else R.string.settings_spam_open_settings,
-            ),
-            summary = stringResource(
-                if (spam != null) R.string.settings_f_spam_more_body else R.string.settings_spam_open_settings_body,
-            ),
-            icon = Symbols.Tune,
-            onClick = actions.onOpenSpamSettings,
-            showChevron = true,
-        )
-    }
-}
-
-/**
- * Provider truth (4.6): the one spam filter switch. Changing it asks first, with the number of chats that move (U11);
- * the pending confirm lives in [switchModel], so it survives a rotation.
- */
-@Composable
-internal fun SpamFilterGroup(
-    spam: SpamSummary,
-    switchModel: SpamFilterSwitchViewModel = viewModel(factory = SpamFilterSwitchViewModel.Factory),
-) {
-    val pending by switchModel.switches.pending.collectAsStateWithLifecycle()
-    val snackbar = LocalSettingsSnackbar.current
-    val failedText = stringResource(R.string.spam_snack_failed)
-    LaunchedEffect(switchModel) { switchModel.failureFlow.collect { snackbar?.showSnackbar(failedText) } }
-    val shown = when {
-        !spam.filterOn -> UnknownSenderMode.OFF
-        !spam.codeGroupOn -> UnknownSenderMode.STRICT
-        else -> UnknownSenderMode.SMART
-    }
-    FilterSwitchGroup(spam.filterOn, rememberSortingCardMode(shown)) { on ->
-        switchModel.switches.request(SortChange.Filter(on))
-    }
-    pending?.let { SwitchConfirmDialog(it, switchModel.switches::confirm, switchModel.switches::dismiss) }
-}
 
 @Composable
 private fun ForwardingPage(state: SettingsUiState, actions: SettingsActions) {
