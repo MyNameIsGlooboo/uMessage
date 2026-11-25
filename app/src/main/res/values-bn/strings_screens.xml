@@ -54,5 +54,4 @@
     <string name="screens_schedule_pick_time">সময় বেছে নিন</string>
     <string name="screens_schedule_next">পরবর্তী</string>
     <string name="screens_delete_skip_bin">রিসাইকেল বিনে না রেখে সরাসরি মুছুন</string>
-    <string name="screens_select_text_title">টেক্সট নির্বাচন করুন</string>
 </resources>

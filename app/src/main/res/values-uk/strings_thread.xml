@@ -45,7 +45,6 @@
     <string name="thread_action_copy">Копіювати</string>
     <string name="thread_action_share">Поділитися</string>
     <string name="thread_action_save_as">Зберегти як</string>
-    <string name="thread_action_select_text">Виділити текст</string>
     <string name="thread_action_details">Відомості про повідомлення</string>
     <string name="thread_action_delete">Видалити</string>
     <string name="thread_action_restore">Відновити</string>

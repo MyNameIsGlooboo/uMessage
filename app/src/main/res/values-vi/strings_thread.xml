@@ -39,7 +39,6 @@
     <string name="thread_action_copy">Sao chép</string>
     <string name="thread_action_share">Chia sẻ</string>
     <string name="thread_action_save_as">Lưu thành</string>
-    <string name="thread_action_select_text">Chọn văn bản</string>
     <string name="thread_action_details">Chi tiết tin nhắn</string>
     <string name="thread_action_delete">Xóa</string>
     <string name="thread_action_restore">Khôi phục</string>

@@ -41,7 +41,6 @@
     <string name="thread_action_copy">Kopyalayın</string>
     <string name="thread_action_share">Paylaşın</string>
     <string name="thread_action_save_as">Farklı kaydedin</string>
-    <string name="thread_action_select_text">Metni seçin</string>
     <string name="thread_action_details">Mesaj ayrıntıları</string>
     <string name="thread_action_delete">Silin</string>
     <string name="thread_action_restore">Geri yükleyin</string>

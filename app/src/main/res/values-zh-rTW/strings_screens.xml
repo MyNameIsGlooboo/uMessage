@@ -55,5 +55,4 @@
     <string name="screens_schedule_pick_time">選擇時間</string>
     <string name="screens_schedule_next">下一步</string>
     <string name="screens_delete_skip_bin">不移至資源回收筒，直接刪除</string>
-    <string name="screens_select_text_title">選取文字</string>
 </resources>

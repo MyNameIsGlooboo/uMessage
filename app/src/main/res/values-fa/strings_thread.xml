@@ -41,7 +41,6 @@
     <string name="thread_action_copy">کپی</string>
     <string name="thread_action_share">اشتراک‌گذاری</string>
     <string name="thread_action_save_as">ذخیره پیوست</string>
-    <string name="thread_action_select_text">انتخاب متن</string>
     <string name="thread_action_details">جزئیات پیام</string>
     <string name="thread_action_delete">حذف</string>
     <string name="thread_action_restore">بازیابی</string>

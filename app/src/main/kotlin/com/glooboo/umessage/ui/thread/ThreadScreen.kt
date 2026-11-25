@@ -27,10 +27,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -471,9 +469,6 @@ private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions) {
     // I13: a message in the recycle bin or still scheduled is not starred.
     val canStar = selected.isNotEmpty() && !vm.isRecycleBin && selected.none { it.isScheduled }
     val selectionStarred = allStarred(selected, vm.stars.keys)
-    // Sender decisions apply to the one sender of a one-person thread, from a message they sent.
-    val fromSender = single && !vm.isGroup && selected.firstOrNull()?.isReceivedMessage() == true
-    val menu = vm.menu
     val context = LocalContext.current
     // I49: one message with text, and no code while codes are hidden.
     val readAloudOk = single && selected.firstOrNull()?.let {
@@ -529,30 +524,6 @@ private fun SelectionTopBar(vm: ThreadViewModel, actions: ThreadActions) {
                 Icon(Symbols.Delete, contentDescription = stringResource(R.string.thread_action_delete))
             }
             OverflowMenu(vm.windowsClosed) { close ->
-                // TH-11, TH-12: what uMessage does with this sender first, then the message itself.
-                val senderEntries = listOf(
-                    Triple(menu.allowSender, R.string.w2b2_thread_menu_allow, ThreadMenuAction.AllowSender),
-                    Triple(menu.reportSpam, R.string.thread_menu_report_spam, ThreadMenuAction.ReportSpam),
-                    Triple(menu.block, R.string.thread_menu_block, ThreadMenuAction.Block),
-                    Triple(
-                        menu.alwaysForward,
-                        R.string.thread_r2_menu_always_forward,
-                        ThreadMenuAction.AlwaysForward,
-                    ),
-                    Triple(menu.whyDecided, R.string.w2b2_thread_menu_why, ThreadMenuAction.WhyDecided),
-                ).filter { fromSender && it.first }
-                senderEntries.forEach { (_, label, action) ->
-                    DropdownMenuItem(
-                        text = { Text(stringResource(label)) },
-                        leadingIcon = { Icon(selectionMenuIcon(action), contentDescription = null) },
-                        onClick = {
-                            close()
-                            vm.clearSelection()
-                            actions.onMenuAction(action)
-                        },
-                    )
-                }
-                if (senderEntries.isNotEmpty()) HorizontalDivider()
                 val entries = selectionEntries(
                     hasText, single, canSave, readAloudOk, readAloudLabel, vm.isRecycleBin,
                     noteLabel = noteMenuLabel(selected, vm.notes.byKey),

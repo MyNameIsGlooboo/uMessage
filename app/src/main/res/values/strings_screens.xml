@@ -71,5 +71,4 @@
     <string name="screens_schedule_pick_time">Pick time</string>
     <string name="screens_schedule_next">Next</string>
     <string name="screens_delete_skip_bin">Skip the Recycle Bin, delete directly</string>
-    <string name="screens_select_text_title">Select text</string>
 </resources>

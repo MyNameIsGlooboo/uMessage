@@ -52,5 +52,4 @@
     <string name="screens_schedule_pick_time">เลือกเวลา</string>
     <string name="screens_schedule_next">ถัดไป</string>
     <string name="screens_delete_skip_bin">ลบโดยตรงโดยไม่ย้ายไปถังขยะ</string>
-    <string name="screens_select_text_title">เลือกข้อความ</string>
 </resources>

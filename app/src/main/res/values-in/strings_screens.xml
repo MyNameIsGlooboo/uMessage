@@ -52,5 +52,4 @@
     <string name="screens_schedule_pick_time">Pilih waktu</string>
     <string name="screens_schedule_next">Berikutnya</string>
     <string name="screens_delete_skip_bin">Langsung hapus tanpa memindahkan ke sampah</string>
-    <string name="screens_select_text_title">Pilih teks</string>
 </resources>

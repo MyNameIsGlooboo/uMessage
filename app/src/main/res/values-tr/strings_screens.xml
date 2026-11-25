@@ -54,5 +54,4 @@
     <string name="screens_schedule_pick_time">Saat seçin</string>
     <string name="screens_schedule_next">İleri</string>
     <string name="screens_delete_skip_bin">Çöp kutusuna taşımadan doğrudan silin</string>
-    <string name="screens_select_text_title">Metin seçin</string>
 </resources>

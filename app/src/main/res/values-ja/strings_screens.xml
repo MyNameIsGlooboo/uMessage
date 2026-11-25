@@ -52,5 +52,4 @@
     <string name="screens_schedule_pick_time">時刻を選択</string>
     <string name="screens_schedule_next">次へ</string>
     <string name="screens_delete_skip_bin">ゴミ箱に移さず直接削除</string>
-    <string name="screens_select_text_title">テキスト選択</string>
 </resources>

@@ -52,5 +52,4 @@
     <string name="screens_schedule_pick_time">시간 선택</string>
     <string name="screens_schedule_next">다음</string>
     <string name="screens_delete_skip_bin">휴지통을 거치지 않고 바로 삭제</string>
-    <string name="screens_select_text_title">텍스트 선택</string>
 </resources>

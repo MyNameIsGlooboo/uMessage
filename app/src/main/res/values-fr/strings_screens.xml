@@ -54,5 +54,4 @@
     <string name="screens_schedule_pick_time">Choisir l\'heure</string>
     <string name="screens_schedule_next">Suivant</string>
     <string name="screens_delete_skip_bin">Supprimer directement sans passer par la corbeille</string>
-    <string name="screens_select_text_title">Sélectionner le texte</string>
 </resources>

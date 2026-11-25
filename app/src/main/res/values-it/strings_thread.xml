@@ -41,7 +41,6 @@
     <string name="thread_action_copy">Copia</string>
     <string name="thread_action_share">Condividi</string>
     <string name="thread_action_save_as">Salva come</string>
-    <string name="thread_action_select_text">Seleziona testo</string>
     <string name="thread_action_details">Dettagli messaggio</string>
     <string name="thread_action_delete">Elimina</string>
     <string name="thread_action_restore">Ripristina</string>

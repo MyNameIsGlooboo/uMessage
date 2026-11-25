@@ -54,5 +54,4 @@
     <string name="screens_schedule_pick_time">समय चुनें</string>
     <string name="screens_schedule_next">आगे</string>
     <string name="screens_delete_skip_bin">रीसायकल बिन में डाले बिना सीधे मिटाएं</string>
-    <string name="screens_select_text_title">टेक्स्ट चुनें</string>
 </resources>

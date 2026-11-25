@@ -58,5 +58,4 @@
     <string name="screens_schedule_pick_time">Вибрати час</string>
     <string name="screens_schedule_next">Далі</string>
     <string name="screens_delete_skip_bin">Видалити одразу, оминаючи кошик</string>
-    <string name="screens_select_text_title">Виділити текст</string>
 </resources>
