@@ -10,7 +10,10 @@ object SharedCacheFiles {
     /** The cache folder the FileProvider already shares (see provider_paths.xml). */
     const val DIR = "shared_logs"
 
-    /** Shared files are removed after this long, on top of each feature's own cleanup. */
+    /**
+     * A conversation share older than this goes when the next one is written. The app start (CacheCleanup) removes
+     * shared files after 15 minutes anyway, so this only protects a share while the app stays open.
+     */
     const val KEEP_MS = 24L * 60 * 60 * 1000
 
     /** A shared conversation starts with this, then the time it was written. */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onb_spam_notify_quiet">迷惑メッセージに振り分けられたメッセージの通知を静かに</string>
+    <string name="onb_spam_notify_quiet">迷惑メッセージの通知を静かにする</string>
     <string name="onb_spam_check_weekly">迷惑メッセージの振り分けは常に正確とは限りません。週に一度は迷惑メッセージを確認してください。</string>
 </resources>

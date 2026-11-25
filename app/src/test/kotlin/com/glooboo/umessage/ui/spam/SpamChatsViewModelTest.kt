@@ -124,7 +124,7 @@ class SpamChatsViewModelTest {
 
     @Test
     fun aFailedFirstReadStopsLoadingAndShowsTheError() {
-        val model = newModelFrom { throw IllegalStateException("read failed") }
+        val model = newModelFrom { error("read failed") }
         model.load()
 
         awaitUntil { model.state.value.failed }
@@ -136,7 +136,7 @@ class SpamChatsViewModelTest {
     fun retryingAfterAFailedReadShowsTheListAgain() {
         var fail = true
         val model = newModelFrom {
-            if (fail) throw IllegalStateException("read failed") else chats
+            if (fail) error("read failed") else chats
         }
         model.load()
         awaitUntil { model.state.value.failed }
@@ -152,7 +152,7 @@ class SpamChatsViewModelTest {
     fun aFailedRereadKeepsTheListItHad() {
         var fail = false
         val model = newModelFrom {
-            if (fail) throw IllegalStateException("read failed") else chats
+            if (fail) error("read failed") else chats
         }
         model.load()
         awaitUntil { model.state.value.rows.size == 3 }

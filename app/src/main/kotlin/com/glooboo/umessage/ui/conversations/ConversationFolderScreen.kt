@@ -204,10 +204,6 @@ fun ConversationFolderScreen(
     onRestore: (Set<Long>) -> Unit,
     onDelete: (Set<Long>) -> Unit,
     onEmpty: () -> Unit,
-    /** B1: the last read failed and there are no rows, so the error state shows instead of an empty folder. */
-    failed: Boolean = false,
-    /** B1: "Try again" in the error state; null keeps the folder as before. */
-    onRetry: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState? = null,
     /** On the Archived tab: leaves the empty state for Messages. */
@@ -226,6 +222,10 @@ fun ConversationFolderScreen(
     onSettings: (() -> Unit)? = null,
     /** Opens the inbox search; null shows no search icon (screens that are not main tabs). */
     onSearch: (() -> Unit)? = null,
+    /** B1: the last read failed and there are no rows, so the error state shows instead of an empty folder. */
+    failed: Boolean = false,
+    /** B1: "Try again" in the error state; null keeps the folder as before. */
+    onRetry: (() -> Unit)? = null,
 ) {
     var selected by rememberSaveable(saver = LongSetStateSaver) { mutableStateOf(emptySet()) }
     var confirmDelete by remember { mutableStateOf<Set<Long>?>(null) }

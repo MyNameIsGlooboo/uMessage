@@ -67,7 +67,8 @@ internal object DatabaseBackups {
 
     /**
      * D10: an unrestored backup of the same schema already sits at [backup] (its restore failed and it was kept).
-     * It is renamed `-earlier-<n>` (never offered again, never deleted) instead of being overwritten by the newer one.
+     * It is renamed `-earlier-<n>` (never offered again) instead of being overwritten by the newer one. It is removed
+     * only when it cannot be renamed, so that the newer file can take its place.
      */
     private fun keepEarlierBackup(backup: File) {
         if (!backup.exists()) return
@@ -76,9 +77,7 @@ internal object DatabaseBackups {
         val target = File(backup.path.removeSuffix("-backup") + "-earlier-$n")
         for (suffix in COMPANIONS) {
             val source = File(backup.path + suffix)
-            if (source.exists() && !moveKeeping(source, File(target.path + suffix))) {
-                Log.w(TAG, "Could not move ${source.name} aside: kept where it is")
-            }
+            if (source.exists() && !source.renameTo(File(target.path + suffix))) source.delete()
         }
     }
 
@@ -118,20 +117,8 @@ internal object DatabaseBackups {
         deleteWithCompanions(target)
         for (suffix in COMPANIONS) {
             val source = File(backup.path + suffix)
-            if (source.exists() && !moveKeeping(source, File(target.path + suffix))) {
-                Log.w(TAG, "Could not retire ${source.name}: kept where it is")
-            }
+            if (source.exists() && !source.renameTo(File(target.path + suffix))) source.delete()
         }
-    }
-
-    /**
-     * Moves [source] to [target]: a rename, else a copy that is checked before the source is removed. The source is
-     * never deleted unless a full copy exists; false means the source is still there.
-     */
-    private fun moveKeeping(source: File, target: File): Boolean {
-        if (source.renameTo(target)) return true
-        val copied = runCatching { source.copyTo(target, overwrite = true) }.getOrNull() ?: return false
-        return copied.length() == source.length() && source.delete()
     }
 
     fun copyWithCompanions(from: File, to: File) {
