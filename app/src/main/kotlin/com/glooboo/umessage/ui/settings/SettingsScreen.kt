@@ -26,6 +26,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -37,6 +38,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import com.glooboo.umessage.R
 import com.glooboo.umessage.ui.components.SettingsGroup
 import com.glooboo.umessage.ui.components.SettingsRow
@@ -202,7 +205,10 @@ private fun pageTitle(page: SettingsPage): Int = when (page) {
 private fun MainPage(state: SettingsUiState, actions: SettingsActions, open: (SettingsPage) -> Unit) {
     val context = LocalContext.current
     // B2: the row says so (with a dot) while the Setup page has something to fix, using the page's own checks.
-    val setupNeedsYou = remember(state) { setupAttentionNow(context) }
+    // Read again each time the screen comes back: a battery or notification change made outside the app counts.
+    var resumes by remember { mutableIntStateOf(0) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
+    val setupNeedsYou = remember(state, resumes) { setupAttentionNow(context) }
     SettingsGroup(stringResource(R.string.settings_nav_group_protection)) {
         SettingsRow(
             title = stringResource(R.string.settings_nav_spam_row),

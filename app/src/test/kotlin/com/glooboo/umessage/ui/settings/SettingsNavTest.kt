@@ -193,7 +193,7 @@ class SettingsNavTest {
         assertTrue(keepsScrollOnMain(SettingsPage.Main, searching = false))
         assertFalse(keepsScrollOnMain(SettingsPage.Main, searching = true))
         assertFalse(keepsScrollOnMain(SettingsPage.Notifications, searching = false))
-        assertEquals("main", scrollKey(SettingsPage.Main, searching = false))
+        assertEquals("Main", scrollKey(SettingsPage.Main, searching = false))
         assertEquals("search", scrollKey(SettingsPage.Main, searching = true))
         assertEquals("Notifications", scrollKey(SettingsPage.Notifications, searching = false))
         assertNotEquals(

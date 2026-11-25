@@ -129,13 +129,20 @@ fun setupAttentionNow(context: Context): Boolean = runCatching {
         openNotifications = { _ -> },
     )
     val rows = buildSetupRows(context, live, noActions).map { it.headlineState() }
-    setupNeedsAttention(rows, batteryStepOpen(context))
+    setupNeedsAttention(rows, backgroundLimited(context))
 }.getOrDefault(false)
 
 /** As currentNotificationsBlock, from a channel [problem] this composition has read already. */
 private fun notificationsBlockOf(context: Context, problem: ChannelProblem?): NotificationsBlock? = runCatching {
     notificationsBlock(NotificationManagerCompat.from(context).areNotificationsEnabled(), problem)
 }.getOrNull()
+
+/**
+ * Android itself limits uMessage in the background (Restricted, or the restricted standby bucket). Merely not being
+ * on "Unrestricted" is the default for most phones and is not a problem to flag on the main list.
+ */
+private fun backgroundLimited(context: Context): Boolean =
+    OemHelper.backgroundStatus(context).let { it.backgroundRestricted || it.restrictedBucket }
 
 /** The optional battery card is open until Android reports uMessage as unrestricted. */
 private fun batteryStepOpen(context: Context): Boolean =

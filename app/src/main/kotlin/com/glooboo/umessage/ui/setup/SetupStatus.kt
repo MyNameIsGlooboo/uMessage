@@ -49,7 +49,8 @@ fun setupHeadline(rows: List<SetupRowState>, optionalOpen: Boolean): SetupHeadli
 
 /**
  * B2: true when the Setup page's headline asks the user to do something (a required row is open, e.g. the default SMS
- * role or a permission, or Android reports a background limit). The Setup row on the main list shows its dot then.
+ * role or a permission, or Android limits uMessage in the background: [batteryOpen] means that, not just "not set to
+ * Unrestricted"). The Setup row on the main list shows its dot then.
  */
 fun setupNeedsAttention(rows: List<SetupRowState>, batteryOpen: Boolean): Boolean =
     setupHeadline(rows, batteryOpen) != SetupHeadline.ALL_SET
