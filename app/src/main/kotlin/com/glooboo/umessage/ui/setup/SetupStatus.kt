@@ -46,3 +46,10 @@ fun setupHeadline(rows: List<SetupRowState>, optionalOpen: Boolean): SetupHeadli
     optionalOpen -> SetupHeadline.OPTIONAL_LEFT
     else -> SetupHeadline.ALL_SET
 }
+
+/**
+ * B2: true when the Setup page's headline asks the user to do something (a required row is open, e.g. the default SMS
+ * role or a permission, or Android reports a background limit). The Setup row on the main list shows its dot then.
+ */
+fun setupNeedsAttention(rows: List<SetupRowState>, batteryOpen: Boolean): Boolean =
+    setupHeadline(rows, batteryOpen) != SetupHeadline.ALL_SET

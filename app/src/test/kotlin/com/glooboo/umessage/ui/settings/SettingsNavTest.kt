@@ -1,7 +1,5 @@
 package com.glooboo.umessage.ui.settings
 
-import android.Manifest
-import android.app.Application
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -9,18 +7,18 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.isToggleable
 import androidx.test.core.app.ApplicationProvider
 import com.glooboo.umessage.R
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glooboo.umessage.ui.theme.UMessageTheme
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Shadows.shadowOf
 
 /** The short main list (P4): SIM and forwarding rows depend on the phone, the rest opens sub-pages. */
 @RunWith(AndroidJUnit4::class)
@@ -180,42 +178,44 @@ class SettingsNavTest {
         )
     }
 
-    // The "i" beside the filter header opens the text with the sorting card the switch draws.
+    // B3: the Spam protection row opens the one full page, not a short copy inside Settings.
     @Test
-    fun `the info icon on the spam page opens a dialog with the sorting card`() {
-        grantContacts()
-        show(SettingsUiState(spam = spam), page = SettingsPage.Spam)
-        compose.onNodeWithTag("info_icon").performClick()
-        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
+    fun `the spam protection row opens the full spam settings page`() {
+        var opened = false
+        show(SettingsUiState(spam = spam), SettingsActions(onOpenSpamSettings = { opened = true }))
+        compose.onNodeWithText(str(R.string.settings_nav_spam_row)).performScrollTo().performClick()
+        assertTrue(opened)
     }
 
-    // Without Contacts the filter lets unknown numbers through, so the card would be false: it is not shown.
+    // B1: the main list keeps its scroll; every sub-page and the search start at the top.
     @Test
-    fun `the dialog has no sorting card while contacts are denied with the filter on`() =
-        assertNoCardWithoutContacts(spam)
-
-    @Test
-    fun `the dialog has no sorting card while contacts are denied with the code group off`() =
-        assertNoCardWithoutContacts(spam.copy(codeGroupOn = false))
-
-    private fun assertNoCardWithoutContacts(summary: SpamSummary) {
-        show(SettingsUiState(spam = summary), page = SettingsPage.Spam)
-        compose.onNodeWithTag("info_icon").performClick()
-        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertDoesNotExist()
+    fun `only the main list keeps its scroll position`() {
+        assertTrue(keepsScrollOnMain(SettingsPage.Main, searching = false))
+        assertFalse(keepsScrollOnMain(SettingsPage.Main, searching = true))
+        assertFalse(keepsScrollOnMain(SettingsPage.Notifications, searching = false))
+        assertEquals("main", scrollKey(SettingsPage.Main, searching = false))
+        assertEquals("search", scrollKey(SettingsPage.Main, searching = true))
+        assertEquals("Notifications", scrollKey(SettingsPage.Notifications, searching = false))
+        assertNotEquals(
+            scrollKey(SettingsPage.Notifications, searching = false),
+            scrollKey(SettingsPage.Typing, searching = false),
+        )
     }
 
+    // B2: Protection, Messages, Display, Setup, Privacy and about.
     @Test
-    fun `the dialog keeps the sorting card with the filter off without contacts`() {
-        show(SettingsUiState(spam = spam.copy(filterOn = false)), page = SettingsPage.Spam)
-        compose.onNodeWithTag("info_icon").performClick()
-        compose.onNodeWithText("Unknown sender", useUnmergedTree = true).assertExists()
+    fun `setup group sits below display on the main list`() {
+        show(SettingsUiState())
+        val order = listOf(
+            R.string.settings_nav_group_protection,
+            R.string.settings_nav_group_messages,
+            R.string.settings_f_group_display,
+            R.string.setup_group_title,
+            R.string.settings_nav_group_privacy_about,
+        )
+        val tops = order.map { compose.onNodeWithText(str(it)).fetchSemanticsNode().boundsInRoot.top }
+        assertEquals(tops.sorted(), tops)
     }
-
-    private fun grantContacts() {
-        shadowOf(ApplicationProvider.getApplicationContext<Application>())
-            .grantPermissions(Manifest.permission.READ_CONTACTS)
-    }
-
 
     // SE-16, U09: one Backup page with two verbs; each asks what: messages, or rules and settings.
     @Test

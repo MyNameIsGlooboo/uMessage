@@ -85,4 +85,35 @@ class SetupStatusTest {
         assertFalse(setupRequiredDone(listOf(done, SetupRowState(SetupMark.MARKED_BY_YOU, required = true))))
         assertTrue(setupRequiredDone(emptyList()))
     }
+
+    // B2: the Setup row on the main list says so (with a dot) exactly when the page has something to fix.
+    @Test
+    fun `the setup row stays quiet when everything required is done and the battery is fine`() {
+        val done = SetupRowState(SetupMark.DONE, required = true)
+        assertFalse(setupNeedsAttention(listOf(done), batteryOpen = false))
+    }
+
+    @Test
+    fun `the setup row asks attention when the default SMS role is not held`() {
+        assertTrue(setupNeedsAttention(listOf(SetupRowState(SetupMark.NOT_DONE, required = true)), batteryOpen = false))
+    }
+
+    @Test
+    fun `the setup row asks attention when a required permission is denied`() {
+        val role = SetupRowState(SetupMark.DONE, required = true)
+        val permission = SetupRowState(SetupMark.NOT_DONE, required = true)
+        assertTrue(setupNeedsAttention(listOf(role, permission), batteryOpen = false))
+    }
+
+    @Test
+    fun `the setup row asks attention while Android reports a background limit`() {
+        assertTrue(setupNeedsAttention(listOf(SetupRowState(SetupMark.DONE, required = true)), batteryOpen = true))
+    }
+
+    @Test
+    fun `an optional row left open never asks for attention`() {
+        val done = SetupRowState(SetupMark.DONE, required = true)
+        val optional = SetupRowState(SetupMark.NOT_DONE, required = false)
+        assertFalse(setupNeedsAttention(listOf(done, optional), batteryOpen = false))
+    }
 }

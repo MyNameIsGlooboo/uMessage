@@ -94,15 +94,7 @@ fun SetupPage(modifier: Modifier = Modifier) {
     val asker = rememberPermissionAsker { refresh++ }
 
     // R7: one read of the message channels, for the row's mark and its note.
-    val channelProblem = refresh.let { ChannelHealth.current(context) }
-    val live = SetupLive(
-        items = remember { permissionItems() },
-        isDefault = refresh.let { OnboardingActivity.isDefaultSmsApp(context) },
-        roleDenied = roleDenied,
-        block = refresh.let { notificationsBlockOf(context, channelProblem) },
-        denied = asker.denied,
-        channelProblem = channelProblem,
-    )
+    val live = refresh.let { setupLive(context, roleDenied, asker.denied) }
     val actions = SetupActions(
         requestPermissions = asker::request,
         requestDefaultSms = { requestDefaultSms(context, roleDenied) { roleLauncher.launch(it) } },
@@ -111,6 +103,34 @@ fun SetupPage(modifier: Modifier = Modifier) {
     val batteryOpen = refresh.let { batteryStepOpen(context) }
     SetupBody(buildSetupRows(context, live, actions), batteryOpen, refresh, modifier)
 }
+
+/** The live facts the Setup page reads. Both the page and the Setup row on the main list build from this one read. */
+internal fun setupLive(context: Context, roleDenied: Boolean, denied: Set<String>): SetupLive {
+    val problem = ChannelHealth.current(context)
+    return SetupLive(
+        items = permissionItems(),
+        isDefault = OnboardingActivity.isDefaultSmsApp(context),
+        roleDenied = roleDenied,
+        block = notificationsBlockOf(context, problem),
+        denied = denied,
+        channelProblem = problem,
+    )
+}
+
+/**
+ * B2: true when the Setup page has something the user should fix (the same rows the page builds, plus its battery
+ * step). The Setup row on the main list uses it for its summary and its dot; the page shows the same as its headline.
+ */
+fun setupAttentionNow(context: Context): Boolean = runCatching {
+    val live = setupLive(context, roleDenied = false, denied = emptySet())
+    val noActions = SetupActions(
+        requestPermissions = {},
+        requestDefaultSms = {},
+        openNotifications = { _ -> },
+    )
+    val rows = buildSetupRows(context, live, noActions).map { it.headlineState() }
+    setupNeedsAttention(rows, batteryStepOpen(context))
+}.getOrDefault(false)
 
 /** As currentNotificationsBlock, from a channel [problem] this composition has read already. */
 private fun notificationsBlockOf(context: Context, problem: ChannelProblem?): NotificationsBlock? = runCatching {

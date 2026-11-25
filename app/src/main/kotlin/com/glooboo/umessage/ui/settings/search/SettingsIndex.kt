@@ -17,7 +17,6 @@ import com.glooboo.umessage.ui.settings.search.SettingsTarget.LANGUAGE
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.LICENSES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.NOTIFICATIONS
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SETUP
-import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_RULES
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.SPAM_SETTINGS
 import com.glooboo.umessage.ui.settings.search.SettingsTarget.STORAGE
@@ -48,8 +47,9 @@ object SettingsIndex {
             backupEntries() + lockEntries() + setupEntries() + aboutEntries()
 
     private fun spamEntries() = listOf(
-        SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM, null, R.string.sks_spam),
-        SettingsIndexEntry(R.string.spam_settings_unknown_title, PG_SPAM, SPAM, R.string.spam_settings_unknown_body, R.string.sks_unknown_sender),
+        // B3: one Spam protection page; its entries open the full page (b), not the old short copy inside Settings.
+        SettingsIndexEntry(R.string.settings_nav_spam_row, MAIN, SPAM_SETTINGS, null, R.string.sks_spam),
+        SettingsIndexEntry(R.string.spam_settings_unknown_title, PG_SPAM, SPAM_SETTINGS, R.string.spam_settings_unknown_body, R.string.sks_unknown_sender),
         SettingsIndexEntry(R.string.settings_block_umessage_title, PG_SPAM, SPAM_RULES, R.string.settings_block_umessage_body, R.string.sks_rules),
         SettingsIndexEntry(R.string.rules2_bn_title, PG_SPAM, BLOCKED_NUMBERS, R.string.settings_nav_android_block_list_body, R.string.sks_blocked_numbers),
         SettingsIndexEntry(R.string.settings_nav_decision_log, PG_SPAM, DECISION_LOG, R.string.settings_nav_decision_log_body, R.string.sks_decision_log, Needs.DECISION_LOG),
