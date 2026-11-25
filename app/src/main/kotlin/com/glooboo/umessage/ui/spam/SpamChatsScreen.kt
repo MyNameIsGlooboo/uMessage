@@ -122,6 +122,8 @@ fun SpamChatsRoute(
         folder = ConversationFolder.Spam,
         rows = state.rows,
         loading = state.loading,
+        failed = state.failed,
+        onRetry = viewModel::load,
         onBack = null,
         onOpen = onOpen,
         onRestore = {},

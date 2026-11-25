@@ -63,6 +63,8 @@ data class SpamChatsUiState(
     val rows: List<ConversationRow> = emptyList(),
     val causes: Map<Long, SpamCause> = emptyMap(),
     val loading: Boolean = true,
+    /** B1: the last read failed and there was nothing to show; the screen offers "Retry". Cleared by a good read. */
+    val failed: Boolean = false,
     /** The spam filter switch; off shows the strip "The spam filter is off" with "Turn on". */
     val filterOn: Boolean = true,
     /** U20: held texts the message migration has not moved yet, while it waits; 0 shows no entry. */
@@ -308,7 +310,12 @@ class SpamChatsViewModel internal constructor(
                     chat.copy(received = received, androidListed = androidListed)
                 }
             }.getOrNull()
-        } ?: return
+        }
+        if (fresh == null) {
+            // B1: a failed read ends the spinner and shows the error, but never replaces a list already on screen.
+            _state.update { it.copy(loading = false, failed = true) }
+            return
+        }
         chats = fresh
         val off = withContext(io) { deleteOffNow() }
         _state.update { it.copy(deleteOff = off) }
@@ -333,7 +340,7 @@ class SpamChatsViewModel internal constructor(
         val hiddenNow = hiddenIds()
         val visible = allRows.filter { it.threadId !in hiddenNow }
         val causes = chats.filter { it.threadId !in hiddenNow }.associate { it.threadId to it.cause }
-        _state.update { it.copy(rows = visible, causes = causes, loading = false) }
+        _state.update { it.copy(rows = visible, causes = causes, loading = false, failed = false) }
     }
 
     private fun hiddenIds(): Set<Long> = HashSet<Long>().apply {

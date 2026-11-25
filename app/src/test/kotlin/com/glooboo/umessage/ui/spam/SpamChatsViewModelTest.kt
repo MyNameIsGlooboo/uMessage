@@ -91,10 +91,12 @@ class SpamChatsViewModelTest {
     private val unreadable = HashSet<Long>()
     private val markReads: MutableList<Long> = Collections.synchronizedList(mutableListOf())
 
-    private fun newModel(source: List<SpamChat>) = SpamChatsViewModel(
+    private fun newModel(source: List<SpamChat>) = newModelFrom { source }
+
+    private fun newModelFrom(read: () -> List<SpamChat>) = SpamChatsViewModel(
         app,
         repository = { repository },
-        source = { source },
+        source = { read() },
         place = SenderPlace { verdicts[it] },
         isDefault = { isDefault },
         io = Dispatchers.IO,
@@ -118,6 +120,49 @@ class SpamChatsViewModelTest {
         scope.launch { vm.events.collect { events += it } }
         vm.load()
         awaitUntil { rowIds() == listOf(1L, 2L, 3L) }
+    }
+
+    @Test
+    fun aFailedFirstReadStopsLoadingAndShowsTheError() {
+        val model = newModelFrom { throw IllegalStateException("read failed") }
+        model.load()
+
+        awaitUntil { model.state.value.failed }
+        assertThat(model.state.value.loading).isFalse()
+        assertThat(model.state.value.rows).isEmpty()
+    }
+
+    @Test
+    fun retryingAfterAFailedReadShowsTheListAgain() {
+        var fail = true
+        val model = newModelFrom {
+            if (fail) throw IllegalStateException("read failed") else chats
+        }
+        model.load()
+        awaitUntil { model.state.value.failed }
+
+        fail = false
+        model.load()
+
+        awaitUntil { !model.state.value.failed && model.state.value.rows.size == 3 }
+        assertThat(model.state.value.loading).isFalse()
+    }
+
+    @Test
+    fun aFailedRereadKeepsTheListItHad() {
+        var fail = false
+        val model = newModelFrom {
+            if (fail) throw IllegalStateException("read failed") else chats
+        }
+        model.load()
+        awaitUntil { model.state.value.rows.size == 3 }
+
+        fail = true
+        model.load()
+
+        awaitUntil { model.state.value.failed }
+        assertThat(model.state.value.loading).isFalse()
+        assertThat(model.state.value.rows.map { it.threadId }).containsExactly(1L, 2L, 3L)
     }
 
     @After

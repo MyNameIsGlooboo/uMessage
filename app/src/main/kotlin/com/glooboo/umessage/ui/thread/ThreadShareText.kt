@@ -9,6 +9,7 @@ import com.glooboo.umessage.extensions.getMessages
 import com.glooboo.umessage.extensions.getOlderThreadMessages
 import com.glooboo.umessage.extensions.toSortedMessages
 import com.glooboo.umessage.helpers.DateStyle
+import com.glooboo.umessage.helpers.SharedCacheFiles
 import com.glooboo.umessage.helpers.w3cPrefs
 import com.glooboo.umessage.models.Message
 import java.io.File
@@ -69,8 +70,7 @@ class ConversationTextFormatter(
 const val SHARE_TEXT_LIMIT_BYTES = 200_000
 
 private const val MAX_SHARE_PAGES = 2_000
-private const val SHARED_FILE_DIR = "shared_logs"
-private const val SHARED_FILE_NAME = "conversation.txt"
+private const val SHARED_FILE_EXTENSION = "txt"
 
 /** The formatter with the user's date style (Gregorian, Jalali or both) and language. */
 fun conversationTextFormatter(context: Context): ConversationTextFormatter {
@@ -123,8 +123,12 @@ fun startShareText(context: Context, shared: SharedConversation, subject: String
     if (shared.text.toByteArray().size <= SHARE_TEXT_LIMIT_BYTES) {
         send.putExtra(Intent.EXTRA_TEXT, shared.text)
     } else {
-        val dir = File(context.cacheDir, SHARED_FILE_DIR).apply { mkdirs() }
-        val file = File(dir, SHARED_FILE_NAME).apply { writeText(shared.text) }
+        val now = System.currentTimeMillis()
+        val dir = File(context.cacheDir, SharedCacheFiles.DIR).apply { mkdirs() }
+        // B2: only this feature's own old files, and only after a day, so a just-opened share is never pulled away.
+        SharedCacheFiles.deleteOwn(dir, SharedCacheFiles::isConversation, now, SharedCacheFiles.KEEP_MS)
+        val file = File(dir, SharedCacheFiles.conversationName(now, SHARED_FILE_EXTENSION))
+            .apply { writeText(shared.text) }
         send.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, "${context.packageName}.provider", file))
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }

@@ -204,6 +204,10 @@ fun ConversationFolderScreen(
     onRestore: (Set<Long>) -> Unit,
     onDelete: (Set<Long>) -> Unit,
     onEmpty: () -> Unit,
+    /** B1: the last read failed and there are no rows, so the error state shows instead of an empty folder. */
+    failed: Boolean = false,
+    /** B1: "Try again" in the error state; null keeps the folder as before. */
+    onRetry: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState? = null,
     /** On the Archived tab: leaves the empty state for Messages. */
@@ -286,6 +290,16 @@ fun ConversationFolderScreen(
         Box(Modifier.fillMaxSize().padding(top = padding.calculateTopPadding())) {
             when {
                 loading && rows.isEmpty() -> LoadingState()
+                failed && rows.isEmpty() && onRetry != null -> {
+                    val retry = onRetry
+                    EmptyState(
+                        icon = Symbols.Error,
+                        title = stringResource(R.string.convlist_action_failed),
+                        body = stringResource(R.string.spam_snack_failed),
+                        modifier = Modifier.align(Alignment.Center),
+                        action = { Button(onClick = retry) { Text(stringResource(R.string.nav_fwd_retry)) } },
+                    )
+                }
                 // Spam: the strip ("the filter is off", older spam) stays above an empty list too.
                 rows.isEmpty() -> {
                     FolderEmpty(folder, onBackToMessages, intro.takeIf { folder == ConversationFolder.Spam })

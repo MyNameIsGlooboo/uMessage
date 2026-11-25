@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
 import com.glooboo.umessage.R
+import com.glooboo.umessage.helpers.SharedCacheFiles
 import com.glooboo.umessage.spam.SpamLogEntry
 import java.io.File
 import java.time.Instant
@@ -16,8 +17,6 @@ import java.time.format.DateTimeFormatter
  */
 internal object DecisionLogCsv {
     private const val HEADER = "time,sender,sim,decision,reason,rule,source,fixed"
-    private const val FILE_DIR = "shared_logs"
-    private const val FILE_NAME = "uMessage-decisions.csv"
 
     private val timeFormat: DateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
@@ -59,14 +58,19 @@ internal object DecisionLogCsv {
 
     /** Removes earlier exports (sender numbers) from the cache; called when the log screen opens. */
     fun deleteOldExports(context: Context) {
-        runCatching { File(context.cacheDir, FILE_DIR).listFiles()?.forEach { it.delete() } }
+        val dir = File(context.cacheDir, SharedCacheFiles.DIR)
+        runCatching {
+            SharedCacheFiles.deleteOwn(dir, SharedCacheFiles::isDecisionLog, System.currentTimeMillis(), maxAgeMs = 0)
+        }
     }
 
     /** Writes [csv] to the app cache and opens the share sheet for it. */
     fun share(context: Context, csv: String, count: Int) {
-        val dir = File(context.cacheDir, FILE_DIR).apply { mkdirs() }
-        dir.listFiles()?.forEach { it.delete() }
-        val file = File(dir, "${System.currentTimeMillis()}-$FILE_NAME")
+        val now = System.currentTimeMillis()
+        val dir = File(context.cacheDir, SharedCacheFiles.DIR).apply { mkdirs() }
+        // B2: own earlier exports only (the sender numbers age out), never a conversation someone is still sharing.
+        SharedCacheFiles.deleteOwn(dir, SharedCacheFiles::isDecisionLog, now, maxAgeMs = 0)
+        val file = File(dir, SharedCacheFiles.decisionLogName(now))
         file.writeText(csv)
         val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
         val send = Intent(Intent.ACTION_SEND)
