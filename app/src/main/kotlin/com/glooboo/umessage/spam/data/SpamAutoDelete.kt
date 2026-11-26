@@ -10,9 +10,8 @@ import androidx.annotation.VisibleForTesting
 import com.glooboo.umessage.extensions.conversationsDB
 import com.glooboo.umessage.extensions.draftsDB
 import com.glooboo.umessage.extensions.forgetThread
-import com.glooboo.umessage.extensions.getMMS
-import com.glooboo.umessage.extensions.getMMSSender
 import com.glooboo.umessage.extensions.messagesDB
+import com.glooboo.umessage.extensions.readStoredMessage
 import com.glooboo.umessage.extensions.updateLastConversationMessage
 import com.glooboo.umessage.helpers.DefaultSmsRole
 import com.glooboo.umessage.helpers.MessageNoteKey
@@ -150,7 +149,7 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
     }
 
     override fun storeMatches(message: Message, thread: SpamThread): Boolean = runCatching {
-        val stored = if (message.isMMS) storedMms(message.id) else storedSms(message.id)
+        val stored = app.readStoredMessage(message.id, message.isMMS)
         stored != null && stored.threadId == thread.threadId && stored.threadId == message.threadId &&
             stored.date == message.date && stored.body == message.body && stored.received &&
             same(stored.sender, message.senderPhoneNumber) && same(stored.sender, thread.sender)
@@ -181,29 +180,6 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
         runCatching { refreshConversations() }
     }
 
-    private class Stored(val threadId: Long, val date: Int, val body: String, val sender: String, val received: Boolean)
-
-    private fun storedSms(id: Long): Stored? = app.contentResolver.query(
-        ContentUris.withAppendedId(Sms.CONTENT_URI, id),
-        arrayOf(Sms.THREAD_ID, Sms.DATE, Sms.BODY, Sms.ADDRESS, Sms.TYPE), null, null, null,
-    )?.use { c ->
-        if (!c.moveToFirst()) return null
-        fun at(column: String) = c.getColumnIndexOrThrow(column)
-        Stored(
-            threadId = c.getLong(at(Sms.THREAD_ID)), date = (c.getLong(at(Sms.DATE)) / MILLIS).toInt(),
-            body = c.getString(at(Sms.BODY)).orEmpty(), sender = c.getString(at(Sms.ADDRESS)).orEmpty(),
-            received = c.getInt(at(Sms.TYPE)) == Sms.MESSAGE_TYPE_INBOX,
-        )
-    }
-
-    private fun storedMms(id: Long): Stored? {
-        val mms = app.getMMS(ContentUris.withAppendedId(Mms.CONTENT_URI, id)) ?: return null
-        return Stored(
-            threadId = mms.threadId, date = mms.date, body = mms.body, sender = app.getMMSSender(id),
-            received = mms.type == Mms.MESSAGE_BOX_INBOX,
-        )
-    }
-
     /** Only a store that answered "nothing" for both kinds is empty; a failed read is not. */
     private fun storeIsEmpty(threadId: Long): Boolean = listOf(Sms.CONTENT_URI, Mms.CONTENT_URI).all { uri: Uri ->
         runCatching {
@@ -214,8 +190,4 @@ internal class AndroidAutoDeleteSource(private val app: Context) : AutoDeleteSou
 
     private fun same(a: String, b: String): Boolean =
         a == b || runCatching { SpamThreads.same(readers, a, b) }.getOrDefault(false)
-
-    private companion object {
-        const val MILLIS = 1000L
-    }
 }

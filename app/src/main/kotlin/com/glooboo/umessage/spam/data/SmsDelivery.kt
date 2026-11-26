@@ -182,6 +182,8 @@ fun Context.deliverIncomingSms(
                 senderPhotoUri = photoUri,
                 subscriptionId = subscriptionId
             )
+            // A new provider row may reuse the id of a binned one: its old bin entry must not guard this message.
+            context.messagesDB.deleteFromRecycleBin(newMessageId, false)
             context.messagesDB.insertOrUpdate(message)
         }
 

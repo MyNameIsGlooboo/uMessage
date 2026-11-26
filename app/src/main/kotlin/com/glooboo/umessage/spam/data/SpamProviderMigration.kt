@@ -1403,6 +1403,9 @@ internal class AndroidMigrationStore(private val app: Context) : MigrationProbe,
 
     override fun cache(id: Long, isMms: Boolean): Long? {
         val message = message(id, isMms) ?: return null
+        // The migration wrote this store row anew (writeSms/writeMms, or the resumed one it verified): a bin entry
+        // left under the reused id belongs to an older message and must not guard this one.
+        app.messagesDB.deleteFromRecycleBin(id, isMms)
         app.messagesDB.insertOrUpdate(message)
         return message.threadId
     }

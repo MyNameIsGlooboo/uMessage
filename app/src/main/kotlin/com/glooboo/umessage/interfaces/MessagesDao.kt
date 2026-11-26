@@ -108,6 +108,9 @@ interface MessagesDao {
     @Query("SELECT * FROM recycle_bin_messages")
     fun getAllRecycleBinEntries(): List<RecycleBinMessage>
 
+    @Query("SELECT * FROM recycle_bin_messages WHERE id = :id AND is_mms = :isMMS")
+    fun getRecycleBinEntry(id: Long, isMMS: Boolean): RecycleBinMessage?
+
     @Query("SELECT messages.* FROM messages LEFT OUTER JOIN recycle_bin_messages ON messages.id = recycle_bin_messages.id AND messages.is_mms = recycle_bin_messages.is_mms WHERE recycle_bin_messages.id IS NOT NULL")
     fun getAllRecycleBinMessages(): List<Message>
 

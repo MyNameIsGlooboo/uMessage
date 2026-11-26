@@ -27,6 +27,9 @@ class FakeThreadStore : ContentProvider() {
     /** Serve the chat list's columns (the threads_list view) instead of the bare threads table. */
     @Volatile var listColumns = false
 
+    /** Give no cursor for MMS parts, like a store that cannot be read. */
+    @Volatile var failPartsRead = false
+
     override fun onCreate(): Boolean {
         db = SQLiteDatabase.create(null)
         db.execSQL(
@@ -78,7 +81,15 @@ class FakeThreadStore : ContentProvider() {
     }
 
     /** An MMS with an optional text part and an optional picture. [dateSec] is in seconds, as on a real phone. */
-    fun addMms(id: Long, threadId: Long, text: String?, dateSec: Long, withPicture: Boolean = false, box: Int = 1) {
+    fun addMms(
+        id: Long,
+        threadId: Long,
+        text: String?,
+        dateSec: Long,
+        withPicture: Boolean = false,
+        box: Int = 1,
+        address: String = ADDRESS,
+    ) {
         db.insert("mms", null, ContentValues().apply {
             put("_id", id); put("thread_id", threadId); put("date", dateSec); put("msg_box", box)
         })
@@ -88,7 +99,7 @@ class FakeThreadStore : ContentProvider() {
         if (withPicture) {
             db.insert("part", null, ContentValues().apply { put("mid", id); put("ct", "image/jpeg") })
         }
-        db.insert("addr", null, ContentValues().apply { put("msg_id", id); put("address", ADDRESS); put("type", 137) })
+        db.insert("addr", null, ContentValues().apply { put("msg_id", id); put("address", address); put("type", 137) })
     }
 
     fun smsIds(): List<Long> = ids("sms")
@@ -118,7 +129,10 @@ class FakeThreadStore : ContentProvider() {
             }
 
             "mms" -> when {
-                segments.firstOrNull() == "part" -> table = "part"
+                segments.firstOrNull() == "part" -> {
+                    if (failPartsRead) return null
+                    table = "part"
+                }
                 segments.size == 2 && segments[1] == "addr" -> {
                     table = "addr"
                     and("msg_id = ?", segments[0])

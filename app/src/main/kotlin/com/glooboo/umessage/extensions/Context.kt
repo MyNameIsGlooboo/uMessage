@@ -1308,21 +1308,18 @@ fun Context.emptyMessagesRecycleBin(): DeleteResult = purgeRecycleBinEntries(mes
 
 /**
  * DL-13: works from the bin entries themselves, so no entry is skipped. An entry with a cached copy is a message
- * the bin shows: it is deleted from the phone. An entry without one (left by older versions, which could bin a
- * message that was never cached) is only dropped: its message never left the chat, and for entries carried over from
- * before messages were keyed by type, whether it was an SMS or an MMS is a guess, so deleting by it could remove
- * a different message.
+ * the bin shows: it is deleted from the phone only when the store row still is that message ([deleteBinnedMessage]).
+ * A row under a reused id, or one dated after the entry, stays and the stale copy is dropped. An entry without a
+ * cached copy (left by older versions, which could bin a message that was never cached) is only dropped: its message
+ * never left the chat, and for entries carried over from before messages were keyed by type, whether it was an SMS or
+ * an MMS is a guess, so deleting by it could remove a different message.
  */
 private fun Context.purgeRecycleBinEntries(entries: List<RecycleBinMessage>): DeleteResult {
     // B-13: the role is checked once for the batch; the first message not deleted stops it.
     val isDefault = isDefaultSmsAppNow()
     for (entry in entries) {
-        if (messagesDB.getMessage(entry.id, entry.isMMS) != null) {
-            val result = deleteMessage(entry.id, entry.isMMS, isDefault)
-            if (result != DeleteResult.DELETED) return result
-        } else {
-            messagesDB.deleteFromRecycleBin(entry.id, entry.isMMS)
-        }
+        val result = deleteBinnedMessage(entry.id, entry.isMMS, isDefault)
+        if (result != DeleteResult.DELETED) return result
     }
     return DeleteResult.DELETED
 }
@@ -1331,7 +1328,7 @@ fun Context.emptyMessagesRecycleBinForConversation(threadId: Long): DeleteResult
     val messages = messagesDB.getThreadMessagesFromRecycleBin(threadId)
     val isDefault = isDefaultSmsAppNow()
     for (message in messages) {
-        val result = deleteMessage(message.id, message.isMMS, isDefault)
+        val result = deleteBinnedMessage(message.id, message.isMMS, isDefault)
         if (result != DeleteResult.DELETED) return result
     }
     return DeleteResult.DELETED

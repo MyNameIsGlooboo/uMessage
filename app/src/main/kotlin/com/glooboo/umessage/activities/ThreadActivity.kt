@@ -1194,6 +1194,7 @@ open class ThreadActivity : ComposeSimpleActivity() {
         // Only scheduled messages left: they move to a temporary thread until one is sent.
         val movedToTemporaryThread = removeThreadMessages(
             messagesToRemove, toRecycleBin, fromRecycleBin, threadId, messages.toSortedMessages(), conversation, scheduleController,
+            fromBinView = isRecycleBin,
             onRefused = { res -> runOnUiThread { lifecycleScope.launch { vm.snackbar.showSnackbar(getString(res)) } } },
         )?.also { threadId = it } != null
         // R3-2: the chat is empty now. Only a full pass forgets a thread the store no longer lists (and, with

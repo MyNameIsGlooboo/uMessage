@@ -2,7 +2,7 @@ package com.glooboo.umessage.ui.thread
 
 import android.content.Context
 import com.glooboo.umessage.extensions.createTemporaryThread
-import com.glooboo.umessage.extensions.deleteMessage
+import com.glooboo.umessage.extensions.deleteBinnedMessage
 import com.glooboo.umessage.extensions.moveMessageToRecycleBin
 import com.glooboo.umessage.extensions.restoreMessageFromRecycleBin
 import com.glooboo.umessage.extensions.updateLastConversationMessage
@@ -21,6 +21,9 @@ import com.glooboo.umessage.models.Message
  *
  * S14 (provider truth): a delete for good that did not happen (not the default SMS app, nothing deleted) calls
  * [onRefused] once with the message to show; the role is checked once.
+ *
+ * [fromBinView]: the screen is the recycle bin, so a delete for good whose bin entry is already gone must not touch
+ * the store row that may now carry that id.
  */
 fun Context.removeThreadMessages(
     removed: List<Message>,
@@ -30,6 +33,7 @@ fun Context.removeThreadMessages(
     remaining: List<Message>,
     conversation: Conversation?,
     schedule: ThreadScheduleController,
+    fromBinView: Boolean = false,
     onRefused: (Int) -> Unit = {},
 ): Long? {
     val isDefault by lazy {
@@ -41,7 +45,8 @@ fun Context.removeThreadMessages(
             message.isScheduled -> schedule.cancel(message.id)
             toRecycleBin -> moveMessageToRecycleBin(message.id, message.isMMS, message)
             fromRecycleBin -> restoreMessageFromRecycleBin(message.id, message.isMMS)
-            else -> deleteMessage(message.id, message.isMMS, isDefault).messageRes?.let { refused = refused ?: it }
+            else -> deleteBinnedMessage(message.id, message.isMMS, isDefault, fromBinView)
+                .messageRes?.let { refused = refused ?: it }
         }
     }
     refused?.let(onRefused)
