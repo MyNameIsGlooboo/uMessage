@@ -1,0 +1,1 @@
+• Recycle bin is safer: before deleting a message for good, uMessage now checks that the message on your phone is the one you deleted. If it is a different one, it is left alone.

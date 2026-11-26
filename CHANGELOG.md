@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3] - 2026-11-26
+### Fixed
+- Recycle bin: a permanent delete now first checks that the message in the phone's store is still the one that was moved to the bin. A different message under the same internal number is left alone, and nothing is deleted when the store cannot be read
+
 ## [0.5.2] - 2026-11-25
 ### Fixed
 - If the Spam list cannot be read, the Spam tab now says so and offers Retry instead of showing a spinner forever
